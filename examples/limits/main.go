@@ -37,12 +37,12 @@ func main() {
 	state := "The user asked to delete their account."
 	_, resp, err := client.AiAPI.PostDecisions(ctx).AiDecisionsRequest(hanzoai.AiDecisionsRequest{
 		Model: "kai",
-		State: &hanzoai.AiDecisionSidesFalse{String: &state},
+		State: state,
 		Questions: map[string]hanzoai.AiDecisionsQuestion{"act": {AiDecisionsChoice: &hanzoai.AiDecisionsChoice{
 			Type: "choice",
-			Criteria: map[string]hanzoai.AiDecisionsChoiceCriteriaValue{
-				"yes": {String: hanzoai.PtrString("delete now")},
-				"no":  {String: hanzoai.PtrString("ask to confirm")},
+			Criteria: map[string]string{
+				"yes": "delete now",
+				"no":  "ask to confirm",
 			},
 		}}},
 	}).Execute()

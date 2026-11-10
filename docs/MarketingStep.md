@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Body** | Pointer to **string** | Body is the message text. Required. The signed one-click unsubscribe link is appended to it at send time. | [optional] 
+**Body** | Pointer to **string** | Body is the message text. Required. The signed one-click unsubscribe link is appended to it at send time, and in an HTML body each &lt;a&gt; to an http(s) URL is sent pointing at GET /v1/marketing/click, which counts the click and redirects to the URL written here. | [optional] 
 **CreatedAt** | Pointer to **int64** | CreatedAt is unix seconds, server-assigned. | [optional] 
 **DelaySeconds** | Pointer to **int64** | DelaySeconds is how long after the previous step this one sends (after enrollment, for step 0). | [optional] 
 **Id** | Pointer to **string** | ID is the server-assigned step id (\&quot;step_\&quot; + 128 random bits). | [optional] 

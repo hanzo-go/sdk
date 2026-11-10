@@ -1142,13 +1142,13 @@ func (r PricingAPIGetPricingEnablementRequest) Execute() (*PricingEnablementBoar
 }
 
 /*
-GetPricingEnablement Returns what the caller's org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+GetPricingEnablement Returns what the caller can actually use: every managed item with its global state and whether it is effective for this caller — a beta item is, while the platform's `beta` switch is on for it.
 
-Returns what the caller's org can actually use: every managed
-item with its global state, whether it is effective here, whether this org is
-already opted into its beta, and whether it may still opt in. Read-only and
-safe for any caller — one without a validated principal simply sees the
-generally-available items and no opt-in affordance, never another org's state.
+Returns what the caller can actually use: every managed item
+with its global state and whether it is effective for this caller — a beta
+item is, while the platform's `beta` switch is on for it. Read-only and safe
+for any caller: one without a validated principal sees the generally-available
+items, never another org's view.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PricingAPIGetPricingEnablementRequest
@@ -1910,6 +1910,13 @@ func (a *PricingAPIService) GetPricingModelByNameExecute(r PricingAPIGetPricingM
 type PricingAPIGetPricingModelsRequest struct {
 	ctx        context.Context
 	ApiService *PricingAPIService
+	id         *string
+}
+
+// ID is the models to answer, comma-separated: each matches a model whose id or name is exactly it, or whose id&#39;s last path segment is (&#x60;gpt-5.5&#x60; finds &#x60;openai/gpt-5.5&#x60;). A model the catalog lists without an id is identified by its name, so &#x60;kai&#x60; also finds &#x60;hanzo/kai&#x60;. Absent answers the whole catalog.
+func (r PricingAPIGetPricingModelsRequest) Id(id string) PricingAPIGetPricingModelsRequest {
+	r.id = &id
+	return r
 }
 
 func (r PricingAPIGetPricingModelsRequest) Execute() (*PricingPricingModelList, *http.Response, error) {
@@ -1917,13 +1924,17 @@ func (r PricingAPIGetPricingModelsRequest) Execute() (*PricingPricingModelList, 
 }
 
 /*
-GetPricingModels Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller's org may see.
+GetPricingModels Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller may see.
 
 Returns the whole model catalog — every model the gateway serves,
-Zen and third-party alike — filtered to what the caller's org may see. A
-model an admin has disabled is absent; one in beta appears only for an org
-granted it. A SuperAdmin sees every model, each annotated with its
-enablement state.
+Zen and third-party alike — filtered to what the caller may see. A model an
+admin has disabled is absent; one in beta appears only for a caller the
+platform's `beta` switch is on for. A SuperAdmin sees every model, each
+annotated with its enablement state.
+
+?id= narrows it to the models named, in the catalog's order, and `total`
+counts what is answered: a page that prices five models reads five, not the
+catalog.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PricingAPIGetPricingModelsRequest
@@ -1957,6 +1968,9 @@ func (a *PricingAPIService) GetPricingModelsExecute(r PricingAPIGetPricingModels
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.id != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2589,7 +2603,10 @@ GetPricingSummary Returns the catalog's headline statistics — model counts by 
 Returns the catalog's headline statistics — model counts by
 family and the provider directory. The provider sub-object is filtered to what
 the caller's org may see, so a disabled provider's name never leaks; the
-aggregate counts are the catalog's own, over everything it holds.
+aggregate counts are the catalog's own, over everything it holds. A SuperAdmin's
+summary adds `enso`: the day's Enso answers, the arms that failed first, the share
+OpenRouter's credit bought (fallbacks), the margin the fixed prices made, the
+answers that stated no cost and every loss, by model, arm and vendor.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PricingAPIGetPricingSummaryRequest
@@ -2881,251 +2898,6 @@ func (a *PricingAPIService) GetPricingToolsExecute(r PricingAPIGetPricingToolsRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PricingAPIPostPricingEnablementOptinRequest struct {
-	ctx                     context.Context
-	ApiService              *PricingAPIService
-	pricingEnablementOptRef *PricingEnablementOptRef
-}
-
-func (r PricingAPIPostPricingEnablementOptinRequest) PricingEnablementOptRef(pricingEnablementOptRef PricingEnablementOptRef) PricingAPIPostPricingEnablementOptinRequest {
-	r.pricingEnablementOptRef = &pricingEnablementOptRef
-	return r
-}
-
-func (r PricingAPIPostPricingEnablementOptinRequest) Execute() (*PricingUserEnablementItem, *http.Response, error) {
-	return r.ApiService.PostPricingEnablementOptinExecute(r)
-}
-
-/*
-PostPricingEnablementOptin Opts the caller's OWN org into a beta item.
-
-Opts the caller's OWN org into a beta item. The org is the
-caller's validated one, so this can never target another org, and the registry
-refuses anything not in beta — so it can neither re-open an item an operator
-turned off nor touch one that is already generally available. Requires a
-signed-in caller with an org.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PricingAPIPostPricingEnablementOptinRequest
-*/
-func (a *PricingAPIService) PostPricingEnablementOptin(ctx context.Context) PricingAPIPostPricingEnablementOptinRequest {
-	return PricingAPIPostPricingEnablementOptinRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PricingUserEnablementItem
-func (a *PricingAPIService) PostPricingEnablementOptinExecute(r PricingAPIPostPricingEnablementOptinRequest) (*PricingUserEnablementItem, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PricingUserEnablementItem
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.PostPricingEnablementOptin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/pricing/enablement/optin"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.pricingEnablementOptRef == nil {
-		return localVarReturnValue, nil, reportError("pricingEnablementOptRef is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.pricingEnablementOptRef
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PricingAPIPostPricingEnablementOptoutRequest struct {
-	ctx                     context.Context
-	ApiService              *PricingAPIService
-	pricingEnablementOptRef *PricingEnablementOptRef
-}
-
-func (r PricingAPIPostPricingEnablementOptoutRequest) PricingEnablementOptRef(pricingEnablementOptRef PricingEnablementOptRef) PricingAPIPostPricingEnablementOptoutRequest {
-	r.pricingEnablementOptRef = &pricingEnablementOptRef
-	return r
-}
-
-func (r PricingAPIPostPricingEnablementOptoutRequest) Execute() (*PricingUserEnablementItem, *http.Response, error) {
-	return r.ApiService.PostPricingEnablementOptoutExecute(r)
-}
-
-/*
-PostPricingEnablementOptout Removes the caller's OWN org from a beta item's grant list, the reverse of OptIntoBeta and idempotent.
-
-Removes the caller's OWN org from a beta item's grant list, the
-reverse of OptIntoBeta and idempotent. The org is the caller's validated one,
-so this can never revoke another org's grant. Requires a signed-in caller with
-an org.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PricingAPIPostPricingEnablementOptoutRequest
-*/
-func (a *PricingAPIService) PostPricingEnablementOptout(ctx context.Context) PricingAPIPostPricingEnablementOptoutRequest {
-	return PricingAPIPostPricingEnablementOptoutRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PricingUserEnablementItem
-func (a *PricingAPIService) PostPricingEnablementOptoutExecute(r PricingAPIPostPricingEnablementOptoutRequest) (*PricingUserEnablementItem, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PricingUserEnablementItem
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.PostPricingEnablementOptout")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/pricing/enablement/optout"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.pricingEnablementOptRef == nil {
-		return localVarReturnValue, nil, reportError("pricingEnablementOptRef is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.pricingEnablementOptRef
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

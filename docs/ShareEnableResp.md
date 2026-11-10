@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountToken** | Pointer to **string** | AccountToken is the org&#39;s own tunnel-account credential. Treat it as a secret: it is what the CLI enables an environment with. | [optional] 
+**AccountToken** | Pointer to **string** | AccountToken is the caller&#39;s tunnel-account credential: their org&#39;s, or in a held org their own. Treat it as a secret: it is what the CLI enables an environment with. | [optional] 
 **Controller** | Pointer to **string** | Controller is the public controller endpoint the CLI enables against. | [optional] 
 **Namespace** | Pointer to **string** | Namespace is the public frontend a share is published into, when the deployment names one. | [optional] 
 **UrlTemplate** | Pointer to **string** | URLTemplate is the shape a share token expands to, so the CLI can print the resulting URL without asking again. | [optional] 

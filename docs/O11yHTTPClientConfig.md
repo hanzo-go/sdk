@@ -11,10 +11,10 @@ Name | Type | Description | Notes
 **EnableHttp2** | Pointer to **bool** | EnableHTTP2 specifies whether the client should configure HTTP2. The omitempty flag is not set, because it would be hidden from the marshalled configuration when set to false. | [optional] 
 **FollowRedirects** | Pointer to **bool** | FollowRedirects specifies whether the client should follow HTTP 3xx redirects. The omitempty flag is not set, because it would be hidden from the marshalled configuration when set to false. | [optional] 
 **HttpHeaders** | Pointer to **interface{}** |  | [optional] 
-**NoProxy** | Pointer to **string** |  | [optional] 
+**NoProxy** | Pointer to **string** | NoProxy contains addresses that should not use a proxy. | [optional] 
 **Oauth2** | Pointer to [**O11yOAuth2**](O11yOAuth2.md) | The OAuth2 client credentials used to fetch a token for the targets. | [optional] 
-**ProxyConnectHeader** | Pointer to **map[string][]interface{}** |  | [optional] 
-**ProxyFromEnvironment** | Pointer to **bool** |  | [optional] 
+**ProxyConnectHeader** | Pointer to **map[string][]interface{}** | ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. Assume that at least _some_ of these headers are going to contain secrets and use Secret as the value type instead of string. | [optional] 
+**ProxyFromEnvironment** | Pointer to **bool** | ProxyFromEnvironment makes use of net/http ProxyFromEnvironment function to determine proxies. | [optional] 
 **ProxyUrl** | Pointer to **interface{}** |  | [optional] 
 **TlsConfig** | Pointer to [**O11yTLSConfig**](O11yTLSConfig.md) | TLSConfig to use to connect to the targets. | [optional] 
 

@@ -20,12 +20,13 @@ var _ MappedNullable = &IamRole{}
 
 // IamRole struct for IamRole
 type IamRole struct {
-	CreatedAt            *time.Time `json:"createdAt,omitempty"`
-	CreatedTime          *string    `json:"createdTime,omitempty"`
-	Deleted              *bool      `json:"deleted,omitempty"`
-	Description          *string    `json:"description,omitempty"`
-	DisplayName          *string    `json:"displayName,omitempty"`
-	Domains              []string   `json:"domains,omitempty"`
+	CreatedAt   *time.Time `json:"createdAt,omitempty"`
+	CreatedTime *string    `json:"createdTime,omitempty"`
+	Deleted     *bool      `json:"deleted,omitempty"`
+	Description *string    `json:"description,omitempty"`
+	DisplayName *string    `json:"displayName,omitempty"`
+	Domains     []string   `json:"domains,omitempty"`
+	// Persisted fields
 	Id                   *string    `json:"id,omitempty"`
 	IsEnabled            *bool      `json:"isEnabled,omitempty"`
 	Name                 *string    `json:"name,omitempty"`

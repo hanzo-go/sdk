@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Email** | Pointer to **string** |  | [optional] 
 **Generated** | Pointer to **bool** | Generated reports that IAM minted Code itself, from crypto/rand, when the invitation was created. Only such a code is compared without limit; any code a caller wrote is compared only while the org is not being guessed at, however it looks, because a code that looks random need not be. | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **IsRegexp** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 

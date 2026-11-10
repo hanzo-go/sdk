@@ -37,6 +37,8 @@ type AgentTargetView struct {
 	MetricsAt *string `json:"metricsAt,omitempty"`
 	// Running is how many of those are in `running` right now — the number a dispatcher weighs against Capacity. paused sessions are in Sessions and not here.
 	Running *int64 `json:"running,omitempty"`
+	// Serving says whether a run the caller sends here now would be taken: the machine is the caller's (or the caller is an org admin), and it is online with a runner that polled for work within the last 90 seconds — the online and runner half is what dispatch checks (TargetDispatchable). A heartbeat alone keeps a machine online, not serving, and a colleague's machine never serves the caller.
+	Serving *bool `json:"serving,omitempty"`
 	// Sessions is how many of the org's sessions are mapped to this machine, by target id OR by matching Host. All of them, whatever their status.
 	Sessions *int64 `json:"sessions,omitempty"`
 	// Spec is what the machine IS — os, arch, cores, RAM, accelerators — the static half, changed only when something reports it again. Absent when nothing has ever been reported, and a scheduler reads absence as \"cannot satisfy a floor\" rather than as \"no limits\".
@@ -355,6 +357,38 @@ func (o *AgentTargetView) SetRunning(v int64) {
 	o.Running = &v
 }
 
+// GetServing returns the Serving field value if set, zero value otherwise.
+func (o *AgentTargetView) GetServing() bool {
+	if o == nil || IsNil(o.Serving) {
+		var ret bool
+		return ret
+	}
+	return *o.Serving
+}
+
+// GetServingOk returns a tuple with the Serving field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentTargetView) GetServingOk() (*bool, bool) {
+	if o == nil || IsNil(o.Serving) {
+		return nil, false
+	}
+	return o.Serving, true
+}
+
+// HasServing returns a boolean if a field has been set.
+func (o *AgentTargetView) HasServing() bool {
+	if o != nil && !IsNil(o.Serving) {
+		return true
+	}
+
+	return false
+}
+
+// SetServing gets a reference to the given bool and assigns it to the Serving field.
+func (o *AgentTargetView) SetServing(v bool) {
+	o.Serving = &v
+}
+
 // GetSessions returns the Sessions field value if set, zero value otherwise.
 func (o *AgentTargetView) GetSessions() int64 {
 	if o == nil || IsNil(o.Sessions) {
@@ -520,6 +554,9 @@ func (o AgentTargetView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Running) {
 		toSerialize["running"] = o.Running
 	}
+	if !IsNil(o.Serving) {
+		toSerialize["serving"] = o.Serving
+	}
 	if !IsNil(o.Sessions) {
 		toSerialize["sessions"] = o.Sessions
 	}
@@ -563,6 +600,7 @@ func (o *AgentTargetView) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "metrics")
 		delete(additionalProperties, "metricsAt")
 		delete(additionalProperties, "running")
+		delete(additionalProperties, "serving")
 		delete(additionalProperties, "sessions")
 		delete(additionalProperties, "spec")
 		delete(additionalProperties, "status")

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Deleted** | Pointer to **bool** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **IsEnabled** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Organization** | Pointer to **string** |  | [optional] 

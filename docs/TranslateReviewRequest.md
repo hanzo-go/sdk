@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Format** | Pointer to **string** | Format is the markup the source carries: text (the default), html or markdown. Part of the entry&#39;s identity. | [optional] 
 **Glossary** | Pointer to **map[string]string** | Glossary is the terminology the entry was translated under. Its VERSION — the digest of the sorted terms — is part of the entry&#39;s identity, so editing a term yields a new entry rather than overwriting the old rendering. | [optional] 
+**Lang** | Pointer to **string** | Lang is the source language the translate calls this entry serves declare (their &#x60;source&#x60;), empty for calls that let the engine detect it. Part of the entry&#39;s identity; an entry with none also serves calls that declare one. | [optional] 
+**Model** | Pointer to **string** | Model is the quality-tier model the translate calls this entry serves name; empty for the default. Part of the entry&#39;s identity, and refused with bulk. | [optional] 
 **Source** | Pointer to **string** | Source is the ORIGINAL string this entry translates. Required; part of the entry&#39;s identity, so a different source is a different entry. | [optional] 
 **State** | Pointer to **string** | State is the entry&#39;s new position on the review ladder: suggested, approved or published. &#x60;machine&#x60; is engine-only and is refused here — a human may not demote a string back into the churn. | [optional] 
 **Target** | Pointer to **string** | Target is the target language tag (BCP-47, e.g. \&quot;es\&quot; or \&quot;pt-BR\&quot;). Required; part of the entry&#39;s identity. | [optional] 
@@ -30,6 +33,31 @@ NewTranslateReviewRequestWithDefaults instantiates a new TranslateReviewRequest 
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetFormat
+
+`func (o *TranslateReviewRequest) GetFormat() string`
+
+GetFormat returns the Format field if non-nil, zero value otherwise.
+
+### GetFormatOk
+
+`func (o *TranslateReviewRequest) GetFormatOk() (*string, bool)`
+
+GetFormatOk returns a tuple with the Format field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFormat
+
+`func (o *TranslateReviewRequest) SetFormat(v string)`
+
+SetFormat sets Format field to given value.
+
+### HasFormat
+
+`func (o *TranslateReviewRequest) HasFormat() bool`
+
+HasFormat returns a boolean if a field has been set.
+
 ### GetGlossary
 
 `func (o *TranslateReviewRequest) GetGlossary() map[string]string`
@@ -54,6 +82,56 @@ SetGlossary sets Glossary field to given value.
 `func (o *TranslateReviewRequest) HasGlossary() bool`
 
 HasGlossary returns a boolean if a field has been set.
+
+### GetLang
+
+`func (o *TranslateReviewRequest) GetLang() string`
+
+GetLang returns the Lang field if non-nil, zero value otherwise.
+
+### GetLangOk
+
+`func (o *TranslateReviewRequest) GetLangOk() (*string, bool)`
+
+GetLangOk returns a tuple with the Lang field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLang
+
+`func (o *TranslateReviewRequest) SetLang(v string)`
+
+SetLang sets Lang field to given value.
+
+### HasLang
+
+`func (o *TranslateReviewRequest) HasLang() bool`
+
+HasLang returns a boolean if a field has been set.
+
+### GetModel
+
+`func (o *TranslateReviewRequest) GetModel() string`
+
+GetModel returns the Model field if non-nil, zero value otherwise.
+
+### GetModelOk
+
+`func (o *TranslateReviewRequest) GetModelOk() (*string, bool)`
+
+GetModelOk returns a tuple with the Model field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModel
+
+`func (o *TranslateReviewRequest) SetModel(v string)`
+
+SetModel sets Model field to given value.
+
+### HasModel
+
+`func (o *TranslateReviewRequest) HasModel() bool`
+
+HasModel returns a boolean if a field has been set.
 
 ### GetSource
 

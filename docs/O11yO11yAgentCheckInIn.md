@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** |  | [optional] 
+**AccountId** | Pointer to **string** | following are backward compatible fields for older running agents, hence snake case JSON keys. Which get mapped to new fields in AgentCheckInRequest | [optional] 
 **CloudIntegrationId** | Pointer to **interface{}** |  | [optional] 
-**CloudAccountId** | Pointer to **string** |  | [optional] 
+**CloudAccountId** | Pointer to **string** | &#x3D;&gt; ProviderAccountID | [optional] 
 **Data** | Pointer to **map[string]interface{}** |  | [optional] 
 **ProviderAccountId** | Pointer to **string** |  | [optional] 
 

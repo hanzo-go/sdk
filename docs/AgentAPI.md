@@ -5,18 +5,19 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteAgentByRef**](AgentAPI.md#DeleteAgentByRef) | **Delete** /v1/agent/{ref} | Removes an agent and every run recorded against it.
+[**DeleteAgentChatConversationsById**](AgentAPI.md#DeleteAgentChatConversationsById) | **Delete** /v1/agent/chat/conversations/{id} | Delete one of your conversations
 [**DeleteAgentChatConversationsByIdSharesByShare**](AgentAPI.md#DeleteAgentChatConversationsByIdSharesByShare) | **Delete** /v1/agent/chat/conversations/{id}/shares/{share} | Revoke a link to one of your conversations
 [**DeleteAgentChatConversationsByIdSharesByShareViewersByViewer**](AgentAPI.md#DeleteAgentChatConversationsByIdSharesByShareViewersByViewer) | **Delete** /v1/agent/chat/conversations/{id}/shares/{share}/viewers/{viewer} | Remove one viewer from a link
 [**DeleteAgentChatSharesByShare**](AgentAPI.md#DeleteAgentChatSharesByShare) | **Delete** /v1/agent/chat/shares/{share} | Revoke any link in your organization
 [**DeleteAgentTargetsById**](AgentAPI.md#DeleteAgentTargetsById) | **Delete** /v1/agent/targets/{id} | Deregisters one machine.
 [**GetAgent**](AgentAPI.md#GetAgent) | **Get** /v1/agent | Returns every agent defined in the caller&#39;s org, each with the number of runs recorded against it.
-[**GetAgentActivity**](AgentAPI.md#GetAgentActivity) | **Get** /v1/agent/activity | Serves the org-wide recent-activity feed.
+[**GetAgentActivity**](AgentAPI.md#GetAgentActivity) | **Get** /v1/agent/activity | Serves the recent-activity feed.
 [**GetAgentBuilds**](AgentAPI.md#GetAgentBuilds) | **Get** /v1/agent/builds | Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
 [**GetAgentBuildsByOrgByProject**](AgentAPI.md#GetAgentBuildsByOrgByProject) | **Get** /v1/agent/builds/{org}/{project} | Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
-[**GetAgentByRef**](AgentAPI.md#GetAgentByRef) | **Get** /v1/agent/{ref} | Returns one agent with its system prompt and its 20 most recent runs.
-[**GetAgentByRefRuns**](AgentAPI.md#GetAgentByRefRuns) | **Get** /v1/agent/{ref}/runs | Returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
+[**GetAgentByRef**](AgentAPI.md#GetAgentByRef) | **Get** /v1/agent/{ref} | Returns one agent with its system prompt and the caller&#39;s own 20 most recent runs of it: a run&#39;s input and output are its person&#39;s.
+[**GetAgentByRefRuns**](AgentAPI.md#GetAgentByRefRuns) | **Get** /v1/agent/{ref}/runs | Returns the caller&#39;s own runs of one agent, newest first — each run&#39;s input, its output or its error, and how long it took.
 [**GetAgentByRefSpend**](AgentAPI.md#GetAgentByRefSpend) | **Get** /v1/agent/{ref}/spend | Answers what one of your org&#39;s agents has spent, in integer micro-USD.
-[**GetAgentChatConversations**](AgentAPI.md#GetAgentChatConversations) | **Get** /v1/agent/chat/conversations | List the agent threads in your org
+[**GetAgentChatConversations**](AgentAPI.md#GetAgentChatConversations) | **Get** /v1/agent/chat/conversations | List your own conversations
 [**GetAgentChatConversationsById**](AgentAPI.md#GetAgentChatConversationsById) | **Get** /v1/agent/chat/conversations/{id} | Read one agent thread in full
 [**GetAgentChatConversationsByIdShares**](AgentAPI.md#GetAgentChatConversationsByIdShares) | **Get** /v1/agent/chat/conversations/{id}/shares | List the live links to one of your conversations
 [**GetAgentChatPresets**](AgentAPI.md#GetAgentChatPresets) | **Get** /v1/agent/chat/presets | List the agent presets available to a caller
@@ -27,17 +28,19 @@ Method | HTTP request | Description
 [**GetAgentCodingBySessionBlob**](AgentAPI.md#GetAgentCodingBySessionBlob) | **Get** /v1/agent/coding/{session}/blob | Returns one file of a coding run&#39;s repository, read where the tree is read, in the shape GET /v1/git/repos/{name}/blob answers: text verbatim, anything else base64, and a file past the 1 MiB view cap marked truncated with no content.
 [**GetAgentCodingBySessionChanges**](AgentAPI.md#GetAgentCodingBySessionChanges) | **Get** /v1/agent/coding/{session}/changes | Returns what a coding run changed, read from the forge it pushed its branch to: the commits on its branch that the base does not have, newest first; the net change of the branch against its base, one entry per file with that file&#39;s patch; and its pull request with the reviews it has had, or null while it has none.
 [**GetAgentCodingBySessionTree**](AgentAPI.md#GetAgentCodingBySessionTree) | **Get** /v1/agent/coding/{session}/tree | Lists one directory of a coding run&#39;s repository, one level down with directories first: at the run&#39;s own branch once the forge holds it, and at the branch it started from until then — &#x60;ref&#x60; says which.
-[**GetAgentMetrics**](AgentAPI.md#GetAgentMetrics) | **Get** /v1/agent/metrics | Serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
-[**GetAgentRuns**](AgentAPI.md#GetAgentRuns) | **Get** /v1/agent/runs | Returns the org&#39;s agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
+[**GetAgentMetrics**](AgentAPI.md#GetAgentMetrics) | **Get** /v1/agent/metrics | Serves the invocations-over-time histogram for the Agents dashboard, over the caller&#39;s own runs.
+[**GetAgentRuns**](AgentAPI.md#GetAgentRuns) | **Get** /v1/agent/runs | Returns the caller&#39;s own agent runs across EVERY agent of the org, newest first — what ran, on which model, how long it took, and why it failed.
 [**GetAgentSessions**](AgentAPI.md#GetAgentSessions) | **Get** /v1/agent/sessions | Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
 [**GetAgentSessionsById**](AgentAPI.md#GetAgentSessionsById) | **Get** /v1/agent/sessions/{id} | Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
 [**GetAgentSessionsByIdControl**](AgentAPI.md#GetAgentSessionsByIdControl) | **Get** /v1/agent/sessions/{id}/control | Returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
+[**GetAgentSessionsByIdEvents**](AgentAPI.md#GetAgentSessionsByIdEvents) | **Get** /v1/agent/sessions/{id}/events | Reads a session&#39;s log in order, a page at a time: everything after the seq a reader last saw, so a poll resumes exactly where it stopped.
 [**GetAgentSessionsByIdProgress**](AgentAPI.md#GetAgentSessionsByIdProgress) | **Get** /v1/agent/sessions/{id}/progress | Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
 [**GetAgentSessionsByIdTree**](AgentAPI.md#GetAgentSessionsByIdTree) | **Get** /v1/agent/sessions/{id}/tree | Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
 [**GetAgentSessionsStream**](AgentAPI.md#GetAgentSessionsStream) | **Get** /v1/agent/sessions/stream | Live session and event updates for the caller&#39;s org, as Server-Sent Events.
 [**GetAgentTargets**](AgentAPI.md#GetAgentTargets) | **Get** /v1/agent/targets | Returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
 [**GetAgentTargetsById**](AgentAPI.md#GetAgentTargetsById) | **Get** /v1/agent/targets/{id} | Returns one registered machine, with its live session load.
 [**PatchAgentByRef**](AgentAPI.md#PatchAgentByRef) | **Patch** /v1/agent/{ref} | Changes an agent in place.
+[**PatchAgentChatConversationsById**](AgentAPI.md#PatchAgentChatConversationsById) | **Patch** /v1/agent/chat/conversations/{id} | Rename, pin or archive one of your conversations
 [**PatchAgentSessionsById**](AgentAPI.md#PatchAgentSessionsById) | **Patch** /v1/agent/sessions/{id} | Updates a session&#39;s surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build&#39;s story is public.
 [**PatchAgentTargetsById**](AgentAPI.md#PatchAgentTargetsById) | **Patch** /v1/agent/targets/{id} | Updates one machine in place.
 [**PostAgent**](AgentAPI.md#PostAgent) | **Post** /v1/agent | Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
@@ -48,7 +51,10 @@ Method | HTTP request | Description
 [**PostAgentChatConversationsByIdShares**](AgentAPI.md#PostAgentChatConversationsByIdShares) | **Post** /v1/agent/chat/conversations/{id}/shares | Share one of your conversations by link
 [**PostAgentChatSharesRead**](AgentAPI.md#PostAgentChatSharesRead) | **Post** /v1/agent/chat/shares/read | Open a conversation shared by link
 [**PostAgentCoding**](AgentAPI.md#PostAgentCoding) | **Post** /v1/agent/coding | Start one autonomous coding run against a repo in the caller&#39;s org
+[**PostAgentCodingBySessionExtend**](AgentAPI.md#PostAgentCodingBySessionExtend) | **Post** /v1/agent/coding/{session}/extend | Gives your running coding run more time.
 [**PostAgentCodingBySessionMerge**](AgentAPI.md#PostAgentCodingBySessionMerge) | **Post** /v1/agent/coding/{session}/merge | Merges a coding run&#39;s pull request into the branch it proposes into, on the forge the run pushed to, and answers the pull request after.
+[**PostAgentCodingBySessionPull**](AgentAPI.md#PostAgentCodingBySessionPull) | **Post** /v1/agent/coding/{session}/pull | Opens the pull request for the branch a coding run pushed, as the run&#39;s person and with no agent run, and answers its number and address.
+[**PostAgentCodingBySessionSteer**](AgentAPI.md#PostAgentCodingBySessionSteer) | **Post** /v1/agent/coding/{session}/steer | Redirect your running or paused coding session.
 [**PostAgentMcpByServer**](AgentAPI.md#PostAgentMcpByServer) | **Post** /v1/agent/mcp/{server} | The MCP address a coding run&#39;s harness reaches one of its org&#39;s MCP servers through.
 [**PostAgentSessions**](AgentAPI.md#PostAgentSessions) | **Post** /v1/agent/sessions | Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
 [**PostAgentSessionsByIdBudget**](AgentAPI.md#PostAgentSessionsByIdBudget) | **Post** /v1/agent/sessions/{id}/budget | Sets, raises, or removes a session&#39;s cap.
@@ -126,6 +132,74 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteAgentChatConversationsById
+
+> DeleteAgentChatConversationsById(ctx, id).Execute()
+
+Delete one of your conversations
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AgentAPI.DeleteAgentChatConversationsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.DeleteAgentChatConversationsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteAgentChatConversationsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -480,7 +554,7 @@ Other parameters are passed through a pointer to a apiGetAgentRequest struct via
 
 > AgentActivityFeed GetAgentActivity(ctx).Execute()
 
-Serves the org-wide recent-activity feed.
+Serves the recent-activity feed.
 
 
 
@@ -680,7 +754,7 @@ Name | Type | Description  | Notes
 
 > AgentAgentDetail GetAgentByRef(ctx, ref).Execute()
 
-Returns one agent with its system prompt and its 20 most recent runs.
+Returns one agent with its system prompt and the caller's own 20 most recent runs of it: a run's input and output are its person's.
 
 
 
@@ -750,7 +824,7 @@ Name | Type | Description  | Notes
 
 > AgentRunList GetAgentByRefRuns(ctx, ref).Limit(limit).Execute()
 
-Returns one agent's execution history, newest first — each run's input, its output or its error, and how long it took.
+Returns the caller's own runs of one agent, newest first — each run's input, its output or its error, and how long it took.
 
 
 
@@ -894,7 +968,7 @@ Name | Type | Description  | Notes
 
 > GetAgentChatConversations(ctx).Execute()
 
-List the agent threads in your org
+List your own conversations
 
 
 
@@ -1618,7 +1692,7 @@ Name | Type | Description  | Notes
 
 > AgentMetricsView GetAgentMetrics(ctx).Range_(range_).Execute()
 
-Serves the invocations-over-time histogram for the org's Agents dashboard.
+Serves the invocations-over-time histogram for the Agents dashboard, over the caller's own runs.
 
 
 
@@ -1684,7 +1758,7 @@ Name | Type | Description  | Notes
 
 > AgentRunList GetAgentRuns(ctx).Limit(limit).Status(status).Execute()
 
-Returns the org's agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
+Returns the caller's own agent runs across EVERY agent of the org, newest first — what ran, on which model, how long it took, and why it failed.
 
 
 
@@ -1750,7 +1824,7 @@ Name | Type | Description  | Notes
 
 ## GetAgentSessions
 
-> AgentSessionList GetAgentSessions(ctx).Root(root).Parent(parent).Status(status).Project(project).Room(room).Kind(kind).Limit(limit).After(after).Execute()
+> AgentSessionList GetAgentSessions(ctx).Root(root).Parent(parent).Status(status).Project(project).Channel(channel).Kind(kind).Limit(limit).After(after).Execute()
 
 Returns the caller org's live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
 
@@ -1773,14 +1847,14 @@ func main() {
 	parent := "parent_example" // string | Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. (optional)
 	status := "running" // string | Status filters to running, paused, done or error. (optional)
 	project := "project_example" // string | Project filters to the sessions tagged with one product slug. (optional)
-	room := "room_example" // string | Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. (optional)
+	channel := "channel_example" // string | Channel filters to the sessions started in one collaborative channel — the query a space view runs to show what has been run in it. (optional)
 	kind := "kind_example" // string | Kind filters to the sessions of one kind of run: \"coding\" lists coding runs, each carrying its repo, base, branch, environment and pull request. (optional)
 	limit := int64(20) // int64 | Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
 	after := "after_example" // string | After is the `next` of the previous page. Absent starts at the newest. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentAPI.GetAgentSessions(context.Background()).Root(root).Parent(parent).Status(status).Project(project).Room(room).Kind(kind).Limit(limit).After(after).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentSessions(context.Background()).Root(root).Parent(parent).Status(status).Project(project).Channel(channel).Kind(kind).Limit(limit).After(after).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentSessions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1805,7 +1879,7 @@ Name | Type | Description  | Notes
  **parent** | **string** | Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. | 
  **status** | **string** | Status filters to running, paused, done or error. | 
  **project** | **string** | Project filters to the sessions tagged with one product slug. | 
- **room** | **string** | Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. | 
+ **channel** | **string** | Channel filters to the sessions started in one collaborative channel — the query a space view runs to show what has been run in it. | 
  **kind** | **string** | Kind filters to the sessions of one kind of run: \&quot;coding\&quot; lists coding runs, each carrying its repo, base, branch, environment and pull request. | 
  **limit** | **int64** | Limit caps the page. Absent, zero or over 500 reads as 100. | 
  **after** | **string** | After is the &#x60;next&#x60; of the previous page. Absent starts at the newest. | 
@@ -1955,6 +2029,80 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AgentControlDrain**](AgentControlDrain.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAgentSessionsByIdEvents
+
+> AgentEventList GetAgentSessionsByIdEvents(ctx, id).After(after).Limit(limit).Execute()
+
+Reads a session's log in order, a page at a time: everything after the seq a reader last saw, so a poll resumes exactly where it stopped.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "sess_1" // string | ID is the session to read, from the path.
+	after := int64(0) // int64 | After is the seq of the last event already read; the page starts after it. Absent or zero starts at the first event. (optional)
+	limit := int64(100) // int64 | Limit caps the page. Absent, zero or over 1000 reads as 200. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentAPI.GetAgentSessionsByIdEvents(context.Background(), id).After(after).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentSessionsByIdEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAgentSessionsByIdEvents`: AgentEventList
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentSessionsByIdEvents`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the session to read, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAgentSessionsByIdEventsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **after** | **int64** | After is the seq of the last event already read; the page starts after it. Absent or zero starts at the first event. | 
+ **limit** | **int64** | Limit caps the page. Absent, zero or over 1000 reads as 200. | 
+
+### Return type
+
+[**AgentEventList**](AgentEventList.md)
 
 ### Authorization
 
@@ -2366,6 +2514,74 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchAgentChatConversationsById
+
+> PatchAgentChatConversationsById(ctx, id).Execute()
+
+Rename, pin or archive one of your conversations
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AgentAPI.PatchAgentChatConversationsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PatchAgentChatConversationsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchAgentChatConversationsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3020,6 +3236,78 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostAgentCodingBySessionExtend
+
+> AgentCodingExtended PostAgentCodingBySessionExtend(ctx, session).AgentCodingExtendIn(agentCodingExtendIn).Execute()
+
+Gives your running coding run more time.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	session := "sess_0123456789abcdef0123456789abcdef" // string | Session is the run's handle, from the path.
+	agentCodingExtendIn := *openapiclient.NewAgentCodingExtendIn() // AgentCodingExtendIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentAPI.PostAgentCodingBySessionExtend(context.Background(), session).AgentCodingExtendIn(agentCodingExtendIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentCodingBySessionExtend``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAgentCodingBySessionExtend`: AgentCodingExtended
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentCodingBySessionExtend`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**session** | **string** | Session is the run&#39;s handle, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAgentCodingBySessionExtendRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **agentCodingExtendIn** | [**AgentCodingExtendIn**](AgentCodingExtendIn.md) |  | 
+
+### Return type
+
+[**AgentCodingExtended**](AgentCodingExtended.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostAgentCodingBySessionMerge
 
 > AgentCodingMerged PostAgentCodingBySessionMerge(ctx, session).Execute()
@@ -3083,6 +3371,150 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAgentCodingBySessionPull
+
+> AgentCodingPulled PostAgentCodingBySessionPull(ctx, session).AgentCodingPullIn(agentCodingPullIn).Execute()
+
+Opens the pull request for the branch a coding run pushed, as the run's person and with no agent run, and answers its number and address.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	session := "sess_0123456789abcdef0123456789abcdef" // string | Session is the run's handle, from the path.
+	agentCodingPullIn := *openapiclient.NewAgentCodingPullIn() // AgentCodingPullIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentAPI.PostAgentCodingBySessionPull(context.Background(), session).AgentCodingPullIn(agentCodingPullIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentCodingBySessionPull``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAgentCodingBySessionPull`: AgentCodingPulled
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentCodingBySessionPull`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**session** | **string** | Session is the run&#39;s handle, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAgentCodingBySessionPullRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **agentCodingPullIn** | [**AgentCodingPullIn**](AgentCodingPullIn.md) |  | 
+
+### Return type
+
+[**AgentCodingPulled**](AgentCodingPulled.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAgentCodingBySessionSteer
+
+> AgentCodingAck PostAgentCodingBySessionSteer(ctx, session).AgentCodingInstruction(agentCodingInstruction).Execute()
+
+Redirect your running or paused coding session.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	session := "session_example" // string | Session identifies the running or paused coding session from the path.
+	agentCodingInstruction := *openapiclient.NewAgentCodingInstruction() // AgentCodingInstruction | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentAPI.PostAgentCodingBySessionSteer(context.Background(), session).AgentCodingInstruction(agentCodingInstruction).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentCodingBySessionSteer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAgentCodingBySessionSteer`: AgentCodingAck
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentCodingBySessionSteer`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**session** | **string** | Session identifies the running or paused coding session from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAgentCodingBySessionSteerRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **agentCodingInstruction** | [**AgentCodingInstruction**](AgentCodingInstruction.md) |  | 
+
+### Return type
+
+[**AgentCodingAck**](AgentCodingAck.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

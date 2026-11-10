@@ -25,7 +25,8 @@ type IamSession struct {
 	CreatedTime *string    `json:"createdTime,omitempty"`
 	Deleted     *bool      `json:"deleted,omitempty"`
 	// ExclusiveSignin is a transient control flag (v1 xorm:\"-\"): a caller sets it on a create to collapse SessionId down to the single incoming cookie instead of appending. It is never stored — a persisted session always carries it false, so orm:\"-\" keeps it off the column backends and omitempty keeps it out of the SQLite JSON blob.
-	ExclusiveSignin      *bool      `json:"exclusiveSignin,omitempty"`
+	ExclusiveSignin *bool `json:"exclusiveSignin,omitempty"`
+	// Persisted fields
 	Id                   *string    `json:"id,omitempty"`
 	Name                 *string    `json:"name,omitempty"`
 	Owner                *string    `json:"owner,omitempty"`

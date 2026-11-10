@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Provider** | Pointer to **interface{}** |  | [optional] 
 **Questions** | Pointer to [**map[string]AiDecisionsQuestion**](AiDecisionsQuestion.md) |  | [optional] 
 **SessionId** | Pointer to **string** |  | [optional] 
-**State** | Pointer to [**AiDecisionSidesFalse**](AiDecisionSidesFalse.md) |  | [optional] 
+**State** | Pointer to **interface{}** |  | [optional] 
 **Trace** | Pointer to **interface{}** |  | [optional] 
 **User** | Pointer to **string** |  | [optional] 
 
@@ -190,20 +190,20 @@ HasSessionId returns a boolean if a field has been set.
 
 ### GetState
 
-`func (o *AiDecisionsRequest) GetState() AiDecisionSidesFalse`
+`func (o *AiDecisionsRequest) GetState() interface{}`
 
 GetState returns the State field if non-nil, zero value otherwise.
 
 ### GetStateOk
 
-`func (o *AiDecisionsRequest) GetStateOk() (*AiDecisionSidesFalse, bool)`
+`func (o *AiDecisionsRequest) GetStateOk() (*interface{}, bool)`
 
 GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetState
 
-`func (o *AiDecisionsRequest) SetState(v AiDecisionSidesFalse)`
+`func (o *AiDecisionsRequest) SetState(v interface{})`
 
 SetState sets State field to given value.
 
@@ -213,6 +213,16 @@ SetState sets State field to given value.
 
 HasState returns a boolean if a field has been set.
 
+### SetStateNil
+
+`func (o *AiDecisionsRequest) SetStateNil(b bool)`
+
+ SetStateNil sets the value for State to be an explicit nil
+
+### UnsetState
+`func (o *AiDecisionsRequest) UnsetState()`
+
+UnsetState ensures that no value is present for State, not even an explicit nil
 ### GetTrace
 
 `func (o *AiDecisionsRequest) GetTrace() interface{}`

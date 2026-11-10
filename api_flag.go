@@ -587,6 +587,229 @@ func (a *FlagAPIService) GetFlagHealthExecute(r FlagAPIGetFlagHealthRequest) (*F
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type FlagAPIGetFlagOptinRequest struct {
+	ctx        context.Context
+	ApiService *FlagAPIService
+}
+
+func (r FlagAPIGetFlagOptinRequest) Execute() (*FlagOptinOut, *http.Response, error) {
+	return r.ApiService.GetFlagOptinExecute(r)
+}
+
+/*
+GetFlagOptin Answers the signed-in caller's opt-in to public betas: whether they opted in, whether the org they act in blocked it, and which betas are public.
+
+Answers the signed-in caller's opt-in to public betas: whether they
+opted in, whether the org they act in blocked it, and which betas are public. A
+beta not listed is private, granted person by person.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return FlagAPIGetFlagOptinRequest
+*/
+func (a *FlagAPIService) GetFlagOptin(ctx context.Context) FlagAPIGetFlagOptinRequest {
+	return FlagAPIGetFlagOptinRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return FlagOptinOut
+func (a *FlagAPIService) GetFlagOptinExecute(r FlagAPIGetFlagOptinRequest) (*FlagOptinOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *FlagOptinOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.GetFlagOptin")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/flag/optin"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type FlagAPIGetFlagPlatformRequest struct {
+	ctx        context.Context
+	ApiService *FlagAPIService
+}
+
+func (r FlagAPIGetFlagPlatformRequest) Execute() (*FlagPlatformOut, *http.Response, error) {
+	return r.ApiService.GetFlagPlatformExecute(r)
+}
+
+/*
+GetFlagPlatform Answers the platform switches that are decided per caller — `beta`, whether the caller sees what is not yet generally available — as they apply to the signed-in caller: its validated org and user, never anything the request states.
+
+Answers the platform switches that are decided per caller — `beta`,
+whether the caller sees what is not yet generally available — as they apply to
+the signed-in caller: its validated org and user, never anything the request
+states. A SuperAdmin targets them from the admin cockpit; nothing here changes
+them. A request without a signed-in principal is refused, and a switch that
+cannot be read is 503, which a caller takes as off.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return FlagAPIGetFlagPlatformRequest
+*/
+func (a *FlagAPIService) GetFlagPlatform(ctx context.Context) FlagAPIGetFlagPlatformRequest {
+	return FlagAPIGetFlagPlatformRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return FlagPlatformOut
+func (a *FlagAPIService) GetFlagPlatformExecute(r FlagAPIGetFlagPlatformRequest) (*FlagPlatformOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *FlagPlatformOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.GetFlagPlatform")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/flag/platform"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type FlagAPIPostFlagRequest struct {
 	ctx            context.Context
 	ApiService     *FlagAPIService
@@ -919,6 +1142,252 @@ func (a *FlagAPIService) PutFlagDefsByKeyExecute(r FlagAPIPutFlagDefsByKeyReques
 	}
 	// body params
 	localVarPostBody = r.body
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type FlagAPIPutFlagOptinRequest struct {
+	ctx         context.Context
+	ApiService  *FlagAPIService
+	flagOptinIn *FlagOptinIn
+}
+
+func (r FlagAPIPutFlagOptinRequest) FlagOptinIn(flagOptinIn FlagOptinIn) FlagAPIPutFlagOptinRequest {
+	r.flagOptinIn = &flagOptinIn
+	return r
+}
+
+func (r FlagAPIPutFlagOptinRequest) Execute() (*FlagOptinOut, *http.Response, error) {
+	return r.ApiService.PutFlagOptinExecute(r)
+}
+
+/*
+PutFlagOptin Sets the signed-in caller's OWN opt-in to public betas: on, every public beta and each one promoted later is on for them; off, none is.
+
+Sets the signed-in caller's OWN opt-in to public betas: on, every
+public beta and each one promoted later is on for them; off, none is. Self only:
+the row written is the caller's validated subject, whatever the request says.
+Opting in while the org they act in blocked it is refused; opting out never is.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return FlagAPIPutFlagOptinRequest
+*/
+func (a *FlagAPIService) PutFlagOptin(ctx context.Context) FlagAPIPutFlagOptinRequest {
+	return FlagAPIPutFlagOptinRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return FlagOptinOut
+func (a *FlagAPIService) PutFlagOptinExecute(r FlagAPIPutFlagOptinRequest) (*FlagOptinOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *FlagOptinOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.PutFlagOptin")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/flag/optin"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.flagOptinIn == nil {
+		return localVarReturnValue, nil, reportError("flagOptinIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.flagOptinIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type FlagAPIPutFlagOptinOrgRequest struct {
+	ctx            context.Context
+	ApiService     *FlagAPIService
+	flagOrgOptinIn *FlagOrgOptinIn
+}
+
+func (r FlagAPIPutFlagOptinOrgRequest) FlagOrgOptinIn(flagOrgOptinIn FlagOrgOptinIn) FlagAPIPutFlagOptinOrgRequest {
+	r.flagOrgOptinIn = &flagOrgOptinIn
+	return r
+}
+
+func (r FlagAPIPutFlagOptinOrgRequest) Execute() (*FlagOrgOptinOut, *http.Response, error) {
+	return r.ApiService.PutFlagOptinOrgExecute(r)
+}
+
+/*
+PutFlagOptinOrg Blocks or unblocks the opt-in to public betas for every member of the org the caller acts in.
+
+Blocks or unblocks the opt-in to public betas for every member of
+the org the caller acts in. An owner or admin of that org, or a SuperAdmin, may;
+a member may not. It only withholds: blocked, no member gets a public beta by
+opting in, and their own choices are kept for when it is lifted; it never turns
+a beta on. A shared sign-up org has no admin to speak for its members and is
+refused. The change is on the audit trail before it lands.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return FlagAPIPutFlagOptinOrgRequest
+*/
+func (a *FlagAPIService) PutFlagOptinOrg(ctx context.Context) FlagAPIPutFlagOptinOrgRequest {
+	return FlagAPIPutFlagOptinOrgRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return FlagOrgOptinOut
+func (a *FlagAPIService) PutFlagOptinOrgExecute(r FlagAPIPutFlagOptinOrgRequest) (*FlagOrgOptinOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *FlagOrgOptinOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.PutFlagOptinOrg")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/flag/optin/org"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.flagOrgOptinIn == nil {
+		return localVarReturnValue, nil, reportError("flagOrgOptinIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.flagOrgOptinIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

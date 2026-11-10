@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DefaultTimeRange** | Pointer to **string** |  | [optional] 
+**DefaultTimeRange** | Pointer to **string** | DefaultTimeRange is the fixed window as a Go duration, e.g. 1h, 30m. | [optional] 
 **Id** | Pointer to **string** | ID is the dashboard id from the path. | [optional] 
-**TimeRangeEnabled** | Pointer to **bool** |  | [optional] 
+**TimeRangeEnabled** | Pointer to **bool** | TimeRangeEnabled lets the public page pick its own time range; when false the share fixes DefaultTimeRange. | [optional] 
 
 ## Methods
 

@@ -19,8 +19,11 @@ var _ MappedNullable = &BillingCryptoOptions{}
 
 // BillingCryptoOptions struct for BillingCryptoOptions
 type BillingCryptoOptions struct {
-	Chains               []string `json:"chains,omitempty"`
-	Tokens               []string `json:"tokens,omitempty"`
+	// Assets is every (chain, token) pair the deposit-address rail accepts. Chains and Tokens are its two axes: a chain and a token each on offer are not a pair on offer, so a picker that crosses them can name an asset the rail will refuse.
+	Assets               []BillingCryptoPair `json:"assets,omitempty"`
+	Chains               []string            `json:"chains,omitempty"`
+	Gateway              []string            `json:"gateway,omitempty"`
+	Tokens               []string            `json:"tokens,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,6 +44,38 @@ func NewBillingCryptoOptions() *BillingCryptoOptions {
 func NewBillingCryptoOptionsWithDefaults() *BillingCryptoOptions {
 	this := BillingCryptoOptions{}
 	return &this
+}
+
+// GetAssets returns the Assets field value if set, zero value otherwise.
+func (o *BillingCryptoOptions) GetAssets() []BillingCryptoPair {
+	if o == nil || IsNil(o.Assets) {
+		var ret []BillingCryptoPair
+		return ret
+	}
+	return o.Assets
+}
+
+// GetAssetsOk returns a tuple with the Assets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingCryptoOptions) GetAssetsOk() ([]BillingCryptoPair, bool) {
+	if o == nil || IsNil(o.Assets) {
+		return nil, false
+	}
+	return o.Assets, true
+}
+
+// HasAssets returns a boolean if a field has been set.
+func (o *BillingCryptoOptions) HasAssets() bool {
+	if o != nil && !IsNil(o.Assets) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssets gets a reference to the given []BillingCryptoPair and assigns it to the Assets field.
+func (o *BillingCryptoOptions) SetAssets(v []BillingCryptoPair) {
+	o.Assets = v
 }
 
 // GetChains returns the Chains field value if set, zero value otherwise.
@@ -73,6 +108,38 @@ func (o *BillingCryptoOptions) HasChains() bool {
 // SetChains gets a reference to the given []string and assigns it to the Chains field.
 func (o *BillingCryptoOptions) SetChains(v []string) {
 	o.Chains = v
+}
+
+// GetGateway returns the Gateway field value if set, zero value otherwise.
+func (o *BillingCryptoOptions) GetGateway() []string {
+	if o == nil || IsNil(o.Gateway) {
+		var ret []string
+		return ret
+	}
+	return o.Gateway
+}
+
+// GetGatewayOk returns a tuple with the Gateway field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingCryptoOptions) GetGatewayOk() ([]string, bool) {
+	if o == nil || IsNil(o.Gateway) {
+		return nil, false
+	}
+	return o.Gateway, true
+}
+
+// HasGateway returns a boolean if a field has been set.
+func (o *BillingCryptoOptions) HasGateway() bool {
+	if o != nil && !IsNil(o.Gateway) {
+		return true
+	}
+
+	return false
+}
+
+// SetGateway gets a reference to the given []string and assigns it to the Gateway field.
+func (o *BillingCryptoOptions) SetGateway(v []string) {
+	o.Gateway = v
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
@@ -117,8 +184,14 @@ func (o BillingCryptoOptions) MarshalJSON() ([]byte, error) {
 
 func (o BillingCryptoOptions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Assets) {
+		toSerialize["assets"] = o.Assets
+	}
 	if !IsNil(o.Chains) {
 		toSerialize["chains"] = o.Chains
+	}
+	if !IsNil(o.Gateway) {
+		toSerialize["gateway"] = o.Gateway
 	}
 	if !IsNil(o.Tokens) {
 		toSerialize["tokens"] = o.Tokens
@@ -145,7 +218,9 @@ func (o *BillingCryptoOptions) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "assets")
 		delete(additionalProperties, "chains")
+		delete(additionalProperties, "gateway")
 		delete(additionalProperties, "tokens")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Criteria** | [**[]AiDecisionSidesFalse**](AiDecisionSidesFalse.md) |  | 
-**Instructions** | Pointer to [**AiDecisionSidesFalse**](AiDecisionSidesFalse.md) |  | [optional] 
+**Criteria** | **[]interface{}** |  | 
+**Instructions** | Pointer to **interface{}** |  | [optional] 
 **Labels** | Pointer to **map[string]string** |  | [optional] 
 **Type** | **string** |  | 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewAiDecisionsQuestion
 
-`func NewAiDecisionsQuestion(criteria []AiDecisionSidesFalse, type_ string, ) *AiDecisionsQuestion`
+`func NewAiDecisionsQuestion(criteria []interface{}, type_ string, ) *AiDecisionsQuestion`
 
 NewAiDecisionsQuestion instantiates a new AiDecisionsQuestion object
 This constructor will assign default values to properties that have it defined,
@@ -30,40 +30,40 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCriteria
 
-`func (o *AiDecisionsQuestion) GetCriteria() []AiDecisionSidesFalse`
+`func (o *AiDecisionsQuestion) GetCriteria() []interface{}`
 
 GetCriteria returns the Criteria field if non-nil, zero value otherwise.
 
 ### GetCriteriaOk
 
-`func (o *AiDecisionsQuestion) GetCriteriaOk() (*[]AiDecisionSidesFalse, bool)`
+`func (o *AiDecisionsQuestion) GetCriteriaOk() (*[]interface{}, bool)`
 
 GetCriteriaOk returns a tuple with the Criteria field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCriteria
 
-`func (o *AiDecisionsQuestion) SetCriteria(v []AiDecisionSidesFalse)`
+`func (o *AiDecisionsQuestion) SetCriteria(v []interface{})`
 
 SetCriteria sets Criteria field to given value.
 
 
 ### GetInstructions
 
-`func (o *AiDecisionsQuestion) GetInstructions() AiDecisionSidesFalse`
+`func (o *AiDecisionsQuestion) GetInstructions() interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *AiDecisionsQuestion) GetInstructionsOk() (*AiDecisionSidesFalse, bool)`
+`func (o *AiDecisionsQuestion) GetInstructionsOk() (*interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *AiDecisionsQuestion) SetInstructions(v AiDecisionSidesFalse)`
+`func (o *AiDecisionsQuestion) SetInstructions(v interface{})`
 
 SetInstructions sets Instructions field to given value.
 
@@ -73,6 +73,16 @@ SetInstructions sets Instructions field to given value.
 
 HasInstructions returns a boolean if a field has been set.
 
+### SetInstructionsNil
+
+`func (o *AiDecisionsQuestion) SetInstructionsNil(b bool)`
+
+ SetInstructionsNil sets the value for Instructions to be an explicit nil
+
+### UnsetInstructions
+`func (o *AiDecisionsQuestion) UnsetInstructions()`
+
+UnsetInstructions ensures that no value is present for Instructions, not even an explicit nil
 ### GetLabels
 
 `func (o *AiDecisionsQuestion) GetLabels() map[string]string`

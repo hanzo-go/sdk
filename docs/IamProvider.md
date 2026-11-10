@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 **Endpoint** | Pointer to **string** |  | [optional] 
 **Host** | Pointer to **string** |  | [optional] 
 **HttpHeaders** | Pointer to **map[string]string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **IdP** | Pointer to **string** |  | [optional] 
 **IntranetEndpoint** | Pointer to **string** |  | [optional] 
 **IssuerUrl** | Pointer to **string** |  | [optional] 

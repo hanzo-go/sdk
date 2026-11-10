@@ -122,6 +122,98 @@ func (a *AgentAPIService) DeleteAgentByRefExecute(r AgentAPIDeleteAgentByRefRequ
 	return localVarHTTPResponse, nil
 }
 
+type AgentAPIDeleteAgentChatConversationsByIdRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	id         string
+}
+
+func (r AgentAPIDeleteAgentChatConversationsByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAgentChatConversationsByIdExecute(r)
+}
+
+/*
+DeleteAgentChatConversationsById Delete one of your conversations
+
+Removes the conversation for good: every turn of it, and every link it was shared by, which stops opening and leaves the lists of the people it was open to. Only the member who opened it may delete it; anyone else is answered 404, as for one that is not there. Every delete is written to the audit trail.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AgentAPIDeleteAgentChatConversationsByIdRequest
+*/
+func (a *AgentAPIService) DeleteAgentChatConversationsById(ctx context.Context, id string) AgentAPIDeleteAgentChatConversationsByIdRequest {
+	return AgentAPIDeleteAgentChatConversationsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) DeleteAgentChatConversationsByIdExecute(r AgentAPIDeleteAgentChatConversationsByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.DeleteAgentChatConversationsById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/conversations/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AgentAPIDeleteAgentChatConversationsByIdSharesByShareRequest struct {
 	ctx        context.Context
 	ApiService *AgentAPIService
@@ -331,7 +423,7 @@ func (r AgentAPIDeleteAgentChatSharesByShareRequest) Execute() (*http.Response, 
 /*
 DeleteAgentChatSharesByShare Revoke any link in your organization
 
-For an admin of the caller's organization: ends one share made in it, for every viewer, exactly as its owner's revoke does. Anyone else is answered 403, and a share of another organization 404. Every revoke is written to the audit trail.
+For an admin of the caller's organization: ends one share made in it, for every viewer, exactly as its owner's revoke does. Anyone else is answered 403 (an admin of a held org included), and a share of another organization 404. Every revoke is written to the audit trail.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param share
@@ -537,7 +629,7 @@ func (r AgentAPIGetAgentRequest) Execute() (*AgentAgentList, *http.Response, err
 GetAgent Returns every agent defined in the caller's org, each with the number of runs recorded against it.
 
 Returns every agent defined in the caller's org, each with the
-number of runs recorded against it.
+number of runs recorded against it. A retired built-in is left out.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentAPIGetAgentRequest
@@ -643,11 +735,11 @@ func (r AgentAPIGetAgentActivityRequest) Execute() (*AgentActivityFeed, *http.Re
 }
 
 /*
-GetAgentActivity Serves the org-wide recent-activity feed.
+GetAgentActivity Serves the recent-activity feed.
 
-Serves the org-wide recent-activity feed. Events are REAL: each
-recorded run is an invoked (ok) or failed (error) event; each agent's own
-create/update timestamps are created/updated events. Merged, newest first,
+Serves the recent-activity feed. Events are REAL: each of the
+caller's own recorded runs is an invoked (ok) or failed (error) event; each of
+the org's agents' create/update timestamps are created/updated events. Merged, newest first,
 capped. Nothing is invented — an org with no agents and no runs gets [].
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1000,9 +1092,10 @@ func (r AgentAPIGetAgentByRefRequest) Execute() (*AgentAgentDetail, *http.Respon
 }
 
 /*
-GetAgentByRef Returns one agent with its system prompt and its 20 most recent runs.
+GetAgentByRef Returns one agent with its system prompt and the caller's own 20 most recent runs of it: a run's input and output are its person's.
 
-Returns one agent with its system prompt and its 20 most recent runs.
+Returns one agent with its system prompt and the caller's own 20 most
+recent runs of it: a run's input and output are its person's.
 The ref is the agent's public id or its org-unique name — a created agent is
 immediately gettable by whatever create handed back.
 
@@ -1121,11 +1214,13 @@ func (r AgentAPIGetAgentByRefRunsRequest) Execute() (*AgentRunList, *http.Respon
 }
 
 /*
-GetAgentByRefRuns Returns one agent's execution history, newest first — each run's input, its output or its error, and how long it took.
+GetAgentByRefRuns Returns the caller's own runs of one agent, newest first — each run's input, its output or its error, and how long it took.
 
-Returns one agent's execution history, newest first — each run's
-input, its output or its error, and how long it took. Every row is a run that
-actually happened.
+Returns the caller's own runs of one agent, newest first — each
+run's input, its output or its error, and how long it took. A run is the
+person's who asked for it, so another member's runs are not listed, nor an
+org admin's view of them; a run no person asked for (a schedule) is listed to a
+SuperAdmin alone. Every row is a run that actually happened.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param ref Ref is the agent's public id or its org-unique name, from the path.
@@ -1368,11 +1463,11 @@ func (r AgentAPIGetAgentChatConversationsRequest) Execute() (*http.Response, err
 }
 
 /*
-GetAgentChatConversations List the agent threads in your org
+GetAgentChatConversations List your own conversations
 
-Returns a summary of every agent conversation in the caller's org — id, derived title, and when it was last appended to — for populating a thread list.
+Returns a summary of each conversation the caller opened — id, title, when it was last appended to, and whether it is pinned or archived — for populating a thread list: pinned first, then most recent. Archived conversations are left out; `?archived=true` lists them alone.
 
-Scoped to the caller's org and nothing else, and that isolation is structural rather than a filter: conversations are persisted in a store opened PER ORG, so there is no query in which another tenant's threads could appear. A validated principal with a non-empty org is required: 401 without a principal, 403 without an org.
+A conversation is the person's who opened it, not the org's: another member of the same org lists none of it. Each org's conversations live in a store of its own, and inside it only the caller's are listed. One recorded before members were kept names nobody and is nobody's: `?memberless=true` lists those instead, for a SuperAdmin alone (403 for anyone else), and each such list is audited. A validated principal naming an org and a user the identity boundary attests no two people share is required: 401 without a principal, 403 without an org or such a user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentAPIGetAgentChatConversationsRequest
@@ -1461,9 +1556,9 @@ func (r AgentAPIGetAgentChatConversationsByIdRequest) Execute() (*http.Response,
 /*
 GetAgentChatConversationsById Read one agent thread in full
 
-Returns every message of one conversation in order — role, content, the assistant's tool calls where it made any, and each message's creation time — which is the transcript a client replays to resume a thread.
+Returns every message of one of the caller's conversations in order — role, content, the assistant's tool calls where it made any, and each message's creation time — which is the transcript a client replays to resume a thread.
 
-The lookup happens inside the caller's OWN per-org store, so an id belonging to another tenant is not refused, it is simply absent: the answer is 200 with an empty message list. Read it as "no such conversation for you" rather than as an empty thread. A validated principal with a non-empty org is required: 401 without a principal, 403 without an org.
+Another member's conversation, another org's, and one recorded with no member are answered 404, exactly as an id that never existed, so an id says nothing about whose it is (a SuperAdmin alone reads one with no member, and each read is audited). A turn sent under such an id opens a fresh conversation of the caller's. A validated principal naming an org and a user is required: 401 without a principal, 403 without an org or a user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1916,7 +2011,7 @@ func (r AgentAPIGetAgentChatSharesRequest) Execute() (*http.Response, error) {
 /*
 GetAgentChatShares List every live link in your organization
 
-For an admin of the caller's organization: every unrevoked share made in it, with the conversation's id and title, the member who made it, when, and how many people it is open to. `?user=` narrows it to one member's. Anyone else is answered 403.
+For an admin of the caller's organization: every unrevoked share made in it, with the conversation's id and title, the member who made it, when, and how many people it is open to. `?user=` narrows it to one member's. Anyone else is answered 403, and so is an admin of a held org such as hanzo, whose members are customers who are strangers to each other.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentAPIGetAgentChatSharesRequest
@@ -2504,10 +2599,11 @@ func (r AgentAPIGetAgentMetricsRequest) Execute() (*AgentMetricsView, *http.Resp
 }
 
 /*
-GetAgentMetrics Serves the invocations-over-time histogram for the org's Agents dashboard.
+GetAgentMetrics Serves the invocations-over-time histogram for the Agents dashboard, over the caller's own runs.
 
-Serves the invocations-over-time histogram for the org's Agents
-dashboard. Every point is a REAL count of recorded runs in that time bucket —
+Serves the invocations-over-time histogram for the Agents
+dashboard, over the caller's own runs. Every point is a REAL count of recorded
+runs in that time bucket —
 one series line per agent that ran in the window. The Resource Usage rollup is
 all-null because this store meters no CPU/memory/storage/cost; the console
 renders those as "—" rather than a fabricated figure. No runs => empty series
@@ -2634,10 +2730,12 @@ func (r AgentAPIGetAgentRunsRequest) Execute() (*AgentRunList, *http.Response, e
 }
 
 /*
-GetAgentRuns Returns the org's agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
+GetAgentRuns Returns the caller's own agent runs across EVERY agent of the org, newest first — what ran, on which model, how long it took, and why it failed.
 
-Returns the org's agent runs across EVERY agent, newest first —
-what ran here, for whom, on which model, how long it took, and why it failed.
+Returns the caller's own agent runs across EVERY agent of the org,
+newest first — what ran, on which model, how long it took, and why it failed.
+A run is the person's who asked for it: another member's never appears, and a
+run no person asked for (a schedule) appears to a SuperAdmin alone.
 
 It is the feed the per-agent history could not be: an operator asking "what is
 this tenant's agent plane doing" does not start out knowing an agent ref, and
@@ -2757,7 +2855,7 @@ type AgentAPIGetAgentSessionsRequest struct {
 	parent     *string
 	status     *string
 	project    *string
-	room       *string
+	channel    *string
 	kind       *string
 	limit      *int64
 	after      *string
@@ -2787,9 +2885,9 @@ func (r AgentAPIGetAgentSessionsRequest) Project(project string) AgentAPIGetAgen
 	return r
 }
 
-// Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it.
-func (r AgentAPIGetAgentSessionsRequest) Room(room string) AgentAPIGetAgentSessionsRequest {
-	r.room = &room
+// Channel filters to the sessions started in one collaborative channel — the query a space view runs to show what has been run in it.
+func (r AgentAPIGetAgentSessionsRequest) Channel(channel string) AgentAPIGetAgentSessionsRequest {
+	r.channel = &channel
 	return r
 }
 
@@ -2867,8 +2965,8 @@ func (a *AgentAPIService) GetAgentSessionsExecute(r AgentAPIGetAgentSessionsRequ
 	if r.project != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
 	}
-	if r.room != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "room", r.room, "form", "")
+	if r.channel != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "channel", r.channel, "form", "")
 	}
 	if r.kind != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "kind", r.kind, "form", "")
@@ -2957,7 +3055,8 @@ GetAgentSessionsById Returns one session with its direct child sessions and its 
 Returns one session with its direct child sessions and its 50 most
 recent events, oldest of those first. The children are those the caller may
 see, by the rule the session itself is read by: a member's own, and every one
-for an admin of the org.
+for an admin of the org. In a held org, where self-serve signups land beside
+the platform's staff, a session is its person's alone.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to act on, from the path.
@@ -3121,6 +3220,142 @@ func (a *AgentAPIService) GetAgentSessionsByIdControlExecute(r AgentAPIGetAgentS
 
 	if r.after != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentSessionsByIdEventsRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	id         string
+	after      *int64
+	limit      *int64
+}
+
+// After is the seq of the last event already read; the page starts after it. Absent or zero starts at the first event.
+func (r AgentAPIGetAgentSessionsByIdEventsRequest) After(after int64) AgentAPIGetAgentSessionsByIdEventsRequest {
+	r.after = &after
+	return r
+}
+
+// Limit caps the page. Absent, zero or over 1000 reads as 200.
+func (r AgentAPIGetAgentSessionsByIdEventsRequest) Limit(limit int64) AgentAPIGetAgentSessionsByIdEventsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r AgentAPIGetAgentSessionsByIdEventsRequest) Execute() (*AgentEventList, *http.Response, error) {
+	return r.ApiService.GetAgentSessionsByIdEventsExecute(r)
+}
+
+/*
+GetAgentSessionsByIdEvents Reads a session's log in order, a page at a time: everything after the seq a reader last saw, so a poll resumes exactly where it stopped.
+
+Reads a session's log in order, a page at a time: everything after the seq a
+reader last saw, so a poll resumes exactly where it stopped. It is how to see
+what a run did and why it ended — each model turn, tool call, status and log
+line, as the run wrote them. A run whose process went away is ended first,
+with its reason as the last event.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the session to read, from the path.
+	@return AgentAPIGetAgentSessionsByIdEventsRequest
+*/
+func (a *AgentAPIService) GetAgentSessionsByIdEvents(ctx context.Context, id string) AgentAPIGetAgentSessionsByIdEventsRequest {
+	return AgentAPIGetAgentSessionsByIdEventsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentEventList
+func (a *AgentAPIService) GetAgentSessionsByIdEventsExecute(r AgentAPIGetAgentSessionsByIdEventsRequest) (*AgentEventList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentEventList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsByIdEvents")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/events"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.after != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3532,7 +3767,8 @@ func (r AgentAPIGetAgentTargetsRequest) Execute() (*AgentTargetList, *http.Respo
 GetAgentTargets Returns every machine registered to the caller's org, newest first, each with its live session load.
 
 Returns every machine registered to the caller's org, newest
-first, each with its live session load.
+first, each with its live session load. In a held org, where self-serve
+signups land beside the platform's staff, it is only the caller's own.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentAPIGetAgentTargetsRequest
@@ -3865,6 +4101,100 @@ func (a *AgentAPIService) PatchAgentByRefExecute(r AgentAPIPatchAgentByRefReques
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIPatchAgentChatConversationsByIdRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	id         string
+}
+
+func (r AgentAPIPatchAgentChatConversationsByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchAgentChatConversationsByIdExecute(r)
+}
+
+/*
+PatchAgentChatConversationsById Rename, pin or archive one of your conversations
+
+Takes `{title?, pinned?, archived?}` and changes what it names, leaving the rest; a body naming none is refused 400, and so is an empty title. A title is cut to one line of at most 80 characters. Answers the conversation as the list does — id, title, updatedAt, pinned, archived — and the change does not move `updatedAt`, which stays when it was last spoken in.
+
+The list puts pinned conversations first and leaves archived ones out; `?archived=true` lists those alone. Only the member who opened the conversation may change it; another member's, another org's, and one recorded with no member answer 404. Every change is written to the audit trail.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AgentAPIPatchAgentChatConversationsByIdRequest
+*/
+func (a *AgentAPIService) PatchAgentChatConversationsById(ctx context.Context, id string) AgentAPIPatchAgentChatConversationsByIdRequest {
+	return AgentAPIPatchAgentChatConversationsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) PatchAgentChatConversationsByIdExecute(r AgentAPIPatchAgentChatConversationsByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PatchAgentChatConversationsById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/conversations/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type AgentAPIPatchAgentSessionsByIdRequest struct {
@@ -4842,9 +5172,12 @@ endpoint of its own. One way to watch a run, whoever started it.
 
 It is also how work CONTINUES. Pass an earlier run's session as `after` and
 this one starts from where that one stopped, so "now add tests for it" builds
-on the branch already pushed instead of a fresh clone. The follow-up still gets
-its own branch and its own session — one run, one branch, always reviewable on
-its own.
+on the branch already pushed instead of a fresh clone. The follow-up has its
+own session and writes the same branch, so one piece of work is one branch and
+one pull request however many instructions it takes.
+
+Pass `branch` to name the branch the run writes (`agent/<name>`), and `pull`
+as false to push it without opening a pull request.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentAPIPostAgentCodingRequest
@@ -4900,6 +5233,140 @@ func (a *AgentAPIService) PostAgentCodingExecute(r AgentAPIPostAgentCodingReques
 	}
 	// body params
 	localVarPostBody = r.agentCodingStartIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIPostAgentCodingBySessionExtendRequest struct {
+	ctx                 context.Context
+	ApiService          *AgentAPIService
+	session             string
+	agentCodingExtendIn *AgentCodingExtendIn
+}
+
+func (r AgentAPIPostAgentCodingBySessionExtendRequest) AgentCodingExtendIn(agentCodingExtendIn AgentCodingExtendIn) AgentAPIPostAgentCodingBySessionExtendRequest {
+	r.agentCodingExtendIn = &agentCodingExtendIn
+	return r
+}
+
+func (r AgentAPIPostAgentCodingBySessionExtendRequest) Execute() (*AgentCodingExtended, *http.Response, error) {
+	return r.ApiService.PostAgentCodingBySessionExtendExecute(r)
+}
+
+/*
+PostAgentCodingBySessionExtend Gives your running coding run more time.
+
+Gives your running coding run more time. A run is held to the time it was asked
+for (`timeoutSeconds`) and, when it is up, keeps its work on its branch and
+ends; this moves that time later while the run works, so a task expected to
+take five minutes that is nearly done is given two more rather than restarted.
+`seconds` is added to the time the run has left, as far as the longest a run
+may be given; the answer says when the run is up now, so asking for more than
+that reads what you got.
+
+The run must be yours and still working: a run that is paused or already out
+of time is a conflict (start a new one with `after` set to its session), and
+one that is not running is not found. A run sent to a machine of your own
+keeps that machine's time and cannot be extended.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param session Session is the run's handle, from the path.
+	@return AgentAPIPostAgentCodingBySessionExtendRequest
+*/
+func (a *AgentAPIService) PostAgentCodingBySessionExtend(ctx context.Context, session string) AgentAPIPostAgentCodingBySessionExtendRequest {
+	return AgentAPIPostAgentCodingBySessionExtendRequest{
+		ApiService: a,
+		ctx:        ctx,
+		session:    session,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentCodingExtended
+func (a *AgentAPIService) PostAgentCodingBySessionExtendExecute(r AgentAPIPostAgentCodingBySessionExtendRequest) (*AgentCodingExtended, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentCodingExtended
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentCodingBySessionExtend")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/coding/{session}/extend"
+	localVarPath = strings.Replace(localVarPath, "{"+"session"+"}", url.PathEscape(parameterValueToString(r.session, "session")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.agentCodingExtendIn == nil {
+		return localVarReturnValue, nil, reportError("agentCodingExtendIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.agentCodingExtendIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -5020,6 +5487,264 @@ func (a *AgentAPIService) PostAgentCodingBySessionMergeExecute(r AgentAPIPostAge
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIPostAgentCodingBySessionPullRequest struct {
+	ctx               context.Context
+	ApiService        *AgentAPIService
+	session           string
+	agentCodingPullIn *AgentCodingPullIn
+}
+
+func (r AgentAPIPostAgentCodingBySessionPullRequest) AgentCodingPullIn(agentCodingPullIn AgentCodingPullIn) AgentAPIPostAgentCodingBySessionPullRequest {
+	r.agentCodingPullIn = &agentCodingPullIn
+	return r
+}
+
+func (r AgentAPIPostAgentCodingBySessionPullRequest) Execute() (*AgentCodingPulled, *http.Response, error) {
+	return r.ApiService.PostAgentCodingBySessionPullExecute(r)
+}
+
+/*
+PostAgentCodingBySessionPull Opens the pull request for the branch a coding run pushed, as the run's person and with no agent run, and answers its number and address.
+
+Opens the pull request for the branch a coding run pushed, as the run's person
+and with no agent run, and answers its number and address.
+
+A run pushes its branch and stops; the pull request is the step after, taken
+when the work is ready. A run that already has an open pull request, or a
+branch that has one on its host, answers with that one, so asking twice is
+safe. Title, body, base and draft are optional: the title and body come from
+the run's task, the base is the branch the run started from, and draft opens it
+as one a reviewer cannot merge yet. The run's branch must be on its host: a run
+that pushed nothing, or has not pushed yet, is 409. Who may is who may read the
+run, and the pull request is read back at GET /v1/agent/coding/{session}/changes.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param session Session is the run's handle, from the path.
+	@return AgentAPIPostAgentCodingBySessionPullRequest
+*/
+func (a *AgentAPIService) PostAgentCodingBySessionPull(ctx context.Context, session string) AgentAPIPostAgentCodingBySessionPullRequest {
+	return AgentAPIPostAgentCodingBySessionPullRequest{
+		ApiService: a,
+		ctx:        ctx,
+		session:    session,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentCodingPulled
+func (a *AgentAPIService) PostAgentCodingBySessionPullExecute(r AgentAPIPostAgentCodingBySessionPullRequest) (*AgentCodingPulled, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentCodingPulled
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentCodingBySessionPull")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/coding/{session}/pull"
+	localVarPath = strings.Replace(localVarPath, "{"+"session"+"}", url.PathEscape(parameterValueToString(r.session, "session")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.agentCodingPullIn == nil {
+		return localVarReturnValue, nil, reportError("agentCodingPullIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.agentCodingPullIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIPostAgentCodingBySessionSteerRequest struct {
+	ctx                    context.Context
+	ApiService             *AgentAPIService
+	session                string
+	agentCodingInstruction *AgentCodingInstruction
+}
+
+func (r AgentAPIPostAgentCodingBySessionSteerRequest) AgentCodingInstruction(agentCodingInstruction AgentCodingInstruction) AgentAPIPostAgentCodingBySessionSteerRequest {
+	r.agentCodingInstruction = &agentCodingInstruction
+	return r
+}
+
+func (r AgentAPIPostAgentCodingBySessionSteerRequest) Execute() (*AgentCodingAck, *http.Response, error) {
+	return r.ApiService.PostAgentCodingBySessionSteerExecute(r)
+}
+
+/*
+PostAgentCodingBySessionSteer Redirect your running or paused coding session.
+
+Redirect your running or paused coding session. The current run keeps its
+work before starting a follow-up; its status events report the next session.
+Ownership comes from the authenticated credential, never the request body.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param session Session identifies the running or paused coding session from the path.
+	@return AgentAPIPostAgentCodingBySessionSteerRequest
+*/
+func (a *AgentAPIService) PostAgentCodingBySessionSteer(ctx context.Context, session string) AgentAPIPostAgentCodingBySessionSteerRequest {
+	return AgentAPIPostAgentCodingBySessionSteerRequest{
+		ApiService: a,
+		ctx:        ctx,
+		session:    session,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentCodingAck
+func (a *AgentAPIService) PostAgentCodingBySessionSteerExecute(r AgentAPIPostAgentCodingBySessionSteerRequest) (*AgentCodingAck, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentCodingAck
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentCodingBySessionSteer")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/coding/{session}/steer"
+	localVarPath = strings.Replace(localVarPath, "{"+"session"+"}", url.PathEscape(parameterValueToString(r.session, "session")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.agentCodingInstruction == nil {
+		return localVarReturnValue, nil, reportError("agentCodingInstruction is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.agentCodingInstruction
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

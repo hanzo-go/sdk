@@ -19,7 +19,7 @@ var _ MappedNullable = &AgentTargetList{}
 
 // AgentTargetList struct for AgentTargetList
 type AgentTargetList struct {
-	// Targets is every target registered to the caller's org.
+	// Targets is every target registered to the caller's org; in a held org, the caller's own.
 	Targets              []AgentTargetView `json:"targets,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

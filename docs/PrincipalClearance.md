@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Allowed** | Pointer to **bool** |  | [optional] 
+**Allowed** | Pointer to **bool** | Allowed is true when nothing is required first and no fact blocks. | [optional] 
 **Amount** | Pointer to **string** | Amount is the gross amount, U.S. dollars. | [optional] 
 **Category** | Pointer to **string** | Category is what is bought: services, attorney, rents, royalties, other or merchandise. | [optional] 
 **DecidedAt** | Pointer to **int64** | DecidedAt is when, unix seconds. | [optional] 
-**FactsRequired** | Pointer to [**[]PrincipalFact**](PrincipalFact.md) |  | [optional] 
+**FactsRequired** | Pointer to [**[]PrincipalFact**](PrincipalFact.md) | Facts are what a rule turns on that the platform does not know. | [optional] 
 **Id** | Pointer to **string** | ID is the clearance, \&quot;clr_\&quot;-prefixed. | [optional] 
 **Notice** | Pointer to **string** | Notice is what a clearance is and is not. | [optional] 
 **Payee** | Pointer to **string** | Payee is the org to be paid. | [optional] 
@@ -16,12 +16,12 @@ Name | Type | Description | Notes
 **Performed** | Pointer to **string** | Performed is where the service is performed, as stated. | [optional] 
 **Platform** | Pointer to **bool** | Platform is whether the caller operates the payee&#39;s platform, as stated. | [optional] 
 **Rail** | Pointer to **string** | Rail is how it moves. | [optional] 
-**ReportingObligations** | Pointer to [**[]PrincipalObligation**](PrincipalObligation.md) |  | [optional] 
-**RequiredBeforePayment** | Pointer to [**[]PrincipalStep**](PrincipalStep.md) |  | [optional] 
-**Rules** | Pointer to [**[]PrincipalDecided**](PrincipalDecided.md) |  | [optional] 
-**SettlementMethods** | Pointer to [**[]PrincipalMethod**](PrincipalMethod.md) |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Withholding** | Pointer to [**PrincipalWithholding**](PrincipalWithholding.md) |  | [optional] 
+**ReportingObligations** | Pointer to [**[]PrincipalObligation**](PrincipalObligation.md) | Reporting are the returns this payment makes someone owe. | [optional] 
+**RequiredBeforePayment** | Pointer to [**[]PrincipalStep**](PrincipalStep.md) | Required are the steps before the payment. | [optional] 
+**Rules** | Pointer to [**[]PrincipalDecided**](PrincipalDecided.md) | Rules names the rule behind each field above. | [optional] 
+**SettlementMethods** | Pointer to [**[]PrincipalMethod**](PrincipalMethod.md) | Settlement are the ways it may settle, net of what is withheld. | [optional] 
+**Status** | Pointer to **string** | Status is what the payer may treat the payee as: us, foreign or unknown — read off the form the payee granted the payer, and unknown without one. | [optional] 
+**Withholding** | Pointer to [**PrincipalWithholding**](PrincipalWithholding.md) | Withholding is what must be withheld. | [optional] 
 
 ## Methods
 

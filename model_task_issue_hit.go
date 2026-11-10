@@ -21,6 +21,8 @@ var _ MappedNullable = &TaskIssueHit{}
 type TaskIssueHit struct {
 	// Assignee is who holds the work. EMPTY MEANS UNHELD, which is what makes the issue claimable: claiming one already held by someone else is refused with 409 rather than quietly taken.
 	Assignee *string `json:"assignee,omitempty"`
+	// Channel is the collaboration channel the issue belongs to, spelled \"<space>_<channel>\" — empty when it is not channel-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read.
+	Channel *string `json:"channel,omitempty"`
 	// Kind is what the row IS: issue, pr or epic.
 	Kind *string `json:"kind,omitempty"`
 	// Number is the issue's number on that board, from 1 and monotonic there. Unique per board, never across the org — so it addresses an issue only together with Project.
@@ -31,8 +33,6 @@ type TaskIssueHit struct {
 	Project *string `json:"project,omitempty"`
 	// Repo is the git repository the issue is bound to, empty when it is not repo-bound.
 	Repo *string `json:"repo,omitempty"`
-	// Room is the collaboration room the issue belongs to, spelled \"<space>_<room>\" — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read.
-	Room *string `json:"room,omitempty"`
 	// Source is which surface opened it: team, git, crm, helpdesk, cms or agent. \"git\" is how the mirrored forge and GitHub rows are spelled.
 	Source *string `json:"source,omitempty"`
 	// Status is the board column: backlog, todo, in_progress, done or canceled. Claiming moves backlog and todo to in_progress and leaves the other three where they are.
@@ -93,6 +93,38 @@ func (o *TaskIssueHit) HasAssignee() bool {
 // SetAssignee gets a reference to the given string and assigns it to the Assignee field.
 func (o *TaskIssueHit) SetAssignee(v string) {
 	o.Assignee = &v
+}
+
+// GetChannel returns the Channel field value if set, zero value otherwise.
+func (o *TaskIssueHit) GetChannel() string {
+	if o == nil || IsNil(o.Channel) {
+		var ret string
+		return ret
+	}
+	return *o.Channel
+}
+
+// GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskIssueHit) GetChannelOk() (*string, bool) {
+	if o == nil || IsNil(o.Channel) {
+		return nil, false
+	}
+	return o.Channel, true
+}
+
+// HasChannel returns a boolean if a field has been set.
+func (o *TaskIssueHit) HasChannel() bool {
+	if o != nil && !IsNil(o.Channel) {
+		return true
+	}
+
+	return false
+}
+
+// SetChannel gets a reference to the given string and assigns it to the Channel field.
+func (o *TaskIssueHit) SetChannel(v string) {
+	o.Channel = &v
 }
 
 // GetKind returns the Kind field value if set, zero value otherwise.
@@ -255,38 +287,6 @@ func (o *TaskIssueHit) SetRepo(v string) {
 	o.Repo = &v
 }
 
-// GetRoom returns the Room field value if set, zero value otherwise.
-func (o *TaskIssueHit) GetRoom() string {
-	if o == nil || IsNil(o.Room) {
-		var ret string
-		return ret
-	}
-	return *o.Room
-}
-
-// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TaskIssueHit) GetRoomOk() (*string, bool) {
-	if o == nil || IsNil(o.Room) {
-		return nil, false
-	}
-	return o.Room, true
-}
-
-// HasRoom returns a boolean if a field has been set.
-func (o *TaskIssueHit) HasRoom() bool {
-	if o != nil && !IsNil(o.Room) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoom gets a reference to the given string and assigns it to the Room field.
-func (o *TaskIssueHit) SetRoom(v string) {
-	o.Room = &v
-}
-
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *TaskIssueHit) GetSource() string {
 	if o == nil || IsNil(o.Source) {
@@ -428,6 +428,9 @@ func (o TaskIssueHit) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Assignee) {
 		toSerialize["assignee"] = o.Assignee
 	}
+	if !IsNil(o.Channel) {
+		toSerialize["channel"] = o.Channel
+	}
 	if !IsNil(o.Kind) {
 		toSerialize["kind"] = o.Kind
 	}
@@ -442,9 +445,6 @@ func (o TaskIssueHit) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Repo) {
 		toSerialize["repo"] = o.Repo
-	}
-	if !IsNil(o.Room) {
-		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
@@ -481,12 +481,12 @@ func (o *TaskIssueHit) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignee")
+		delete(additionalProperties, "channel")
 		delete(additionalProperties, "kind")
 		delete(additionalProperties, "number")
 		delete(additionalProperties, "priority")
 		delete(additionalProperties, "project")
 		delete(additionalProperties, "repo")
-		delete(additionalProperties, "room")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "title")

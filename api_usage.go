@@ -489,12 +489,13 @@ func (r UsageAPIGetUsageSummaryRequest) Execute() (*UsageUsageSummary, *http.Res
 }
 
 /*
-GetUsageSummary Answers GET /v1/usage/summary: the caller's own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org's LLM usage totals from the warehouse, and the caller's OWN linked provider accounts beside the org's Hanzo-routed usage.
+GetUsageSummary Answers GET /v1/usage/summary: the caller's own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org's LLM usage totals from the warehouse (with what the prompt cache served and saved), the org's Kai decisions, and the caller's OWN linked provider accounts beside the org's Hanzo-routed usage.
 
 Answers GET /v1/usage/summary: the caller's own usage footprint over one
 window — the categorized spend roll-up from the commerce ledger, the org's LLM
-usage totals from the warehouse, and the caller's OWN linked provider accounts
-beside the org's Hanzo-routed usage.
+usage totals from the warehouse (with what the prompt cache served and saved),
+the org's Kai decisions, and the caller's OWN linked provider accounts beside
+the org's Hanzo-routed usage.
 
 Every source degrades INDEPENDENTLY to honest zeros and says so in `sources` and
 in its own `available` flag, so a partial deploy reports "no data" rather than

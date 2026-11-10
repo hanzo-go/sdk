@@ -19,8 +19,14 @@ var _ MappedNullable = &TranslateReviewRequest{}
 
 // TranslateReviewRequest struct for TranslateReviewRequest
 type TranslateReviewRequest struct {
+	// Format is the markup the source carries: text (the default), html or markdown. Part of the entry's identity.
+	Format *string `json:"format,omitempty"`
 	// Glossary is the terminology the entry was translated under. Its VERSION — the digest of the sorted terms — is part of the entry's identity, so editing a term yields a new entry rather than overwriting the old rendering.
 	Glossary map[string]string `json:"glossary,omitempty"`
+	// Lang is the source language the translate calls this entry serves declare (their `source`), empty for calls that let the engine detect it. Part of the entry's identity; an entry with none also serves calls that declare one.
+	Lang *string `json:"lang,omitempty"`
+	// Model is the quality-tier model the translate calls this entry serves name; empty for the default. Part of the entry's identity, and refused with bulk.
+	Model *string `json:"model,omitempty"`
 	// Source is the ORIGINAL string this entry translates. Required; part of the entry's identity, so a different source is a different entry.
 	Source *string `json:"source,omitempty"`
 	// State is the entry's new position on the review ladder: suggested, approved or published. `machine` is engine-only and is refused here — a human may not demote a string back into the churn.
@@ -53,6 +59,38 @@ func NewTranslateReviewRequestWithDefaults() *TranslateReviewRequest {
 	return &this
 }
 
+// GetFormat returns the Format field value if set, zero value otherwise.
+func (o *TranslateReviewRequest) GetFormat() string {
+	if o == nil || IsNil(o.Format) {
+		var ret string
+		return ret
+	}
+	return *o.Format
+}
+
+// GetFormatOk returns a tuple with the Format field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TranslateReviewRequest) GetFormatOk() (*string, bool) {
+	if o == nil || IsNil(o.Format) {
+		return nil, false
+	}
+	return o.Format, true
+}
+
+// HasFormat returns a boolean if a field has been set.
+func (o *TranslateReviewRequest) HasFormat() bool {
+	if o != nil && !IsNil(o.Format) {
+		return true
+	}
+
+	return false
+}
+
+// SetFormat gets a reference to the given string and assigns it to the Format field.
+func (o *TranslateReviewRequest) SetFormat(v string) {
+	o.Format = &v
+}
+
 // GetGlossary returns the Glossary field value if set, zero value otherwise.
 func (o *TranslateReviewRequest) GetGlossary() map[string]string {
 	if o == nil || IsNil(o.Glossary) {
@@ -83,6 +121,70 @@ func (o *TranslateReviewRequest) HasGlossary() bool {
 // SetGlossary gets a reference to the given map[string]string and assigns it to the Glossary field.
 func (o *TranslateReviewRequest) SetGlossary(v map[string]string) {
 	o.Glossary = v
+}
+
+// GetLang returns the Lang field value if set, zero value otherwise.
+func (o *TranslateReviewRequest) GetLang() string {
+	if o == nil || IsNil(o.Lang) {
+		var ret string
+		return ret
+	}
+	return *o.Lang
+}
+
+// GetLangOk returns a tuple with the Lang field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TranslateReviewRequest) GetLangOk() (*string, bool) {
+	if o == nil || IsNil(o.Lang) {
+		return nil, false
+	}
+	return o.Lang, true
+}
+
+// HasLang returns a boolean if a field has been set.
+func (o *TranslateReviewRequest) HasLang() bool {
+	if o != nil && !IsNil(o.Lang) {
+		return true
+	}
+
+	return false
+}
+
+// SetLang gets a reference to the given string and assigns it to the Lang field.
+func (o *TranslateReviewRequest) SetLang(v string) {
+	o.Lang = &v
+}
+
+// GetModel returns the Model field value if set, zero value otherwise.
+func (o *TranslateReviewRequest) GetModel() string {
+	if o == nil || IsNil(o.Model) {
+		var ret string
+		return ret
+	}
+	return *o.Model
+}
+
+// GetModelOk returns a tuple with the Model field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TranslateReviewRequest) GetModelOk() (*string, bool) {
+	if o == nil || IsNil(o.Model) {
+		return nil, false
+	}
+	return o.Model, true
+}
+
+// HasModel returns a boolean if a field has been set.
+func (o *TranslateReviewRequest) HasModel() bool {
+	if o != nil && !IsNil(o.Model) {
+		return true
+	}
+
+	return false
+}
+
+// SetModel gets a reference to the given string and assigns it to the Model field.
+func (o *TranslateReviewRequest) SetModel(v string) {
+	o.Model = &v
 }
 
 // GetSource returns the Source field value if set, zero value otherwise.
@@ -255,8 +357,17 @@ func (o TranslateReviewRequest) MarshalJSON() ([]byte, error) {
 
 func (o TranslateReviewRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Format) {
+		toSerialize["format"] = o.Format
+	}
 	if !IsNil(o.Glossary) {
 		toSerialize["glossary"] = o.Glossary
+	}
+	if !IsNil(o.Lang) {
+		toSerialize["lang"] = o.Lang
+	}
+	if !IsNil(o.Model) {
+		toSerialize["model"] = o.Model
 	}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
@@ -295,7 +406,10 @@ func (o *TranslateReviewRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "format")
 		delete(additionalProperties, "glossary")
+		delete(additionalProperties, "lang")
+		delete(additionalProperties, "model")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "state")
 		delete(additionalProperties, "target")

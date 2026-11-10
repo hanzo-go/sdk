@@ -7,7 +7,9 @@ Name | Type | Description | Notes
 **Completion** | Pointer to **string** |  | [optional] 
 **InputPerMillion** | Pointer to **float32** |  | [optional] 
 **OutputPerMillion** | Pointer to **float32** |  | [optional] 
+**Overrides** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **Prompt** | Pointer to **string** |  | [optional] 
+**Rates** | Pointer to **map[string]string** |  | [optional] 
 **Variable** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -104,6 +106,31 @@ SetOutputPerMillion sets OutputPerMillion field to given value.
 
 HasOutputPerMillion returns a boolean if a field has been set.
 
+### GetOverrides
+
+`func (o *AiModelPricingInfo) GetOverrides() []map[string]interface{}`
+
+GetOverrides returns the Overrides field if non-nil, zero value otherwise.
+
+### GetOverridesOk
+
+`func (o *AiModelPricingInfo) GetOverridesOk() (*[]map[string]interface{}, bool)`
+
+GetOverridesOk returns a tuple with the Overrides field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOverrides
+
+`func (o *AiModelPricingInfo) SetOverrides(v []map[string]interface{})`
+
+SetOverrides sets Overrides field to given value.
+
+### HasOverrides
+
+`func (o *AiModelPricingInfo) HasOverrides() bool`
+
+HasOverrides returns a boolean if a field has been set.
+
 ### GetPrompt
 
 `func (o *AiModelPricingInfo) GetPrompt() string`
@@ -128,6 +155,31 @@ SetPrompt sets Prompt field to given value.
 `func (o *AiModelPricingInfo) HasPrompt() bool`
 
 HasPrompt returns a boolean if a field has been set.
+
+### GetRates
+
+`func (o *AiModelPricingInfo) GetRates() map[string]string`
+
+GetRates returns the Rates field if non-nil, zero value otherwise.
+
+### GetRatesOk
+
+`func (o *AiModelPricingInfo) GetRatesOk() (*map[string]string, bool)`
+
+GetRatesOk returns a tuple with the Rates field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRates
+
+`func (o *AiModelPricingInfo) SetRates(v map[string]string)`
+
+SetRates sets Rates field to given value.
+
+### HasRates
+
+`func (o *AiModelPricingInfo) HasRates() bool`
+
+HasRates returns a boolean if a field has been set.
 
 ### GetVariable
 

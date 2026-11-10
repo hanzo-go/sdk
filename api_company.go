@@ -37,6 +37,9 @@ GetCompany Returns the caller org's formation and the stages reachable from it, 
 Returns the caller org's formation and the stages reachable from it, or 404
 when the org has not begun one.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIGetCompanyRequest
 */
@@ -540,6 +543,9 @@ Starts the org's one formation and returns it with the stages reachable
 from it. It is idempotent: an org that already has a formation gets that one
 back with 200, while a first call creates it and answers 201.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyRequest
 */
@@ -665,6 +671,9 @@ satisfied answers 422 naming what is missing. Reaching the terminal `company`
 stage also records the incorporation on the canonical cap table, and that must
 succeed before the transition is persisted.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyAdvanceRequest
 */
@@ -782,6 +791,9 @@ filing through the filing client.
 
 With no filing partner wired the filing is recorded honestly as "manual" — no
 filing id is fabricated. Available only at the documents stage.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyDocumentsRequest
@@ -1017,6 +1029,9 @@ Sends the generated formation documents for signature by every
 founder and records the provider's reference on the formation. Available only
 at the esign stage.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyEsignRequest
 */
@@ -1135,6 +1150,9 @@ signal is idempotent.
 
 An explicit `signed` in the request overrides the provider's answer, which is
 the manual path for the stub provider that never self-completes.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyEsignCompleteRequest
@@ -1257,6 +1275,9 @@ Replaces the formation's founders. Each founder needs a name, an
 email and an equity share in basis points; every founder is (re)set to pending
 KYC, so a previously settled decision does not survive a change of the list.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyFoundersRequest
 */
@@ -1376,7 +1397,7 @@ PostCompanyFundraiseDeck Share a pitch deck in the org's data room
 
 Stores the request body as a document in the caller org's data room and answers with the data room id to reference it by. The deck is RAW BYTES of whatever content type is sent — a PDF, a slide export — not a JSON document: the Content-Type header is carried through to the data room as given, and `?name=` names the document, defaulting to `pitch-deck`.
 
-Scoped to the caller's validated org, and only after incorporation: a formation still short of stage `company` is refused 409 and an org that never began one is 404. The route is registered AHEAD of the surface's JSON body cap deliberately, so a deck's size ceiling is the edge's rather than the cap meant for small structured records. An empty body is 400; a data room that will not take the bytes is 502.
+Scoped to the caller's validated org, for a SuperAdmin or an admin of that org (a member who is neither is refused 403), and only after incorporation: a formation still short of stage `company` is refused 409 and an org that never began one is 404. The route is registered AHEAD of the surface's JSON body cap deliberately, so a deck's size ceiling is the edge's rather than the cap meant for small structured records. An empty body is 400; a data room that will not take the bytes is 502.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyFundraiseDeckRequest
@@ -1487,6 +1508,9 @@ PostCompanyFundraiseRound Records a fundraising round on the org's canonical cap
 Records a fundraising round on the org's canonical cap table.
 Available only after incorporation (stage company); roundType defaults to
 PRICED.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyFundraiseRoundRequest
@@ -1609,6 +1633,9 @@ Raises an e-signature request over documents already in the org's
 data room — a SAFE, a convertible note, or any other fundraising paper.
 Available only after incorporation (stage company).
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyFundraiseSafeRequest
 */
@@ -1729,6 +1756,9 @@ would double-issue founder share certificates. The root is persisted even when
 the on-chain submit fails, because the root is the tamper-evident witness and
 must not be recomputed on retry. Available only at the genesis stage.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyGenesisRequest
 */
@@ -1848,6 +1878,9 @@ The first row is a header and columns are matched by name (case-insensitive):
 name and email are required, type/relationship/institution optional. A sheet
 without name and email columns, or with no usable data rows, is refused with
 400. Available only at the import stage.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyImportCaptableRequest
@@ -1970,6 +2003,9 @@ Ingests an existing company's corporate documents from a Google
 Drive folder into the org's data room. The import is shallow — sub-folders are
 skipped, not walked — and available only at the import stage.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyImportDocumentsRequest
 */
@@ -2089,6 +2125,9 @@ inquiry time is clamped back to pending, so the payment gate can never open
 here. A terminal status arrives only from POST /v1/company/kyc/refresh (the
 provider) or POST /v1/company/kyc/decision (a Hanzo platform reviewer).
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyKycRequest
 */
@@ -2203,6 +2242,9 @@ ATTRIBUTED to the provider.
 It NEVER trusts a client-asserted status — the status comes from the PROVIDER —
 so a client cannot force a pass here, and an already-passing founder (e.g. a
 reviewer confirmation) is left untouched.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyKycRefreshRequest
@@ -2332,6 +2374,9 @@ short-circuit, so a caller the machine is about to refuse is never charged.
 That ordering is why the gate cannot lift into middleware, where it would run
 first. Both facts are pinned: TestPaymentDenialWire, TestPaymentChargesLast.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyPaymentRequest
 */
@@ -2441,6 +2486,9 @@ PostCompanySkip Marks the org as already incorporated and moves it onto the impo
 Marks the org as already incorporated and moves it onto the import path,
 so an existing company brings its documents and cap table in instead of forming
 a new entity. Available only at the structure stage.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanySkipRequest
@@ -2685,6 +2733,9 @@ PutCompanyStructure Records the entity kind, the state of formation and the prop
 Records the entity kind, the state of formation and the proposed
 name. Available only at the structure stage; an unknown structure or
 jurisdiction, or an empty name, is refused with 400.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPutCompanyStructureRequest

@@ -19,9 +19,11 @@ var _ MappedNullable = &O11yO11yDashboardViewUpdateIn{}
 
 // O11yO11yDashboardViewUpdateIn struct for O11yO11yDashboardViewUpdateIn
 type O11yO11yDashboardViewUpdateIn struct {
+	// Data is the listing state the view captures.
 	Data *O11yO11yDashboardViewData `json:"data,omitempty"`
 	// ID is the saved view id from the path.
-	Id                   *string `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"`
+	// Name is the saved view's name; at most 32 characters, no surrounding space.
 	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

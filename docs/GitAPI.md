@@ -4,17 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteGitKeysById**](GitAPI.md#DeleteGitKeysById) | **Delete** /v1/git/keys/{id} | Removes a registered SSH key, scoped to the caller&#39;s org: an org can only delete its own, and a key id it does not own is not found.
 [**DeleteGitReposByName**](GitAPI.md#DeleteGitReposByName) | **Delete** /v1/git/repos/{name} | Removes a repo&#39;s metadata and purges its storage.
 [**DeleteGitReposByNameSubscriptionsById**](GitAPI.md#DeleteGitReposByNameSubscriptionsById) | **Delete** /v1/git/repos/{name}/subscriptions/{id} | Removes one Slack subscription from a repo; the notifier stops posting that repo&#39;s events to that channel.
 [**DeleteGitReposByNameTargetsById**](GitAPI.md#DeleteGitReposByNameTargetsById) | **Delete** /v1/git/repos/{name}/targets/{id} | Removes one outbound mirror target; later pushes stop being forwarded to it.
 [**GetGit**](GitAPI.md#GetGit) | **Get** /v1/git | Browse your org&#39;s repositories
+[**GetGitActivity**](GitAPI.md#GetGitActivity) | **Get** /v1/git/activity | Answers the estate&#39;s last 365 days: distinct commits, merges, active repositories and contributors, for the whole estate, each group and each org, a commit count per day, the newest public commits, and one page of public repositories.
 [**GetGitByOrgByProjectByRepoInfoRefs**](GitAPI.md#GetGitByOrgByProjectByRepoInfoRefs) | **Get** /v1/git/{org}/{project}/{repo}/info/refs | Advertise a repository&#39;s refs to a git client
 [**GetGitByOrgByRepo**](GitAPI.md#GetGitByOrgByRepo) | **Get** /v1/git/{org}/{repo} | Open a repository&#39;s home page
 [**GetGitByOrgByRepoCommits**](GitAPI.md#GetGitByOrgByRepoCommits) | **Get** /v1/git/{org}/{repo}/commits | Read a repository&#39;s commit log
 [**GetGitByOrgByRepoInfoRefs**](GitAPI.md#GetGitByOrgByRepoInfoRefs) | **Get** /v1/git/{org}/{repo}/info/refs | Advertise a repository&#39;s refs to a git client
 [**GetGitExplore**](GitAPI.md#GetGitExplore) | **Get** /v1/git/explore | Discover public repositories across every org
-[**GetGitKeys**](GitAPI.md#GetGitKeys) | **Get** /v1/git/keys | Returns the SSH public keys registered to the caller&#39;s org — the keys that authenticate &#x60;git clone git@&lt;host&gt;:&lt;org&gt;/&lt;repo&gt;.git&#x60;.
 [**GetGitPools**](GitAPI.md#GetGitPools) | **Get** /v1/git/pools | Returns the capacity this org has declared and how many daemons have entered each pool.
 [**GetGitRepos**](GitAPI.md#GetGitRepos) | **Get** /v1/git/repos | Returns the repos in the caller&#39;s scope, most recently updated first.
 [**GetGitReposByName**](GitAPI.md#GetGitReposByName) | **Get** /v1/git/repos/{name} | Returns one repo with its live ref state: every branch name and the resolved HEAD commit.
@@ -38,11 +37,12 @@ Method | HTTP request | Description
 [**PostGitByOrgByProjectByRepoGitUploadPack**](GitAPI.md#PostGitByOrgByProjectByRepoGitUploadPack) | **Post** /v1/git/{org}/{project}/{repo}/git-upload-pack | Serve a clone or fetch
 [**PostGitByOrgByRepoGitReceivePack**](GitAPI.md#PostGitByOrgByRepoGitReceivePack) | **Post** /v1/git/{org}/{repo}/git-receive-pack | Accept a push, and turn it into a build
 [**PostGitByOrgByRepoGitUploadPack**](GitAPI.md#PostGitByOrgByRepoGitUploadPack) | **Post** /v1/git/{org}/{repo}/git-upload-pack | Serve a clone or fetch
-[**PostGitKeys**](GitAPI.md#PostGitKeys) | **Post** /v1/git/keys | Registers an SSH public key so it can authenticate &#x60;git clone git@&lt;host&gt;:&lt;org&gt;/&lt;repo&gt;.git&#x60; for the caller&#39;s org.
+[**PostGitLink**](GitAPI.md#PostGitLink) | **Post** /v1/git/link | Links every repository of the caller&#39;s org that holds no history here and names no link to github.com/&lt;owner&gt;/&lt;name&gt;, where GitHub lets the caller read it.
 [**PostGitPools**](GitAPI.md#PostGitPools) | **Post** /v1/git/pools | Records the capacity an org has, and answers with the secret a runner daemon presents to enter it.
 [**PostGitRepos**](GitAPI.md#PostGitRepos) | **Post** /v1/git/repos | Provisions an empty bare repository in the caller&#39;s scope and returns it with its clone URLs.
 [**PostGitReposByNameGc**](GitAPI.md#PostGitReposByNameGc) | **Post** /v1/git/repos/{name}/gc | Repacks a repo into one bitmapped pack and rewrites its commit-graph, so the next clone reuses the bitmap instead of walking the whole object graph.
-[**PostGitReposByNameMirror**](GitAPI.md#PostGitReposByNameMirror) | **Post** /v1/git/repos/{name}/mirror | Imports an external git repository into the caller&#39;s repo, provisioning it on first use.
+[**PostGitReposByNameHome**](GitAPI.md#PostGitReposByNameHome) | **Post** /v1/git/repos/{name}/home | Moves a repository whose history is HERE to the forge (git.hanzo.ai), the one home of a repository no other host holds, and links it there: the repository is made in the org&#39;s own namespace on the forge, every branch and tag is pushed to it, the forge&#39;s refs are read back and must equal these, and only then does the row name the forge as its link, so this copy becomes the cache it can be fetched back into.
+[**PostGitReposByNameLink**](GitAPI.md#PostGitReposByNameLink) | **Post** /v1/git/repos/{name}/link | Records that a repository&#39;s history lives on another host, making the repository first when the org has none of that name.
 [**PostGitReposByNamePulls**](GitAPI.md#PostGitReposByNamePulls) | **Post** /v1/git/repos/{name}/pulls | Proposes a branch for merging and returns it with its number.
 [**PostGitReposByNamePullsByNumberMerge**](GitAPI.md#PostGitReposByNamePullsByNumberMerge) | **Post** /v1/git/repos/{name}/pulls/{number}/merge | Merges an open pull request by FAST-FORWARDING base to head, and answers the proposal in its merged state with the revision base now points at.
 [**PostGitReposByNamePush**](GitAPI.md#PostGitReposByNamePush) | **Post** /v1/git/repos/{name}/push | Lands a set of files as one commit without a git client — the hanzo.app builder&#39;s push.
@@ -50,80 +50,13 @@ Method | HTTP request | Description
 [**PostGitReposByNameTargets**](GitAPI.md#PostGitReposByNameTargets) | **Post** /v1/git/repos/{name}/targets | Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
 [**PostGitRuns**](GitAPI.md#PostGitRuns) | **Post** /v1/git/runs | Runs a repository&#39;s workflows at a ref, on demand.
 [**PostGitWebhook**](GitAPI.md#PostGitWebhook) | **Post** /v1/git/webhook | Retired — push-to-deploy has no inbound webhook
+[**PostGitWorkspace**](GitAPI.md#PostGitWorkspace) | **Post** /v1/git/workspace | Sets the org&#39;s code workspace up for the caller and answers it: the namespace, made when the org has none, and the caller&#39;s forge account and seat there.
 [**PostRunnerDeclare**](GitAPI.md#PostRunnerDeclare) | **Post** /v1/runner/declare | Republishes what a registered runner can do, and answers with what this side understands, so the two learn about each other from one exchange.
 [**PostRunnerLog**](GitAPI.md#PostRunnerLog) | **Post** /v1/runner/log | Adds console output to a task&#39;s log and answers with how far that log is durable, so the runner knows where to resend from.
 [**PostRunnerRegister**](GitAPI.md#PostRunnerRegister) | **Post** /v1/runner/register | Trades a pool&#39;s join secret for a runner identity and the token that authenticates every later call.
 [**PostRunnerState**](GitAPI.md#PostRunnerState) | **Post** /v1/runner/state | Records a task&#39;s progress and that of its steps, and answers with the result this side now holds — which is how a runner learns its task was stopped from somewhere else.
 [**PostRunnerTask**](GitAPI.md#PostRunnerTask) | **Post** /v1/runner/task | Hands the runner a job to execute, if its pool has one, and answers immediately either way.
 
-
-
-## DeleteGitKeysById
-
-> DeleteGitKeysById(ctx, id).Execute()
-
-Removes a registered SSH key, scoped to the caller's org: an org can only delete its own, and a key id it does not own is not found.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "gitkey_4a1b" // string | ID is the key's identifier (\"gitkey_…\"), from the :id path segment.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.DeleteGitKeysById(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.DeleteGitKeysById``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the key&#39;s identifier (\&quot;gitkey_…\&quot;), from the :id path segment. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteGitKeysByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## DeleteGitReposByName
@@ -389,6 +322,78 @@ Other parameters are passed through a pointer to a apiGetGitRequest struct via t
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitActivity
+
+> GitActivityOut GetGitActivity(ctx).Org(org).Group(group).Page(page).Limit(limit).Execute()
+
+Answers the estate's last 365 days: distinct commits, merges, active repositories and contributors, for the whole estate, each group and each org, a commit count per day, the newest public commits, and one page of public repositories.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	org := "org_example" // string | Org lists one org's repositories; empty lists every org's. (optional)
+	group := "lux" // string | Group lists one group's repositories (hanzo, lux, zoo); empty lists every group's. (optional)
+	page := int64(1) // int64 | Page is the repository page, from 1. Anything not positive means 1. (optional)
+	limit := int64(20) // int64 | Limit is the page size. Anything not positive means 50; the cap is 200. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.GetGitActivity(context.Background()).Org(org).Group(group).Page(page).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitActivity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGitActivity`: GitActivityOut
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitActivity`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitActivityRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **string** | Org lists one org&#39;s repositories; empty lists every org&#39;s. | 
+ **group** | **string** | Group lists one group&#39;s repositories (hanzo, lux, zoo); empty lists every group&#39;s. | 
+ **page** | **int64** | Page is the repository page, from 1. Anything not positive means 1. | 
+ **limit** | **int64** | Limit is the page size. Anything not positive means 50; the cap is 200. | 
+
+### Return type
+
+[**GitActivityOut**](GitActivityOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -735,67 +740,6 @@ Other parameters are passed through a pointer to a apiGetGitExploreRequest struc
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetGitKeys
-
-> GitKeyList GetGitKeys(ctx).Execute()
-
-Returns the SSH public keys registered to the caller's org — the keys that authenticate `git clone git@<host>:<org>/<repo>.git`.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.GetGitKeys(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitKeys``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetGitKeys`: GitKeyList
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitKeys`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetGitKeysRequest struct via the builder pattern
-
-
-### Return type
-
-[**GitKeyList**](GitKeyList.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2417,11 +2361,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostGitKeys
+## PostGitLink
 
-> GitKeyView PostGitKeys(ctx).GitRegisterKeyReq(gitRegisterKeyReq).Execute()
+> GitLinked PostGitLink(ctx).GitLinkAll(gitLinkAll).Execute()
 
-Registers an SSH public key so it can authenticate `git clone git@<host>:<org>/<repo>.git` for the caller's org.
+Links every repository of the caller's org that holds no history here and names no link to github.com/<owner>/<name>, where GitHub lets the caller read it.
 
 
 
@@ -2438,17 +2382,17 @@ import (
 )
 
 func main() {
-	gitRegisterKeyReq := *openapiclient.NewGitRegisterKeyReq() // GitRegisterKeyReq | 
+	gitLinkAll := *openapiclient.NewGitLinkAll() // GitLinkAll | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitKeys(context.Background()).GitRegisterKeyReq(gitRegisterKeyReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitLink(context.Background()).GitLinkAll(gitLinkAll).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitLink``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitKeys`: GitKeyView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitKeys`: %v\n", resp)
+	// response from `PostGitLink`: GitLinked
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitLink`: %v\n", resp)
 }
 ```
 
@@ -2458,16 +2402,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostGitKeysRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitLinkRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gitRegisterKeyReq** | [**GitRegisterKeyReq**](GitRegisterKeyReq.md) |  | 
+ **gitLinkAll** | [**GitLinkAll**](GitLinkAll.md) |  | 
 
 ### Return type
 
-[**GitKeyView**](GitKeyView.md)
+[**GitLinked**](GitLinked.md)
 
 ### Authorization
 
@@ -2685,11 +2629,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostGitReposByNameMirror
+## PostGitReposByNameHome
 
-> GitRepoView PostGitReposByNameMirror(ctx, name).GitMirrorReq(gitMirrorReq).Execute()
+> GitRepoView PostGitReposByNameHome(ctx, name).Execute()
 
-Imports an external git repository into the caller's repo, provisioning it on first use.
+Moves a repository whose history is HERE to the forge (git.hanzo.ai), the one home of a repository no other host holds, and links it there: the repository is made in the org's own namespace on the forge, every branch and tag is pushed to it, the forge's refs are read back and must equal these, and only then does the row name the forge as its link, so this copy becomes the cache it can be fetched back into.
 
 
 
@@ -2706,18 +2650,17 @@ import (
 )
 
 func main() {
-	name := "widgets" // string | Name is the local repo to mirror into, from the :name path segment. It is CREATED on first use.
-	gitMirrorReq := *openapiclient.NewGitMirrorReq() // GitMirrorReq | 
+	name := "widgets" // string | Name is the repository, from the :name path segment.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitReposByNameMirror(context.Background(), name).GitMirrorReq(gitMirrorReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameHome(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameMirror``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameHome``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitReposByNameMirror`: GitRepoView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameMirror`: %v\n", resp)
+	// response from `PostGitReposByNameHome`: GitRepoView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameHome`: %v\n", resp)
 }
 ```
 
@@ -2727,17 +2670,88 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the local repo to mirror into, from the :name path segment. It is CREATED on first use. | 
+**name** | **string** | Name is the repository, from the :name path segment. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostGitReposByNameMirrorRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitReposByNameHomeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **gitMirrorReq** | [**GitMirrorReq**](GitMirrorReq.md) |  | 
+
+### Return type
+
+[**GitRepoView**](GitRepoView.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitReposByNameLink
+
+> GitRepoView PostGitReposByNameLink(ctx, name).GitLinkReq(gitLinkReq).Execute()
+
+Records that a repository's history lives on another host, making the repository first when the org has none of that name.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	name := "widgets" // string | Name is the repository, from the :name path segment. It is made when the org has none of that name.
+	gitLinkReq := *openapiclient.NewGitLinkReq() // GitLinkReq | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameLink(context.Background(), name).GitLinkReq(gitLinkReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameLink``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGitReposByNameLink`: GitRepoView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameLink`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the repository, from the :name path segment. It is made when the org has none of that name. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitReposByNameLinkRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **gitLinkReq** | [**GitLinkReq**](GitLinkReq.md) |  | 
 
 ### Return type
 
@@ -3237,6 +3251,67 @@ Other parameters are passed through a pointer to a apiPostGitWebhookRequest stru
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitWorkspace
+
+> GitWorkspaceView PostGitWorkspace(ctx).Execute()
+
+Sets the org's code workspace up for the caller and answers it: the namespace, made when the org has none, and the caller's forge account and seat there.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostGitWorkspace(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitWorkspace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGitWorkspace`: GitWorkspaceView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitWorkspace`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitWorkspaceRequest struct via the builder pattern
+
+
+### Return type
+
+[**GitWorkspaceView**](GitWorkspaceView.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -22,7 +22,6 @@ Method | HTTP request | Description
 [**DeleteCommerceVariantByVariantid**](CommerceAPI.md#DeleteCommerceVariantByVariantid) | **Delete** /v1/commerce/variant/{variantid} | Delete a variant, keeping a recoverable copy
 [**DeleteCommerceWalletByWalletid**](CommerceAPI.md#DeleteCommerceWalletByWalletid) | **Delete** /v1/commerce/wallet/{walletid} | Delete a wallet, keeping a recoverable copy
 [**DeleteCommerceWatchlistByWatchlistid**](CommerceAPI.md#DeleteCommerceWatchlistByWatchlistid) | **Delete** /v1/commerce/watchlist/{watchlistid} | Delete a watchlist, keeping a recoverable copy
-[**DeleteCommerceWebhookByWebhookid**](CommerceAPI.md#DeleteCommerceWebhookByWebhookid) | **Delete** /v1/commerce/webhook/{webhookid} | Delete a webhook, keeping a recoverable copy
 [**DiscardCart**](CommerceAPI.md#DiscardCart) | **Post** /v1/commerce/cart/{id}/discard | Discard a cart the shopper abandoned
 [**GetCart**](CommerceAPI.md#GetCart) | **Get** /v1/commerce/cart/{id} | Read one cart with its lines and totals
 [**GetCommerceCatalog**](CommerceAPI.md#GetCommerceCatalog) | **Get** /v1/commerce/catalog | The public product catalog projection for a brand
@@ -70,8 +69,6 @@ Method | HTTP request | Description
 [**GetCommerceWalletByWalletid**](CommerceAPI.md#GetCommerceWalletByWalletid) | **Get** /v1/commerce/wallet/{walletid} | Fetch one wallet
 [**GetCommerceWatchlist**](CommerceAPI.md#GetCommerceWatchlist) | **Get** /v1/commerce/watchlist | List your org&#39;s watchlists, as a page
 [**GetCommerceWatchlistByWatchlistid**](CommerceAPI.md#GetCommerceWatchlistByWatchlistid) | **Get** /v1/commerce/watchlist/{watchlistid} | Fetch one watchlist
-[**GetCommerceWebhook**](CommerceAPI.md#GetCommerceWebhook) | **Get** /v1/commerce/webhook | List your org&#39;s webhooks, as a page
-[**GetCommerceWebhookByWebhookid**](CommerceAPI.md#GetCommerceWebhookByWebhookid) | **Get** /v1/commerce/webhook/{webhookid} | Fetch one webhook
 [**OpenCart**](CommerceAPI.md#OpenCart) | **Post** /v1/commerce/cart | Open a cart for a shopper to fill
 [**PatchCommerceCollectionByCollectionid**](CommerceAPI.md#PatchCommerceCollectionByCollectionid) | **Patch** /v1/commerce/collection/{collectionid} | Change part of a collection
 [**PatchCommerceDisclosureByDisclosureid**](CommerceAPI.md#PatchCommerceDisclosureByDisclosureid) | **Patch** /v1/commerce/disclosure/{disclosureid} | Change part of a disclosure
@@ -91,7 +88,6 @@ Method | HTTP request | Description
 [**PatchCommerceVariantByVariantid**](CommerceAPI.md#PatchCommerceVariantByVariantid) | **Patch** /v1/commerce/variant/{variantid} | Change part of a variant
 [**PatchCommerceWalletByWalletid**](CommerceAPI.md#PatchCommerceWalletByWalletid) | **Patch** /v1/commerce/wallet/{walletid} | Change part of a wallet
 [**PatchCommerceWatchlistByWatchlistid**](CommerceAPI.md#PatchCommerceWatchlistByWatchlistid) | **Patch** /v1/commerce/watchlist/{watchlistid} | Change part of a watchlist
-[**PatchCommerceWebhookByWebhookid**](CommerceAPI.md#PatchCommerceWebhookByWebhookid) | **Patch** /v1/commerce/webhook/{webhookid} | Change part of a webhook
 [**PostCommerceCatalogModels**](CommerceAPI.md#PostCommerceCatalogModels) | **Post** /v1/commerce/catalog/models | Land a syncer&#39;s view of the model catalog: upstream costs and machine facts
 [**PostCommerceCatalogModelsRefresh**](CommerceAPI.md#PostCommerceCatalogModelsRefresh) | **Post** /v1/commerce/catalog/models/refresh | Refresh the model catalog by reading the upstream provider
 [**PostCommerceCollection**](CommerceAPI.md#PostCommerceCollection) | **Post** /v1/commerce/collection | Create a collection
@@ -145,8 +141,6 @@ Method | HTTP request | Description
 [**PostCommerceWalletByWalletid**](CommerceAPI.md#PostCommerceWalletByWalletid) | **Post** /v1/commerce/wallet/{walletid} | Method-override tunnel for a wallet — for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceWatchlist**](CommerceAPI.md#PostCommerceWatchlist) | **Post** /v1/commerce/watchlist | Create a watchlist
 [**PostCommerceWatchlistByWatchlistid**](CommerceAPI.md#PostCommerceWatchlistByWatchlistid) | **Post** /v1/commerce/watchlist/{watchlistid} | Method-override tunnel for a watchlist — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceWebhook**](CommerceAPI.md#PostCommerceWebhook) | **Post** /v1/commerce/webhook | Create a webhook
-[**PostCommerceWebhookByWebhookid**](CommerceAPI.md#PostCommerceWebhookByWebhookid) | **Post** /v1/commerce/webhook/{webhookid} | Method-override tunnel for a webhook — for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceWebhooksByProvider**](CommerceAPI.md#PostCommerceWebhooksByProvider) | **Post** /v1/commerce/webhooks/{provider} | Payment-provider webhook intake for settlement and subscription lifecycle events
 [**PutCommerceCollectionByCollectionid**](CommerceAPI.md#PutCommerceCollectionByCollectionid) | **Put** /v1/commerce/collection/{collectionid} | Replace a collection outright
 [**PutCommerceDisclosureByDisclosureid**](CommerceAPI.md#PutCommerceDisclosureByDisclosureid) | **Put** /v1/commerce/disclosure/{disclosureid} | Replace a disclosure outright
@@ -166,7 +160,6 @@ Method | HTTP request | Description
 [**PutCommerceVariantByVariantid**](CommerceAPI.md#PutCommerceVariantByVariantid) | **Put** /v1/commerce/variant/{variantid} | Replace a variant outright
 [**PutCommerceWalletByWalletid**](CommerceAPI.md#PutCommerceWalletByWalletid) | **Put** /v1/commerce/wallet/{walletid} | Replace a wallet outright
 [**PutCommerceWatchlistByWatchlistid**](CommerceAPI.md#PutCommerceWatchlistByWatchlistid) | **Put** /v1/commerce/watchlist/{watchlistid} | Replace a watchlist outright
-[**PutCommerceWebhookByWebhookid**](CommerceAPI.md#PutCommerceWebhookByWebhookid) | **Put** /v1/commerce/webhook/{webhookid} | Replace a webhook outright
 [**SetCartItem**](CommerceAPI.md#SetCartItem) | **Post** /v1/commerce/cart/{id}/item | Set one item&#39;s quantity in a cart; zero removes it
 
 
@@ -1374,74 +1367,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeleteCommerceWatchlistByWatchlistidRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteCommerceWebhookByWebhookid
-
-> DeleteCommerceWebhookByWebhookid(ctx, webhookid).Execute()
-
-Delete a webhook, keeping a recoverable copy
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	webhookid := "webhookid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.DeleteCommerceWebhookByWebhookid(context.Background(), webhookid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DeleteCommerceWebhookByWebhookid``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**webhookid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteCommerceWebhookByWebhookidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -4473,133 +4398,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCommerceWebhook
-
-> GetCommerceWebhook(ctx).Execute()
-
-List your org's webhooks, as a page
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.GetCommerceWebhook(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceWebhook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCommerceWebhookRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetCommerceWebhookByWebhookid
-
-> GetCommerceWebhookByWebhookid(ctx, webhookid).Execute()
-
-Fetch one webhook
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	webhookid := "webhookid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.GetCommerceWebhookByWebhookid(context.Background(), webhookid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceWebhookByWebhookid``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**webhookid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCommerceWebhookByWebhookidRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## OpenCart
 
 > Cart OpenCart(ctx).CartOpen(cartOpen).Execute()
@@ -5869,74 +5667,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPatchCommerceWatchlistByWatchlistidRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PatchCommerceWebhookByWebhookid
-
-> PatchCommerceWebhookByWebhookid(ctx, webhookid).Execute()
-
-Change part of a webhook
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	webhookid := "webhookid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PatchCommerceWebhookByWebhookid(context.Background(), webhookid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PatchCommerceWebhookByWebhookid``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**webhookid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPatchCommerceWebhookByWebhookidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -9412,133 +9142,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCommerceWebhook
-
-> PostCommerceWebhook(ctx).Execute()
-
-Create a webhook
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PostCommerceWebhook(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceWebhook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCommerceWebhookRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCommerceWebhookByWebhookid
-
-> PostCommerceWebhookByWebhookid(ctx, webhookid).Execute()
-
-Method-override tunnel for a webhook — for clients that cannot send PUT, PATCH or DELETE
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	webhookid := "webhookid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PostCommerceWebhookByWebhookid(context.Background(), webhookid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceWebhookByWebhookid``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**webhookid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCommerceWebhookByWebhookidRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostCommerceWebhooksByProvider
 
 > PostCommerceWebhooksByProvider(ctx, provider).Execute()
@@ -10810,74 +10413,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPutCommerceWatchlistByWatchlistidRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PutCommerceWebhookByWebhookid
-
-> PutCommerceWebhookByWebhookid(ctx, webhookid).Execute()
-
-Replace a webhook outright
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	webhookid := "webhookid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PutCommerceWebhookByWebhookid(context.Background(), webhookid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PutCommerceWebhookByWebhookid``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**webhookid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPutCommerceWebhookByWebhookidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

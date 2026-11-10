@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Benchmark** | Pointer to **string** | Benchmark is the catalog id these rows are about. | [optional] 
-**Rows** | Pointer to [**[]BenchmarkLeaderRow**](BenchmarkLeaderRow.md) | Rows is one per model, ordered by measured accuracy descending. | [optional] 
+**Direction** | Pointer to **string** | Direction is \&quot;higher\&quot; or \&quot;lower\&quot;: which way this benchmark&#39;s score improves, and so which way Rows is ordered. | [optional] 
+**Rows** | Pointer to [**[]BenchmarkLeaderRow**](BenchmarkLeaderRow.md) | Rows is one per model, best first in Direction: measured rows by their measurement, then claim-only rows by their published score, ties by model. | [optional] 
 
 ## Methods
 
@@ -50,6 +51,31 @@ SetBenchmark sets Benchmark field to given value.
 `func (o *BenchmarkLeaderboard) HasBenchmark() bool`
 
 HasBenchmark returns a boolean if a field has been set.
+
+### GetDirection
+
+`func (o *BenchmarkLeaderboard) GetDirection() string`
+
+GetDirection returns the Direction field if non-nil, zero value otherwise.
+
+### GetDirectionOk
+
+`func (o *BenchmarkLeaderboard) GetDirectionOk() (*string, bool)`
+
+GetDirectionOk returns a tuple with the Direction field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDirection
+
+`func (o *BenchmarkLeaderboard) SetDirection(v string)`
+
+SetDirection sets Direction field to given value.
+
+### HasDirection
+
+`func (o *BenchmarkLeaderboard) HasDirection() bool`
+
+HasDirection returns a boolean if a field has been set.
 
 ### GetRows
 

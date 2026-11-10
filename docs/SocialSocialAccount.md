@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **int64** | CreatedAt is when the account was connected, as a unix timestamp in seconds. | [optional] 
+**ExternalId** | Pointer to **string** | ExternalID is the platform id the sealed token is stored under. Empty for an account recorded by hand, before a consent named one. A publish uses it to choose that token rather than another account on the same network. | [optional] 
 **Handle** | Pointer to **string** | Handle is the account&#39;s public name on the network, as the customer knows it. Trimmed and bounded at 1024 characters.  Example: \&quot;@acme\&quot; | [optional] 
 **Id** | Pointer to **string** | ID is the account&#39;s identifier, minted on connect and the id every later call addresses it by.  Example: \&quot;acct_7f3c1a\&quot; | [optional] 
 **Provider** | Pointer to **string** | Provider is the network this account is on: x, facebook, instagram, linkedin, tiktok, youtube or threads.  Example: \&quot;x\&quot; | [optional] 
@@ -54,6 +55,31 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *SocialSocialAccount) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
+
+### GetExternalId
+
+`func (o *SocialSocialAccount) GetExternalId() string`
+
+GetExternalId returns the ExternalId field if non-nil, zero value otherwise.
+
+### GetExternalIdOk
+
+`func (o *SocialSocialAccount) GetExternalIdOk() (*string, bool)`
+
+GetExternalIdOk returns a tuple with the ExternalId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExternalId
+
+`func (o *SocialSocialAccount) SetExternalId(v string)`
+
+SetExternalId sets ExternalId field to given value.
+
+### HasExternalId
+
+`func (o *SocialSocialAccount) HasExternalId() bool`
+
+HasExternalId returns a boolean if a field has been set.
 
 ### GetHandle
 

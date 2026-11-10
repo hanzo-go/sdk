@@ -8,12 +8,13 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** | Currency denominates Price. | [optional] 
 **Description** | Pointer to **string** | Description is the long copy, at most 4096 characters. | [optional] 
 **Docs** | Pointer to **string** | Docs is where the listing&#39;s documentation lives: an https URL or a path on docs.hanzo.ai. | [optional] 
-**Kind** | Pointer to **string** | Kind is what is sold: agent, persona, app, skill, mcp or tool (the default). A tool is a platform tool, sold per call by the platform alone. | [optional] 
+**Expert** | Pointer to [**MarketplaceExpertIn**](MarketplaceExpertIn.md) | Expert is the person behind a listing of kind expert — their hourly rate, areas, languages, time zone and weekly hours. Required for kind expert and refused for any other. The price is then the fixed engagement price; an expert sets a rate, a price or both. | [optional] 
+**Kind** | Pointer to **string** | Kind is what is sold: agent, persona, app, skill, mcp, tool (the default) or expert. A tool is a platform tool, sold per call by the platform alone; an expert is the caller, a person making their time available. | [optional] 
 **Price** | Pointer to **string** | Price is the price as a decimal USD string, exact to 18 places — per call for a tool, what a job is offered at otherwise. \&quot;0.0025\&quot; is a quarter of a cent and stays one. Empty or \&quot;0\&quot; publishes it free; a positive price requires Recipient. | [optional] 
 **Public** | Pointer to **bool** | Public makes the listing discoverable by other orgs. Private otherwise. | [optional] 
 **Recipient** | Pointer to **string** | Recipient is the seller&#39;s payout wallet id, in the publishing org — the wallet x402 pays. Required for a monetized listing. | [optional] 
 **Title** | Pointer to **string** | Title is the shop-window name, 1-200 characters. Required. | [optional] 
-**Tool** | Pointer to **string** | Tool names the thing sold, in the seller&#39;s own org: an agent&#39;s name or id, an app&#39;s project slug or id, a skill&#39;s name or id, an MCP server&#39;s name or id registered by hand, or a platform tool&#39;s registry name. It must be the seller&#39;s — there are no phantom listings. | [optional] 
+**Tool** | Pointer to **string** | Tool names the thing sold, in the seller&#39;s own org: an agent&#39;s name or id, an app&#39;s project slug or id, a skill&#39;s name or id, an MCP server&#39;s name or id registered by hand, or a platform tool&#39;s registry name. It must be the seller&#39;s — there are no phantom listings. An expert&#39;s is the caller&#39;s own IAM identity, and is left out. | [optional] 
 
 ## Methods
 
@@ -133,6 +134,31 @@ SetDocs sets Docs field to given value.
 `func (o *MarketplacePublishReq) HasDocs() bool`
 
 HasDocs returns a boolean if a field has been set.
+
+### GetExpert
+
+`func (o *MarketplacePublishReq) GetExpert() MarketplaceExpertIn`
+
+GetExpert returns the Expert field if non-nil, zero value otherwise.
+
+### GetExpertOk
+
+`func (o *MarketplacePublishReq) GetExpertOk() (*MarketplaceExpertIn, bool)`
+
+GetExpertOk returns a tuple with the Expert field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpert
+
+`func (o *MarketplacePublishReq) SetExpert(v MarketplaceExpertIn)`
+
+SetExpert sets Expert field to given value.
+
+### HasExpert
+
+`func (o *MarketplacePublishReq) HasExpert() bool`
+
+HasExpert returns a boolean if a field has been set.
 
 ### GetKind
 

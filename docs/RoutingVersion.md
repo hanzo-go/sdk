@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actor** | Pointer to **string** |  | [optional] 
 **Base** | Pointer to **int32** |  | [optional] 
+**Boot** | Pointer to **string** |  | [optional] 
 **Catalog** | Pointer to **string** |  | [optional] 
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **Diff** | Pointer to **string** |  | [optional] 
@@ -82,6 +83,31 @@ SetBase sets Base field to given value.
 `func (o *RoutingVersion) HasBase() bool`
 
 HasBase returns a boolean if a field has been set.
+
+### GetBoot
+
+`func (o *RoutingVersion) GetBoot() string`
+
+GetBoot returns the Boot field if non-nil, zero value otherwise.
+
+### GetBootOk
+
+`func (o *RoutingVersion) GetBootOk() (*string, bool)`
+
+GetBootOk returns a tuple with the Boot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBoot
+
+`func (o *RoutingVersion) SetBoot(v string)`
+
+SetBoot sets Boot field to given value.
+
+### HasBoot
+
+`func (o *RoutingVersion) HasBoot() bool`
+
+HasBoot returns a boolean if a field has been set.
 
 ### GetCatalog
 

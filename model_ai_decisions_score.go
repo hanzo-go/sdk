@@ -20,9 +20,9 @@ var _ MappedNullable = &AiDecisionsScore{}
 
 // AiDecisionsScore struct for AiDecisionsScore
 type AiDecisionsScore struct {
-	Criteria             []AiDecisionSidesFalse `json:"criteria"`
-	Instructions         *AiDecisionSidesFalse  `json:"instructions,omitempty"`
-	Type                 string                 `json:"type"`
+	Criteria             []interface{} `json:"criteria"`
+	Instructions         interface{}   `json:"instructions,omitempty"`
+	Type                 string        `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,7 +32,7 @@ type _AiDecisionsScore AiDecisionsScore
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAiDecisionsScore(criteria []AiDecisionSidesFalse, type_ string) *AiDecisionsScore {
+func NewAiDecisionsScore(criteria []interface{}, type_ string) *AiDecisionsScore {
 	this := AiDecisionsScore{}
 	this.Criteria = criteria
 	this.Type = type_
@@ -48,9 +48,9 @@ func NewAiDecisionsScoreWithDefaults() *AiDecisionsScore {
 }
 
 // GetCriteria returns the Criteria field value
-func (o *AiDecisionsScore) GetCriteria() []AiDecisionSidesFalse {
+func (o *AiDecisionsScore) GetCriteria() []interface{} {
 	if o == nil {
-		var ret []AiDecisionSidesFalse
+		var ret []interface{}
 		return ret
 	}
 
@@ -59,7 +59,7 @@ func (o *AiDecisionsScore) GetCriteria() []AiDecisionSidesFalse {
 
 // GetCriteriaOk returns a tuple with the Criteria field value
 // and a boolean to check if the value has been set.
-func (o *AiDecisionsScore) GetCriteriaOk() ([]AiDecisionSidesFalse, bool) {
+func (o *AiDecisionsScore) GetCriteriaOk() ([]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,26 +67,27 @@ func (o *AiDecisionsScore) GetCriteriaOk() ([]AiDecisionSidesFalse, bool) {
 }
 
 // SetCriteria sets field value
-func (o *AiDecisionsScore) SetCriteria(v []AiDecisionSidesFalse) {
+func (o *AiDecisionsScore) SetCriteria(v []interface{}) {
 	o.Criteria = v
 }
 
-// GetInstructions returns the Instructions field value if set, zero value otherwise.
-func (o *AiDecisionsScore) GetInstructions() AiDecisionSidesFalse {
-	if o == nil || IsNil(o.Instructions) {
-		var ret AiDecisionSidesFalse
+// GetInstructions returns the Instructions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AiDecisionsScore) GetInstructions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
-	return *o.Instructions
+	return o.Instructions
 }
 
 // GetInstructionsOk returns a tuple with the Instructions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiDecisionsScore) GetInstructionsOk() (*AiDecisionSidesFalse, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiDecisionsScore) GetInstructionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Instructions) {
 		return nil, false
 	}
-	return o.Instructions, true
+	return &o.Instructions, true
 }
 
 // HasInstructions returns a boolean if a field has been set.
@@ -98,9 +99,9 @@ func (o *AiDecisionsScore) HasInstructions() bool {
 	return false
 }
 
-// SetInstructions gets a reference to the given AiDecisionSidesFalse and assigns it to the Instructions field.
-func (o *AiDecisionsScore) SetInstructions(v AiDecisionSidesFalse) {
-	o.Instructions = &v
+// SetInstructions gets a reference to the given interface{} and assigns it to the Instructions field.
+func (o *AiDecisionsScore) SetInstructions(v interface{}) {
+	o.Instructions = v
 }
 
 // GetType returns the Type field value
@@ -138,7 +139,7 @@ func (o AiDecisionsScore) MarshalJSON() ([]byte, error) {
 func (o AiDecisionsScore) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["criteria"] = o.Criteria
-	if !IsNil(o.Instructions) {
+	if o.Instructions != nil {
 		toSerialize["instructions"] = o.Instructions
 	}
 	toSerialize["type"] = o.Type

@@ -26,6 +26,10 @@ type BenchmarkClaimRow struct {
 	Benchmark *string `json:"benchmark,omitempty"`
 	// By is the verified user who recorded a stored row. Empty for a seed row.
 	By *string `json:"by,omitempty"`
+	// Evidence are the evidence uris the claim rests on (GET /v1/research/evidence?uri=).
+	Evidence []string `json:"evidence,omitempty"`
+	// From is the org a curator row was promoted from: the org that filed the claim before a SuperAdmin published it. Empty on every other row.
+	From *string `json:"from,omitempty"`
 	// Model is the system the score is claimed for.
 	Model *string `json:"model,omitempty"`
 	// Org is the org that made the claim. \"admin\" is the platform's own curated reading; any other org is that org's claim, not the platform's. Empty on an unattributed row.
@@ -36,6 +40,8 @@ type BenchmarkClaimRow struct {
 	Protocol *string `json:"protocol,omitempty"`
 	// Provider is who the claim belongs to — the lab or leaderboard whose number this is.
 	Provider *string `json:"provider,omitempty"`
+	// Runs are the research run ids the claim rests on (GET /v1/research/runs?id=).
+	Runs []string `json:"runs,omitempty"`
 	// Score is the reported aggregate, as a percentage.
 	Score *float64 `json:"score,omitempty"`
 	// Source is the citation the row was read from.
@@ -158,6 +164,70 @@ func (o *BenchmarkClaimRow) HasBy() bool {
 // SetBy gets a reference to the given string and assigns it to the By field.
 func (o *BenchmarkClaimRow) SetBy(v string) {
 	o.By = &v
+}
+
+// GetEvidence returns the Evidence field value if set, zero value otherwise.
+func (o *BenchmarkClaimRow) GetEvidence() []string {
+	if o == nil || IsNil(o.Evidence) {
+		var ret []string
+		return ret
+	}
+	return o.Evidence
+}
+
+// GetEvidenceOk returns a tuple with the Evidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkClaimRow) GetEvidenceOk() ([]string, bool) {
+	if o == nil || IsNil(o.Evidence) {
+		return nil, false
+	}
+	return o.Evidence, true
+}
+
+// HasEvidence returns a boolean if a field has been set.
+func (o *BenchmarkClaimRow) HasEvidence() bool {
+	if o != nil && !IsNil(o.Evidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvidence gets a reference to the given []string and assigns it to the Evidence field.
+func (o *BenchmarkClaimRow) SetEvidence(v []string) {
+	o.Evidence = v
+}
+
+// GetFrom returns the From field value if set, zero value otherwise.
+func (o *BenchmarkClaimRow) GetFrom() string {
+	if o == nil || IsNil(o.From) {
+		var ret string
+		return ret
+	}
+	return *o.From
+}
+
+// GetFromOk returns a tuple with the From field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkClaimRow) GetFromOk() (*string, bool) {
+	if o == nil || IsNil(o.From) {
+		return nil, false
+	}
+	return o.From, true
+}
+
+// HasFrom returns a boolean if a field has been set.
+func (o *BenchmarkClaimRow) HasFrom() bool {
+	if o != nil && !IsNil(o.From) {
+		return true
+	}
+
+	return false
+}
+
+// SetFrom gets a reference to the given string and assigns it to the From field.
+func (o *BenchmarkClaimRow) SetFrom(v string) {
+	o.From = &v
 }
 
 // GetModel returns the Model field value if set, zero value otherwise.
@@ -320,6 +390,38 @@ func (o *BenchmarkClaimRow) SetProvider(v string) {
 	o.Provider = &v
 }
 
+// GetRuns returns the Runs field value if set, zero value otherwise.
+func (o *BenchmarkClaimRow) GetRuns() []string {
+	if o == nil || IsNil(o.Runs) {
+		var ret []string
+		return ret
+	}
+	return o.Runs
+}
+
+// GetRunsOk returns a tuple with the Runs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkClaimRow) GetRunsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Runs) {
+		return nil, false
+	}
+	return o.Runs, true
+}
+
+// HasRuns returns a boolean if a field has been set.
+func (o *BenchmarkClaimRow) HasRuns() bool {
+	if o != nil && !IsNil(o.Runs) {
+		return true
+	}
+
+	return false
+}
+
+// SetRuns gets a reference to the given []string and assigns it to the Runs field.
+func (o *BenchmarkClaimRow) SetRuns(v []string) {
+	o.Runs = v
+}
+
 // GetScore returns the Score field value if set, zero value otherwise.
 func (o *BenchmarkClaimRow) GetScore() float64 {
 	if o == nil || IsNil(o.Score) {
@@ -435,6 +537,12 @@ func (o BenchmarkClaimRow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.By) {
 		toSerialize["by"] = o.By
 	}
+	if !IsNil(o.Evidence) {
+		toSerialize["evidence"] = o.Evidence
+	}
+	if !IsNil(o.From) {
+		toSerialize["from"] = o.From
+	}
 	if !IsNil(o.Model) {
 		toSerialize["model"] = o.Model
 	}
@@ -449,6 +557,9 @@ func (o BenchmarkClaimRow) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
+	}
+	if !IsNil(o.Runs) {
+		toSerialize["runs"] = o.Runs
 	}
 	if !IsNil(o.Score) {
 		toSerialize["score"] = o.Score
@@ -484,11 +595,14 @@ func (o *BenchmarkClaimRow) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "at")
 		delete(additionalProperties, "benchmark")
 		delete(additionalProperties, "by")
+		delete(additionalProperties, "evidence")
+		delete(additionalProperties, "from")
 		delete(additionalProperties, "model")
 		delete(additionalProperties, "org")
 		delete(additionalProperties, "origin")
 		delete(additionalProperties, "protocol")
 		delete(additionalProperties, "provider")
+		delete(additionalProperties, "runs")
 		delete(additionalProperties, "score")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "visibility")

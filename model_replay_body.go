@@ -19,6 +19,7 @@ var _ MappedNullable = &ReplayBody{}
 
 // ReplayBody struct for ReplayBody
 type ReplayBody struct {
+	Consent              interface{}   `json:"consent,omitempty"`
 	DistinctId           *string       `json:"distinctId,omitempty"`
 	Events               []interface{} `json:"events,omitempty"`
 	SessionId            *string       `json:"sessionId,omitempty"`
@@ -43,6 +44,39 @@ func NewReplayBody() *ReplayBody {
 func NewReplayBodyWithDefaults() *ReplayBody {
 	this := ReplayBody{}
 	return &this
+}
+
+// GetConsent returns the Consent field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ReplayBody) GetConsent() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Consent
+}
+
+// GetConsentOk returns a tuple with the Consent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ReplayBody) GetConsentOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Consent) {
+		return nil, false
+	}
+	return &o.Consent, true
+}
+
+// HasConsent returns a boolean if a field has been set.
+func (o *ReplayBody) HasConsent() bool {
+	if o != nil && !IsNil(o.Consent) {
+		return true
+	}
+
+	return false
+}
+
+// SetConsent gets a reference to the given interface{} and assigns it to the Consent field.
+func (o *ReplayBody) SetConsent(v interface{}) {
+	o.Consent = v
 }
 
 // GetDistinctId returns the DistinctId field value if set, zero value otherwise.
@@ -183,6 +217,9 @@ func (o ReplayBody) MarshalJSON() ([]byte, error) {
 
 func (o ReplayBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Consent != nil {
+		toSerialize["consent"] = o.Consent
+	}
 	if !IsNil(o.DistinctId) {
 		toSerialize["distinctId"] = o.DistinctId
 	}
@@ -217,6 +254,7 @@ func (o *ReplayBody) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "consent")
 		delete(additionalProperties, "distinctId")
 		delete(additionalProperties, "events")
 		delete(additionalProperties, "sessionId")

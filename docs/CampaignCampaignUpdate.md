@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Audience** | Pointer to **string** |  | [optional] 
-**Budget** | Pointer to **int64** |  | [optional] 
-**Channels** | Pointer to [**[]CampaignChannelSpec**](CampaignChannelSpec.md) |  | [optional] 
-**Content** | Pointer to **[]string** |  | [optional] 
+**Audience** | Pointer to **string** | Audience is the segment or audience selector this campaign targets. | [optional] 
+**Budget** | Pointer to **int64** | Budget is the campaign&#39;s total budget in CENTS. Negative reads as 0. | [optional] 
+**Channels** | Pointer to [**[]CampaignChannelSpec**](CampaignChannelSpec.md) | Channels are the fan-out targets, at most one per kind (paid, organic, email) and at most 12. A channel&#39;s status and provider id are server-owned: whatever the caller sends for them is replaced with \&quot;pending\&quot;. | [optional] 
+**Content** | Pointer to **[]string** | Content is the ordered creative set. Content[0] is the active creative and the rest are A/B variants; at most 32, empty entries dropped. | [optional] 
 **Id** | Pointer to **string** | ID is the campaign to update, from the path. | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**ScheduleAt** | Pointer to **int64** |  | [optional] 
+**Name** | Pointer to **string** | Name is the campaign&#39;s display name. Required; trimmed and capped at 2048 characters. | [optional] 
+**ScheduleAt** | Pointer to **int64** | ScheduleAt is when the campaign should run, in unix seconds. Negative reads as 0 (immediately). | [optional] 
 
 ## Methods
 

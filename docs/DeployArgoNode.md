@@ -5,17 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** | CreatedAt is the object&#39;s creationTimestamp, RFC 3339 UTC to the second. Absent when the object carries none. | [optional] 
-**Group** | Pointer to **string** |  | [optional] 
+**Group** | Pointer to **string** | Group is the object&#39;s API group: empty for the core group (Pod, Service, ConfigMap), otherwise apps, networking.k8s.io, autoscaling or policy — and hanzo.ai for the App CR at the root. | [optional] 
 **Health** | Pointer to [**DeployArgoHealth**](DeployArgoHealth.md) | Health is the node&#39;s own derived health. Always present on a node of this tree; a kind with no health signal of its own reports Healthy, since a ConfigMap existing IS its healthy state. | [optional] 
 **Images** | Pointer to **[]string** | Images are the container images running on this node. Always absent — the tag travels as the \&quot;Image Tag\&quot; chip in Info instead, which is where the SPA reads it on a node. | [optional] 
 **Info** | Pointer to [**[]DeployArgoInfoItem**](DeployArgoInfoItem.md) | Info are the chips shown on the node. At most one: the image tag — the RUNNING tag on a Deployment, ReplicaSet or Pod, and the DECLARED tag on the App CR at the root. Absent on a node that carries no image at all. | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
+**Kind** | Pointer to **string** | Kind is the object kind. The root is the App CR; below it come Deployment, ReplicaSet, Pod, Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget and ConfigMap. Never Secret — the walk does not visit them, so no materialized environment can reach the tree. | [optional] 
+**Name** | Pointer to **string** | Name is the object&#39;s metadata.name. | [optional] 
+**Namespace** | Pointer to **string** | Namespace is the namespace the walk ran in, the same for every node of one tree. | [optional] 
 **ParentRefs** | Pointer to [**[]DeployArgoResourceRef**](DeployArgoResourceRef.md) | ParentRefs are the node&#39;s edges UPWARD, which is how the SPA draws the DAG from this flat list. Exactly one entry where present: a depth-1 object points at the App CR, a ReplicaSet at its Deployment, a Pod at its ReplicaSet (or at the Deployment whose selector matches it, when the ReplicaSet is gone). Absent on the root. | [optional] 
 **ResourceVersion** | Pointer to **string** | ResourceVersion is the k8s version a watch would resume from. Always empty: the tree is rebuilt from live reads on every request, including on every frame of the SSE stream, so there is no revision to resume from. | [optional] 
-**Uid** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **string** |  | [optional] 
+**Uid** | Pointer to **string** | UID is the object&#39;s metadata.uid. Absent on a PARENT reference, which addresses its target by kind and name rather than by identity. | [optional] 
+**Version** | Pointer to **string** | Version is the object&#39;s API version as the live object reports it: v1 for every kind the walk reaches except the HorizontalPodAutoscaler, which is autoscaling/v2. | [optional] 
 
 ## Methods
 

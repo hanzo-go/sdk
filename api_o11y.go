@@ -22649,21 +22649,25 @@ func (r O11yAPIGetRuleHistoryFilterValuesRequest) Name(name string) O11yAPIGetRu
 	return r
 }
 
+// StartUnixMilli is the window start, unix milliseconds.
 func (r O11yAPIGetRuleHistoryFilterValuesRequest) StartUnixMilli(startUnixMilli int64) O11yAPIGetRuleHistoryFilterValuesRequest {
 	r.startUnixMilli = &startUnixMilli
 	return r
 }
 
+// EndUnixMilli is the window end, unix milliseconds.
 func (r O11yAPIGetRuleHistoryFilterValuesRequest) EndUnixMilli(endUnixMilli int64) O11yAPIGetRuleHistoryFilterValuesRequest {
 	r.endUnixMilli = &endUnixMilli
 	return r
 }
 
+// SearchText narrows the keys to those containing it.
 func (r O11yAPIGetRuleHistoryFilterValuesRequest) SearchText(searchText string) O11yAPIGetRuleHistoryFilterValuesRequest {
 	r.searchText = &searchText
 	return r
 }
 
+// Limit caps how many keys come back. Absent means 50, capped at 200.
 func (r O11yAPIGetRuleHistoryFilterValuesRequest) Limit(limit int64) O11yAPIGetRuleHistoryFilterValuesRequest {
 	r.limit = &limit
 	return r

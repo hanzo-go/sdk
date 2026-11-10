@@ -25,7 +25,9 @@ type AiModelInfo struct {
 	ContextWindow        *int32              `json:"context_window,omitempty"`
 	Created              *int32              `json:"created,omitempty"`
 	Description          *string             `json:"description,omitempty"`
+	Expires              *string             `json:"expires,omitempty"`
 	Family               *string             `json:"family,omitempty"`
+	Free                 *bool               `json:"free,omitempty"`
 	Id                   *string             `json:"id,omitempty"`
 	Inputs               []string            `json:"inputs,omitempty"`
 	MaxOutputTokens      *int32              `json:"max_output_tokens,omitempty"`
@@ -39,6 +41,8 @@ type AiModelInfo struct {
 	SupportsReasoning    *bool               `json:"supports_reasoning,omitempty"`
 	SupportsTools        *bool               `json:"supports_tools,omitempty"`
 	SupportsVision       *bool               `json:"supports_vision,omitempty"`
+	Video                *AiVideoSpec        `json:"video,omitempty"`
+	Voice                *AiVoiceSpec        `json:"voice,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -253,6 +257,38 @@ func (o *AiModelInfo) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetExpires returns the Expires field value if set, zero value otherwise.
+func (o *AiModelInfo) GetExpires() string {
+	if o == nil || IsNil(o.Expires) {
+		var ret string
+		return ret
+	}
+	return *o.Expires
+}
+
+// GetExpiresOk returns a tuple with the Expires field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetExpiresOk() (*string, bool) {
+	if o == nil || IsNil(o.Expires) {
+		return nil, false
+	}
+	return o.Expires, true
+}
+
+// HasExpires returns a boolean if a field has been set.
+func (o *AiModelInfo) HasExpires() bool {
+	if o != nil && !IsNil(o.Expires) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpires gets a reference to the given string and assigns it to the Expires field.
+func (o *AiModelInfo) SetExpires(v string) {
+	o.Expires = &v
+}
+
 // GetFamily returns the Family field value if set, zero value otherwise.
 func (o *AiModelInfo) GetFamily() string {
 	if o == nil || IsNil(o.Family) {
@@ -283,6 +319,38 @@ func (o *AiModelInfo) HasFamily() bool {
 // SetFamily gets a reference to the given string and assigns it to the Family field.
 func (o *AiModelInfo) SetFamily(v string) {
 	o.Family = &v
+}
+
+// GetFree returns the Free field value if set, zero value otherwise.
+func (o *AiModelInfo) GetFree() bool {
+	if o == nil || IsNil(o.Free) {
+		var ret bool
+		return ret
+	}
+	return *o.Free
+}
+
+// GetFreeOk returns a tuple with the Free field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetFreeOk() (*bool, bool) {
+	if o == nil || IsNil(o.Free) {
+		return nil, false
+	}
+	return o.Free, true
+}
+
+// HasFree returns a boolean if a field has been set.
+func (o *AiModelInfo) HasFree() bool {
+	if o != nil && !IsNil(o.Free) {
+		return true
+	}
+
+	return false
+}
+
+// SetFree gets a reference to the given bool and assigns it to the Free field.
+func (o *AiModelInfo) SetFree(v bool) {
+	o.Free = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -701,6 +769,70 @@ func (o *AiModelInfo) SetSupportsVision(v bool) {
 	o.SupportsVision = &v
 }
 
+// GetVideo returns the Video field value if set, zero value otherwise.
+func (o *AiModelInfo) GetVideo() AiVideoSpec {
+	if o == nil || IsNil(o.Video) {
+		var ret AiVideoSpec
+		return ret
+	}
+	return *o.Video
+}
+
+// GetVideoOk returns a tuple with the Video field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetVideoOk() (*AiVideoSpec, bool) {
+	if o == nil || IsNil(o.Video) {
+		return nil, false
+	}
+	return o.Video, true
+}
+
+// HasVideo returns a boolean if a field has been set.
+func (o *AiModelInfo) HasVideo() bool {
+	if o != nil && !IsNil(o.Video) {
+		return true
+	}
+
+	return false
+}
+
+// SetVideo gets a reference to the given AiVideoSpec and assigns it to the Video field.
+func (o *AiModelInfo) SetVideo(v AiVideoSpec) {
+	o.Video = &v
+}
+
+// GetVoice returns the Voice field value if set, zero value otherwise.
+func (o *AiModelInfo) GetVoice() AiVoiceSpec {
+	if o == nil || IsNil(o.Voice) {
+		var ret AiVoiceSpec
+		return ret
+	}
+	return *o.Voice
+}
+
+// GetVoiceOk returns a tuple with the Voice field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetVoiceOk() (*AiVoiceSpec, bool) {
+	if o == nil || IsNil(o.Voice) {
+		return nil, false
+	}
+	return o.Voice, true
+}
+
+// HasVoice returns a boolean if a field has been set.
+func (o *AiModelInfo) HasVoice() bool {
+	if o != nil && !IsNil(o.Voice) {
+		return true
+	}
+
+	return false
+}
+
+// SetVoice gets a reference to the given AiVoiceSpec and assigns it to the Voice field.
+func (o *AiModelInfo) SetVoice(v AiVoiceSpec) {
+	o.Voice = &v
+}
+
 func (o AiModelInfo) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -729,8 +861,14 @@ func (o AiModelInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+	if !IsNil(o.Expires) {
+		toSerialize["expires"] = o.Expires
+	}
 	if !IsNil(o.Family) {
 		toSerialize["family"] = o.Family
+	}
+	if !IsNil(o.Free) {
+		toSerialize["free"] = o.Free
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -771,6 +909,12 @@ func (o AiModelInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SupportsVision) {
 		toSerialize["supports_vision"] = o.SupportsVision
 	}
+	if !IsNil(o.Video) {
+		toSerialize["video"] = o.Video
+	}
+	if !IsNil(o.Voice) {
+		toSerialize["voice"] = o.Voice
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -799,7 +943,9 @@ func (o *AiModelInfo) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "context_window")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "expires")
 		delete(additionalProperties, "family")
+		delete(additionalProperties, "free")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "inputs")
 		delete(additionalProperties, "max_output_tokens")
@@ -813,6 +959,8 @@ func (o *AiModelInfo) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "supports_reasoning")
 		delete(additionalProperties, "supports_tools")
 		delete(additionalProperties, "supports_vision")
+		delete(additionalProperties, "video")
+		delete(additionalProperties, "voice")
 		o.AdditionalProperties = additionalProperties
 	}
 

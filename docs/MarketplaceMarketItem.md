@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Activated** | Pointer to **bool** |  | [optional] 
+**Activated** | Pointer to **bool** | Activated is filled by the registry from the activation store for the requesting (org,project); providers leave it zero. An unactivated tool is discoverable but refused 403 at dispatch. | [optional] 
 **Category** | Pointer to **string** | Category is that same listing&#39;s grouping. Free text chosen by the publisher, absent when there is no public listing or the publisher left it blank. | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Dispatchable** | Pointer to **bool** |  | [optional] 
+**Description** | Pointer to **string** | Description is the prose a model reads to decide whether to call the tool. | [optional] 
+**Dispatchable** | Pointer to **bool** | Dispatchable is whether the tool can be CALLED. False for a listing-only entry: a skill is activated and attached to an agent, never called. | [optional] 
 **InputSchema** | Pointer to **interface{}** |  | [optional] 
 **Installed** | Pointer to **bool** | Installed is whether the tool is activated for THIS caller&#39;s (org, project): the same bit as Activated, under the shop&#39;s name for it, which install and uninstall are the writes for. It is per caller, so one listing reads installed for one org and not for another. | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Price** | Pointer to [**MarketplacePrice**](MarketplacePrice.md) |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Name is the tool&#39;s id in the flat, fleet-wide tool namespace — the value a tools/call passes. Unique across sources: a collision is resolved by source precedence before the caller ever sees it. | [optional] 
+**Price** | Pointer to [**MarketplacePrice**](MarketplacePrice.md) | Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement client; this is the declaration. | [optional] 
+**Source** | Pointer to **string** | Source is where the tool comes from: connector, function, zap-service, agent, skill or mcp. | [optional] 
 **Title** | Pointer to **string** | Title is the shop-window name, painted over the registry Name from the CHEAPEST public listing of this very tool — the platform&#39;s, for a tool every org reaches — the row a call would pay. Absent when the tool is not listed: that row is a plain capability, not an offer. | [optional] 
 
 ## Methods

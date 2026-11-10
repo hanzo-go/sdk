@@ -25,8 +25,14 @@ type MarketingAudience struct {
 	Event *string `json:"event,omitempty"`
 	// ID is the server-assigned audience id (\"aud_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
+	// Kind is what the audience is: cohort, a saved filter over the org's customers and their events; list, a mailing list's subscribed members; or segment, a saved filter over one list. Server-assigned; a create is a cohort.
+	Kind *string `json:"kind,omitempty"`
+	// List is the list a list or a segment audience belongs to.
+	List *string `json:"list,omitempty"`
 	// Name is the audience's label. Required, trimmed, capped at 1024 bytes.
 	Name *string `json:"name,omitempty"`
+	// Subscribed is how many subscribed members a list audience has, from the list's kept counts.
+	Subscribed *int64 `json:"subscribed,omitempty"`
 	// UpdatedAt is unix seconds of the last write, server-assigned, and the key the audience list is ordered by (newest first). A saved audience has no update route, so in practice it stays equal to CreatedAt: to change a filter you save another one.
 	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// WindowDays is how far back the event counts, ending now. 0 means 30 and nothing above 3650 is honoured. Ignored when Event is empty.
@@ -149,6 +155,70 @@ func (o *MarketingAudience) SetId(v string) {
 	o.Id = &v
 }
 
+// GetKind returns the Kind field value if set, zero value otherwise.
+func (o *MarketingAudience) GetKind() string {
+	if o == nil || IsNil(o.Kind) {
+		var ret string
+		return ret
+	}
+	return *o.Kind
+}
+
+// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingAudience) GetKindOk() (*string, bool) {
+	if o == nil || IsNil(o.Kind) {
+		return nil, false
+	}
+	return o.Kind, true
+}
+
+// HasKind returns a boolean if a field has been set.
+func (o *MarketingAudience) HasKind() bool {
+	if o != nil && !IsNil(o.Kind) {
+		return true
+	}
+
+	return false
+}
+
+// SetKind gets a reference to the given string and assigns it to the Kind field.
+func (o *MarketingAudience) SetKind(v string) {
+	o.Kind = &v
+}
+
+// GetList returns the List field value if set, zero value otherwise.
+func (o *MarketingAudience) GetList() string {
+	if o == nil || IsNil(o.List) {
+		var ret string
+		return ret
+	}
+	return *o.List
+}
+
+// GetListOk returns a tuple with the List field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingAudience) GetListOk() (*string, bool) {
+	if o == nil || IsNil(o.List) {
+		return nil, false
+	}
+	return o.List, true
+}
+
+// HasList returns a boolean if a field has been set.
+func (o *MarketingAudience) HasList() bool {
+	if o != nil && !IsNil(o.List) {
+		return true
+	}
+
+	return false
+}
+
+// SetList gets a reference to the given string and assigns it to the List field.
+func (o *MarketingAudience) SetList(v string) {
+	o.List = &v
+}
+
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *MarketingAudience) GetName() string {
 	if o == nil || IsNil(o.Name) {
@@ -179,6 +249,38 @@ func (o *MarketingAudience) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *MarketingAudience) SetName(v string) {
 	o.Name = &v
+}
+
+// GetSubscribed returns the Subscribed field value if set, zero value otherwise.
+func (o *MarketingAudience) GetSubscribed() int64 {
+	if o == nil || IsNil(o.Subscribed) {
+		var ret int64
+		return ret
+	}
+	return *o.Subscribed
+}
+
+// GetSubscribedOk returns a tuple with the Subscribed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingAudience) GetSubscribedOk() (*int64, bool) {
+	if o == nil || IsNil(o.Subscribed) {
+		return nil, false
+	}
+	return o.Subscribed, true
+}
+
+// HasSubscribed returns a boolean if a field has been set.
+func (o *MarketingAudience) HasSubscribed() bool {
+	if o != nil && !IsNil(o.Subscribed) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscribed gets a reference to the given int64 and assigns it to the Subscribed field.
+func (o *MarketingAudience) SetSubscribed(v int64) {
+	o.Subscribed = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -264,8 +366,17 @@ func (o MarketingAudience) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
+	if !IsNil(o.Kind) {
+		toSerialize["kind"] = o.Kind
+	}
+	if !IsNil(o.List) {
+		toSerialize["list"] = o.List
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Subscribed) {
+		toSerialize["subscribed"] = o.Subscribed
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
@@ -298,7 +409,10 @@ func (o *MarketingAudience) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "event")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "list")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "subscribed")
 		delete(additionalProperties, "updatedAt")
 		delete(additionalProperties, "windowDays")
 		o.AdditionalProperties = additionalProperties

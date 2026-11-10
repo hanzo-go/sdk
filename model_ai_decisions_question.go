@@ -18,9 +18,17 @@ import (
 
 // AiDecisionsQuestion - struct for AiDecisionsQuestion
 type AiDecisionsQuestion struct {
-	AiDecisionsChoice *AiDecisionsChoice
-	AiDecisionsNoul   *AiDecisionsNoul
-	AiDecisionsScore  *AiDecisionsScore
+	AiDecisionsBoolean *AiDecisionsBoolean
+	AiDecisionsChoice  *AiDecisionsChoice
+	AiDecisionsNoul    *AiDecisionsNoul
+	AiDecisionsScore   *AiDecisionsScore
+}
+
+// AiDecisionsBooleanAsAiDecisionsQuestion is a convenience function that returns AiDecisionsBoolean wrapped in AiDecisionsQuestion
+func AiDecisionsBooleanAsAiDecisionsQuestion(v *AiDecisionsBoolean) AiDecisionsQuestion {
+	return AiDecisionsQuestion{
+		AiDecisionsBoolean: v,
+	}
 }
 
 // AiDecisionsChoiceAsAiDecisionsQuestion is a convenience function that returns AiDecisionsChoice wrapped in AiDecisionsQuestion
@@ -48,6 +56,23 @@ func AiDecisionsScoreAsAiDecisionsQuestion(v *AiDecisionsScore) AiDecisionsQuest
 func (dst *AiDecisionsQuestion) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
+	// try to unmarshal data into AiDecisionsBoolean
+	err = newStrictDecoder(data).Decode(&dst.AiDecisionsBoolean)
+	if err == nil {
+		jsonAiDecisionsBoolean, _ := json.Marshal(dst.AiDecisionsBoolean)
+		if string(jsonAiDecisionsBoolean) == "{}" { // empty struct
+			dst.AiDecisionsBoolean = nil
+		} else {
+			if err = validator.Validate(dst.AiDecisionsBoolean); err != nil {
+				dst.AiDecisionsBoolean = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.AiDecisionsBoolean = nil
+	}
+
 	// try to unmarshal data into AiDecisionsChoice
 	err = newStrictDecoder(data).Decode(&dst.AiDecisionsChoice)
 	if err == nil {
@@ -101,6 +126,7 @@ func (dst *AiDecisionsQuestion) UnmarshalJSON(data []byte) error {
 
 	if match > 1 { // more than 1 match
 		// reset to nil
+		dst.AiDecisionsBoolean = nil
 		dst.AiDecisionsChoice = nil
 		dst.AiDecisionsNoul = nil
 		dst.AiDecisionsScore = nil
@@ -115,6 +141,10 @@ func (dst *AiDecisionsQuestion) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src AiDecisionsQuestion) MarshalJSON() ([]byte, error) {
+	if src.AiDecisionsBoolean != nil {
+		return json.Marshal(&src.AiDecisionsBoolean)
+	}
+
 	if src.AiDecisionsChoice != nil {
 		return json.Marshal(&src.AiDecisionsChoice)
 	}
@@ -135,6 +165,10 @@ func (obj *AiDecisionsQuestion) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
+	if obj.AiDecisionsBoolean != nil {
+		return obj.AiDecisionsBoolean
+	}
+
 	if obj.AiDecisionsChoice != nil {
 		return obj.AiDecisionsChoice
 	}
@@ -153,6 +187,10 @@ func (obj *AiDecisionsQuestion) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj AiDecisionsQuestion) GetActualInstanceValue() interface{} {
+	if obj.AiDecisionsBoolean != nil {
+		return *obj.AiDecisionsBoolean
+	}
+
 	if obj.AiDecisionsChoice != nil {
 		return *obj.AiDecisionsChoice
 	}

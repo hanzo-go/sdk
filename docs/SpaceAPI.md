@@ -5,12 +5,15 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteSpaceBySpaceDrivesByDrive**](SpaceAPI.md#DeleteSpaceBySpaceDrivesByDrive) | **Delete** /v1/space/{space}/drives/{drive} | Removes an EMPTY drive and answers 204.
+[**DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1**](SpaceAPI.md#DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1) | **Delete** /v1/space/{space}/drives/{drive}/files/{wildcard1} | Removes one file and answers 204.
 [**GetSpaceBySpaceDrives**](SpaceAPI.md#GetSpaceBySpaceDrives) | **Get** /v1/space/{space}/drives | Lists a space&#39;s drives.
 [**GetSpaceBySpaceDrivesByDriveFiles**](SpaceAPI.md#GetSpaceBySpaceDrivesByDriveFiles) | **Get** /v1/space/{space}/drives/{drive}/files | Lists one folder level of a drive.
+[**GetSpaceBySpaceDrivesByDriveFilesByWildcard1**](SpaceAPI.md#GetSpaceBySpaceDrivesByDriveFilesByWildcard1) | **Get** /v1/space/{space}/drives/{drive}/files/{wildcard1} | Mints a URL the caller downloads the file from DIRECTLY.
 [**GetSpaceHealth**](SpaceAPI.md#GetSpaceHealth) | **Get** /v1/space/health | Reports whether this deployment can serve spaces, drives and files.
 [**GetSpaceSpaces**](SpaceAPI.md#GetSpaceSpaces) | **Get** /v1/space/spaces | Lists the caller org&#39;s own spaces.
 [**PostSpaceBySpaceDrives**](SpaceAPI.md#PostSpaceBySpaceDrives) | **Post** /v1/space/{space}/drives | Makes a new drive in a space and answers 201 with it.
 [**PostSpaceSpaces**](SpaceAPI.md#PostSpaceSpaces) | **Post** /v1/space/spaces | Makes a new space for the caller&#39;s org and answers 201 with it.
+[**PutSpaceBySpaceDrivesByDriveFilesByWildcard1**](SpaceAPI.md#PutSpaceBySpaceDrivesByDriveFilesByWildcard1) | **Put** /v1/space/{space}/drives/{drive}/files/{wildcard1} | Mints a URL the caller uploads the file to DIRECTLY.
 
 
 
@@ -64,6 +67,80 @@ Other parameters are passed through a pointer to a apiDeleteSpaceBySpaceDrivesBy
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1
+
+> DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1(ctx, space, drive, wildcard1).Execute()
+
+Removes one file and answers 204.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	space := "space_example" // string | Space is the space's name, from the path.
+	drive := "drive_example" // string | Drive is the drive's name, from the path.
+	wildcard1 := "wildcard1_example" // string | File is the file's name within the drive — everything after that drive's /files/. It MAY contain \"/\", because a folder is emergent from the name and this segment is captured whole: \"2019/summer/a.jpg\" is one file in two folders, not three names. It is path-cleaned before use, so \"../\" reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SpaceAPI.DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1(context.Background(), space, drive, wildcard1).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SpaceAPI.DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**space** | **string** | Space is the space&#39;s name, from the path. | 
+**drive** | **string** | Drive is the drive&#39;s name, from the path. | 
+**wildcard1** | **string** | File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 
@@ -217,6 +294,82 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SpaceFileList**](SpaceFileList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSpaceBySpaceDrivesByDriveFilesByWildcard1
+
+> SpaceFileURL GetSpaceBySpaceDrivesByDriveFilesByWildcard1(ctx, space, drive, wildcard1).Execute()
+
+Mints a URL the caller downloads the file from DIRECTLY.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	space := "space_example" // string | Space is the space's name, from the path.
+	drive := "drive_example" // string | Drive is the drive's name, from the path.
+	wildcard1 := "wildcard1_example" // string | File is the file's name within the drive — everything after that drive's /files/. It MAY contain \"/\", because a folder is emergent from the name and this segment is captured whole: \"2019/summer/a.jpg\" is one file in two folders, not three names. It is path-cleaned before use, so \"../\" reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SpaceAPI.GetSpaceBySpaceDrivesByDriveFilesByWildcard1(context.Background(), space, drive, wildcard1).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SpaceAPI.GetSpaceBySpaceDrivesByDriveFilesByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSpaceBySpaceDrivesByDriveFilesByWildcard1`: SpaceFileURL
+	fmt.Fprintf(os.Stdout, "Response from `SpaceAPI.GetSpaceBySpaceDrivesByDriveFilesByWildcard1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**space** | **string** | Space is the space&#39;s name, from the path. | 
+**drive** | **string** | Drive is the drive&#39;s name, from the path. | 
+**wildcard1** | **string** | File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSpaceBySpaceDrivesByDriveFilesByWildcard1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+### Return type
+
+[**SpaceFileURL**](SpaceFileURL.md)
 
 ### Authorization
 
@@ -485,6 +638,82 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutSpaceBySpaceDrivesByDriveFilesByWildcard1
+
+> SpaceFileURL PutSpaceBySpaceDrivesByDriveFilesByWildcard1(ctx, space, drive, wildcard1).Execute()
+
+Mints a URL the caller uploads the file to DIRECTLY.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	space := "space_example" // string | Space is the space's name, from the path.
+	drive := "drive_example" // string | Drive is the drive's name, from the path.
+	wildcard1 := "wildcard1_example" // string | File is the file's name within the drive — everything after that drive's /files/. It MAY contain \"/\", because a folder is emergent from the name and this segment is captured whole: \"2019/summer/a.jpg\" is one file in two folders, not three names. It is path-cleaned before use, so \"../\" reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SpaceAPI.PutSpaceBySpaceDrivesByDriveFilesByWildcard1(context.Background(), space, drive, wildcard1).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SpaceAPI.PutSpaceBySpaceDrivesByDriveFilesByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutSpaceBySpaceDrivesByDriveFilesByWildcard1`: SpaceFileURL
+	fmt.Fprintf(os.Stdout, "Response from `SpaceAPI.PutSpaceBySpaceDrivesByDriveFilesByWildcard1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**space** | **string** | Space is the space&#39;s name, from the path. | 
+**drive** | **string** | Drive is the drive&#39;s name, from the path. | 
+**wildcard1** | **string** | File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutSpaceBySpaceDrivesByDriveFilesByWildcard1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+### Return type
+
+[**SpaceFileURL**](SpaceFileURL.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

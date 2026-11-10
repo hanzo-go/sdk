@@ -308,6 +308,129 @@ func (a *TaskAPIService) GetTaskBoardExecute(r TaskAPIGetTaskBoardRequest) ([]Ta
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type TaskAPIGetTaskChannelsByChannelRequest struct {
+	ctx        context.Context
+	ApiService *TaskAPIService
+	channel    string
+}
+
+func (r TaskAPIGetTaskChannelsByChannelRequest) Execute() (*TaskChannelWork, *http.Response, error) {
+	return r.ApiService.GetTaskChannelsByChannelExecute(r)
+}
+
+/*
+GetTaskChannelsByChannel Summarises one channel's work.
+
+Summarises one channel's work.
+
+The channel is opaque here and is deliberately not resolved: this package cannot
+say whether a channel exists — apps/team owns that document — so an unknown channel
+answers an EMPTY board rather than a 404. That is the honest answer and the
+useful one: a channel that has never had an item filed in it and a channel id
+that was mistyped both have no work, and inventing a distinction would require
+this surface to hold a second copy of the channel list (HIP-0523 §2 forbids it,
+and it would drift the first time a channel was renamed).
+
+Tenancy is the validated principal's org and nothing else, so a caller cannot
+read another tenant's channel by naming its channel.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channel Channel is the channel, spelled \"<space>_<channel>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the channel identically. From the path.
+	@return TaskAPIGetTaskChannelsByChannelRequest
+*/
+func (a *TaskAPIService) GetTaskChannelsByChannel(ctx context.Context, channel string) TaskAPIGetTaskChannelsByChannelRequest {
+	return TaskAPIGetTaskChannelsByChannelRequest{
+		ApiService: a,
+		ctx:        ctx,
+		channel:    channel,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TaskChannelWork
+func (a *TaskAPIService) GetTaskChannelsByChannelExecute(r TaskAPIGetTaskChannelsByChannelRequest) (*TaskChannelWork, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TaskChannelWork
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.GetTaskChannelsByChannel")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/task/channels/{channel}"
+	localVarPath = strings.Replace(localVarPath, "{"+"channel"+"}", url.PathEscape(parameterValueToString(r.channel, "channel")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type TaskAPIGetTaskIssuesRequest struct {
 	ctx        context.Context
 	ApiService *TaskAPIService
@@ -316,7 +439,7 @@ type TaskAPIGetTaskIssuesRequest struct {
 	status     *string
 	kind       *string
 	repo       *string
-	room       *string
+	channel    *string
 	source     *string
 	assignee   *string
 	limit      *int64
@@ -352,9 +475,9 @@ func (r TaskAPIGetTaskIssuesRequest) Repo(repo string) TaskAPIGetTaskIssuesReque
 	return r
 }
 
-// Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its task list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
-func (r TaskAPIGetTaskIssuesRequest) Room(room string) TaskAPIGetTaskIssuesRequest {
-	r.room = &room
+// Channel keeps issues bound to one collaboration channel, spelled \&quot;&lt;space&gt;_&lt;channel&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its task list name the channel the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
+func (r TaskAPIGetTaskIssuesRequest) Channel(channel string) TaskAPIGetTaskIssuesRequest {
+	r.channel = &channel
 	return r
 }
 
@@ -436,8 +559,8 @@ func (a *TaskAPIService) GetTaskIssuesExecute(r TaskAPIGetTaskIssuesRequest) (*T
 	if r.repo != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "repo", r.repo, "form", "")
 	}
-	if r.room != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "room", r.room, "form", "")
+	if r.channel != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "channel", r.channel, "form", "")
 	}
 	if r.source != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "source", r.source, "form", "")
@@ -1059,62 +1182,56 @@ func (a *TaskAPIService) GetTaskProjectsByKeyIssuesByNumExecute(r TaskAPIGetTask
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type TaskAPIGetTaskRoomsByRoomRequest struct {
+type TaskAPIGetTaskProjectsByKeyIssuesByNumCommentsRequest struct {
 	ctx        context.Context
 	ApiService *TaskAPIService
-	room       string
+	key        string
+	num        int64
 }
 
-func (r TaskAPIGetTaskRoomsByRoomRequest) Execute() (*TaskRoomWork, *http.Response, error) {
-	return r.ApiService.GetTaskRoomsByRoomExecute(r)
+func (r TaskAPIGetTaskProjectsByKeyIssuesByNumCommentsRequest) Execute() (*TaskCommentList, *http.Response, error) {
+	return r.ApiService.GetTaskProjectsByKeyIssuesByNumCommentsExecute(r)
 }
 
 /*
-GetTaskRoomsByRoom Summarises one room's work.
+GetTaskProjectsByKeyIssuesByNumComments Is one issue's conversation, oldest first, read as the caller.
 
-Summarises one room's work.
-
-The room is opaque here and is deliberately not resolved: this package cannot
-say whether a room exists — apps/team owns that document — so an unknown room
-answers an EMPTY board rather than a 404. That is the honest answer and the
-useful one: a channel that has never had an item filed in it and a channel id
-that was mistyped both have no work, and inventing a distinction would require
-this surface to hold a second copy of the room list (HIP-0523 §2 forbids it,
-and it would drift the first time a room was renamed).
-
-Tenancy is the validated principal's org and nothing else, so a caller cannot
-read another tenant's channel by naming its room.
+Is one issue's conversation, oldest first, read as the caller.
+An issue that lives on GitHub names its home and is read there.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param room Room is the room, spelled \"<space>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
-	@return TaskAPIGetTaskRoomsByRoomRequest
+	@param key Key is the board — the repository name, or an index board's key.
+	@param num Num is the issue's number on that board.
+	@return TaskAPIGetTaskProjectsByKeyIssuesByNumCommentsRequest
 */
-func (a *TaskAPIService) GetTaskRoomsByRoom(ctx context.Context, room string) TaskAPIGetTaskRoomsByRoomRequest {
-	return TaskAPIGetTaskRoomsByRoomRequest{
+func (a *TaskAPIService) GetTaskProjectsByKeyIssuesByNumComments(ctx context.Context, key string, num int64) TaskAPIGetTaskProjectsByKeyIssuesByNumCommentsRequest {
+	return TaskAPIGetTaskProjectsByKeyIssuesByNumCommentsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		room:       room,
+		key:        key,
+		num:        num,
 	}
 }
 
 // Execute executes the request
 //
-//	@return TaskRoomWork
-func (a *TaskAPIService) GetTaskRoomsByRoomExecute(r TaskAPIGetTaskRoomsByRoomRequest) (*TaskRoomWork, *http.Response, error) {
+//	@return TaskCommentList
+func (a *TaskAPIService) GetTaskProjectsByKeyIssuesByNumCommentsExecute(r TaskAPIGetTaskProjectsByKeyIssuesByNumCommentsRequest) (*TaskCommentList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TaskRoomWork
+		localVarReturnValue *TaskCommentList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.GetTaskRoomsByRoom")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.GetTaskProjectsByKeyIssuesByNumComments")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/task/rooms/{room}"
-	localVarPath = strings.Replace(localVarPath, "{"+"room"+"}", url.PathEscape(parameterValueToString(r.room, "room")), -1)
+	localVarPath := localBasePath + "/v1/task/projects/{key}/issues/{num}/comments"
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"num"+"}", url.PathEscape(parameterValueToString(r.num, "num")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1527,8 +1644,9 @@ PostTaskProjectsByKeyIssues Opens a work item on the board, filed as YOU, where 
 
 Opens a work item on the board, filed as YOU, where the
 repository lives: an issue on the deployment's forge, or on GitHub for a
-repository the forge mirrors from there or does not hold at all. Answers the
-card with the issue's address as `url`.
+repository the forge mirrors from there or does not hold at all. Answers 201
+with the card: its `number`, its `id`, and the issue's address as `url`. A
+create that cannot say what it made answers 502, never an empty 2xx.
 
 The column and priority are written as LABELS, which is what makes the card
 and the issue the same object: someone relabelling in the web UI has moved

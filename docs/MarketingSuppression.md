@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Address** | Pointer to **string** | Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. | [optional] 
+**Address** | Pointer to **string** | Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. An entry \&quot;@example.com\&quot; opts out everyone at that domain, a company&#39;s unsubscribe; a free mail provider&#39;s domain is refused. | [optional] 
 **Channel** | Pointer to **string** | Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. | [optional] 
 **CreatedAt** | Pointer to **int64** | CreatedAt is unix seconds, server-assigned. | [optional] 
 **Reason** | Pointer to **string** | Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;. | [optional] 

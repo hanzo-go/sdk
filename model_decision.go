@@ -20,9 +20,9 @@ var _ MappedNullable = &Decision{}
 // Decision struct for Decision
 type Decision struct {
 	Defaults             *Grants `json:"defaults,omitempty"`
-	Gpc                  *bool   `json:"gpc,omitempty"`
+	Floor                *int32  `json:"floor,omitempty"`
 	Mode                 *string `json:"mode,omitempty"`
-	Notice               *string `json:"notice,omitempty"`
+	Refused              *bool   `json:"refused,omitempty"`
 	Region               *string `json:"region,omitempty"`
 	Version              *int32  `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -79,36 +79,36 @@ func (o *Decision) SetDefaults(v Grants) {
 	o.Defaults = &v
 }
 
-// GetGpc returns the Gpc field value if set, zero value otherwise.
-func (o *Decision) GetGpc() bool {
-	if o == nil || IsNil(o.Gpc) {
-		var ret bool
+// GetFloor returns the Floor field value if set, zero value otherwise.
+func (o *Decision) GetFloor() int32 {
+	if o == nil || IsNil(o.Floor) {
+		var ret int32
 		return ret
 	}
-	return *o.Gpc
+	return *o.Floor
 }
 
-// GetGpcOk returns a tuple with the Gpc field value if set, nil otherwise
+// GetFloorOk returns a tuple with the Floor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Decision) GetGpcOk() (*bool, bool) {
-	if o == nil || IsNil(o.Gpc) {
+func (o *Decision) GetFloorOk() (*int32, bool) {
+	if o == nil || IsNil(o.Floor) {
 		return nil, false
 	}
-	return o.Gpc, true
+	return o.Floor, true
 }
 
-// HasGpc returns a boolean if a field has been set.
-func (o *Decision) HasGpc() bool {
-	if o != nil && !IsNil(o.Gpc) {
+// HasFloor returns a boolean if a field has been set.
+func (o *Decision) HasFloor() bool {
+	if o != nil && !IsNil(o.Floor) {
 		return true
 	}
 
 	return false
 }
 
-// SetGpc gets a reference to the given bool and assigns it to the Gpc field.
-func (o *Decision) SetGpc(v bool) {
-	o.Gpc = &v
+// SetFloor gets a reference to the given int32 and assigns it to the Floor field.
+func (o *Decision) SetFloor(v int32) {
+	o.Floor = &v
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
@@ -143,36 +143,36 @@ func (o *Decision) SetMode(v string) {
 	o.Mode = &v
 }
 
-// GetNotice returns the Notice field value if set, zero value otherwise.
-func (o *Decision) GetNotice() string {
-	if o == nil || IsNil(o.Notice) {
-		var ret string
+// GetRefused returns the Refused field value if set, zero value otherwise.
+func (o *Decision) GetRefused() bool {
+	if o == nil || IsNil(o.Refused) {
+		var ret bool
 		return ret
 	}
-	return *o.Notice
+	return *o.Refused
 }
 
-// GetNoticeOk returns a tuple with the Notice field value if set, nil otherwise
+// GetRefusedOk returns a tuple with the Refused field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Decision) GetNoticeOk() (*string, bool) {
-	if o == nil || IsNil(o.Notice) {
+func (o *Decision) GetRefusedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Refused) {
 		return nil, false
 	}
-	return o.Notice, true
+	return o.Refused, true
 }
 
-// HasNotice returns a boolean if a field has been set.
-func (o *Decision) HasNotice() bool {
-	if o != nil && !IsNil(o.Notice) {
+// HasRefused returns a boolean if a field has been set.
+func (o *Decision) HasRefused() bool {
+	if o != nil && !IsNil(o.Refused) {
 		return true
 	}
 
 	return false
 }
 
-// SetNotice gets a reference to the given string and assigns it to the Notice field.
-func (o *Decision) SetNotice(v string) {
-	o.Notice = &v
+// SetRefused gets a reference to the given bool and assigns it to the Refused field.
+func (o *Decision) SetRefused(v bool) {
+	o.Refused = &v
 }
 
 // GetRegion returns the Region field value if set, zero value otherwise.
@@ -252,14 +252,14 @@ func (o Decision) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Defaults) {
 		toSerialize["defaults"] = o.Defaults
 	}
-	if !IsNil(o.Gpc) {
-		toSerialize["gpc"] = o.Gpc
+	if !IsNil(o.Floor) {
+		toSerialize["floor"] = o.Floor
 	}
 	if !IsNil(o.Mode) {
 		toSerialize["mode"] = o.Mode
 	}
-	if !IsNil(o.Notice) {
-		toSerialize["notice"] = o.Notice
+	if !IsNil(o.Refused) {
+		toSerialize["refused"] = o.Refused
 	}
 	if !IsNil(o.Region) {
 		toSerialize["region"] = o.Region
@@ -290,9 +290,9 @@ func (o *Decision) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "defaults")
-		delete(additionalProperties, "gpc")
+		delete(additionalProperties, "floor")
 		delete(additionalProperties, "mode")
-		delete(additionalProperties, "notice")
+		delete(additionalProperties, "refused")
 		delete(additionalProperties, "region")
 		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties

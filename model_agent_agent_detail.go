@@ -19,31 +19,52 @@ var _ MappedNullable = &AgentAgentDetail{}
 
 // AgentAgentDetail struct for AgentAgentDetail
 type AgentAgentDetail struct {
-	Avatar           *string `json:"avatar,omitempty"`
-	CapMicroUsd      *int64  `json:"cap_micro_usd,omitempty"`
-	ComputeRef       *string `json:"computeRef,omitempty"`
-	ConsumedMicroUsd *int64  `json:"consumed_micro_usd,omitempty"`
-	CreatedAt        *string `json:"createdAt,omitempty"`
-	Description      *string `json:"description,omitempty"`
-	Emoji            *string `json:"emoji,omitempty"`
-	ExecutionMode    *string `json:"executionMode,omitempty"`
-	Id               *string `json:"id,omitempty"`
+	// Avatar is an image the agent is drawn as — a link to one, or the bytes inline as a data URL, up to 96 KiB. Emoji is the one glyph a caller picked when they had no image. At most one is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is. Both are iam/pkg/schema's Mark, so a face means the same thing on an agent as it does on a person or an org. Avatar is the agent's picture: an image URL, or the image itself inline as a data URL up to 96 KiB. Empty when the agent has no image.
+	Avatar *string `json:"avatar,omitempty"`
+	// CapMicroUSD is the total this agent may spend within one Period, as an integer number of micro-USD (1,000,000 = $1). It is required at creation: a cap of zero would mean no limit and no per-agent spend record at all.
+	CapMicroUsd *int64 `json:"cap_micro_usd,omitempty"`
+	// ComputeRef is the visor machine this bot is bound to, opaque here: this package stores and echoes it, and the binding's lifecycle belongs elsewhere. Empty means unbound, which is what every one-shot agent is.
+	ComputeRef *string `json:"computeRef,omitempty"`
+	// ConsumedMicroUSD is what has been spent in the current period, in micro-USD. It is settled from what the gateway reported, not from the quote.
+	ConsumedMicroUsd *int64 `json:"consumed_micro_usd,omitempty"`
+	// CreatedAt is when the agent was defined, RFC 3339 in UTC to the second.
+	CreatedAt *string `json:"createdAt,omitempty"`
+	// Description is the one line another agent reads when deciding whether to call this one: the tool catalogue publishes it as the description of `agent_<name>`, falling back to \"agent <name>\" when it is empty. It is not part of the prompt — Instructions is — so writing the behaviour here reaches the caller and not the model.
+	Description *string `json:"description,omitempty"`
+	// Emoji is the single glyph a caller picked when they had no image. At most one of avatar and emoji is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is.
+	Emoji *string `json:"emoji,omitempty"`
+	// ExecutionMode is one-shot or long-running, and it decides who may start this agent. one-shot runs only when something POSTs to it; long-running is additionally invoked by the scheduler on Schedule, once a minute against the cron. An org's long-running agents are capped, so a switch INTO it can be refused with 409.
+	ExecutionMode *string `json:"executionMode,omitempty"`
+	// ID is the agent's stable handle, minted here as \"agent_\" + 32 hex characters of crypto/rand. A caller cannot choose it, and it never changes — unlike Name, which is the other way to address the same agent.
+	Id *string `json:"id,omitempty"`
 	// Instructions is the agent's system prompt, verbatim, up to 32 KiB. It is the one field the list read withholds, because it is the agent's whole behaviour and a page of them would be a page of prompts.
-	Instructions    *string  `json:"instructions,omitempty"`
-	Lineage         []string `json:"lineage,omitempty"`
-	MaxTaskMicroUsd *int64   `json:"max_task_micro_usd,omitempty"`
-	Model           *string  `json:"model,omitempty"`
-	Name            *string  `json:"name,omitempty"`
-	Parent          *string  `json:"parent,omitempty"`
-	Period          *string  `json:"period,omitempty"`
+	Instructions *string `json:"instructions,omitempty"`
+	// Lineage is every agent above this one, nearest first — the parent, its parent, and so on to the agent a person defined. All of them are in this org, so the principal this agent answers to is theirs.
+	Lineage []string `json:"lineage,omitempty"`
+	// MaxTaskMicroUSD is the ceiling for a single run, in micro-USD. A session cannot exceed it even when the period cap still has room, so one runaway task cannot consume a month.
+	MaxTaskMicroUsd *int64 `json:"max_task_micro_usd,omitempty"`
+	// Model is the Zen model this agent runs on, and it is always OUR name for it: writes normalize through cloud.ZenModel and the read normalizes again, so an upstream family name never leaves here even from a row written before that rule existed. A create that named none took the deployment's configured default, so this is where a caller learns which model it actually got.
+	Model *string `json:"model,omitempty"`
+	// Name is the agent's org-unique handle, matching ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$. It addresses the agent everywhere ID does, it is what a run row records, and it is the suffix of the `agent_<name>` tool other agents call this one by. Set once at create; no update route moves it, because moving it would orphan that history.
+	Name *string `json:"name,omitempty"`
+	// Parent is the agent that spawned this one; absent for an agent a person defined.
+	Parent *string `json:"parent,omitempty"`
+	// Period is the window the cap resets on: day, week or month.
+	Period *string `json:"period,omitempty"`
 	// RecentRuns is the agent's 20 most recent executions, newest first. It is a window on the history, not the history: the count beside it is `runs`.
-	RecentRuns           []AgentAgentRunView `json:"recentRuns,omitempty"`
-	Runs                 *int64              `json:"runs,omitempty"`
-	Schedule             *string             `json:"schedule,omitempty"`
-	ServiceAccountId     *string             `json:"serviceAccountId,omitempty"`
-	Status               *string             `json:"status,omitempty"`
-	Tools                []string            `json:"tools,omitempty"`
-	UpdatedAt            *string             `json:"updatedAt,omitempty"`
+	RecentRuns []AgentAgentRunView `json:"recentRuns,omitempty"`
+	// Runs is how many executions the org has recorded against this agent, counted at read time. The list and update reads count the WHOLE history; the detail read reports the size of the RecentRuns page it carries, which stops at 20 — so a detail row saying 20 means \"at least 20\", not \"exactly 20\".
+	Runs *int64 `json:"runs,omitempty"`
+	// Schedule is the 5-field cron the scheduler fires a long-running agent on, evaluated once a minute. Required for long-running and DROPPED for one-shot — a one-shot agent's schedule is not stored, so absence here is the mode's answer rather than a value nobody set.
+	Schedule *string `json:"schedule,omitempty"`
+	// ServiceAccountID is the IAM agent service account (<org>-<agent>) a scheduled run is billed AS. It is what makes an autonomous run attributable to a principal rather than only to the org; empty means the org itself wears the spend.
+	ServiceAccountId *string `json:"serviceAccountId,omitempty"`
+	// Status is the agent's readiness: \"ready\", or \"retired\" for a built-in whose member has left Hanzo's team. A retired agent is left out of the list and still answers a get by its handle. Server-set; no route accepts it.
+	Status *string `json:"status,omitempty"`
+	// Tools are the tool names this agent may call, and the list IS the authority: an agent that declares none gets none. The single entry \"*\" means whatever the fleet's MCP server serves at the moment of the run, resolved per run rather than frozen here, which is how the default assistant reaches subsystems that shipped after it was defined. Empty array, never null.
+	Tools []string `json:"tools,omitempty"`
+	// UpdatedAt is the last time any field above was written, same format. It moves on an update to the DEFINITION and never on a run, so a busy agent nobody has edited keeps an old one.
+	UpdatedAt            *string `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

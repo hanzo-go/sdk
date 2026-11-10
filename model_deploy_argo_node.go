@@ -21,21 +21,27 @@ var _ MappedNullable = &DeployArgoNode{}
 type DeployArgoNode struct {
 	// CreatedAt is the object's creationTimestamp, RFC 3339 UTC to the second. Absent when the object carries none.
 	CreatedAt *string `json:"createdAt,omitempty"`
-	Group     *string `json:"group,omitempty"`
+	// Group is the object's API group: empty for the core group (Pod, Service, ConfigMap), otherwise apps, networking.k8s.io, autoscaling or policy — and hanzo.ai for the App CR at the root.
+	Group *string `json:"group,omitempty"`
 	// Health is the node's own derived health. Always present on a node of this tree; a kind with no health signal of its own reports Healthy, since a ConfigMap existing IS its healthy state.
 	Health *DeployArgoHealth `json:"health,omitempty"`
 	// Images are the container images running on this node. Always absent — the tag travels as the \"Image Tag\" chip in Info instead, which is where the SPA reads it on a node.
 	Images []string `json:"images,omitempty"`
 	// Info are the chips shown on the node. At most one: the image tag — the RUNNING tag on a Deployment, ReplicaSet or Pod, and the DECLARED tag on the App CR at the root. Absent on a node that carries no image at all.
-	Info      []DeployArgoInfoItem `json:"info,omitempty"`
-	Kind      *string              `json:"kind,omitempty"`
-	Name      *string              `json:"name,omitempty"`
-	Namespace *string              `json:"namespace,omitempty"`
+	Info []DeployArgoInfoItem `json:"info,omitempty"`
+	// Kind is the object kind. The root is the App CR; below it come Deployment, ReplicaSet, Pod, Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget and ConfigMap. Never Secret — the walk does not visit them, so no materialized environment can reach the tree.
+	Kind *string `json:"kind,omitempty"`
+	// Name is the object's metadata.name.
+	Name *string `json:"name,omitempty"`
+	// Namespace is the namespace the walk ran in, the same for every node of one tree.
+	Namespace *string `json:"namespace,omitempty"`
 	// ParentRefs are the node's edges UPWARD, which is how the SPA draws the DAG from this flat list. Exactly one entry where present: a depth-1 object points at the App CR, a ReplicaSet at its Deployment, a Pod at its ReplicaSet (or at the Deployment whose selector matches it, when the ReplicaSet is gone). Absent on the root.
 	ParentRefs []DeployArgoResourceRef `json:"parentRefs,omitempty"`
 	// ResourceVersion is the k8s version a watch would resume from. Always empty: the tree is rebuilt from live reads on every request, including on every frame of the SSE stream, so there is no revision to resume from.
-	ResourceVersion      *string `json:"resourceVersion,omitempty"`
-	Uid                  *string `json:"uid,omitempty"`
+	ResourceVersion *string `json:"resourceVersion,omitempty"`
+	// UID is the object's metadata.uid. Absent on a PARENT reference, which addresses its target by kind and name rather than by identity.
+	Uid *string `json:"uid,omitempty"`
+	// Version is the object's API version as the live object reports it: v1 for every kind the walk reaches except the HorizontalPodAutoscaler, which is autoscaling/v2.
 	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

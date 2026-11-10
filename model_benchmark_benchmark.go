@@ -21,6 +21,8 @@ var _ MappedNullable = &BenchmarkBenchmark{}
 type BenchmarkBenchmark struct {
 	// what capability it measures
 	Axis *string `json:"axis,omitempty"`
+	// Direction is \"higher\" when a higher score is better and \"lower\" when a lower one is: a false-alarm rate, a share of answers that moved. The leaderboard orders its rows by it.
+	Direction *string `json:"direction,omitempty"`
 	// the id every other op on this surface takes
 	Id *string `json:"id,omitempty"`
 	// how many items it holds, when the set is fixed
@@ -83,6 +85,38 @@ func (o *BenchmarkBenchmark) HasAxis() bool {
 // SetAxis gets a reference to the given string and assigns it to the Axis field.
 func (o *BenchmarkBenchmark) SetAxis(v string) {
 	o.Axis = &v
+}
+
+// GetDirection returns the Direction field value if set, zero value otherwise.
+func (o *BenchmarkBenchmark) GetDirection() string {
+	if o == nil || IsNil(o.Direction) {
+		var ret string
+		return ret
+	}
+	return *o.Direction
+}
+
+// GetDirectionOk returns a tuple with the Direction field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkBenchmark) GetDirectionOk() (*string, bool) {
+	if o == nil || IsNil(o.Direction) {
+		return nil, false
+	}
+	return o.Direction, true
+}
+
+// HasDirection returns a boolean if a field has been set.
+func (o *BenchmarkBenchmark) HasDirection() bool {
+	if o != nil && !IsNil(o.Direction) {
+		return true
+	}
+
+	return false
+}
+
+// SetDirection gets a reference to the given string and assigns it to the Direction field.
+func (o *BenchmarkBenchmark) SetDirection(v string) {
+	o.Direction = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -258,6 +292,9 @@ func (o BenchmarkBenchmark) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Axis) {
 		toSerialize["axis"] = o.Axis
 	}
+	if !IsNil(o.Direction) {
+		toSerialize["direction"] = o.Direction
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -296,6 +333,7 @@ func (o *BenchmarkBenchmark) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "axis")
+		delete(additionalProperties, "direction")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "items")
 		delete(additionalProperties, "native")

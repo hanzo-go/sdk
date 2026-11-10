@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
 **ExclusiveSignin** | Pointer to **bool** | ExclusiveSignin is a transient control flag (v1 xorm:\&quot;-\&quot;): a caller sets it on a create to collapse SessionId down to the single incoming cookie instead of appending. It is never stored — a persisted session always carries it false, so orm:\&quot;-\&quot; keeps it off the column backends and omitempty keeps it out of the SQLite JSON blob. | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
 **SessionId** | Pointer to **[]string** |  | [optional] 

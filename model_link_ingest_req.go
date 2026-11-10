@@ -19,29 +19,50 @@ var _ MappedNullable = &LinkIngestReq{}
 
 // LinkIngestReq struct for LinkIngestReq
 type LinkIngestReq struct {
-	Account           *string `json:"account,omitempty"`
-	CachedInputTokens *int64  `json:"cachedInputTokens,omitempty"`
-	Confidence        *string `json:"confidence,omitempty"`
-	CostCents         *int64  `json:"costCents,omitempty"`
-	CostLimitCents    *int64  `json:"costLimitCents,omitempty"`
-	Currency          *string `json:"currency,omitempty"`
-	InputTokens       *int64  `json:"inputTokens,omitempty"`
-	Kind              *string `json:"kind,omitempty"`
-	Lane              *string `json:"lane,omitempty"`
-	Machine           *string `json:"machine,omitempty"`
-	OutputTokens      *int64  `json:"outputTokens,omitempty"`
-	Plan              *string `json:"plan,omitempty"`
-	Provider          *string `json:"provider,omitempty"`
-	Requests          *int64  `json:"requests,omitempty"`
-	ResetsAt          *string `json:"resetsAt,omitempty"`
+	// Account is the provider-side account the sample belongs to.
+	Account *string `json:"account,omitempty"`
+	// CachedInputTokens is the window's cached-prompt-token count.
+	CachedInputTokens *int64 `json:"cachedInputTokens,omitempty"`
+	// Confidence says how real the counters are, as the meter graded itself.
+	Confidence *string `json:"confidence,omitempty"`
+	// CostCents is the window's spend in cents, as the provider's meter states it.
+	CostCents *int64 `json:"costCents,omitempty"`
+	// CostLimitCents is the window's spend cap in cents, when the meter knows one.
+	CostLimitCents *int64 `json:"costLimitCents,omitempty"`
+	// Currency is the ISO currency the cost fields are stated in.
+	Currency *string `json:"currency,omitempty"`
+	// InputTokens is the window's prompt-token count.
+	InputTokens *int64 `json:"inputTokens,omitempty"`
+	// Kind is subscription or apikey; anything else is refused.
+	Kind *string `json:"kind,omitempty"`
+	// Lane names the meter's own lane label for this measurement.
+	Lane *string `json:"lane,omitempty"`
+	// Machine is the machine the collector observed the account on. Required.
+	Machine *string `json:"machine,omitempty"`
+	// OutputTokens is the window's completion-token count.
+	OutputTokens *int64 `json:"outputTokens,omitempty"`
+	// Plan is the provider plan label the account is on.
+	Plan *string `json:"plan,omitempty"`
+	// Provider is the AI provider whose meter reported this sample. Required.
+	Provider *string `json:"provider,omitempty"`
+	// Requests is the window's request count.
+	Requests *int64 `json:"requests,omitempty"`
+	// ResetsAt is when the window resets, RFC 3339, bounded.
+	ResetsAt *string `json:"resetsAt,omitempty"`
 	// Samples is the batch form, up to 256 samples; leave it empty to send one sample inline on the same fields.
-	Samples              []LinkReadingReq `json:"samples,omitempty"`
-	Synthetic            *bool            `json:"synthetic,omitempty"`
-	TotalTokens          *int64           `json:"totalTokens,omitempty"`
-	UsedPct              *float64         `json:"usedPct,omitempty"`
-	Window               *string          `json:"window,omitempty"`
-	WindowMinutes        *int32           `json:"windowMinutes,omitempty"`
-	WindowStart          *string          `json:"windowStart,omitempty"`
+	Samples []LinkReadingReq `json:"samples,omitempty"`
+	// Synthetic marks a sample the collector derived rather than observed.
+	Synthetic *bool `json:"synthetic,omitempty"`
+	// TotalTokens is the window's total token count.
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
+	// UsedPct is how much of the window's allowance is consumed, clamped 0..100.
+	UsedPct *float64 `json:"usedPct,omitempty"`
+	// Window is the window class, one of 6h, day, week, month; anything else is refused rather than silently reclassified.
+	Window *string `json:"window,omitempty"`
+	// WindowMinutes is the window's length as the meter reported it.
+	WindowMinutes *int32 `json:"windowMinutes,omitempty"`
+	// WindowStart is when the measured window opened, RFC 3339, bounded to a sane interval around now.
+	WindowStart          *string `json:"windowStart,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

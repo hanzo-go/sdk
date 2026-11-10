@@ -23,7 +23,7 @@ type KmsKmsPut struct {
 	Env *string `json:"env,omitempty"`
 	// Name is the secret's name. Required.
 	Name *string `json:"name,omitempty"`
-	// Path is an optional subpath beneath the org root, e.g. \"/ci\".
+	// Path is an optional subpath beneath the org root, e.g. \"/ci\". It never names an org: the root is already `/orgs/<org>`, taken from the credential, so a path that starts with `/orgs/` is refused rather than stored at `/orgs/<org>/orgs/…`.
 	Path *string `json:"path,omitempty"`
 	// Value is the secret itself. It is sealed under a fresh per-secret data key before storage, so plaintext never reaches disk, and it is never echoed back, logged, or carried in an error.
 	Value                *string `json:"value,omitempty"`

@@ -7,7 +7,10 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **int64** | CreatedAt is unix seconds when the filter was saved, server-assigned. | [optional] 
 **Event** | Pointer to **string** | Event is the analytics event a member must have fired. EMPTY MEANS NO FILTER: the audience is then every mailable customer in the org, and no warehouse is consulted. | [optional] 
 **Id** | Pointer to **string** | ID is the server-assigned audience id (\&quot;aud_\&quot; + 128 random bits). | [optional] 
+**Kind** | Pointer to **string** | Kind is what the audience is: cohort, a saved filter over the org&#39;s customers and their events; list, a mailing list&#39;s subscribed members; or segment, a saved filter over one list. Server-assigned; a create is a cohort. | [optional] 
+**List** | Pointer to **string** | List is the list a list or a segment audience belongs to. | [optional] 
 **Name** | Pointer to **string** | Name is the audience&#39;s label. Required, trimmed, capped at 1024 bytes. | [optional] 
+**Subscribed** | Pointer to **int64** | Subscribed is how many subscribed members a list audience has, from the list&#39;s kept counts. | [optional] 
 **UpdatedAt** | Pointer to **int64** | UpdatedAt is unix seconds of the last write, server-assigned, and the key the audience list is ordered by (newest first). A saved audience has no update route, so in practice it stays equal to CreatedAt: to change a filter you save another one. | [optional] 
 **WindowDays** | Pointer to **int64** | WindowDays is how far back the event counts, ending now. 0 means 30 and nothing above 3650 is honoured. Ignored when Event is empty. | [optional] 
 
@@ -105,6 +108,56 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
+### GetKind
+
+`func (o *MarketingAudience) GetKind() string`
+
+GetKind returns the Kind field if non-nil, zero value otherwise.
+
+### GetKindOk
+
+`func (o *MarketingAudience) GetKindOk() (*string, bool)`
+
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKind
+
+`func (o *MarketingAudience) SetKind(v string)`
+
+SetKind sets Kind field to given value.
+
+### HasKind
+
+`func (o *MarketingAudience) HasKind() bool`
+
+HasKind returns a boolean if a field has been set.
+
+### GetList
+
+`func (o *MarketingAudience) GetList() string`
+
+GetList returns the List field if non-nil, zero value otherwise.
+
+### GetListOk
+
+`func (o *MarketingAudience) GetListOk() (*string, bool)`
+
+GetListOk returns a tuple with the List field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetList
+
+`func (o *MarketingAudience) SetList(v string)`
+
+SetList sets List field to given value.
+
+### HasList
+
+`func (o *MarketingAudience) HasList() bool`
+
+HasList returns a boolean if a field has been set.
+
 ### GetName
 
 `func (o *MarketingAudience) GetName() string`
@@ -129,6 +182,31 @@ SetName sets Name field to given value.
 `func (o *MarketingAudience) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetSubscribed
+
+`func (o *MarketingAudience) GetSubscribed() int64`
+
+GetSubscribed returns the Subscribed field if non-nil, zero value otherwise.
+
+### GetSubscribedOk
+
+`func (o *MarketingAudience) GetSubscribedOk() (*int64, bool)`
+
+GetSubscribedOk returns a tuple with the Subscribed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubscribed
+
+`func (o *MarketingAudience) SetSubscribed(v int64)`
+
+SetSubscribed sets Subscribed field to given value.
+
+### HasSubscribed
+
+`func (o *MarketingAudience) HasSubscribed() bool`
+
+HasSubscribed returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

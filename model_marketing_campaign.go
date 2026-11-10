@@ -19,6 +19,8 @@ var _ MappedNullable = &MarketingCampaign{}
 
 // MarketingCampaign struct for MarketingCampaign
 type MarketingCampaign struct {
+	// Audience is who the campaign reaches: a saved cohort (aud_…), a mailing list (lst_…) or a saved segment of one (seg_…), as GET /v1/marketing/audiences lists them. Empty is none named; one the org does not have is refused.
+	Audience *string `json:"audience,omitempty"`
 	// Budget is what the campaign is allowed to cost, in USD cents. A negative value is clamped to 0; nothing enforces the ceiling here.
 	Budget *int64 `json:"budget,omitempty"`
 	// Channel is the delivery surface: email, sms, social, meta, google or tiktok. Empty means email.
@@ -59,6 +61,38 @@ func NewMarketingCampaign() *MarketingCampaign {
 func NewMarketingCampaignWithDefaults() *MarketingCampaign {
 	this := MarketingCampaign{}
 	return &this
+}
+
+// GetAudience returns the Audience field value if set, zero value otherwise.
+func (o *MarketingCampaign) GetAudience() string {
+	if o == nil || IsNil(o.Audience) {
+		var ret string
+		return ret
+	}
+	return *o.Audience
+}
+
+// GetAudienceOk returns a tuple with the Audience field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingCampaign) GetAudienceOk() (*string, bool) {
+	if o == nil || IsNil(o.Audience) {
+		return nil, false
+	}
+	return o.Audience, true
+}
+
+// HasAudience returns a boolean if a field has been set.
+func (o *MarketingCampaign) HasAudience() bool {
+	if o != nil && !IsNil(o.Audience) {
+		return true
+	}
+
+	return false
+}
+
+// SetAudience gets a reference to the given string and assigns it to the Audience field.
+func (o *MarketingCampaign) SetAudience(v string) {
+	o.Audience = &v
 }
 
 // GetBudget returns the Budget field value if set, zero value otherwise.
@@ -391,6 +425,9 @@ func (o MarketingCampaign) MarshalJSON() ([]byte, error) {
 
 func (o MarketingCampaign) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Audience) {
+		toSerialize["audience"] = o.Audience
+	}
 	if !IsNil(o.Budget) {
 		toSerialize["budget"] = o.Budget
 	}
@@ -443,6 +480,7 @@ func (o *MarketingCampaign) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "audience")
 		delete(additionalProperties, "budget")
 		delete(additionalProperties, "channel")
 		delete(additionalProperties, "createdAt")

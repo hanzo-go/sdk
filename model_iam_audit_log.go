@@ -20,11 +20,12 @@ var _ MappedNullable = &IamAuditLog{}
 
 // IamAuditLog struct for IamAuditLog
 type IamAuditLog struct {
-	Action               *string    `json:"action,omitempty"`
-	ClientIp             *string    `json:"clientIp,omitempty"`
-	CreatedAt            *time.Time `json:"createdAt,omitempty"`
-	CreatedTime          *string    `json:"createdTime,omitempty"`
-	Deleted              *bool      `json:"deleted,omitempty"`
+	Action      *string    `json:"action,omitempty"`
+	ClientIp    *string    `json:"clientIp,omitempty"`
+	CreatedAt   *time.Time `json:"createdAt,omitempty"`
+	CreatedTime *string    `json:"createdTime,omitempty"`
+	Deleted     *bool      `json:"deleted,omitempty"`
+	// Persisted fields
 	Id                   *string    `json:"id,omitempty"`
 	IsTriggered          *bool      `json:"isTriggered,omitempty"`
 	Language             *string    `json:"language,omitempty"`

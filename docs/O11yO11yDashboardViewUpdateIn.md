@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**O11yO11yDashboardViewData**](O11yO11yDashboardViewData.md) |  | [optional] 
+**Data** | Pointer to [**O11yO11yDashboardViewData**](O11yO11yDashboardViewData.md) | Data is the listing state the view captures. | [optional] 
 **Id** | Pointer to **string** | ID is the saved view id from the path. | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Name is the saved view&#39;s name; at most 32 characters, no surrounding space. | [optional] 
 
 ## Methods
 

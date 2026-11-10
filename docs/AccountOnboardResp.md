@@ -4,9 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccessKey** | Pointer to **string** | AccessKey is the identifier of the org-scoped credential provisioning minted with the organization. Present on a first run that actually minted one. | [optional] 
-**AccessSecret** | Pointer to **string** | AccessSecret is that credential&#39;s confidential half, returned ONCE — on the response that mints it and never again. IAM keeps only its argon2id digest and blanks the plaintext, so this is the single moment it exists in a form its owner can read; a replay of the same provision re-reveals nothing. | [optional] 
-**Additional** | Pointer to **bool** | Additional is true when the caller already had an organization and this one was created WITHOUT moving them into it — they reach it via the org switcher. | [optional] 
+**AccessKey** | Pointer to **string** | AccessKey is the publishable half of the organization&#39;s default API key, held by its creator. Absent when the key could not be minted; the creator then mints one from the keys page. | [optional] 
+**AccessSecret** | Pointer to **string** | AccessSecret is that credential&#39;s confidential half, returned ONCE — on the response that mints it and never again. IAM keeps only its argon2id digest and blanks the plaintext, so this is the single moment it exists in a form its owner can read. | [optional] 
 **DisplayName** | Pointer to **string** | DisplayName is the organization&#39;s human name. | [optional] 
 **Org** | Pointer to **string** | Org is the created organization&#39;s slug, which is what X-Org-Id carries. | [optional] 
 
@@ -78,31 +77,6 @@ SetAccessSecret sets AccessSecret field to given value.
 `func (o *AccountOnboardResp) HasAccessSecret() bool`
 
 HasAccessSecret returns a boolean if a field has been set.
-
-### GetAdditional
-
-`func (o *AccountOnboardResp) GetAdditional() bool`
-
-GetAdditional returns the Additional field if non-nil, zero value otherwise.
-
-### GetAdditionalOk
-
-`func (o *AccountOnboardResp) GetAdditionalOk() (*bool, bool)`
-
-GetAdditionalOk returns a tuple with the Additional field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAdditional
-
-`func (o *AccountOnboardResp) SetAdditional(v bool)`
-
-SetAdditional sets Additional field to given value.
-
-### HasAdditional
-
-`func (o *AccountOnboardResp) HasAdditional() bool`
-
-HasAdditional returns a boolean if a field has been set.
 
 ### GetDisplayName
 

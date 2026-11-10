@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**At** | Pointer to **string** | At is the local time, HH:MM on a 24-hour clock, for daily, weekdays and weekly. Hourly takes its minute, and runs on the hour without one. | [optional] 
+**At** | Pointer to **string** | At is the local time, HH:MM on a 24-hour clock, for daily, weekdays and weekly. Hourly takes its minute, and runs on the hour without one. Once takes a local date and time, YYYY-MM-DDTHH:MM, and runs now without one. | [optional] 
 **Cron** | Pointer to **string** | Cron is a five-field cron expression (minute hour day-of-month month day-of-week), for kind cron only, read in TZ. | [optional] 
 **Day** | Pointer to **string** | Day is the weekday a weekly schedule runs on: mon, tue, wed, thu, fri, sat or sun. | [optional] 
-**Kind** | Pointer to **string** | Kind is manual, hourly, daily, weekdays, weekly or cron. Manual runs only when asked. | [optional] 
+**Kind** | Pointer to **string** | Kind is manual, hourly, daily, weekdays, weekly, cron or once. Manual runs only when asked; once runs one time and then switches itself off. | [optional] 
 **Tz** | Pointer to **string** | TZ is the IANA time zone every time here is read in. Empty is UTC. | [optional] 
 
 ## Methods

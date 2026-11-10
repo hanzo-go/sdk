@@ -24,13 +24,14 @@ type O11yO11ySavedViewUpdateIn struct {
 	CompositeQuery *O11yV3CompositeQuery `json:"compositeQuery,omitempty"`
 	CreatedAt      *time.Time            `json:"createdAt,omitempty"`
 	CreatedBy      *string               `json:"createdBy,omitempty"`
-	ExtraData      *string               `json:"extraData,omitempty"`
-	Id             interface{}           `json:"id,omitempty"`
-	Name           *string               `json:"name,omitempty"`
-	SourcePage     *string               `json:"sourcePage,omitempty"`
-	Tags           []string              `json:"tags,omitempty"`
-	UpdatedAt      *time.Time            `json:"updatedAt,omitempty"`
-	UpdatedBy      *string               `json:"updatedBy,omitempty"`
+	// ExtraData is JSON encoded data used by frontend to store additional data
+	ExtraData  *string     `json:"extraData,omitempty"`
+	Id         interface{} `json:"id,omitempty"`
+	Name       *string     `json:"name,omitempty"`
+	SourcePage *string     `json:"sourcePage,omitempty"`
+	Tags       []string    `json:"tags,omitempty"`
+	UpdatedAt  *time.Time  `json:"updatedAt,omitempty"`
+	UpdatedBy  *string     `json:"updatedBy,omitempty"`
 	// ViewID is the id of the view to replace, taken from the URL.
 	ViewId               *string `json:"viewId,omitempty"`
 	AdditionalProperties map[string]interface{}

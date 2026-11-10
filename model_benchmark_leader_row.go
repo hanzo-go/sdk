@@ -26,6 +26,10 @@ type BenchmarkLeaderRow struct {
 	CiLow *float64 `json:"ciLow,omitempty"`
 	// Claims is how many independent claims the platform holds for this model on this benchmark. More than one means several sources reported it.
 	Claims *int64 `json:"claims,omitempty"`
+	// Evidence are the evidence uris the Published claim rests on (GET /v1/research/evidence?uri=).
+	Evidence []string `json:"evidence,omitempty"`
+	// From is the org whose claim Published was promoted from, when a SuperAdmin published another org's claim rather than writing one under org admin: \"hanzo\" on a row Hanzo measured and the platform published.
+	From *string `json:"from,omitempty"`
 	// published − measured (the arena signal)
 	Gap *float64 `json:"gap,omitempty"`
 	// Mean is the unweighted average of every claim, which answers a different question from Published: what the field says on average, rather than what the vendor says about itself. With one claim the two are equal.
@@ -44,6 +48,8 @@ type BenchmarkLeaderRow struct {
 	Published *float64 `json:"published,omitempty"`
 	// Run names the measurement Measured came from, and MeasuredAt is when it ran. A score with no date is not a fact about a model, it is a fact about a model on a day — and models change, so the date is what makes the number checkable rather than merely quoted.
 	Run *string `json:"run,omitempty"`
+	// Runs are the research run ids the Published claim rests on (GET /v1/research/runs?id=).
+	Runs []string `json:"runs,omitempty"`
 	// Spread is the distance between the highest and lowest of them, nil when there is only one. It is the disagreement AMONG sources, which a single Published number cannot show — signal in the same way the published-minus-measured gap is.
 	Spread               *float64 `json:"spread,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -162,6 +168,70 @@ func (o *BenchmarkLeaderRow) HasClaims() bool {
 // SetClaims gets a reference to the given int64 and assigns it to the Claims field.
 func (o *BenchmarkLeaderRow) SetClaims(v int64) {
 	o.Claims = &v
+}
+
+// GetEvidence returns the Evidence field value if set, zero value otherwise.
+func (o *BenchmarkLeaderRow) GetEvidence() []string {
+	if o == nil || IsNil(o.Evidence) {
+		var ret []string
+		return ret
+	}
+	return o.Evidence
+}
+
+// GetEvidenceOk returns a tuple with the Evidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkLeaderRow) GetEvidenceOk() ([]string, bool) {
+	if o == nil || IsNil(o.Evidence) {
+		return nil, false
+	}
+	return o.Evidence, true
+}
+
+// HasEvidence returns a boolean if a field has been set.
+func (o *BenchmarkLeaderRow) HasEvidence() bool {
+	if o != nil && !IsNil(o.Evidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvidence gets a reference to the given []string and assigns it to the Evidence field.
+func (o *BenchmarkLeaderRow) SetEvidence(v []string) {
+	o.Evidence = v
+}
+
+// GetFrom returns the From field value if set, zero value otherwise.
+func (o *BenchmarkLeaderRow) GetFrom() string {
+	if o == nil || IsNil(o.From) {
+		var ret string
+		return ret
+	}
+	return *o.From
+}
+
+// GetFromOk returns a tuple with the From field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkLeaderRow) GetFromOk() (*string, bool) {
+	if o == nil || IsNil(o.From) {
+		return nil, false
+	}
+	return o.From, true
+}
+
+// HasFrom returns a boolean if a field has been set.
+func (o *BenchmarkLeaderRow) HasFrom() bool {
+	if o != nil && !IsNil(o.From) {
+		return true
+	}
+
+	return false
+}
+
+// SetFrom gets a reference to the given string and assigns it to the From field.
+func (o *BenchmarkLeaderRow) SetFrom(v string) {
+	o.From = &v
 }
 
 // GetGap returns the Gap field value if set, zero value otherwise.
@@ -452,6 +522,38 @@ func (o *BenchmarkLeaderRow) SetRun(v string) {
 	o.Run = &v
 }
 
+// GetRuns returns the Runs field value if set, zero value otherwise.
+func (o *BenchmarkLeaderRow) GetRuns() []string {
+	if o == nil || IsNil(o.Runs) {
+		var ret []string
+		return ret
+	}
+	return o.Runs
+}
+
+// GetRunsOk returns a tuple with the Runs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkLeaderRow) GetRunsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Runs) {
+		return nil, false
+	}
+	return o.Runs, true
+}
+
+// HasRuns returns a boolean if a field has been set.
+func (o *BenchmarkLeaderRow) HasRuns() bool {
+	if o != nil && !IsNil(o.Runs) {
+		return true
+	}
+
+	return false
+}
+
+// SetRuns gets a reference to the given []string and assigns it to the Runs field.
+func (o *BenchmarkLeaderRow) SetRuns(v []string) {
+	o.Runs = v
+}
+
 // GetSpread returns the Spread field value if set, zero value otherwise.
 func (o *BenchmarkLeaderRow) GetSpread() float64 {
 	if o == nil || IsNil(o.Spread) {
@@ -503,6 +605,12 @@ func (o BenchmarkLeaderRow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Claims) {
 		toSerialize["claims"] = o.Claims
 	}
+	if !IsNil(o.Evidence) {
+		toSerialize["evidence"] = o.Evidence
+	}
+	if !IsNil(o.From) {
+		toSerialize["from"] = o.From
+	}
 	if !IsNil(o.Gap) {
 		toSerialize["gap"] = o.Gap
 	}
@@ -529,6 +637,9 @@ func (o BenchmarkLeaderRow) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Run) {
 		toSerialize["run"] = o.Run
+	}
+	if !IsNil(o.Runs) {
+		toSerialize["runs"] = o.Runs
 	}
 	if !IsNil(o.Spread) {
 		toSerialize["spread"] = o.Spread
@@ -558,6 +669,8 @@ func (o *BenchmarkLeaderRow) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ciHigh")
 		delete(additionalProperties, "ciLow")
 		delete(additionalProperties, "claims")
+		delete(additionalProperties, "evidence")
+		delete(additionalProperties, "from")
 		delete(additionalProperties, "gap")
 		delete(additionalProperties, "mean")
 		delete(additionalProperties, "measured")
@@ -567,6 +680,7 @@ func (o *BenchmarkLeaderRow) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "protocol")
 		delete(additionalProperties, "published")
 		delete(additionalProperties, "run")
+		delete(additionalProperties, "runs")
 		delete(additionalProperties, "spread")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -5,9 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **string** | At is when it started and Finished when it ended (null while it runs), RFC 3339 UTC. | [optional] 
+**Draft** | Pointer to **string** | Draft is the post the agent wrote, for an automation that posts; empty otherwise. | [optional] 
 **Finished** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** | Status is succeeded, failed, running, queued, skipped for a start that found the previous run still going, or refused for a run whose person is no longer a member of the org. | [optional] 
+**Outputs** | Pointer to **[]string** | Outputs are the Library items the run made: its answer, kept as a document. Never null. | [optional] 
+**Posts** | Pointer to [**[]AutoPostResult**](AutoPostResult.md) | Posts are where it went: one per account, its link or the platform&#39;s reason it did not go. Never null. | [optional] 
+**Status** | Pointer to **string** | Status is succeeded, failed, running, queued, review for a post waiting for its person to post or discard it, skipped for a start that found the previous run still going, or refused for a run whose person is no longer a member of the org. | [optional] 
 **Summary** | Pointer to **string** | Summary is one line on how it went. | [optional] 
 **Transcript** | Pointer to **string** | Transcript opens the run&#39;s Dev run; null when it started none. | [optional] 
 
@@ -54,6 +57,31 @@ SetAt sets At field to given value.
 `func (o *AutoAutomationRun) HasAt() bool`
 
 HasAt returns a boolean if a field has been set.
+
+### GetDraft
+
+`func (o *AutoAutomationRun) GetDraft() string`
+
+GetDraft returns the Draft field if non-nil, zero value otherwise.
+
+### GetDraftOk
+
+`func (o *AutoAutomationRun) GetDraftOk() (*string, bool)`
+
+GetDraftOk returns a tuple with the Draft field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDraft
+
+`func (o *AutoAutomationRun) SetDraft(v string)`
+
+SetDraft sets Draft field to given value.
+
+### HasDraft
+
+`func (o *AutoAutomationRun) HasDraft() bool`
+
+HasDraft returns a boolean if a field has been set.
 
 ### GetFinished
 
@@ -104,6 +132,56 @@ SetId sets Id field to given value.
 `func (o *AutoAutomationRun) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetOutputs
+
+`func (o *AutoAutomationRun) GetOutputs() []string`
+
+GetOutputs returns the Outputs field if non-nil, zero value otherwise.
+
+### GetOutputsOk
+
+`func (o *AutoAutomationRun) GetOutputsOk() (*[]string, bool)`
+
+GetOutputsOk returns a tuple with the Outputs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOutputs
+
+`func (o *AutoAutomationRun) SetOutputs(v []string)`
+
+SetOutputs sets Outputs field to given value.
+
+### HasOutputs
+
+`func (o *AutoAutomationRun) HasOutputs() bool`
+
+HasOutputs returns a boolean if a field has been set.
+
+### GetPosts
+
+`func (o *AutoAutomationRun) GetPosts() []AutoPostResult`
+
+GetPosts returns the Posts field if non-nil, zero value otherwise.
+
+### GetPostsOk
+
+`func (o *AutoAutomationRun) GetPostsOk() (*[]AutoPostResult, bool)`
+
+GetPostsOk returns a tuple with the Posts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPosts
+
+`func (o *AutoAutomationRun) SetPosts(v []AutoPostResult)`
+
+SetPosts sets Posts field to given value.
+
+### HasPosts
+
+`func (o *AutoAutomationRun) HasPosts() bool`
+
+HasPosts returns a boolean if a field has been set.
 
 ### GetStatus
 

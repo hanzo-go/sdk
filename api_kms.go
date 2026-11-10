@@ -16,10 +16,155 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // KmsAPIService KmsAPI service
 type KmsAPIService service
+
+type KmsAPIDeleteKmsSecretsByWildcard1Request struct {
+	ctx        context.Context
+	ApiService *KmsAPIService
+	wildcard1  string
+	env        *string
+}
+
+// Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns.
+func (r KmsAPIDeleteKmsSecretsByWildcard1Request) Env(env string) KmsAPIDeleteKmsSecretsByWildcard1Request {
+	r.env = &env
+	return r
+}
+
+func (r KmsAPIDeleteKmsSecretsByWildcard1Request) Execute() (*KmsKmsRemoved, *http.Response, error) {
+	return r.ApiService.DeleteKmsSecretsByWildcard1Execute(r)
+}
+
+/*
+DeleteKmsSecretsByWildcard1 Removes one secret from your org.
+
+Removes one secret from your org.
+
+Forgets one secret belonging to the caller's own org and confirms the name and
+environment that were removed. Deleting a secret that is not there is a 404,
+not a silent success, so a caller can tell a real deletion from a typo.
+
+`secret` is the coordinate beneath the caller's org root, subpath and name
+together, and over HTTP it is the trailing path itself. `env` selects the
+environment and falls back to the default when omitted. The org comes from the
+validated claim, never from the request.
+
+A delete is a WRITE to the grant rule, like the put: destroying a secret is as
+consequential as replacing it, and a credential distributed to READ one must
+not be able to remove it. It opens only for SuperAdmin holding an access
+token, audited, or for a holder a declared WRITE grant covers. Fail-closed
+admission, in order: a validated member, well-formed org, master key present,
+well-formed address, then the grant — 401/403, 400, 503, 400 and 403, all
+decided before any record is touched.
+
+A value this deployment seals on the org's behalf is removed by the app that
+holds it, and never here for membership or org admin, whatever the grant
+declaration says about enforcement: deleting a wallet's signing key or an MCP
+server's credential destroys what the app acts with.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param wildcard1 Secret is the coordinate beneath the caller's own org root: an optional `/`-separated subpath and then the name, such as `ci/deploy/token`. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant's secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \"everything\", and a blank address must not read as one.
+	@return KmsAPIDeleteKmsSecretsByWildcard1Request
+*/
+func (a *KmsAPIService) DeleteKmsSecretsByWildcard1(ctx context.Context, wildcard1 string) KmsAPIDeleteKmsSecretsByWildcard1Request {
+	return KmsAPIDeleteKmsSecretsByWildcard1Request{
+		ApiService: a,
+		ctx:        ctx,
+		wildcard1:  wildcard1,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KmsKmsRemoved
+func (a *KmsAPIService) DeleteKmsSecretsByWildcard1Execute(r KmsAPIDeleteKmsSecretsByWildcard1Request) (*KmsKmsRemoved, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KmsKmsRemoved
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.DeleteKmsSecretsByWildcard1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/kms/secrets/{wildcard1}"
+	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.env != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type KmsAPIGetKmsConfigRequest struct {
 	ctx        context.Context
@@ -322,9 +467,17 @@ the operator's spellings, `secretPath` and `environment`. An omitted `env`
 means every environment and an omitted `path` means the whole org, because a
 default here reported a populated store as empty.
 
+Who sees what: a SuperAdmin holding an access token (audited) sees every name,
+and so does an admin of the org holding their own access token, outside the
+brand and platform orgs, whose stores are the platform's. Any other caller sees
+only the names a declared grant lets it read or write, and is refused with a 403
+when none of its grants lies inside the subtree asked about. Membership alone
+shows nothing.
+
 Admission is fail-closed and in order: a validated member, an org that is a
-DNS-1123 label, and a store holding a master key — 403, 400 and 503
-respectively, all decided before any record is touched.
+DNS-1123 label, a store holding a master key, well-formed input, then who may
+list — 403, 400, 503, 400 and 403 respectively, all decided before any record
+is touched.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KmsAPIGetKmsSecretsRequest
@@ -369,6 +522,155 @@ func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*Kms
 	}
 	if r.secretPath != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "secretPath", r.secretPath, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KmsAPIGetKmsSecretsByWildcard1Request struct {
+	ctx        context.Context
+	ApiService *KmsAPIService
+	wildcard1  string
+	env        *string
+}
+
+// Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns.
+func (r KmsAPIGetKmsSecretsByWildcard1Request) Env(env string) KmsAPIGetKmsSecretsByWildcard1Request {
+	r.env = &env
+	return r
+}
+
+func (r KmsAPIGetKmsSecretsByWildcard1Request) Execute() (*KmsKmsSecret, *http.Response, error) {
+	return r.ApiService.GetKmsSecretsByWildcard1Execute(r)
+}
+
+/*
+GetKmsSecretsByWildcard1 Reads one secret's value from your org.
+
+Reads one secret's value from your org.
+
+Opens one sealed secret belonging to the caller's own org and returns its
+value, with the name and environment it was resolved under. This is the
+broker's purpose, and the response body is the ONLY place the value appears —
+it is not logged, and it is never carried in an error.
+
+`secret` is the coordinate beneath the caller's org root, subpath and name
+together, and over HTTP it is the trailing path itself. `env` selects the
+environment and falls back to the default when omitted. A secret that is not
+there is a plain 404 that names nothing about the store.
+
+Scoped to the caller's own org and nothing else: there is no org in the
+address, so another tenant's secret is not merely refused, it is unnameable.
+Within that org the value opens only for SuperAdmin holding an access token,
+audited, or for a holder a declared READ grant covers at this exact path, key
+and environment; membership and org admin alone open nothing. Admission is
+fail-closed and in order — a validated member, an org that is a DNS-1123
+label, a store holding a master key, a well-formed address, then the grant —
+401/403, 400, 503, 400 and 403, all decided before any record is touched, so
+a refused caller learns nothing about whether the secret exists.
+
+A value this deployment seals on the org's behalf — an MCP server's
+credential, a repository's environment secret, a connected account's token —
+is read by the app that sealed it, and never opens here for membership or org
+admin, whatever the grant declaration says about enforcement. A deployed
+app's or a validator's own folder also opens for the org's KMS-sync identity,
+which projects it into the org's namespace.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param wildcard1 Secret is the coordinate beneath the caller's own org root: an optional `/`-separated subpath and then the name, such as `ci/deploy/token`. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant's secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \"everything\", and a blank address must not read as one.
+	@return KmsAPIGetKmsSecretsByWildcard1Request
+*/
+func (a *KmsAPIService) GetKmsSecretsByWildcard1(ctx context.Context, wildcard1 string) KmsAPIGetKmsSecretsByWildcard1Request {
+	return KmsAPIGetKmsSecretsByWildcard1Request{
+		ApiService: a,
+		ctx:        ctx,
+		wildcard1:  wildcard1,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KmsKmsSecret
+func (a *KmsAPIService) GetKmsSecretsByWildcard1Execute(r KmsAPIGetKmsSecretsByWildcard1Request) (*KmsKmsSecret, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KmsKmsSecret
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.GetKmsSecretsByWildcard1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/kms/secrets/{wildcard1}"
+	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.env != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -599,7 +901,11 @@ resolve project, environment and path never look in, and the stale value keeps
 being served — so the write fails loudly instead.
 
 `name` is required, `path` is an optional subpath beneath the org root, and
-the org is taken from the validated claim rather than the body.
+the org is taken from the validated claim rather than the body. A `path` that
+starts with `/orgs/` is refused with a 400 that names where it would have
+landed: the root is already `/orgs/<org>`, so `/orgs/hanzo` written in org
+admin is stored at `/orgs/admin/orgs/hanzo`, which no reader of org hanzo
+looks in. The org is chosen with the credential (the CLI's `--as`).
 
 Opens only for SuperAdmin holding an access token, audited, or for a holder
 a declared WRITE grant covers at this exact path, key and environment. Org

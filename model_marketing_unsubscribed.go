@@ -23,6 +23,12 @@ type MarketingUnsubscribed struct {
 	Address *string `json:"address,omitempty"`
 	// Channel is the ONE surface opted out of: email, sms, social, meta, google or tiktok. The other channels are untouched, and so is this address in every other org.
 	Channel *string `json:"channel,omitempty"`
+	// Company is the domain opted out whole, when the link asked for it.
+	Company *string `json:"company,omitempty"`
+	// List is the marketing list the address left, when the link was a list's.
+	List *string `json:"list,omitempty"`
+	// Offer is the domain the reader may opt out whole by asking again with company=true: the company's own domain, never a free mail provider's. Absent when the company is already out, or for free mail.
+	Offer *string `json:"offer,omitempty"`
 	// Unsubscribed is always true here: the opt-out is idempotent, so a second click on the same link confirms the same thing rather than reporting nothing changed. A refused token never reaches this shape — it is a 403.
 	Unsubscribed         *bool `json:"unsubscribed,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -111,6 +117,102 @@ func (o *MarketingUnsubscribed) SetChannel(v string) {
 	o.Channel = &v
 }
 
+// GetCompany returns the Company field value if set, zero value otherwise.
+func (o *MarketingUnsubscribed) GetCompany() string {
+	if o == nil || IsNil(o.Company) {
+		var ret string
+		return ret
+	}
+	return *o.Company
+}
+
+// GetCompanyOk returns a tuple with the Company field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingUnsubscribed) GetCompanyOk() (*string, bool) {
+	if o == nil || IsNil(o.Company) {
+		return nil, false
+	}
+	return o.Company, true
+}
+
+// HasCompany returns a boolean if a field has been set.
+func (o *MarketingUnsubscribed) HasCompany() bool {
+	if o != nil && !IsNil(o.Company) {
+		return true
+	}
+
+	return false
+}
+
+// SetCompany gets a reference to the given string and assigns it to the Company field.
+func (o *MarketingUnsubscribed) SetCompany(v string) {
+	o.Company = &v
+}
+
+// GetList returns the List field value if set, zero value otherwise.
+func (o *MarketingUnsubscribed) GetList() string {
+	if o == nil || IsNil(o.List) {
+		var ret string
+		return ret
+	}
+	return *o.List
+}
+
+// GetListOk returns a tuple with the List field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingUnsubscribed) GetListOk() (*string, bool) {
+	if o == nil || IsNil(o.List) {
+		return nil, false
+	}
+	return o.List, true
+}
+
+// HasList returns a boolean if a field has been set.
+func (o *MarketingUnsubscribed) HasList() bool {
+	if o != nil && !IsNil(o.List) {
+		return true
+	}
+
+	return false
+}
+
+// SetList gets a reference to the given string and assigns it to the List field.
+func (o *MarketingUnsubscribed) SetList(v string) {
+	o.List = &v
+}
+
+// GetOffer returns the Offer field value if set, zero value otherwise.
+func (o *MarketingUnsubscribed) GetOffer() string {
+	if o == nil || IsNil(o.Offer) {
+		var ret string
+		return ret
+	}
+	return *o.Offer
+}
+
+// GetOfferOk returns a tuple with the Offer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingUnsubscribed) GetOfferOk() (*string, bool) {
+	if o == nil || IsNil(o.Offer) {
+		return nil, false
+	}
+	return o.Offer, true
+}
+
+// HasOffer returns a boolean if a field has been set.
+func (o *MarketingUnsubscribed) HasOffer() bool {
+	if o != nil && !IsNil(o.Offer) {
+		return true
+	}
+
+	return false
+}
+
+// SetOffer gets a reference to the given string and assigns it to the Offer field.
+func (o *MarketingUnsubscribed) SetOffer(v string) {
+	o.Offer = &v
+}
+
 // GetUnsubscribed returns the Unsubscribed field value if set, zero value otherwise.
 func (o *MarketingUnsubscribed) GetUnsubscribed() bool {
 	if o == nil || IsNil(o.Unsubscribed) {
@@ -159,6 +261,15 @@ func (o MarketingUnsubscribed) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Channel) {
 		toSerialize["channel"] = o.Channel
 	}
+	if !IsNil(o.Company) {
+		toSerialize["company"] = o.Company
+	}
+	if !IsNil(o.List) {
+		toSerialize["list"] = o.List
+	}
+	if !IsNil(o.Offer) {
+		toSerialize["offer"] = o.Offer
+	}
 	if !IsNil(o.Unsubscribed) {
 		toSerialize["unsubscribed"] = o.Unsubscribed
 	}
@@ -186,6 +297,9 @@ func (o *MarketingUnsubscribed) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "address")
 		delete(additionalProperties, "channel")
+		delete(additionalProperties, "company")
+		delete(additionalProperties, "list")
+		delete(additionalProperties, "offer")
 		delete(additionalProperties, "unsubscribed")
 		o.AdditionalProperties = additionalProperties
 	}

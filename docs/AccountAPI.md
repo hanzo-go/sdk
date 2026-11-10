@@ -4,24 +4,25 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAccountKeys**](AccountAPI.md#DeleteAccountKeys) | **Delete** /v1/account/keys | Revokes the caller&#39;s own API key of the requested class.
+[**DeleteAccountKeysById**](AccountAPI.md#DeleteAccountKeysById) | **Delete** /v1/account/keys/{id} | Revokes exactly one API key, by id.
 [**GetAccountAppearance**](AccountAPI.md#GetAccountAppearance) | **Get** /v1/account/appearance | Returns the signed-in caller&#39;s own appearance preference — text size, density and accent — read from their IAM account so it is the same on every device and every Hanzo surface.
 [**GetAccountAvatarByOrgByUserByDigest**](AccountAPI.md#GetAccountAvatarByOrgByUserByDigest) | **Get** /v1/account/avatar/{org}/{user}/{digest} | Fetch a profile photo
 [**GetAccountCsrf**](AccountAPI.md#GetAccountCsrf) | **Get** /v1/account/csrf | Mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
 [**GetAccountEmbed**](AccountAPI.md#GetAccountEmbed) | **Get** /v1/account/embed | Reports whether one of this brand&#39;s shared embedded apps (cms, erp, help) may be framed by the caller and is actually running, so a console module can choose between the embed and the provision panel.
-[**GetAccountKeys**](AccountAPI.md#GetAccountKeys) | **Get** /v1/account/keys | Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
+[**GetAccountKeys**](AccountAPI.md#GetAccountKeys) | **Get** /v1/account/keys | Returns the API keys the caller may see, newest first: their own, or every key the org holds when the caller administers it.
+[**PatchAccountKeysById**](AccountAPI.md#PatchAccountKeysById) | **Patch** /v1/account/keys/{id} | Changes one key&#39;s name, permissions, budget, rate or expiry.
 [**PostAccountAppearance**](AccountAPI.md#PostAccountAppearance) | **Post** /v1/account/appearance | Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
 [**PostAccountAvatar**](AccountAPI.md#PostAccountAvatar) | **Post** /v1/account/avatar | Set your profile photo
-[**PostAccountKeys**](AccountAPI.md#PostAccountKeys) | **Post** /v1/account/keys | Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
-[**PostAccountOrgs**](AccountAPI.md#PostAccountOrgs) | **Post** /v1/account/orgs | Creates the caller&#39;s organization.
+[**PostAccountKeys**](AccountAPI.md#PostAccountKeys) | **Post** /v1/account/keys | Creates a NEW API key and returns its secret ONCE.
+[**PostAccountOrgs**](AccountAPI.md#PostAccountOrgs) | **Post** /v1/account/orgs | Creates an organization and makes the caller its owner.
 
 
 
-## DeleteAccountKeys
+## DeleteAccountKeysById
 
-> AccountRevokedKey DeleteAccountKeys(ctx).Type_(type_).Execute()
+> AccountApiKey DeleteAccountKeysById(ctx, id).Execute()
 
-Revokes the caller's own API key of the requested class.
+Revokes exactly one API key, by id.
 
 
 
@@ -38,36 +39,40 @@ import (
 )
 
 func main() {
-	type_ := "publishable" // string | Type is the key class to act on: \"secret\" (sk-, session-equivalent, belongs on a server) or \"publishable\" (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
+	id := "id_example" // string | ID is the key to act on, from the path.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountAPI.DeleteAccountKeys(context.Background()).Type_(type_).Execute()
+	resp, r, err := apiClient.AccountAPI.DeleteAccountKeysById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.DeleteAccountKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.DeleteAccountKeysById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteAccountKeys`: AccountRevokedKey
-	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.DeleteAccountKeys`: %v\n", resp)
+	// response from `DeleteAccountKeysById`: AccountApiKey
+	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.DeleteAccountKeysById`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the key to act on, from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteAccountKeysRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteAccountKeysByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **type_** | **string** | Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. | 
+
 
 ### Return type
 
-[**AccountRevokedKey**](AccountRevokedKey.md)
+[**AccountApiKey**](AccountApiKey.md)
 
 ### Authorization
 
@@ -349,7 +354,7 @@ Name | Type | Description  | Notes
 
 > AccountApiKeyList GetAccountKeys(ctx).Execute()
 
-Returns the caller's own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
+Returns the API keys the caller may see, newest first: their own, or every key the org holds when the caller administers it.
 
 
 
@@ -399,6 +404,78 @@ Other parameters are passed through a pointer to a apiGetAccountKeysRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchAccountKeysById
+
+> AccountApiKey PatchAccountKeysById(ctx, id).AccountKeyEdit(accountKeyEdit).Execute()
+
+Changes one key's name, permissions, budget, rate or expiry.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the key to edit, from the path.
+	accountKeyEdit := *openapiclient.NewAccountKeyEdit() // AccountKeyEdit | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountAPI.PatchAccountKeysById(context.Background(), id).AccountKeyEdit(accountKeyEdit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.PatchAccountKeysById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchAccountKeysById`: AccountApiKey
+	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.PatchAccountKeysById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the key to edit, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchAccountKeysByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **accountKeyEdit** | [**AccountKeyEdit**](AccountKeyEdit.md) |  | 
+
+### Return type
+
+[**AccountApiKey**](AccountApiKey.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -533,9 +610,9 @@ Other parameters are passed through a pointer to a apiPostAccountAvatarRequest s
 
 ## PostAccountKeys
 
-> AccountMintedKey PostAccountKeys(ctx).AccountKeyTypeIn(accountKeyTypeIn).Execute()
+> AccountApiKey PostAccountKeys(ctx).AccountKeyIn(accountKeyIn).Execute()
 
-Creates — or rotates — the caller's API key of the requested type and returns it ONCE.
+Creates a NEW API key and returns its secret ONCE.
 
 
 
@@ -552,16 +629,16 @@ import (
 )
 
 func main() {
-	accountKeyTypeIn := *openapiclient.NewAccountKeyTypeIn() // AccountKeyTypeIn | 
+	accountKeyIn := *openapiclient.NewAccountKeyIn() // AccountKeyIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountAPI.PostAccountKeys(context.Background()).AccountKeyTypeIn(accountKeyTypeIn).Execute()
+	resp, r, err := apiClient.AccountAPI.PostAccountKeys(context.Background()).AccountKeyIn(accountKeyIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.PostAccountKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAccountKeys`: AccountMintedKey
+	// response from `PostAccountKeys`: AccountApiKey
 	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.PostAccountKeys`: %v\n", resp)
 }
 ```
@@ -577,11 +654,11 @@ Other parameters are passed through a pointer to a apiPostAccountKeysRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountKeyTypeIn** | [**AccountKeyTypeIn**](AccountKeyTypeIn.md) |  | 
+ **accountKeyIn** | [**AccountKeyIn**](AccountKeyIn.md) |  | 
 
 ### Return type
 
-[**AccountMintedKey**](AccountMintedKey.md)
+[**AccountApiKey**](AccountApiKey.md)
 
 ### Authorization
 
@@ -601,7 +678,7 @@ Name | Type | Description  | Notes
 
 > AccountOnboardResp PostAccountOrgs(ctx).AccountOnboardReq(accountOnboardReq).Execute()
 
-Creates the caller's organization.
+Creates an organization and makes the caller its owner.
 
 
 

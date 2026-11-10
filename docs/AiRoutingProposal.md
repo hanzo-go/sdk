@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Base** | Pointer to **int32** |  | [optional] 
 **Diff** | Pointer to **string** |  | [optional] 
 **Family** | Pointer to **string** |  | [optional] 
+**Refused** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetFamily sets Family field to given value.
 `func (o *AiRoutingProposal) HasFamily() bool`
 
 HasFamily returns a boolean if a field has been set.
+
+### GetRefused
+
+`func (o *AiRoutingProposal) GetRefused() string`
+
+GetRefused returns the Refused field if non-nil, zero value otherwise.
+
+### GetRefusedOk
+
+`func (o *AiRoutingProposal) GetRefusedOk() (*string, bool)`
+
+GetRefusedOk returns a tuple with the Refused field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRefused
+
+`func (o *AiRoutingProposal) SetRefused(v string)`
+
+SetRefused sets Refused field to given value.
+
+### HasRefused
+
+`func (o *AiRoutingProposal) HasRefused() bool`
+
+HasRefused returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

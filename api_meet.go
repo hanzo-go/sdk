@@ -248,18 +248,18 @@ type MeetAPIMeetCallRequest struct {
 	ctx        context.Context
 	ApiService *MeetAPIService
 	space      *string
-	room       *string
+	channel    *string
 }
 
-// Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against.
+// Space is the space uuid holding the channel, as GET /v1/team/channels reports it. It is the segment the caller&#39;s membership is checked against.
 func (r MeetAPIMeetCallRequest) Space(space string) MeetAPIMeetCallRequest {
 	r.space = &space
 	return r
 }
 
-// Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it.
-func (r MeetAPIMeetCallRequest) Room(room string) MeetAPIMeetCallRequest {
-	r.room = &room
+// Channel is the channel&#39;s own id within that space, as GET /v1/team/channels reports it. It is opaque here: meet keeps no channels and cannot say whether one exists, only whether this caller may be seated in the space holding it.
+func (r MeetAPIMeetCallRequest) Channel(channel string) MeetAPIMeetCallRequest {
+	r.channel = &channel
 	return r
 }
 
@@ -270,11 +270,11 @@ func (r MeetAPIMeetCallRequest) Execute() (*MeetVenue, *http.Response, error) {
 /*
 MeetCall Where a room's call happens
 
-Answers where a room's call happens, for a caller who may join it.
+Answers where a channel's call happens, for a caller who may join it.
 
 It is the "resolved at render" half of HIP-0523 §12: a surface showing a channel
-asks for the room's call at the moment it draws one, rather than reading a media
-room name someone stored on the room. Nothing here is persisted and nothing is
+asks for the channel's call at the moment it draws one, rather than reading a
+media room name someone stored on the channel. Nothing here is persisted and nothing is
 created — a media room begins existing when the first participant connects and
 stops when the last leaves, so there is no call to create and none to clean up.
 
@@ -282,7 +282,7 @@ AUTHORIZATION IS THE JOIN DECISION, unchanged and shared. It delegates to
 state.admits, the same function POST /v1/meet/getToken and all three recording
 operations admit on, so a caller who is told where a call is, is a caller who
 could have joined it. Answering the address to someone who cannot join would make
-this a space-membership oracle for anyone who can guess a room id.
+this a space-membership oracle for anyone who can guess a channel id.
 
 It deliberately does NOT report whether a call is in progress. That is a fact the
 media server holds and this binary would have to ask for it over the network,
@@ -324,12 +324,12 @@ func (a *MeetAPIService) MeetCallExecute(r MeetAPIMeetCallRequest) (*MeetVenue, 
 	if r.space == nil {
 		return localVarReturnValue, nil, reportError("space is required and must be specified")
 	}
-	if r.room == nil {
-		return localVarReturnValue, nil, reportError("room is required and must be specified")
+	if r.channel == nil {
+		return localVarReturnValue, nil, reportError("channel is required and must be specified")
 	}
 
 	parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "room", r.room, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "channel", r.channel, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

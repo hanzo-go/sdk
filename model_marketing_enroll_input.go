@@ -21,7 +21,7 @@ var _ MappedNullable = &MarketingEnrollInput{}
 type MarketingEnrollInput struct {
 	// Address is a single recipient, normalized (lower-cased, trimmed) before use. Give this OR audienceId, never both and never neither.
 	Address *string `json:"address,omitempty"`
-	// AudienceID fans the sequence out over a saved audience, resolved live to the org's mailable customers. Email only.
+	// AudienceID fans the sequence out over an audience: a saved cohort (aud_…), resolved live to the org's mailable customers, or a list (lst_…) or a saved segment of one (seg_…), resolved to its subscribed members. Email only.
 	AudienceId *string `json:"audienceId,omitempty"`
 	// Channel is the delivery surface; empty means email. An audience resolves mailboxes, so an audience enroll must be email.
 	Channel *string `json:"channel,omitempty"`

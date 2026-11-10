@@ -21,6 +21,8 @@ var _ MappedNullable = &AgentCodingStarted{}
 type AgentCodingStarted struct {
 	// Branch is the ref the run will push its work to, and the ONLY ref it is permitted to write. It exists before the work does, so it is safe to tell somebody where to look while the run is still going.
 	Branch *string `json:"branch,omitempty"`
+	// Pull is the CLI command or instruction to pull this run locally, e.g. `hanzo pull <sessionId>`.
+	Pull *string `json:"pull,omitempty"`
 	// Repo is the repository the run was admitted against, echoed back as the engine resolved it.
 	Repo *string `json:"repo,omitempty"`
 	// Routed says the run went to one of the org's own registered machines rather than to a sandbox in our cluster. False is the ordinary case.
@@ -81,6 +83,38 @@ func (o *AgentCodingStarted) HasBranch() bool {
 // SetBranch gets a reference to the given string and assigns it to the Branch field.
 func (o *AgentCodingStarted) SetBranch(v string) {
 	o.Branch = &v
+}
+
+// GetPull returns the Pull field value if set, zero value otherwise.
+func (o *AgentCodingStarted) GetPull() string {
+	if o == nil || IsNil(o.Pull) {
+		var ret string
+		return ret
+	}
+	return *o.Pull
+}
+
+// GetPullOk returns a tuple with the Pull field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentCodingStarted) GetPullOk() (*string, bool) {
+	if o == nil || IsNil(o.Pull) {
+		return nil, false
+	}
+	return o.Pull, true
+}
+
+// HasPull returns a boolean if a field has been set.
+func (o *AgentCodingStarted) HasPull() bool {
+	if o != nil && !IsNil(o.Pull) {
+		return true
+	}
+
+	return false
+}
+
+// SetPull gets a reference to the given string and assigns it to the Pull field.
+func (o *AgentCodingStarted) SetPull(v string) {
+	o.Pull = &v
 }
 
 // GetRepo returns the Repo field value if set, zero value otherwise.
@@ -224,6 +258,9 @@ func (o AgentCodingStarted) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Branch) {
 		toSerialize["branch"] = o.Branch
 	}
+	if !IsNil(o.Pull) {
+		toSerialize["pull"] = o.Pull
+	}
 	if !IsNil(o.Repo) {
 		toSerialize["repo"] = o.Repo
 	}
@@ -259,6 +296,7 @@ func (o *AgentCodingStarted) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "branch")
+		delete(additionalProperties, "pull")
 		delete(additionalProperties, "repo")
 		delete(additionalProperties, "routed")
 		delete(additionalProperties, "sessionId")

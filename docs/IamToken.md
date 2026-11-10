@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessToken** | Pointer to **string** |  | [optional] 
 **AccessTokenHash** | Pointer to **string** |  | [optional] 
+**Actor** | Pointer to **string** | Actor is the SuperAdmin (\&quot;owner/name\&quot;) who opened this grant AS its User — impersonation, /v1/iam/impersonate — and Reason is why they said they did. Both empty on every grant a person established themselves. A grant with an Actor mints a short access token that names the actor in &#x60;act&#x60; and carries &#x60;imp&#x60;, and never a refresh token (issueTokens), and /v1/iam/signin refuses its code, so it cannot become a session at the issuer. | [optional] 
 **Application** | Pointer to **string** |  | [optional] 
 **Code** | Pointer to **string** |  | [optional] 
 **CodeChallenge** | Pointer to **string** |  | [optional] 
@@ -16,12 +17,13 @@ Name | Type | Description | Notes
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
 **ExpiresIn** | Pointer to **int64** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Nonce** | Pointer to **string** | Nonce is the OIDC authorize nonce, stored on the code and echoed into the id_token minted at the exchange (OIDC Core §3.1.3.6) so a relying party binds the id_token to its own request and detects replay. | [optional] 
 **Organization** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
 **PublicGrant** | Pointer to **bool** | PublicGrant records that this grant was established WITHOUT client authentication — a PKCE code exchange from a client that presented no secret. Whether a client is confidential is a property of the GRANT, not only of the registration: &#x60;hanzo-cli&#x60; and every @hanzo/iam SPA keep a registered secret for a BACKEND path while the surface that actually signs in is a public PKCE client that cannot hold one. authorizationCodeGrant already makes exactly that bounded relaxation; this is the same fact, recorded so refreshTokenGrant can honour it instead of demanding a secret the client never had (which 401s invalid_client and kills the session at the access token&#39;s expiry). Carried across rotation, so the second refresh behaves like the first. | [optional] 
+**Reason** | Pointer to **string** |  | [optional] 
 **RedirectUri** | Pointer to **string** | RedirectUri binds the authorization code to the exact redirect URI of the authorize request (RFC 6749 §4.1.3): the token endpoint refuses a code redeemed with a different redirect_uri, closing code-injection across a client&#39;s registered URIs. | [optional] 
 **RefreshConsumed** | Pointer to **bool** |  | [optional] 
 **RefreshExpireIn** | Pointer to **int64** |  | [optional] 
@@ -103,6 +105,31 @@ SetAccessTokenHash sets AccessTokenHash field to given value.
 `func (o *IamToken) HasAccessTokenHash() bool`
 
 HasAccessTokenHash returns a boolean if a field has been set.
+
+### GetActor
+
+`func (o *IamToken) GetActor() string`
+
+GetActor returns the Actor field if non-nil, zero value otherwise.
+
+### GetActorOk
+
+`func (o *IamToken) GetActorOk() (*string, bool)`
+
+GetActorOk returns a tuple with the Actor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActor
+
+`func (o *IamToken) SetActor(v string)`
+
+SetActor sets Actor field to given value.
+
+### HasActor
+
+`func (o *IamToken) HasActor() bool`
+
+HasActor returns a boolean if a field has been set.
 
 ### GetApplication
 
@@ -503,6 +530,31 @@ SetPublicGrant sets PublicGrant field to given value.
 `func (o *IamToken) HasPublicGrant() bool`
 
 HasPublicGrant returns a boolean if a field has been set.
+
+### GetReason
+
+`func (o *IamToken) GetReason() string`
+
+GetReason returns the Reason field if non-nil, zero value otherwise.
+
+### GetReasonOk
+
+`func (o *IamToken) GetReasonOk() (*string, bool)`
+
+GetReasonOk returns a tuple with the Reason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReason
+
+`func (o *IamToken) SetReason(v string)`
+
+SetReason sets Reason field to given value.
+
+### HasReason
+
+`func (o *IamToken) HasReason() bool`
+
+HasReason returns a boolean if a field has been set.
 
 ### GetRedirectUri
 

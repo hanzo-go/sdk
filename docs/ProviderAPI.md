@@ -24,6 +24,8 @@ Method | HTTP request | Description
 [**GetProviderGithubUser**](ProviderAPI.md#GetProviderGithubUser) | **Get** /v1/provider/github/user | Reports whether the caller has connected their own GitHub account in the org they act in, and as whom.
 [**GetProviderGithubUserCallback**](ProviderAPI.md#GetProviderGithubUserCallback) | **Get** /v1/provider/github/user/callback | Is where GitHub returns the person.
 [**GetProviderGitlabProjects**](ProviderAPI.md#GetProviderGitlabProjects) | **Get** /v1/provider/gitlab/projects | Lists the projects the org&#39;s GitLab connection can reach — membership projects, most recently active first.
+[**GetProviderGoogleUser**](ProviderAPI.md#GetProviderGoogleUser) | **Get** /v1/provider/google/user | Reports whether the caller has connected their own Google account in the org they act in, and as whom.
+[**GetProviderGoogleUserCallback**](ProviderAPI.md#GetProviderGoogleUserCallback) | **Get** /v1/provider/google/user/callback | Is where Google returns the person.
 [**GetProviderSlackChannels**](ProviderAPI.md#GetProviderSlackChannels) | **Get** /v1/provider/slack/channels | Lists Slack conversations for the caller&#39;s connected workspace.
 [**GetProviderSlackFile**](ProviderAPI.md#GetProviderSlackFile) | **Get** /v1/provider/slack/file | Read one Slack file&#39;s bytes.
 [**GetProviderSlackInstall**](ProviderAPI.md#GetProviderSlackInstall) | **Get** /v1/provider/slack/install | Install the Hanzo app into a Slack workspace
@@ -37,11 +39,14 @@ Method | HTTP request | Description
 [**GetProviderTelegramLink**](ProviderAPI.md#GetProviderTelegramLink) | **Get** /v1/provider/telegram/link | Begin linking a Hanzo account from Telegram
 [**GetProviderTelegramLinkAuth**](ProviderAPI.md#GetProviderTelegramLinkAuth) | **Get** /v1/provider/telegram/link/auth | Telegram Login Widget return leg
 [**GetProviderTelegramLinkCallback**](ProviderAPI.md#GetProviderTelegramLinkCallback) | **Get** /v1/provider/telegram/link/callback | Complete the Telegram account link
+[**GetProviderTwitterCallback**](ProviderAPI.md#GetProviderTwitterCallback) | **Get** /v1/provider/twitter/callback | Completes an X consent that arrived on the twitter spelling of the callback.
+[**GetProviderWhatsappGroups**](ProviderAPI.md#GetProviderWhatsappGroups) | **Get** /v1/provider/whatsapp/groups | Reads the invite link of a group this org&#39;s number owns.
 [**GetProviderWhatsappWebhook**](ProviderAPI.md#GetProviderWhatsappWebhook) | **Get** /v1/provider/whatsapp/webhook | WhatsApp Cloud API subscription challenge
 [**PostConnectionByIdRefresh**](ProviderAPI.md#PostConnectionByIdRefresh) | **Post** /v1/connection/{id}/refresh | Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
 [**PostConnectionByProviderCredential**](ProviderAPI.md#PostConnectionByProviderCredential) | **Post** /v1/connection/{provider}/credential | Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI&#39;s local PKCE (Adopt).
 [**PostConnectionByProviderDevice**](ProviderAPI.md#PostConnectionByProviderDevice) | **Post** /v1/connection/{provider}/device | Begins a device sign-in and returns the code to show the user plus how to poll for completion.
 [**PostConnectionByProviderDeviceByFlowPoll**](ProviderAPI.md#PostConnectionByProviderDeviceByFlowPoll) | **Post** /v1/connection/{provider}/device/{flow}/poll | Advances a device sign-in.
+[**PostProviderByProviderChoose**](ProviderAPI.md#PostProviderByProviderChoose) | **Post** /v1/provider/{provider}/choose | Answer the connect&#39;s account chooser
 [**PostProviderByProviderConnect**](ProviderAPI.md#PostProviderByProviderConnect) | **Post** /v1/provider/{provider}/connect | Acquires the org&#39;s credential for one provider.
 [**PostProviderByProviderDisconnect**](ProviderAPI.md#PostProviderByProviderDisconnect) | **Post** /v1/provider/{provider}/disconnect | Revokes (best-effort) and forgets an org&#39;s connection: it deletes every custodied KMS secret and the connection row.
 [**PostProviderByProviderRun**](ProviderAPI.md#PostProviderByProviderRun) | **Post** /v1/provider/{provider}/run | Runs one action of a connector as the caller&#39;s org, with the credential the org connected, and answers what the action returned.
@@ -58,6 +63,9 @@ Method | HTTP request | Description
 [**PostProviderGithubUserConnect**](ProviderAPI.md#PostProviderGithubUserConnect) | **Post** /v1/provider/github/user/connect | Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person.
 [**PostProviderGithubUserDisconnect**](ProviderAPI.md#PostProviderGithubUserDisconnect) | **Post** /v1/provider/github/user/disconnect | Forgets the caller&#39;s GitHub connection in this org: the token is revoked at GitHub, and the sealed secrets and the row go.
 [**PostProviderGithubWebhook**](ProviderAPI.md#PostProviderGithubWebhook) | **Post** /v1/provider/github/webhook | GitHub App webhook
+[**PostProviderGoogleUserComplete**](ProviderAPI.md#PostProviderGoogleUserComplete) | **Post** /v1/provider/google/user/complete | Finishes connecting the caller&#39;s Google account: it takes the authorization the callback parked, trades it for the person&#39;s tokens, and seals them.
+[**PostProviderGoogleUserConnect**](ProviderAPI.md#PostProviderGoogleUserConnect) | **Post** /v1/provider/google/user/connect | Begins connecting the caller&#39;s own Google account: it answers Google&#39;s consent page, asking offline access to send mail as them, carrying a state signed for this org and this person.
+[**PostProviderGoogleUserDisconnect**](ProviderAPI.md#PostProviderGoogleUserDisconnect) | **Post** /v1/provider/google/user/disconnect | Forgets the caller&#39;s Google connection in this org: the grant is revoked at Google, and the sealed secrets and the row go.
 [**PostProviderLinearClaim**](ProviderAPI.md#PostProviderLinearClaim) | **Post** /v1/provider/linear/claim | Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
 [**PostProviderLinearComments**](ProviderAPI.md#PostProviderLinearComments) | **Post** /v1/provider/linear/comments | Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
 [**PostProviderLinearIssuesBackfill**](ProviderAPI.md#PostProviderLinearIssuesBackfill) | **Post** /v1/provider/linear/issues/backfill | Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
@@ -72,6 +80,7 @@ Method | HTTP request | Description
 [**PostProviderTeamsEvents**](ProviderAPI.md#PostProviderTeamsEvents) | **Post** /v1/provider/teams/events | Microsoft Teams Bot Framework webhook
 [**PostProviderTelegramConnect**](ProviderAPI.md#PostProviderTelegramConnect) | **Post** /v1/provider/telegram/connect | Mints a short, single-use deep-link code bound to the caller&#39;s org and returns the t.me link the console navigates to.
 [**PostProviderTelegramWebhook**](ProviderAPI.md#PostProviderTelegramWebhook) | **Post** /v1/provider/telegram/webhook | Telegram Bot API webhook
+[**PostProviderWhatsappGroups**](ProviderAPI.md#PostProviderWhatsappGroups) | **Post** /v1/provider/whatsapp/groups | Creates a group on the org&#39;s WhatsApp number and returns its invite link.
 [**PostProviderWhatsappWebhook**](ProviderAPI.md#PostProviderWhatsappWebhook) | **Post** /v1/provider/whatsapp/webhook | WhatsApp Cloud API webhook
 [**PutProviderGithubReposByRepoPages**](ProviderAPI.md#PutProviderGithubReposByRepoPages) | **Put** /v1/provider/github/repos/{repo}/pages | Sets or clears the custom domain (cname) and updates HTTPS enforcement, build type, or source.
 [**PutProviderSlackMessages**](ProviderAPI.md#PutProviderSlackMessages) | **Put** /v1/provider/slack/messages | Rewrites one of this app&#39;s messages: PUT /v1/provider/slack/messages.
@@ -1385,6 +1394,126 @@ Other parameters are passed through a pointer to a apiGetProviderGitlabProjectsR
 [[Back to README]](../README.md)
 
 
+## GetProviderGoogleUser
+
+> ProviderGoogleUserOut GetProviderGoogleUser(ctx).Execute()
+
+Reports whether the caller has connected their own Google account in the org they act in, and as whom.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProviderAPI.GetProviderGoogleUser(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.GetProviderGoogleUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProviderGoogleUser`: ProviderGoogleUserOut
+	fmt.Fprintf(os.Stdout, "Response from `ProviderAPI.GetProviderGoogleUser`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProviderGoogleUserRequest struct via the builder pattern
+
+
+### Return type
+
+[**ProviderGoogleUserOut**](ProviderGoogleUserOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetProviderGoogleUserCallback
+
+> GetProviderGoogleUserCallback(ctx).Execute()
+
+Is where Google returns the person.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ProviderAPI.GetProviderGoogleUserCallback(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.GetProviderGoogleUserCallback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProviderGoogleUserCallbackRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetProviderSlackChannels
 
 > ProviderSlackChannelsOut GetProviderSlackChannels(ctx).Types(types).Cursor(cursor).Execute()
@@ -2178,6 +2307,131 @@ Other parameters are passed through a pointer to a apiGetProviderTelegramLinkCal
 [[Back to README]](../README.md)
 
 
+## GetProviderTwitterCallback
+
+> GetProviderTwitterCallback(ctx).Execute()
+
+Completes an X consent that arrived on the twitter spelling of the callback.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ProviderAPI.GetProviderTwitterCallback(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.GetProviderTwitterCallback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProviderTwitterCallbackRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetProviderWhatsappGroups
+
+> ProviderWhatsappGroupOut GetProviderWhatsappGroups(ctx).Group(group).Execute()
+
+Reads the invite link of a group this org's number owns.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	group := "group_example" // string | Group is the group id returned when the group was created. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProviderAPI.GetProviderWhatsappGroups(context.Background()).Group(group).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.GetProviderWhatsappGroups``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProviderWhatsappGroups`: ProviderWhatsappGroupOut
+	fmt.Fprintf(os.Stdout, "Response from `ProviderAPI.GetProviderWhatsappGroups`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProviderWhatsappGroupsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **group** | **string** | Group is the group id returned when the group was created. | 
+
+### Return type
+
+[**ProviderWhatsappGroupOut**](ProviderWhatsappGroupOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetProviderWhatsappWebhook
 
 > GetProviderWhatsappWebhook(ctx).Execute()
@@ -2524,6 +2778,74 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostProviderByProviderChoose
+
+> PostProviderByProviderChoose(ctx, provider).Execute()
+
+Answer the connect's account chooser
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	provider := "provider_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ProviderAPI.PostProviderByProviderChoose(context.Background(), provider).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.PostProviderByProviderChoose``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostProviderByProviderChooseRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostProviderByProviderConnect
 
 > ProviderConnectOut PostProviderByProviderConnect(ctx, provider).ProviderConnectIn(providerConnectIn).Execute()
@@ -2598,7 +2920,7 @@ Name | Type | Description  | Notes
 
 ## PostProviderByProviderDisconnect
 
-> ProviderDisconnectOut PostProviderByProviderDisconnect(ctx, provider).Execute()
+> ProviderDisconnectOut PostProviderByProviderDisconnect(ctx, provider).ProviderDisconnectIn(providerDisconnectIn).Execute()
 
 Revokes (best-effort) and forgets an org's connection: it deletes every custodied KMS secret and the connection row.
 
@@ -2617,11 +2939,12 @@ import (
 )
 
 func main() {
-	provider := "slack" // string | Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connection) providers, which this surface never resolves.
+	provider := "github" // string | Provider is the connector's registry id, from the :provider path segment.
+	providerDisconnectIn := *openapiclient.NewProviderDisconnectIn() // ProviderDisconnectIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProviderAPI.PostProviderByProviderDisconnect(context.Background(), provider).Execute()
+	resp, r, err := apiClient.ProviderAPI.PostProviderByProviderDisconnect(context.Background(), provider).ProviderDisconnectIn(providerDisconnectIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.PostProviderByProviderDisconnect``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2637,7 +2960,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**provider** | **string** | Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/connection) providers, which this surface never resolves. | 
+**provider** | **string** | Provider is the connector&#39;s registry id, from the :provider path segment. | 
 
 ### Other Parameters
 
@@ -2647,6 +2970,7 @@ Other parameters are passed through a pointer to a apiPostProviderByProviderDisc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **providerDisconnectIn** | [**ProviderDisconnectIn**](ProviderDisconnectIn.md) |  | 
 
 ### Return type
 
@@ -2658,7 +2982,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -3591,6 +3915,199 @@ Other parameters are passed through a pointer to a apiPostProviderGithubWebhookR
 [[Back to README]](../README.md)
 
 
+## PostProviderGoogleUserComplete
+
+> ProviderGoogleUserOut PostProviderGoogleUserComplete(ctx).ProviderGoogleUserCompleteIn(providerGoogleUserCompleteIn).Execute()
+
+Finishes connecting the caller's Google account: it takes the authorization the callback parked, trades it for the person's tokens, and seals them.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	providerGoogleUserCompleteIn := *openapiclient.NewProviderGoogleUserCompleteIn() // ProviderGoogleUserCompleteIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProviderAPI.PostProviderGoogleUserComplete(context.Background()).ProviderGoogleUserCompleteIn(providerGoogleUserCompleteIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.PostProviderGoogleUserComplete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostProviderGoogleUserComplete`: ProviderGoogleUserOut
+	fmt.Fprintf(os.Stdout, "Response from `ProviderAPI.PostProviderGoogleUserComplete`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostProviderGoogleUserCompleteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **providerGoogleUserCompleteIn** | [**ProviderGoogleUserCompleteIn**](ProviderGoogleUserCompleteIn.md) |  | 
+
+### Return type
+
+[**ProviderGoogleUserOut**](ProviderGoogleUserOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostProviderGoogleUserConnect
+
+> ProviderGoogleUserConnectOut PostProviderGoogleUserConnect(ctx).ProviderGoogleUserConnectIn(providerGoogleUserConnectIn).Execute()
+
+Begins connecting the caller's own Google account: it answers Google's consent page, asking offline access to send mail as them, carrying a state signed for this org and this person.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	providerGoogleUserConnectIn := *openapiclient.NewProviderGoogleUserConnectIn() // ProviderGoogleUserConnectIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProviderAPI.PostProviderGoogleUserConnect(context.Background()).ProviderGoogleUserConnectIn(providerGoogleUserConnectIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.PostProviderGoogleUserConnect``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostProviderGoogleUserConnect`: ProviderGoogleUserConnectOut
+	fmt.Fprintf(os.Stdout, "Response from `ProviderAPI.PostProviderGoogleUserConnect`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostProviderGoogleUserConnectRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **providerGoogleUserConnectIn** | [**ProviderGoogleUserConnectIn**](ProviderGoogleUserConnectIn.md) |  | 
+
+### Return type
+
+[**ProviderGoogleUserConnectOut**](ProviderGoogleUserConnectOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostProviderGoogleUserDisconnect
+
+> ProviderGoogleUserDisconnectOut PostProviderGoogleUserDisconnect(ctx).Execute()
+
+Forgets the caller's Google connection in this org: the grant is revoked at Google, and the sealed secrets and the row go.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProviderAPI.PostProviderGoogleUserDisconnect(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.PostProviderGoogleUserDisconnect``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostProviderGoogleUserDisconnect`: ProviderGoogleUserDisconnectOut
+	fmt.Fprintf(os.Stdout, "Response from `ProviderAPI.PostProviderGoogleUserDisconnect`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostProviderGoogleUserDisconnectRequest struct via the builder pattern
+
+
+### Return type
+
+[**ProviderGoogleUserDisconnectOut**](ProviderGoogleUserDisconnectOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostProviderLinearClaim
 
 > ProviderLinearClaimOut PostProviderLinearClaim(ctx).ProviderLinearClaimIn(providerLinearClaimIn).Execute()
@@ -4464,6 +4981,72 @@ Other parameters are passed through a pointer to a apiPostProviderTelegramWebhoo
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostProviderWhatsappGroups
+
+> ProviderWhatsappGroupOut PostProviderWhatsappGroups(ctx).ProviderWhatsappGroupIn(providerWhatsappGroupIn).Execute()
+
+Creates a group on the org's WhatsApp number and returns its invite link.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	providerWhatsappGroupIn := *openapiclient.NewProviderWhatsappGroupIn() // ProviderWhatsappGroupIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProviderAPI.PostProviderWhatsappGroups(context.Background()).ProviderWhatsappGroupIn(providerWhatsappGroupIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProviderAPI.PostProviderWhatsappGroups``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostProviderWhatsappGroups`: ProviderWhatsappGroupOut
+	fmt.Fprintf(os.Stdout, "Response from `ProviderAPI.PostProviderWhatsappGroups`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostProviderWhatsappGroupsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **providerWhatsappGroupIn** | [**ProviderWhatsappGroupIn**](ProviderWhatsappGroupIn.md) |  | 
+
+### Return type
+
+[**ProviderWhatsappGroupOut**](ProviderWhatsappGroupOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

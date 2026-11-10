@@ -136,7 +136,7 @@ Other parameters are passed through a pointer to a apiGetMeetSessionRequest stru
 
 ## MeetCall
 
-> MeetVenue MeetCall(ctx).Space(space).Room(room).Execute()
+> MeetVenue MeetCall(ctx).Space(space).Channel(channel).Execute()
 
 Where a room's call happens
 
@@ -155,12 +155,12 @@ import (
 )
 
 func main() {
-	space := "space_example" // string | Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller's membership is checked against.
-	room := "room_example" // string | Room is the room's own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it.
+	space := "space_example" // string | Space is the space uuid holding the channel, as GET /v1/team/channels reports it. It is the segment the caller's membership is checked against.
+	channel := "channel_example" // string | Channel is the channel's own id within that space, as GET /v1/team/channels reports it. It is opaque here: meet keeps no channels and cannot say whether one exists, only whether this caller may be seated in the space holding it.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MeetAPI.MeetCall(context.Background()).Space(space).Room(room).Execute()
+	resp, r, err := apiClient.MeetAPI.MeetCall(context.Background()).Space(space).Channel(channel).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MeetAPI.MeetCall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -181,8 +181,8 @@ Other parameters are passed through a pointer to a apiMeetCallRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **space** | **string** | Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. | 
- **room** | **string** | Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. | 
+ **space** | **string** | Space is the space uuid holding the channel, as GET /v1/team/channels reports it. It is the segment the caller&#39;s membership is checked against. | 
+ **channel** | **string** | Channel is the channel&#39;s own id within that space, as GET /v1/team/channels reports it. It is opaque here: meet keeps no channels and cannot say whether one exists, only whether this caller may be seated in the space holding it. | 
 
 ### Return type
 

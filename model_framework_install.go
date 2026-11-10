@@ -19,8 +19,10 @@ var _ MappedNullable = &FrameworkInstall{}
 
 // FrameworkInstall struct for FrameworkInstall
 type FrameworkInstall struct {
-	Created              []string `json:"created,omitempty"`
-	Existing             []string `json:"existing,omitempty"`
+	Created  []string `json:"created,omitempty"`
+	Existing []string `json:"existing,omitempty"`
+	// Grown names the existing DocTypes that gained the fields the module now declares and the org's stored definition lacked.
+	Grown                []string `json:"grown,omitempty"`
 	Module               *string  `json:"module,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -108,6 +110,38 @@ func (o *FrameworkInstall) SetExisting(v []string) {
 	o.Existing = v
 }
 
+// GetGrown returns the Grown field value if set, zero value otherwise.
+func (o *FrameworkInstall) GetGrown() []string {
+	if o == nil || IsNil(o.Grown) {
+		var ret []string
+		return ret
+	}
+	return o.Grown
+}
+
+// GetGrownOk returns a tuple with the Grown field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FrameworkInstall) GetGrownOk() ([]string, bool) {
+	if o == nil || IsNil(o.Grown) {
+		return nil, false
+	}
+	return o.Grown, true
+}
+
+// HasGrown returns a boolean if a field has been set.
+func (o *FrameworkInstall) HasGrown() bool {
+	if o != nil && !IsNil(o.Grown) {
+		return true
+	}
+
+	return false
+}
+
+// SetGrown gets a reference to the given []string and assigns it to the Grown field.
+func (o *FrameworkInstall) SetGrown(v []string) {
+	o.Grown = v
+}
+
 // GetModule returns the Module field value if set, zero value otherwise.
 func (o *FrameworkInstall) GetModule() string {
 	if o == nil || IsNil(o.Module) {
@@ -156,6 +190,9 @@ func (o FrameworkInstall) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Existing) {
 		toSerialize["existing"] = o.Existing
 	}
+	if !IsNil(o.Grown) {
+		toSerialize["grown"] = o.Grown
+	}
 	if !IsNil(o.Module) {
 		toSerialize["module"] = o.Module
 	}
@@ -183,6 +220,7 @@ func (o *FrameworkInstall) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "existing")
+		delete(additionalProperties, "grown")
 		delete(additionalProperties, "module")
 		o.AdditionalProperties = additionalProperties
 	}

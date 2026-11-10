@@ -46,29 +46,30 @@ type IamProvider struct {
 	Endpoint               *string           `json:"endpoint,omitempty"`
 	Host                   *string           `json:"host,omitempty"`
 	HttpHeaders            map[string]string `json:"httpHeaders,omitempty"`
-	Id                     *string           `json:"id,omitempty"`
-	IdP                    *string           `json:"idP,omitempty"`
-	IntranetEndpoint       *string           `json:"intranetEndpoint,omitempty"`
-	IssuerUrl              *string           `json:"issuerUrl,omitempty"`
-	Metadata               *string           `json:"metadata,omitempty"`
-	Method                 *string           `json:"method,omitempty"`
-	Name                   *string           `json:"name,omitempty"`
-	Owner                  *string           `json:"owner,omitempty"`
-	PathPrefix             *string           `json:"pathPrefix,omitempty"`
-	Port                   *int64            `json:"port,omitempty"`
-	ProviderUrl            *string           `json:"providerUrl,omitempty"`
-	Receiver               *string           `json:"receiver,omitempty"`
-	RegionId               *string           `json:"regionId,omitempty"`
-	Scopes                 *string           `json:"scopes,omitempty"`
-	SignName               *string           `json:"signName,omitempty"`
-	SslMode                *string           `json:"sslMode,omitempty"`
-	SubType                *string           `json:"subType,omitempty"`
-	TemplateCode           *string           `json:"templateCode,omitempty"`
-	Title                  *string           `json:"title,omitempty"`
-	Type                   *string           `json:"type,omitempty"`
-	UpdatedAt              *time.Time        `json:"updatedAt,omitempty"`
-	UserMapping            map[string]string `json:"userMapping,omitempty"`
-	AdditionalProperties   map[string]interface{}
+	// Persisted fields
+	Id                   *string           `json:"id,omitempty"`
+	IdP                  *string           `json:"idP,omitempty"`
+	IntranetEndpoint     *string           `json:"intranetEndpoint,omitempty"`
+	IssuerUrl            *string           `json:"issuerUrl,omitempty"`
+	Metadata             *string           `json:"metadata,omitempty"`
+	Method               *string           `json:"method,omitempty"`
+	Name                 *string           `json:"name,omitempty"`
+	Owner                *string           `json:"owner,omitempty"`
+	PathPrefix           *string           `json:"pathPrefix,omitempty"`
+	Port                 *int64            `json:"port,omitempty"`
+	ProviderUrl          *string           `json:"providerUrl,omitempty"`
+	Receiver             *string           `json:"receiver,omitempty"`
+	RegionId             *string           `json:"regionId,omitempty"`
+	Scopes               *string           `json:"scopes,omitempty"`
+	SignName             *string           `json:"signName,omitempty"`
+	SslMode              *string           `json:"sslMode,omitempty"`
+	SubType              *string           `json:"subType,omitempty"`
+	TemplateCode         *string           `json:"templateCode,omitempty"`
+	Title                *string           `json:"title,omitempty"`
+	Type                 *string           `json:"type,omitempty"`
+	UpdatedAt            *time.Time        `json:"updatedAt,omitempty"`
+	UserMapping          map[string]string `json:"userMapping,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IamProvider IamProvider

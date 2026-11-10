@@ -19,12 +19,13 @@ var _ MappedNullable = &AiResponsesTool{}
 
 // AiResponsesTool struct for AiResponsesTool
 type AiResponsesTool struct {
-	Description          *string     `json:"description,omitempty"`
-	Format               interface{} `json:"format,omitempty"`
-	Name                 *string     `json:"name,omitempty"`
-	Parameters           interface{} `json:"parameters,omitempty"`
-	Strict               *bool       `json:"strict,omitempty"`
-	Type                 *string     `json:"type,omitempty"`
+	Description          *string           `json:"description,omitempty"`
+	Format               interface{}       `json:"format,omitempty"`
+	Name                 *string           `json:"name,omitempty"`
+	Parameters           interface{}       `json:"parameters,omitempty"`
+	Strict               *bool             `json:"strict,omitempty"`
+	Tools                []AiResponsesTool `json:"tools,omitempty"`
+	Type                 *string           `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -209,6 +210,38 @@ func (o *AiResponsesTool) SetStrict(v bool) {
 	o.Strict = &v
 }
 
+// GetTools returns the Tools field value if set, zero value otherwise.
+func (o *AiResponsesTool) GetTools() []AiResponsesTool {
+	if o == nil || IsNil(o.Tools) {
+		var ret []AiResponsesTool
+		return ret
+	}
+	return o.Tools
+}
+
+// GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiResponsesTool) GetToolsOk() ([]AiResponsesTool, bool) {
+	if o == nil || IsNil(o.Tools) {
+		return nil, false
+	}
+	return o.Tools, true
+}
+
+// HasTools returns a boolean if a field has been set.
+func (o *AiResponsesTool) HasTools() bool {
+	if o != nil && !IsNil(o.Tools) {
+		return true
+	}
+
+	return false
+}
+
+// SetTools gets a reference to the given []AiResponsesTool and assigns it to the Tools field.
+func (o *AiResponsesTool) SetTools(v []AiResponsesTool) {
+	o.Tools = v
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AiResponsesTool) GetType() string {
 	if o == nil || IsNil(o.Type) {
@@ -266,6 +299,9 @@ func (o AiResponsesTool) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Strict) {
 		toSerialize["strict"] = o.Strict
 	}
+	if !IsNil(o.Tools) {
+		toSerialize["tools"] = o.Tools
+	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
@@ -296,6 +332,7 @@ func (o *AiResponsesTool) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "parameters")
 		delete(additionalProperties, "strict")
+		delete(additionalProperties, "tools")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}

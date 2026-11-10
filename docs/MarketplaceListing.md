@@ -9,15 +9,16 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** | Currency is the ISO 4217 code Price is quoted in; Create defaults it to \&quot;USD\&quot; when the publisher names none. It is a LABEL that travels to the shop window: publish parses Price with money.ParseUSD and the x402 terms carry no currency, so another code here changes what is displayed, not what is charged. | [optional] 
 **Description** | Pointer to **string** | Description is the long copy. Publish REFUSES one past 4096 bytes rather than truncating it, so what is stored is what was sent; empty is allowed. | [optional] 
 **Docs** | Pointer to **string** | Docs is where the listing&#39;s documentation lives: an https URL, or a path on docs.hanzo.ai. Empty when the seller named none. | [optional] 
+**Expert** | Pointer to [**MarketplaceExpert**](MarketplaceExpert.md) | Expert is the person behind a listing of kind expert (expert.go); absent on every other kind. | [optional] 
 **Id** | Pointer to **string** | ID is the listing&#39;s id, minted here as \&quot;lst_\&quot; + 16 hex characters. A publisher cannot choose it: Create overwrites whatever arrives. It is unique within PublisherOrg (the primary key is the pair), and it is the path segment DELETE /v1/marketplace/listings/:id takes. | [optional] 
-**Kind** | Pointer to **string** | Kind is what the listing sells: agent, persona, app, skill, mcp or tool. Listings published before kinds existed sold tools, and read as tool. | [optional] 
+**Kind** | Pointer to **string** | Kind is what the listing sells: agent, persona, app, skill, mcp, tool or expert. Listings published before kinds existed sold tools, and read as tool. | [optional] 
 **Price** | Pointer to **interface{}** |  | [optional] 
 **Public** | Pointer to **bool** | Public is whether other orgs can discover the listing. It also decides ENFORCEMENT: only public rows reach the price table, so a private listing with a price charges nobody. False leaves the row visible to its publisher alone. | [optional] 
 **PublisherOrg** | Pointer to **string** | PublisherOrg is the org that published the listing, taken from the validated principal and never off the wire. It is also the PAYEE org — Recipient is resolved inside it — and the isolation key: a publisher reads and deletes only rows carrying its own org. | [optional] 
 **Recipient** | Pointer to **string** | Recipient is the seller&#39;s payout WALLET id in PublisherOrg: the wallet x402 pays for a call or a job bought through this listing. | [optional] 
 **Ref** | Pointer to **string** | Ref is the id the thing&#39;s owning app knows it by, resolved when the listing was published — the agent id for an agent named by its name. A tool&#39;s is the x402 resource a dispatch of it is priced by: the source it resolves from and its name, so a price follows the tool that runs and not a name another org&#39;s own row may share. | [optional] 
 **Title** | Pointer to **string** | Title is the shop-window name, required and refused past 200 bytes. It is what discovery paints over the tool&#39;s registry name. | [optional] 
-**Tool** | Pointer to **string** | Tool names the thing sold, as the seller named it: the agent, app, skill or MCP server&#39;s name or id, or the tool&#39;s registry name. It was proved the seller&#39;s own when the listing was published. For a tool it is what install switches on. | [optional] 
+**Tool** | Pointer to **string** | Tool names the thing sold, as the seller named it: the agent, app, skill or MCP server&#39;s name or id, or the tool&#39;s registry name. It was proved the seller&#39;s own when the listing was published. For a tool it is what install switches on. For an expert it is the person&#39;s IAM identity. | [optional] 
 **UpdatedAt** | Pointer to **int64** | UpdatedAt is when the listing was last edited, unix seconds; its creation when it never was. | [optional] 
 
 ## Methods
@@ -163,6 +164,31 @@ SetDocs sets Docs field to given value.
 `func (o *MarketplaceListing) HasDocs() bool`
 
 HasDocs returns a boolean if a field has been set.
+
+### GetExpert
+
+`func (o *MarketplaceListing) GetExpert() MarketplaceExpert`
+
+GetExpert returns the Expert field if non-nil, zero value otherwise.
+
+### GetExpertOk
+
+`func (o *MarketplaceListing) GetExpertOk() (*MarketplaceExpert, bool)`
+
+GetExpertOk returns a tuple with the Expert field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpert
+
+`func (o *MarketplaceListing) SetExpert(v MarketplaceExpert)`
+
+SetExpert sets Expert field to given value.
+
+### HasExpert
+
+`func (o *MarketplaceListing) HasExpert() bool`
+
+HasExpert returns a boolean if a field has been set.
 
 ### GetId
 

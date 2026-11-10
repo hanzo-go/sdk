@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **DomainExpireTime** | Pointer to **string** |  | [optional] 
 **ExpireInYears** | Pointer to **int64** |  | [optional] 
 **ExpireTime** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
 **Provider** | Pointer to **string** |  | [optional] 

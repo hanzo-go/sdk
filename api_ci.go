@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // CiAPIService CiAPI service
@@ -182,6 +183,144 @@ func (a *CiAPIService) GetCiRunsExecute(r CiAPIGetCiRunsRequest) (*CiExecutions,
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CiAPIGetCiRunsByOwnerByRepoRequest struct {
+	ctx        context.Context
+	ApiService *CiAPIService
+	owner      string
+	repo       string
+	ref        *string
+}
+
+// Ref is a branch, a tag or a commit sha. Empty means the default branch.
+func (r CiAPIGetCiRunsByOwnerByRepoRequest) Ref(ref string) CiAPIGetCiRunsByOwnerByRepoRequest {
+	r.ref = &ref
+	return r
+}
+
+func (r CiAPIGetCiRunsByOwnerByRepoRequest) Execute() (*CiRuns, *http.Response, error) {
+	return r.ApiService.GetCiRunsByOwnerByRepoExecute(r)
+}
+
+/*
+GetCiRunsByOwnerByRepo Lists what the forge ran for one ref of one repository: each run's workflow, status, conclusion and commit, with its jobs and their steps.
+
+Lists what the forge ran for one ref of one repository: each run's
+workflow, status, conclusion and commit, with its jobs and their steps.
+
+The ref is a branch, a tag or a commit sha, and it is resolved to the commit
+it names before anything else is read, so the answer is about one commit even
+while the branch moves. Every run on that commit is listed, newest first, each
+naming the ref that started it. Read live from git.hanzo.ai, so a tag that
+exists only on the forge answers the same as a branch.
+
+The caller's org decides which namespaces it may read: a SuperAdmin reads any,
+an org member only the forge namespaces its org owns, and a repository in any
+other namespace is refused with 403 before the forge is asked. A repository or
+ref the forge does not have is 404.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param owner Owner is the forge namespace the repository lives under, from the path.
+	@param repo Repo is the repository's name, from the path.
+	@return CiAPIGetCiRunsByOwnerByRepoRequest
+*/
+func (a *CiAPIService) GetCiRunsByOwnerByRepo(ctx context.Context, owner string, repo string) CiAPIGetCiRunsByOwnerByRepoRequest {
+	return CiAPIGetCiRunsByOwnerByRepoRequest{
+		ApiService: a,
+		ctx:        ctx,
+		owner:      owner,
+		repo:       repo,
+	}
+}
+
+// Execute executes the request
+//
+//	@return CiRuns
+func (a *CiAPIService) GetCiRunsByOwnerByRepoExecute(r CiAPIGetCiRunsByOwnerByRepoRequest) (*CiRuns, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CiRuns
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CiAPIService.GetCiRunsByOwnerByRepo")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ci/runs/{owner}/{repo}"
+	localVarPath = strings.Replace(localVarPath, "{"+"owner"+"}", url.PathEscape(parameterValueToString(r.owner, "owner")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"repo"+"}", url.PathEscape(parameterValueToString(r.repo, "repo")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.ref != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ref", r.ref, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

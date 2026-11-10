@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Environment** | Pointer to **string** |  | [optional] 
 **Live** | Pointer to **bool** |  | [optional] 
 **LocationId** | Pointer to **string** |  | [optional] 
+**Paypal** | Pointer to [**BillingPayPalPublicConfig**](BillingPayPalPublicConfig.md) | PayPal is the public PayPal REST v2 posture alongside Square (or in place of Square in countries Square does not serve). Appended last for ZAP wire. | [optional] 
 **Provider** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -128,6 +129,31 @@ SetLocationId sets LocationId field to given value.
 `func (o *BillingPaymentConfig) HasLocationId() bool`
 
 HasLocationId returns a boolean if a field has been set.
+
+### GetPaypal
+
+`func (o *BillingPaymentConfig) GetPaypal() BillingPayPalPublicConfig`
+
+GetPaypal returns the Paypal field if non-nil, zero value otherwise.
+
+### GetPaypalOk
+
+`func (o *BillingPaymentConfig) GetPaypalOk() (*BillingPayPalPublicConfig, bool)`
+
+GetPaypalOk returns a tuple with the Paypal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaypal
+
+`func (o *BillingPaymentConfig) SetPaypal(v BillingPayPalPublicConfig)`
+
+SetPaypal sets Paypal field to given value.
+
+### HasPaypal
+
+`func (o *BillingPaymentConfig) HasPaypal() bool`
+
+HasPaypal returns a boolean if a field has been set.
 
 ### GetProvider
 

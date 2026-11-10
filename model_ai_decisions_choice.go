@@ -20,9 +20,9 @@ var _ MappedNullable = &AiDecisionsChoice{}
 
 // AiDecisionsChoice struct for AiDecisionsChoice
 type AiDecisionsChoice struct {
-	Criteria             map[string]AiDecisionsChoiceCriteriaValue `json:"criteria"`
-	Instructions         *AiDecisionSidesFalse                     `json:"instructions,omitempty"`
-	Type                 string                                    `json:"type"`
+	Criteria             interface{} `json:"criteria"`
+	Instructions         interface{} `json:"instructions,omitempty"`
+	Type                 string      `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,7 +32,7 @@ type _AiDecisionsChoice AiDecisionsChoice
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAiDecisionsChoice(criteria map[string]AiDecisionsChoiceCriteriaValue, type_ string) *AiDecisionsChoice {
+func NewAiDecisionsChoice(criteria interface{}, type_ string) *AiDecisionsChoice {
 	this := AiDecisionsChoice{}
 	this.Criteria = criteria
 	this.Type = type_
@@ -48,9 +48,10 @@ func NewAiDecisionsChoiceWithDefaults() *AiDecisionsChoice {
 }
 
 // GetCriteria returns the Criteria field value
-func (o *AiDecisionsChoice) GetCriteria() map[string]AiDecisionsChoiceCriteriaValue {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *AiDecisionsChoice) GetCriteria() interface{} {
 	if o == nil {
-		var ret map[string]AiDecisionsChoiceCriteriaValue
+		var ret interface{}
 		return ret
 	}
 
@@ -59,34 +60,36 @@ func (o *AiDecisionsChoice) GetCriteria() map[string]AiDecisionsChoiceCriteriaVa
 
 // GetCriteriaOk returns a tuple with the Criteria field value
 // and a boolean to check if the value has been set.
-func (o *AiDecisionsChoice) GetCriteriaOk() (map[string]AiDecisionsChoiceCriteriaValue, bool) {
-	if o == nil {
-		return map[string]AiDecisionsChoiceCriteriaValue{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiDecisionsChoice) GetCriteriaOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Criteria) {
+		return nil, false
 	}
-	return o.Criteria, true
+	return &o.Criteria, true
 }
 
 // SetCriteria sets field value
-func (o *AiDecisionsChoice) SetCriteria(v map[string]AiDecisionsChoiceCriteriaValue) {
+func (o *AiDecisionsChoice) SetCriteria(v interface{}) {
 	o.Criteria = v
 }
 
-// GetInstructions returns the Instructions field value if set, zero value otherwise.
-func (o *AiDecisionsChoice) GetInstructions() AiDecisionSidesFalse {
-	if o == nil || IsNil(o.Instructions) {
-		var ret AiDecisionSidesFalse
+// GetInstructions returns the Instructions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AiDecisionsChoice) GetInstructions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
-	return *o.Instructions
+	return o.Instructions
 }
 
 // GetInstructionsOk returns a tuple with the Instructions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiDecisionsChoice) GetInstructionsOk() (*AiDecisionSidesFalse, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiDecisionsChoice) GetInstructionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Instructions) {
 		return nil, false
 	}
-	return o.Instructions, true
+	return &o.Instructions, true
 }
 
 // HasInstructions returns a boolean if a field has been set.
@@ -98,9 +101,9 @@ func (o *AiDecisionsChoice) HasInstructions() bool {
 	return false
 }
 
-// SetInstructions gets a reference to the given AiDecisionSidesFalse and assigns it to the Instructions field.
-func (o *AiDecisionsChoice) SetInstructions(v AiDecisionSidesFalse) {
-	o.Instructions = &v
+// SetInstructions gets a reference to the given interface{} and assigns it to the Instructions field.
+func (o *AiDecisionsChoice) SetInstructions(v interface{}) {
+	o.Instructions = v
 }
 
 // GetType returns the Type field value
@@ -137,8 +140,10 @@ func (o AiDecisionsChoice) MarshalJSON() ([]byte, error) {
 
 func (o AiDecisionsChoice) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["criteria"] = o.Criteria
-	if !IsNil(o.Instructions) {
+	if o.Criteria != nil {
+		toSerialize["criteria"] = o.Criteria
+	}
+	if o.Instructions != nil {
 		toSerialize["instructions"] = o.Instructions
 	}
 	toSerialize["type"] = o.Type

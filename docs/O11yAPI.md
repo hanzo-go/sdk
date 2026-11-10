@@ -12434,10 +12434,10 @@ import (
 func main() {
 	id := "id_example" // string | 
 	name := "name_example" // string | Name is the label key whose values to list. Required.
-	startUnixMilli := int64(789) // int64 |  (optional)
-	endUnixMilli := int64(789) // int64 |  (optional)
-	searchText := "searchText_example" // string |  (optional)
-	limit := int64(789) // int64 |  (optional)
+	startUnixMilli := int64(789) // int64 | StartUnixMilli is the window start, unix milliseconds. (optional)
+	endUnixMilli := int64(789) // int64 | EndUnixMilli is the window end, unix milliseconds. (optional)
+	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50, capped at 200. (optional)
 	existingQuery := "existingQuery_example" // string | ExistingQuery is a filter expression scoping which values appear. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -12469,10 +12469,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **name** | **string** | Name is the label key whose values to list. Required. | 
- **startUnixMilli** | **int64** |  | 
- **endUnixMilli** | **int64** |  | 
- **searchText** | **string** |  | 
- **limit** | **int64** |  | 
+ **startUnixMilli** | **int64** | StartUnixMilli is the window start, unix milliseconds. | 
+ **endUnixMilli** | **int64** | EndUnixMilli is the window end, unix milliseconds. | 
+ **searchText** | **string** | SearchText narrows the keys to those containing it. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50, capped at 200. | 
  **existingQuery** | **string** | ExistingQuery is a filter expression scoping which values appear. | 
 
 ### Return type

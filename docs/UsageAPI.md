@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**GetUsageAnalytics**](UsageAPI.md#GetUsageAnalytics) | **Get** /v1/usage/analytics | Is the entitlement-GATED per-provider breakdown of the caller org&#39;s LLM usage — the paid lens over the same warehouse ledger GET /v1/usage/summary reads its totals from.
 [**GetUsageAnalyticsAccess**](UsageAPI.md#GetUsageAnalyticsAccess) | **Get** /v1/usage/analytics/access | Echoes a plan&#39;s resolved analytics entitlement so a dashboard can configure itself against the LIVE catalog instead of hardcoding tier numbers.
 [**GetUsageSamples**](UsageAPI.md#GetUsageSamples) | **Get** /v1/usage/samples | Is the PER-PROVIDER view: one connected account&#39;s own consumption of its own plan — \&quot;my plan is 47% through its 6h window, resets at 14:20\&quot;.
-[**GetUsageSummary**](UsageAPI.md#GetUsageSummary) | **Get** /v1/usage/summary | Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
+[**GetUsageSummary**](UsageAPI.md#GetUsageSummary) | **Get** /v1/usage/summary | Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse (with what the prompt cache served and saved), the org&#39;s Kai decisions, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
 [**PostUsage**](UsageAPI.md#PostUsage) | **Post** /v1/usage | Ingests a batch of account-usage samples — what a developer&#39;s OWN AI accounts have consumed of their OWN plans, metered from each provider&#39;s own login — and appends them to the warehouse series.
 
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 > UsageUsageSummary GetUsageSummary(ctx).Range_(range_).Start(start).End(end).Execute()
 
-Answers GET /v1/usage/summary: the caller's own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org's LLM usage totals from the warehouse, and the caller's OWN linked provider accounts beside the org's Hanzo-routed usage.
+Answers GET /v1/usage/summary: the caller's own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org's LLM usage totals from the warehouse (with what the prompt cache served and saved), the org's Kai decisions, and the caller's OWN linked provider accounts beside the org's Hanzo-routed usage.
 
 
 

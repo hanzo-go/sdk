@@ -20,11 +20,12 @@ var _ MappedNullable = &IamProject{}
 
 // IamProject struct for IamProject
 type IamProject struct {
-	CreatedAt            *time.Time `json:"createdAt,omitempty"`
-	CreatedTime          *string    `json:"createdTime,omitempty"`
-	Deleted              *bool      `json:"deleted,omitempty"`
-	Description          *string    `json:"description,omitempty"`
-	DisplayName          *string    `json:"displayName,omitempty"`
+	CreatedAt   *time.Time `json:"createdAt,omitempty"`
+	CreatedTime *string    `json:"createdTime,omitempty"`
+	Deleted     *bool      `json:"deleted,omitempty"`
+	Description *string    `json:"description,omitempty"`
+	DisplayName *string    `json:"displayName,omitempty"`
+	// Persisted fields
 	Id                   *string    `json:"id,omitempty"`
 	IsDefault            *bool      `json:"isDefault,omitempty"`
 	Metadata             *string    `json:"metadata,omitempty"`

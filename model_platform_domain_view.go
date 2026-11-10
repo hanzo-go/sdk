@@ -25,7 +25,7 @@ type PlatformDomainView struct {
 	Detail *string `json:"detail,omitempty"`
 	// Host is the hostname itself.
 	Host *string `json:"host,omitempty"`
-	// Kind is `default`, `subtree` or `custom` — how the org came to own it.
+	// Kind is `default` (the app's own name) or `custom` — how the org came to own it.
 	Kind *string `json:"kind,omitempty"`
 	// Primary marks the app's permanent default host.
 	Primary *bool `json:"primary,omitempty"`

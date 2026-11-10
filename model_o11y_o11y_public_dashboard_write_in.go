@@ -19,10 +19,12 @@ var _ MappedNullable = &O11yO11yPublicDashboardWriteIn{}
 
 // O11yO11yPublicDashboardWriteIn struct for O11yO11yPublicDashboardWriteIn
 type O11yO11yPublicDashboardWriteIn struct {
+	// DefaultTimeRange is the fixed window as a Go duration, e.g. 1h, 30m.
 	DefaultTimeRange *string `json:"defaultTimeRange,omitempty"`
 	// ID is the dashboard id from the path.
-	Id                   *string `json:"id,omitempty"`
-	TimeRangeEnabled     *bool   `json:"timeRangeEnabled,omitempty"`
+	Id *string `json:"id,omitempty"`
+	// TimeRangeEnabled lets the public page pick its own time range; when false the share fixes DefaultTimeRange.
+	TimeRangeEnabled     *bool `json:"timeRangeEnabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

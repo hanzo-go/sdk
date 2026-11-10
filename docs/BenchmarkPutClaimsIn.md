@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]BenchmarkPublishedClaim**](BenchmarkPublishedClaim.md) | Data is the claims to record. One row is a correction; many is an import. There is no separate bulk endpoint because there is no separate operation: importing a leaderboard and fixing one number are the same write. | [optional] 
+**Data** | Pointer to [**[]BenchmarkClaim**](BenchmarkClaim.md) | Data is the claims to record. One row is a correction; many is an import. There is no separate bulk endpoint because there is no separate operation: importing a leaderboard and fixing one number are the same write. | [optional] 
 **Visibility** | Pointer to **string** | Visibility is who may read every row in Data: \&quot;private\&quot;, the default, keeps them to the caller&#39;s org; \&quot;public\&quot; shows them to anyone. Restating a claim with the other value moves it. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetData
 
-`func (o *BenchmarkPutClaimsIn) GetData() []BenchmarkPublishedClaim`
+`func (o *BenchmarkPutClaimsIn) GetData() []BenchmarkClaim`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *BenchmarkPutClaimsIn) GetDataOk() (*[]BenchmarkPublishedClaim, bool)`
+`func (o *BenchmarkPutClaimsIn) GetDataOk() (*[]BenchmarkClaim, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *BenchmarkPutClaimsIn) SetData(v []BenchmarkPublishedClaim)`
+`func (o *BenchmarkPutClaimsIn) SetData(v []BenchmarkClaim)`
 
 SetData sets Data field to given value.
 

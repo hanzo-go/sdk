@@ -9,8 +9,9 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** | Currency labels Price. | [optional] 
 **Description** | Pointer to **string** | Description is the long copy. | [optional] 
 **Docs** | Pointer to **string** | Docs is where its documentation lives, when the seller said. | [optional] 
+**Expert** | Pointer to [**MarketplaceExpert**](MarketplaceExpert.md) | Expert is the person behind an expert listing — rate, areas, languages, time zone, hours and whether staff verified them; absent on any other kind. | [optional] 
 **Id** | Pointer to **string** | ID is the listing. | [optional] 
-**Kind** | Pointer to **string** | Kind is what it sells: agent, persona, app, skill, mcp or tool. | [optional] 
+**Kind** | Pointer to **string** | Kind is what it sells: agent, persona, app, skill, mcp, tool or expert. | [optional] 
 **Links** | Pointer to [**MarketplaceLinks**](MarketplaceLinks.md) | Links are the ways to act on it. | [optional] 
 **Price** | Pointer to **interface{}** |  | [optional] 
 **Public** | Pointer to **bool** | Public is always true here. | [optional] 
@@ -18,7 +19,7 @@ Name | Type | Description | Notes
 **Reputation** | Pointer to [**MarketplaceReputation**](MarketplaceReputation.md) | Reputation is what buyers made of this listing. | [optional] 
 **Seller** | Pointer to [**MarketplaceSeller**](MarketplaceSeller.md) | Seller is what anyone may know about the seller. | [optional] 
 **Title** | Pointer to **string** | Title is the shop-window name. | [optional] 
-**Tool** | Pointer to **string** | Tool names the thing sold, as the seller named it. | [optional] 
+**Tool** | Pointer to **string** | Tool names the thing sold, as the seller named it; empty for an expert, who is a person and not a thing. | [optional] 
 **UpdatedAt** | Pointer to **int64** | UpdatedAt is when it was last edited, unix seconds. | [optional] 
 
 ## Methods
@@ -164,6 +165,31 @@ SetDocs sets Docs field to given value.
 `func (o *MarketplaceShopListing) HasDocs() bool`
 
 HasDocs returns a boolean if a field has been set.
+
+### GetExpert
+
+`func (o *MarketplaceShopListing) GetExpert() MarketplaceExpert`
+
+GetExpert returns the Expert field if non-nil, zero value otherwise.
+
+### GetExpertOk
+
+`func (o *MarketplaceShopListing) GetExpertOk() (*MarketplaceExpert, bool)`
+
+GetExpertOk returns a tuple with the Expert field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpert
+
+`func (o *MarketplaceShopListing) SetExpert(v MarketplaceExpert)`
+
+SetExpert sets Expert field to given value.
+
+### HasExpert
+
+`func (o *MarketplaceShopListing) HasExpert() bool`
+
+HasExpert returns a boolean if a field has been set.
 
 ### GetId
 

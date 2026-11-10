@@ -21,12 +21,12 @@ var _ MappedNullable = &AgentRegisterReq{}
 type AgentRegisterReq struct {
 	// Account is which subscription or API account under that provider served the run, up to 256 characters. It is what lets a revoke of that login stop exactly the sessions it was paying for.
 	Account *string `json:"account,omitempty"`
-	// Actor is the \"org/sub\" identity to record the session under, up to 256 characters. Omit it and the calling principal is used, which is almost always what you want: it is what a login revoke matches on to stop this session.
-	Actor *string `json:"actor,omitempty"`
 	// Agent is the label the surface opening this session calls itself by (\"hanzo-dev\"). REQUIRED, up to 128 characters, and free text — nothing resolves it against a defined agent.
 	Agent *string `json:"agent,omitempty"`
 	// BudgetMicroUSD caps what this session may spend, integer micro-USD. Zero means no cap; a cap can be raised or removed later, never added.
 	BudgetMicroUsd *int64 `json:"budget_micro_usd,omitempty"`
+	// Channel is the collaborative channel this run was started in (HIP-0523), so a space view can list the sessions of one channel. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another channel, so it is absent from the patch input and from UpdateSession's SET list.
+	Channel *string `json:"channel,omitempty"`
 	// Cwd is the directory the session starts in, up to 1024 characters. It can be moved later, because a linked shell walks around.
 	Cwd *string `json:"cwd,omitempty"`
 	// Execution context — where this session runs (all optional).
@@ -41,8 +41,6 @@ type AgentRegisterReq struct {
 	Published *bool `json:"published,omitempty"`
 	// Repo is the code being worked on, up to 512 characters. A label the surface states; nothing resolves it against the forge.
 	Repo *string `json:"repo,omitempty"`
-	// Room is the collaborative room this run was started in (HIP-0523), so a space view can list the sessions of one room. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another room, so it is absent from the patch input and from UpdateSession's SET list.
-	Room *string `json:"room,omitempty"`
 	// Status opens the session in one of running, paused, done or error. Empty means running. A TERMINAL status here (done, error) records a session that has already finished — its end time is stamped now — and nothing can move it afterwards.
 	Status *string `json:"status,omitempty"`
 	// Target names a run-target the org has registered. Unlike Host and Repo it IS resolved: a target that does not exist in this org is a 400, so a session can never claim to run on another tenant's machine. Empty names no machine.
@@ -109,38 +107,6 @@ func (o *AgentRegisterReq) SetAccount(v string) {
 	o.Account = &v
 }
 
-// GetActor returns the Actor field value if set, zero value otherwise.
-func (o *AgentRegisterReq) GetActor() string {
-	if o == nil || IsNil(o.Actor) {
-		var ret string
-		return ret
-	}
-	return *o.Actor
-}
-
-// GetActorOk returns a tuple with the Actor field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentRegisterReq) GetActorOk() (*string, bool) {
-	if o == nil || IsNil(o.Actor) {
-		return nil, false
-	}
-	return o.Actor, true
-}
-
-// HasActor returns a boolean if a field has been set.
-func (o *AgentRegisterReq) HasActor() bool {
-	if o != nil && !IsNil(o.Actor) {
-		return true
-	}
-
-	return false
-}
-
-// SetActor gets a reference to the given string and assigns it to the Actor field.
-func (o *AgentRegisterReq) SetActor(v string) {
-	o.Actor = &v
-}
-
 // GetAgent returns the Agent field value if set, zero value otherwise.
 func (o *AgentRegisterReq) GetAgent() string {
 	if o == nil || IsNil(o.Agent) {
@@ -203,6 +169,38 @@ func (o *AgentRegisterReq) HasBudgetMicroUsd() bool {
 // SetBudgetMicroUsd gets a reference to the given int64 and assigns it to the BudgetMicroUsd field.
 func (o *AgentRegisterReq) SetBudgetMicroUsd(v int64) {
 	o.BudgetMicroUsd = &v
+}
+
+// GetChannel returns the Channel field value if set, zero value otherwise.
+func (o *AgentRegisterReq) GetChannel() string {
+	if o == nil || IsNil(o.Channel) {
+		var ret string
+		return ret
+	}
+	return *o.Channel
+}
+
+// GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentRegisterReq) GetChannelOk() (*string, bool) {
+	if o == nil || IsNil(o.Channel) {
+		return nil, false
+	}
+	return o.Channel, true
+}
+
+// HasChannel returns a boolean if a field has been set.
+func (o *AgentRegisterReq) HasChannel() bool {
+	if o != nil && !IsNil(o.Channel) {
+		return true
+	}
+
+	return false
+}
+
+// SetChannel gets a reference to the given string and assigns it to the Channel field.
+func (o *AgentRegisterReq) SetChannel(v string) {
+	o.Channel = &v
 }
 
 // GetCwd returns the Cwd field value if set, zero value otherwise.
@@ -429,38 +427,6 @@ func (o *AgentRegisterReq) SetRepo(v string) {
 	o.Repo = &v
 }
 
-// GetRoom returns the Room field value if set, zero value otherwise.
-func (o *AgentRegisterReq) GetRoom() string {
-	if o == nil || IsNil(o.Room) {
-		var ret string
-		return ret
-	}
-	return *o.Room
-}
-
-// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentRegisterReq) GetRoomOk() (*string, bool) {
-	if o == nil || IsNil(o.Room) {
-		return nil, false
-	}
-	return o.Room, true
-}
-
-// HasRoom returns a boolean if a field has been set.
-func (o *AgentRegisterReq) HasRoom() bool {
-	if o != nil && !IsNil(o.Room) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoom gets a reference to the given string and assigns it to the Room field.
-func (o *AgentRegisterReq) SetRoom(v string) {
-	o.Room = &v
-}
-
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *AgentRegisterReq) GetStatus() string {
 	if o == nil || IsNil(o.Status) {
@@ -666,14 +632,14 @@ func (o AgentRegisterReq) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Account) {
 		toSerialize["account"] = o.Account
 	}
-	if !IsNil(o.Actor) {
-		toSerialize["actor"] = o.Actor
-	}
 	if !IsNil(o.Agent) {
 		toSerialize["agent"] = o.Agent
 	}
 	if !IsNil(o.BudgetMicroUsd) {
 		toSerialize["budget_micro_usd"] = o.BudgetMicroUsd
+	}
+	if !IsNil(o.Channel) {
+		toSerialize["channel"] = o.Channel
 	}
 	if !IsNil(o.Cwd) {
 		toSerialize["cwd"] = o.Cwd
@@ -695,9 +661,6 @@ func (o AgentRegisterReq) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Repo) {
 		toSerialize["repo"] = o.Repo
-	}
-	if !IsNil(o.Room) {
-		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
@@ -740,9 +703,9 @@ func (o *AgentRegisterReq) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "account")
-		delete(additionalProperties, "actor")
 		delete(additionalProperties, "agent")
 		delete(additionalProperties, "budget_micro_usd")
+		delete(additionalProperties, "channel")
 		delete(additionalProperties, "cwd")
 		delete(additionalProperties, "host")
 		delete(additionalProperties, "parentSessionId")
@@ -750,7 +713,6 @@ func (o *AgentRegisterReq) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "provider")
 		delete(additionalProperties, "published")
 		delete(additionalProperties, "repo")
-		delete(additionalProperties, "room")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "target")
 		delete(additionalProperties, "taskRunId")

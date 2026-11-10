@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Address** | Pointer to **string** | Address is a single recipient, normalized (lower-cased, trimmed) before use. Give this OR audienceId, never both and never neither. | [optional] 
-**AudienceId** | Pointer to **string** | AudienceID fans the sequence out over a saved audience, resolved live to the org&#39;s mailable customers. Email only. | [optional] 
+**AudienceId** | Pointer to **string** | AudienceID fans the sequence out over an audience: a saved cohort (aud_…), resolved live to the org&#39;s mailable customers, or a list (lst_…) or a saved segment of one (seg_…), resolved to its subscribed members. Email only. | [optional] 
 **Channel** | Pointer to **string** | Channel is the delivery surface; empty means email. An audience resolves mailboxes, so an audience enroll must be email. | [optional] 
 **Id** | Pointer to **string** | ID is the sequence id from the path. | [optional] 
 

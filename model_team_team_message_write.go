@@ -21,9 +21,9 @@ var _ MappedNullable = &TeamTeamMessageWrite{}
 type TeamTeamMessageWrite struct {
 	// Files attaches blobs already uploaded to the space. A message may be files alone, with no text.
 	Files []TeamTeamFileIn `json:"files,omitempty"`
-	// ID is the room to say it in, from the path.
+	// ID is the channel to say it in, from the path.
 	Id *string `json:"id,omitempty"`
-	// Space names the space holding the room. Body-only: a query string may not redirect a write.
+	// Space names the space holding the channel. Body-only: a query string may not redirect a write.
 	Space *string `json:"space,omitempty"`
 	// Text is what to say, as plain text. It is wrapped in the client's markup on the way in, so a caller writes words rather than HTML. `<@account-uuid>` mentions a member of the space: it is stored as the platform's mention, so they are notified, and an agent mentioned this way answers.
 	Text                 *string `json:"text,omitempty"`

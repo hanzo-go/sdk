@@ -19,6 +19,7 @@ var _ MappedNullable = &AiResponsesInputDetails{}
 
 // AiResponsesInputDetails struct for AiResponsesInputDetails
 type AiResponsesInputDetails struct {
+	CacheWriteTokens     *int32 `json:"cache_write_tokens,omitempty"`
 	CachedTokens         *int32 `json:"cached_tokens,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -40,6 +41,38 @@ func NewAiResponsesInputDetails() *AiResponsesInputDetails {
 func NewAiResponsesInputDetailsWithDefaults() *AiResponsesInputDetails {
 	this := AiResponsesInputDetails{}
 	return &this
+}
+
+// GetCacheWriteTokens returns the CacheWriteTokens field value if set, zero value otherwise.
+func (o *AiResponsesInputDetails) GetCacheWriteTokens() int32 {
+	if o == nil || IsNil(o.CacheWriteTokens) {
+		var ret int32
+		return ret
+	}
+	return *o.CacheWriteTokens
+}
+
+// GetCacheWriteTokensOk returns a tuple with the CacheWriteTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiResponsesInputDetails) GetCacheWriteTokensOk() (*int32, bool) {
+	if o == nil || IsNil(o.CacheWriteTokens) {
+		return nil, false
+	}
+	return o.CacheWriteTokens, true
+}
+
+// HasCacheWriteTokens returns a boolean if a field has been set.
+func (o *AiResponsesInputDetails) HasCacheWriteTokens() bool {
+	if o != nil && !IsNil(o.CacheWriteTokens) {
+		return true
+	}
+
+	return false
+}
+
+// SetCacheWriteTokens gets a reference to the given int32 and assigns it to the CacheWriteTokens field.
+func (o *AiResponsesInputDetails) SetCacheWriteTokens(v int32) {
+	o.CacheWriteTokens = &v
 }
 
 // GetCachedTokens returns the CachedTokens field value if set, zero value otherwise.
@@ -84,6 +117,9 @@ func (o AiResponsesInputDetails) MarshalJSON() ([]byte, error) {
 
 func (o AiResponsesInputDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CacheWriteTokens) {
+		toSerialize["cache_write_tokens"] = o.CacheWriteTokens
+	}
 	if !IsNil(o.CachedTokens) {
 		toSerialize["cached_tokens"] = o.CachedTokens
 	}
@@ -109,6 +145,7 @@ func (o *AiResponsesInputDetails) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cache_write_tokens")
 		delete(additionalProperties, "cached_tokens")
 		o.AdditionalProperties = additionalProperties
 	}

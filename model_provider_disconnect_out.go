@@ -19,8 +19,12 @@ var _ MappedNullable = &ProviderDisconnectOut{}
 
 // ProviderDisconnectOut struct for ProviderDisconnectOut
 type ProviderDisconnectOut struct {
+	// Accounts are the account labels this disconnect removed. Omitted when none was connected.
+	Accounts []string `json:"accounts,omitempty"`
 	// Disconnected is always true — the org's secrets and connection row are gone.
-	Disconnected         *bool `json:"disconnected,omitempty"`
+	Disconnected *bool `json:"disconnected,omitempty"`
+	// Uninstalled are the accounts whose provider installation was removed too, because no other org held them. An account another org still holds keeps its installation and is absent here.
+	Uninstalled          []string `json:"uninstalled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,6 +45,38 @@ func NewProviderDisconnectOut() *ProviderDisconnectOut {
 func NewProviderDisconnectOutWithDefaults() *ProviderDisconnectOut {
 	this := ProviderDisconnectOut{}
 	return &this
+}
+
+// GetAccounts returns the Accounts field value if set, zero value otherwise.
+func (o *ProviderDisconnectOut) GetAccounts() []string {
+	if o == nil || IsNil(o.Accounts) {
+		var ret []string
+		return ret
+	}
+	return o.Accounts
+}
+
+// GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProviderDisconnectOut) GetAccountsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Accounts) {
+		return nil, false
+	}
+	return o.Accounts, true
+}
+
+// HasAccounts returns a boolean if a field has been set.
+func (o *ProviderDisconnectOut) HasAccounts() bool {
+	if o != nil && !IsNil(o.Accounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccounts gets a reference to the given []string and assigns it to the Accounts field.
+func (o *ProviderDisconnectOut) SetAccounts(v []string) {
+	o.Accounts = v
 }
 
 // GetDisconnected returns the Disconnected field value if set, zero value otherwise.
@@ -75,6 +111,38 @@ func (o *ProviderDisconnectOut) SetDisconnected(v bool) {
 	o.Disconnected = &v
 }
 
+// GetUninstalled returns the Uninstalled field value if set, zero value otherwise.
+func (o *ProviderDisconnectOut) GetUninstalled() []string {
+	if o == nil || IsNil(o.Uninstalled) {
+		var ret []string
+		return ret
+	}
+	return o.Uninstalled
+}
+
+// GetUninstalledOk returns a tuple with the Uninstalled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProviderDisconnectOut) GetUninstalledOk() ([]string, bool) {
+	if o == nil || IsNil(o.Uninstalled) {
+		return nil, false
+	}
+	return o.Uninstalled, true
+}
+
+// HasUninstalled returns a boolean if a field has been set.
+func (o *ProviderDisconnectOut) HasUninstalled() bool {
+	if o != nil && !IsNil(o.Uninstalled) {
+		return true
+	}
+
+	return false
+}
+
+// SetUninstalled gets a reference to the given []string and assigns it to the Uninstalled field.
+func (o *ProviderDisconnectOut) SetUninstalled(v []string) {
+	o.Uninstalled = v
+}
+
 func (o ProviderDisconnectOut) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -85,8 +153,14 @@ func (o ProviderDisconnectOut) MarshalJSON() ([]byte, error) {
 
 func (o ProviderDisconnectOut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Accounts) {
+		toSerialize["accounts"] = o.Accounts
+	}
 	if !IsNil(o.Disconnected) {
 		toSerialize["disconnected"] = o.Disconnected
+	}
+	if !IsNil(o.Uninstalled) {
+		toSerialize["uninstalled"] = o.Uninstalled
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -110,7 +184,9 @@ func (o *ProviderDisconnectOut) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accounts")
 		delete(additionalProperties, "disconnected")
+		delete(additionalProperties, "uninstalled")
 		o.AdditionalProperties = additionalProperties
 	}
 

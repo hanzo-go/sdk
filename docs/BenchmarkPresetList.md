@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]BenchmarkPreset**](BenchmarkPreset.md) | Data is the blends available to compose from. | [optional] 
+**Data** | Pointer to [**[]BenchmarkPreset**](BenchmarkPreset.md) | Data is the reference blend, then the caller&#39;s org&#39;s stored blends by name. | [optional] 
 
 ## Methods
 

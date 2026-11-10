@@ -8,9 +8,10 @@ Name | Type | Description | Notes
 **AnswerConfidence** | Pointer to **float32** |  | [optional] 
 **Choice** | Pointer to **string** |  | [optional] 
 **Confidence** | Pointer to **float32** |  | [optional] 
-**Legend** | Pointer to [**map[string]AiDecisionSidesFalse**](AiDecisionSidesFalse.md) |  | [optional] 
+**Legend** | Pointer to **map[string]interface{}** |  | [optional] 
 **Noul** | Pointer to **float32** |  | [optional] 
 **Probabilities** | Pointer to **map[string]float32** |  | [optional] 
+**Probability** | Pointer to **float32** |  | [optional] 
 **Score** | Pointer to **float32** |  | [optional] 
 **Type** | **string** |  | 
 
@@ -135,20 +136,20 @@ HasConfidence returns a boolean if a field has been set.
 
 ### GetLegend
 
-`func (o *AiDecisionsAnswer) GetLegend() map[string]AiDecisionSidesFalse`
+`func (o *AiDecisionsAnswer) GetLegend() map[string]interface{}`
 
 GetLegend returns the Legend field if non-nil, zero value otherwise.
 
 ### GetLegendOk
 
-`func (o *AiDecisionsAnswer) GetLegendOk() (*map[string]AiDecisionSidesFalse, bool)`
+`func (o *AiDecisionsAnswer) GetLegendOk() (*map[string]interface{}, bool)`
 
 GetLegendOk returns a tuple with the Legend field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLegend
 
-`func (o *AiDecisionsAnswer) SetLegend(v map[string]AiDecisionSidesFalse)`
+`func (o *AiDecisionsAnswer) SetLegend(v map[string]interface{})`
 
 SetLegend sets Legend field to given value.
 
@@ -207,6 +208,31 @@ SetProbabilities sets Probabilities field to given value.
 `func (o *AiDecisionsAnswer) HasProbabilities() bool`
 
 HasProbabilities returns a boolean if a field has been set.
+
+### GetProbability
+
+`func (o *AiDecisionsAnswer) GetProbability() float32`
+
+GetProbability returns the Probability field if non-nil, zero value otherwise.
+
+### GetProbabilityOk
+
+`func (o *AiDecisionsAnswer) GetProbabilityOk() (*float32, bool)`
+
+GetProbabilityOk returns a tuple with the Probability field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProbability
+
+`func (o *AiDecisionsAnswer) SetProbability(v float32)`
+
+SetProbability sets Probability field to given value.
+
+### HasProbability
+
+`func (o *AiDecisionsAnswer) HasProbability() bool`
+
+HasProbability returns a boolean if a field has been set.
 
 ### GetScore
 

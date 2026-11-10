@@ -19,10 +19,14 @@ var _ MappedNullable = &SandboxLeased{}
 
 // SandboxLeased struct for SandboxLeased
 type SandboxLeased struct {
-	// Class is what was actually leased, from the closed set LeaseIn.Class names: exec | dev | desktop | android. A request that named none leased an `exec`, so this is where a caller learns which kind of computer it is holding, and it is what Workdir below follows from.
+	// Carried says the lease is extended for as long as it works and its wallet pays for the next hour. A lease that is not carried ends at ExpiresAt whatever it is doing: a free one.
+	Carried *bool `json:"carried,omitempty"`
+	// Class is what was actually leased, from the closed set LeaseIn.Class names: exec | dev | desktop | browser | android. A request that named none leased an `exec`, so this is where a caller learns which kind of computer it is holding, and it is what Workdir below follows from.
 	Class *string `json:"class,omitempty"`
 	// Cluster is the attached cluster this sandbox runs on, when one was named. Empty is the home cluster.
 	Cluster *string `json:"cluster,omitempty"`
+	// ExpiresAt is when the lease ends, Unix seconds. A resumed sandbox keeps the expiry it had, so this is not always a fresh lease's.
+	ExpiresAt *int64 `json:"expiresAt,omitempty"`
 	// ID names this computer for every later call — run, read, write, stop and end all take it, and a LeaseIn carrying it resumes THIS sandbox instead of leasing a second one. Minted here; a caller cannot choose it, and a resumed lease that had expired comes back under a new one.
 	Id *string `json:"id,omitempty"`
 	// Runtime is the boundary this sandbox GOT, which need not be the one asked for — carried for the same reason Workdir is, that it is a fact only the owner knows and a caller assuming it would be holding a second copy. Empty is the node's default runtime, and a real answer.
@@ -51,6 +55,38 @@ func NewSandboxLeased() *SandboxLeased {
 func NewSandboxLeasedWithDefaults() *SandboxLeased {
 	this := SandboxLeased{}
 	return &this
+}
+
+// GetCarried returns the Carried field value if set, zero value otherwise.
+func (o *SandboxLeased) GetCarried() bool {
+	if o == nil || IsNil(o.Carried) {
+		var ret bool
+		return ret
+	}
+	return *o.Carried
+}
+
+// GetCarriedOk returns a tuple with the Carried field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SandboxLeased) GetCarriedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Carried) {
+		return nil, false
+	}
+	return o.Carried, true
+}
+
+// HasCarried returns a boolean if a field has been set.
+func (o *SandboxLeased) HasCarried() bool {
+	if o != nil && !IsNil(o.Carried) {
+		return true
+	}
+
+	return false
+}
+
+// SetCarried gets a reference to the given bool and assigns it to the Carried field.
+func (o *SandboxLeased) SetCarried(v bool) {
+	o.Carried = &v
 }
 
 // GetClass returns the Class field value if set, zero value otherwise.
@@ -115,6 +151,38 @@ func (o *SandboxLeased) HasCluster() bool {
 // SetCluster gets a reference to the given string and assigns it to the Cluster field.
 func (o *SandboxLeased) SetCluster(v string) {
 	o.Cluster = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *SandboxLeased) GetExpiresAt() int64 {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret int64
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SandboxLeased) GetExpiresAtOk() (*int64, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *SandboxLeased) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given int64 and assigns it to the ExpiresAt field.
+func (o *SandboxLeased) SetExpiresAt(v int64) {
+	o.ExpiresAt = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -255,11 +323,17 @@ func (o SandboxLeased) MarshalJSON() ([]byte, error) {
 
 func (o SandboxLeased) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Carried) {
+		toSerialize["carried"] = o.Carried
+	}
 	if !IsNil(o.Class) {
 		toSerialize["class"] = o.Class
 	}
 	if !IsNil(o.Cluster) {
 		toSerialize["cluster"] = o.Cluster
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expiresAt"] = o.ExpiresAt
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -295,8 +369,10 @@ func (o *SandboxLeased) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "carried")
 		delete(additionalProperties, "class")
 		delete(additionalProperties, "cluster")
+		delete(additionalProperties, "expiresAt")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "runtime")
 		delete(additionalProperties, "status")

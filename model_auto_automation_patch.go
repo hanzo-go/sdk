@@ -21,15 +21,20 @@ var _ MappedNullable = &AutoAutomationPatch{}
 type AutoAutomationPatch struct {
 	// Enabled arms or disarms its schedule.
 	Enabled *bool `json:"enabled,omitempty"`
+	// Event replaces the trigger with a product outcome; null clears it.
+	Event *AutoOutcomeTrigger `json:"event,omitempty"`
 	// ID is the automation, from the path.
-	Id                   *string       `json:"id,omitempty"`
-	Instructions         *string       `json:"instructions,omitempty"`
-	Model                *string       `json:"model,omitempty"`
-	Name                 *string       `json:"name,omitempty"`
-	Notify               *bool         `json:"notify,omitempty"`
-	Permissions          *string       `json:"permissions,omitempty"`
-	Project              *string       `json:"project,omitempty"`
-	Schedule             *AutoSchedule `json:"schedule,omitempty"`
+	Id           *string       `json:"id,omitempty"`
+	Instructions *string       `json:"instructions,omitempty"`
+	Model        *string       `json:"model,omitempty"`
+	Name         *string       `json:"name,omitempty"`
+	Notify       *bool         `json:"notify,omitempty"`
+	Permissions  *string       `json:"permissions,omitempty"`
+	PostTo       []string      `json:"postTo,omitempty"`
+	Project      *string       `json:"project,omitempty"`
+	Schedule     *AutoSchedule `json:"schedule,omitempty"`
+	// Target replaces the registered execution target; null clears it.
+	Target               *string `json:"target,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -82,6 +87,38 @@ func (o *AutoAutomationPatch) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *AutoAutomationPatch) SetEnabled(v bool) {
 	o.Enabled = &v
+}
+
+// GetEvent returns the Event field value if set, zero value otherwise.
+func (o *AutoAutomationPatch) GetEvent() AutoOutcomeTrigger {
+	if o == nil || IsNil(o.Event) {
+		var ret AutoOutcomeTrigger
+		return ret
+	}
+	return *o.Event
+}
+
+// GetEventOk returns a tuple with the Event field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationPatch) GetEventOk() (*AutoOutcomeTrigger, bool) {
+	if o == nil || IsNil(o.Event) {
+		return nil, false
+	}
+	return o.Event, true
+}
+
+// HasEvent returns a boolean if a field has been set.
+func (o *AutoAutomationPatch) HasEvent() bool {
+	if o != nil && !IsNil(o.Event) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvent gets a reference to the given AutoOutcomeTrigger and assigns it to the Event field.
+func (o *AutoAutomationPatch) SetEvent(v AutoOutcomeTrigger) {
+	o.Event = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -276,6 +313,38 @@ func (o *AutoAutomationPatch) SetPermissions(v string) {
 	o.Permissions = &v
 }
 
+// GetPostTo returns the PostTo field value if set, zero value otherwise.
+func (o *AutoAutomationPatch) GetPostTo() []string {
+	if o == nil || IsNil(o.PostTo) {
+		var ret []string
+		return ret
+	}
+	return o.PostTo
+}
+
+// GetPostToOk returns a tuple with the PostTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationPatch) GetPostToOk() ([]string, bool) {
+	if o == nil || IsNil(o.PostTo) {
+		return nil, false
+	}
+	return o.PostTo, true
+}
+
+// HasPostTo returns a boolean if a field has been set.
+func (o *AutoAutomationPatch) HasPostTo() bool {
+	if o != nil && !IsNil(o.PostTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostTo gets a reference to the given []string and assigns it to the PostTo field.
+func (o *AutoAutomationPatch) SetPostTo(v []string) {
+	o.PostTo = v
+}
+
 // GetProject returns the Project field value if set, zero value otherwise.
 func (o *AutoAutomationPatch) GetProject() string {
 	if o == nil || IsNil(o.Project) {
@@ -340,6 +409,38 @@ func (o *AutoAutomationPatch) SetSchedule(v AutoSchedule) {
 	o.Schedule = &v
 }
 
+// GetTarget returns the Target field value if set, zero value otherwise.
+func (o *AutoAutomationPatch) GetTarget() string {
+	if o == nil || IsNil(o.Target) {
+		var ret string
+		return ret
+	}
+	return *o.Target
+}
+
+// GetTargetOk returns a tuple with the Target field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationPatch) GetTargetOk() (*string, bool) {
+	if o == nil || IsNil(o.Target) {
+		return nil, false
+	}
+	return o.Target, true
+}
+
+// HasTarget returns a boolean if a field has been set.
+func (o *AutoAutomationPatch) HasTarget() bool {
+	if o != nil && !IsNil(o.Target) {
+		return true
+	}
+
+	return false
+}
+
+// SetTarget gets a reference to the given string and assigns it to the Target field.
+func (o *AutoAutomationPatch) SetTarget(v string) {
+	o.Target = &v
+}
+
 func (o AutoAutomationPatch) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -352,6 +453,9 @@ func (o AutoAutomationPatch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.Event) {
+		toSerialize["event"] = o.Event
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -371,11 +475,17 @@ func (o AutoAutomationPatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
 	}
+	if !IsNil(o.PostTo) {
+		toSerialize["postTo"] = o.PostTo
+	}
 	if !IsNil(o.Project) {
 		toSerialize["project"] = o.Project
 	}
 	if !IsNil(o.Schedule) {
 		toSerialize["schedule"] = o.Schedule
+	}
+	if !IsNil(o.Target) {
+		toSerialize["target"] = o.Target
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -400,14 +510,17 @@ func (o *AutoAutomationPatch) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "event")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "instructions")
 		delete(additionalProperties, "model")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "notify")
 		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "postTo")
 		delete(additionalProperties, "project")
 		delete(additionalProperties, "schedule")
+		delete(additionalProperties, "target")
 		o.AdditionalProperties = additionalProperties
 	}
 

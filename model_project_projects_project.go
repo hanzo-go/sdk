@@ -55,6 +55,8 @@ type ProjectProjectsProject struct {
 	LiveUrl *string `json:"liveUrl,omitempty"`
 	// Name is the project's display name, free text a person chose.
 	Name *string `json:"name,omitempty"`
+	// Namespace is where the site's files are kept: `<namespace>/<slug>/` in the sites bucket. It is the GitHub org the project's repository lives in when this org holds that GitHub account, and the org otherwise, decided when the repository is linked.
+	Namespace *string `json:"namespace,omitempty"`
 	// Org is the organisation that owns the project, and therefore who pays for it and who may change it. It is also the AUTHORSHIP line a gallery credits; there is no separate author field.
 	Org *string `json:"org,omitempty"`
 	// Repo is the git source this project builds from, empty when it is deployed by uploading an artifact instead.
@@ -673,6 +675,38 @@ func (o *ProjectProjectsProject) SetName(v string) {
 	o.Name = &v
 }
 
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *ProjectProjectsProject) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProjectProjectsProject) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *ProjectProjectsProject) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *ProjectProjectsProject) SetNamespace(v string) {
+	o.Namespace = &v
+}
+
 // GetOrg returns the Org field value if set, zero value otherwise.
 func (o *ProjectProjectsProject) GetOrg() string {
 	if o == nil || IsNil(o.Org) {
@@ -1057,6 +1091,9 @@ func (o ProjectProjectsProject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
 	if !IsNil(o.Org) {
 		toSerialize["org"] = o.Org
 	}
@@ -1127,6 +1164,7 @@ func (o *ProjectProjectsProject) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "liveUrl")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "org")
 		delete(additionalProperties, "repo")
 		delete(additionalProperties, "slug")

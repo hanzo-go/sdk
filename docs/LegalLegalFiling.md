@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int64** |  | [optional] 
-**DocumentIds** | Pointer to **[]string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Jurisdiction** | Pointer to **string** |  | [optional] 
-**Note** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Provider** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **int64** |  | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the filing was recorded, in unix seconds. | [optional] 
+**DocumentIds** | Pointer to **[]string** | DocumentIDs are the generated documents this filing covers. At least one, and each must already belong to Org — a filing can never reach across tenants. | [optional] 
+**Id** | Pointer to **string** | ID is the filing&#39;s server-minted handle, \&quot;filing_\&quot;-prefixed. It is OURS, not the state&#39;s — a state file number arrives only from a real filing partner. | [optional] 
+**Jurisdiction** | Pointer to **string** | Jurisdiction is the state or agency the filing is for, as the caller wrote it (\&quot;DE\&quot;). Free text, not validated against a list. Absent when the caller sent none. | [optional] 
+**Note** | Pointer to **string** | Note is the provider&#39;s explanation of Status, in prose meant for a person. On the manual default it says the documents were generated for signature and the org files them through its registered agent. Absent when the provider offered nothing. | [optional] 
+**Org** | Pointer to **string** | Org owns the filing. Every query is scoped to it, so another tenant&#39;s filing is indistinguishable from a missing one. | [optional] 
+**Provider** | Pointer to **string** | Provider is the filing partner that took the submission, or \&quot;manual\&quot; when no partner is wired on this deployment. | [optional] 
+**Status** | Pointer to **string** | Status is where the filing stands: manual (no partner wired — file through your registered agent), submitted (a partner accepted it), filed (the state accepted it) or rejected. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when it last changed, in unix seconds. Equal to CreatedAt until a provider reports movement. | [optional] 
 
 ## Methods
 

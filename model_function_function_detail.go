@@ -19,26 +19,42 @@ var _ MappedNullable = &FunctionFunctionDetail{}
 
 // FunctionFunctionDetail struct for FunctionFunctionDetail
 type FunctionFunctionDetail struct {
-	AvgDurationMs  *float64 `json:"avgDurationMs,omitempty"`
-	CreatedAt      *string  `json:"createdAt,omitempty"`
-	Endpoint       *string  `json:"endpoint,omitempty"`
-	EnvCount       *int64   `json:"envCount,omitempty"`
-	Environment    *string  `json:"environment,omitempty"`
-	Errors7d       *int64   `json:"errors7d,omitempty"`
-	Image          *string  `json:"image,omitempty"`
-	Invocations7d  *int64   `json:"invocations7d,omitempty"`
-	LastDeployedAt *string  `json:"lastDeployedAt,omitempty"`
-	MemoryLimit    *string  `json:"memoryLimit,omitempty"`
-	Name           *string  `json:"name,omitempty"`
-	Namespace      *string  `json:"namespace,omitempty"`
+	// mean wall-clock of those runs
+	AvgDurationMs *float64 `json:"avgDurationMs,omitempty"`
+	// when it was first published
+	CreatedAt *string `json:"createdAt,omitempty"`
+	// the path that invokes it
+	Endpoint *string `json:"endpoint,omitempty"`
+	// how many secret NAMES it mounts; values are never carried
+	EnvCount *int64 `json:"envCount,omitempty"`
+	// the language it runs under
+	Environment *string `json:"environment,omitempty"`
+	// how many of those runs failed
+	Errors7d *int64 `json:"errors7d,omitempty"`
+	// the prebuilt image it runs, when it runs one instead of source
+	Image *string `json:"image,omitempty"`
+	// runs in the last 7 days; ABSENT, never 0, when it has not run
+	Invocations7d *int64 `json:"invocations7d,omitempty"`
+	// when its code last changed
+	LastDeployedAt *string `json:"lastDeployedAt,omitempty"`
+	// the memory it runs with, and the multiplier on its compute charge
+	MemoryLimit *string `json:"memoryLimit,omitempty"`
+	// the function's org-unique handle
+	Name *string `json:"name,omitempty"`
+	// the display group it belongs to; the org is the isolation key
+	Namespace *string `json:"namespace,omitempty"`
 	// RecentInvocations is its twenty most recent runs, newest first.
 	RecentInvocations []FunctionInvocationView `json:"recentInvocations,omitempty"`
 	// Secrets are the NAMES it mounts. Values are never read or returned.
-	Secrets     []string `json:"secrets,omitempty"`
-	Status      *string  `json:"status,omitempty"`
+	Secrets []string `json:"secrets,omitempty"`
+	// whether it is ready to serve
+	Status *string `json:"status,omitempty"`
+	// share of those runs that succeeded, 0..1
 	SuccessRate *float64 `json:"successRate,omitempty"`
-	Target      *string  `json:"target,omitempty"`
-	TimeoutSec  *int64   `json:"timeoutSec,omitempty"`
+	// where it runs: empty for the sandbox, \"fleet\" for the org's GPU fleet
+	Target *string `json:"target,omitempty"`
+	// its per-invocation deadline
+	TimeoutSec *int64 `json:"timeoutSec,omitempty"`
 	// Triggers is how this function is reached.
 	Triggers             []FunctionTriggerView `json:"triggers,omitempty"`
 	AdditionalProperties map[string]interface{}

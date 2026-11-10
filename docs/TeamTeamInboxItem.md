@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Archived** | Pointer to **bool** | Archived reports that the caller archived it. | [optional] 
+**Channel** | Pointer to **string** | Channel is the channel it is about, when it is about a channel. | [optional] 
 **CreatedOn** | Pointer to **int64** | CreatedOn is when it was filed, unix milliseconds. | [optional] 
 **Doc** | Pointer to **string** | Doc is the document it is about, when it is about a document. | [optional] 
 **Id** | Pointer to **string** | ID is the notification&#39;s own id — what read and archive address. | [optional] 
-**Message** | Pointer to [**TeamTeamMessage**](TeamTeamMessage.md) | Message is the message that caused it, as the message ops answer it. Absent when that message has since been deleted, or is in a room the caller can no longer see. | [optional] 
+**Message** | Pointer to [**TeamTeamMessage**](TeamTeamMessage.md) | Message is the message that caused it, as the message ops answer it. Absent when that message has since been deleted, or is in a channel the caller can no longer see. | [optional] 
 **Read** | Pointer to **bool** | Read reports that the caller has seen it. | [optional] 
 **Reason** | Pointer to **string** | Reason is why it was filed: \&quot;mention\&quot;, \&quot;dm\&quot; (a direct message), \&quot;reply\&quot; (in a thread the caller is in), \&quot;comment\&quot; (on something the caller follows), \&quot;assigned\&quot;, or \&quot;other\&quot;. | [optional] 
-**Room** | Pointer to **string** | Room is the room it is about, when it is about a room. | [optional] 
 **Space** | Pointer to **string** | Space is the space uuid it was filed in. | [optional] 
 **Thread** | Pointer to **string** | Thread is the message whose thread it is about, for a reply. | [optional] 
 
@@ -58,6 +58,31 @@ SetArchived sets Archived field to given value.
 `func (o *TeamTeamInboxItem) HasArchived() bool`
 
 HasArchived returns a boolean if a field has been set.
+
+### GetChannel
+
+`func (o *TeamTeamInboxItem) GetChannel() string`
+
+GetChannel returns the Channel field if non-nil, zero value otherwise.
+
+### GetChannelOk
+
+`func (o *TeamTeamInboxItem) GetChannelOk() (*string, bool)`
+
+GetChannelOk returns a tuple with the Channel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChannel
+
+`func (o *TeamTeamInboxItem) SetChannel(v string)`
+
+SetChannel sets Channel field to given value.
+
+### HasChannel
+
+`func (o *TeamTeamInboxItem) HasChannel() bool`
+
+HasChannel returns a boolean if a field has been set.
 
 ### GetCreatedOn
 
@@ -208,31 +233,6 @@ SetReason sets Reason field to given value.
 `func (o *TeamTeamInboxItem) HasReason() bool`
 
 HasReason returns a boolean if a field has been set.
-
-### GetRoom
-
-`func (o *TeamTeamInboxItem) GetRoom() string`
-
-GetRoom returns the Room field if non-nil, zero value otherwise.
-
-### GetRoomOk
-
-`func (o *TeamTeamInboxItem) GetRoomOk() (*string, bool)`
-
-GetRoomOk returns a tuple with the Room field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoom
-
-`func (o *TeamTeamInboxItem) SetRoom(v string)`
-
-SetRoom sets Room field to given value.
-
-### HasRoom
-
-`func (o *TeamTeamInboxItem) HasRoom() bool`
-
-HasRoom returns a boolean if a field has been set.
 
 ### GetSpace
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Codebases** | Pointer to **[]string** | Codebases are the names they take in the org&#39;s code workspace, in the same order: poll GET /v1/git/repos for each to appear. | [optional] 
 **Queued** | Pointer to **int64** | Queued is how many repositories were handed to the background importer. | [optional] 
 **Repos** | Pointer to **[]string** | Repos names those repositories, in the installation&#39;s listing order. | [optional] 
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewProviderGithubImportOutWithDefaults instantiates a new ProviderGithubImportOut object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCodebases
+
+`func (o *ProviderGithubImportOut) GetCodebases() []string`
+
+GetCodebases returns the Codebases field if non-nil, zero value otherwise.
+
+### GetCodebasesOk
+
+`func (o *ProviderGithubImportOut) GetCodebasesOk() (*[]string, bool)`
+
+GetCodebasesOk returns a tuple with the Codebases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCodebases
+
+`func (o *ProviderGithubImportOut) SetCodebases(v []string)`
+
+SetCodebases sets Codebases field to given value.
+
+### HasCodebases
+
+`func (o *ProviderGithubImportOut) HasCodebases() bool`
+
+HasCodebases returns a boolean if a field has been set.
 
 ### GetQueued
 

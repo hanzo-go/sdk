@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Act** | Pointer to [**ComplianceAct**](ComplianceAct.md) | Act is present ONLY on an action taken in a support session: the platform operator IAM signed in AS this row&#39;s sub, while org, sub and email stay the person&#39;s. A console row carrying &#x60;act&#x60; was done by the operator it names. | [optional] 
 **Action** | Pointer to **string** | Action is the verb that was performed. It is the event&#39;s name, not the HTTP method — a request-sourced record carries both, and the pair is what makes a row readable (\&quot;grant.create\&quot; at POST /v1/admin/grants). | [optional] 
 **After** | Pointer to **interface{}** |  | [optional] 
+**Agent** | Pointer to **string** | Agent is present ONLY on an action a delegated token took: who acted for this row&#39;s sub — the deployment that ran their work in a sandbox — while org, sub and email stay the person&#39;s, who is billed for it. | [optional] 
 **AuthMethod** | Pointer to **string** | Auth is the credential the actor presented: \&quot;jwt\&quot;, \&quot;api-key\&quot;, or \&quot;none\&quot;. | [optional] 
 **Before** | Pointer to **interface{}** |  | [optional] 
 **Email** | Pointer to **string** | Email is the actor&#39;s validated address, absent when the credential carried none. It comes from the verified token, never from a client header. | [optional] 
@@ -46,6 +48,31 @@ will change when the set of required properties is changed
 NewComplianceWireWithDefaults instantiates a new ComplianceWire object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAct
+
+`func (o *ComplianceWire) GetAct() ComplianceAct`
+
+GetAct returns the Act field if non-nil, zero value otherwise.
+
+### GetActOk
+
+`func (o *ComplianceWire) GetActOk() (*ComplianceAct, bool)`
+
+GetActOk returns a tuple with the Act field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAct
+
+`func (o *ComplianceWire) SetAct(v ComplianceAct)`
+
+SetAct sets Act field to given value.
+
+### HasAct
+
+`func (o *ComplianceWire) HasAct() bool`
+
+HasAct returns a boolean if a field has been set.
 
 ### GetAction
 
@@ -107,6 +134,31 @@ HasAfter returns a boolean if a field has been set.
 `func (o *ComplianceWire) UnsetAfter()`
 
 UnsetAfter ensures that no value is present for After, not even an explicit nil
+### GetAgent
+
+`func (o *ComplianceWire) GetAgent() string`
+
+GetAgent returns the Agent field if non-nil, zero value otherwise.
+
+### GetAgentOk
+
+`func (o *ComplianceWire) GetAgentOk() (*string, bool)`
+
+GetAgentOk returns a tuple with the Agent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAgent
+
+`func (o *ComplianceWire) SetAgent(v string)`
+
+SetAgent sets Agent field to given value.
+
+### HasAgent
+
+`func (o *ComplianceWire) HasAgent() bool`
+
+HasAgent returns a boolean if a field has been set.
+
 ### GetAuthMethod
 
 `func (o *ComplianceWire) GetAuthMethod() string`

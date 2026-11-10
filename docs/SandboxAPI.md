@@ -14,8 +14,10 @@ Method | HTTP request | Description
 [**GetSandboxByIdScreenWs**](SandboxAPI.md#GetSandboxByIdScreenWs) | **Get** /v1/sandbox/{id}/screen/ws | The screen, as a socket
 [**GetSandboxByIdTerminal**](SandboxAPI.md#GetSandboxByIdTerminal) | **Get** /v1/sandbox/{id}/terminal | The terminal, as a page
 [**GetSandboxByIdTerminalWs**](SandboxAPI.md#GetSandboxByIdTerminalWs) | **Get** /v1/sandbox/{id}/terminal/ws | The terminal, as a socket
+[**GetSandboxQuota**](SandboxAPI.md#GetSandboxQuota) | **Get** /v1/sandbox/quota | Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound).
 [**LeaseSandbox**](SandboxAPI.md#LeaseSandbox) | **Post** /v1/sandbox/lease | Lease a sandbox — a real computer — or resume one you hold
 [**PostSandbox**](SandboxAPI.md#PostSandbox) | **Post** /v1/sandbox | Leases a sandbox — a real computer — for the caller&#39;s org.
+[**PostSandboxByIdAgent**](SandboxAPI.md#PostSandboxByIdAgent) | **Post** /v1/sandbox/{id}/agent | Have a model work a sandbox
 [**PostSandboxByIdExec**](SandboxAPI.md#PostSandboxByIdExec) | **Post** /v1/sandbox/{id}/exec | Runs one command in a sandbox the caller holds and answers with its exit code, stdout and stderr.
 [**PostSandboxByIdFs**](SandboxAPI.md#PostSandboxByIdFs) | **Post** /v1/sandbox/{id}/fs | Write a file
 [**PostSandboxByIdPause**](SandboxAPI.md#PostSandboxByIdPause) | **Post** /v1/sandbox/{id}/pause | Stops the pod, keeps the row and the volume, and settles the tail: POST /v1/sandbox/:id/pause.
@@ -712,6 +714,67 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetSandboxQuota
+
+> SandboxQuota GetSandboxQuota(ctx).Execute()
+
+Answers the caller's sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account's paid sandboxes are running, and how many may run at once (-1 for no bound).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SandboxAPI.GetSandboxQuota(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SandboxAPI.GetSandboxQuota``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSandboxQuota`: SandboxQuota
+	fmt.Fprintf(os.Stdout, "Response from `SandboxAPI.GetSandboxQuota`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSandboxQuotaRequest struct via the builder pattern
+
+
+### Return type
+
+[**SandboxQuota**](SandboxQuota.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## LeaseSandbox
 
 > SandboxLeased LeaseSandbox(ctx).SandboxLeaseIn(sandboxLeaseIn).Execute()
@@ -838,6 +901,74 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostSandboxByIdAgent
+
+> PostSandboxByIdAgent(ctx, id).Execute()
+
+Have a model work a sandbox
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SandboxAPI.PostSandboxByIdAgent(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SandboxAPI.PostSandboxByIdAgent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostSandboxByIdAgentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

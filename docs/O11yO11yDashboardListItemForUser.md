@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**CreatedBy** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Image** | Pointer to **string** |  | [optional] 
-**Locked** | Pointer to **bool** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**OrgId** | Pointer to **string** |  | [optional] 
+**CreatedAt** | Pointer to **time.Time** | CreatedAt is when the dashboard was created. | [optional] 
+**CreatedBy** | Pointer to **string** | CreatedBy is who created it. | [optional] 
+**Id** | Pointer to **string** | ID is the dashboard&#39;s id. | [optional] 
+**Image** | Pointer to **string** | Image is an optional cover image reference. | [optional] 
+**Locked** | Pointer to **bool** | Locked reports whether the dashboard is locked against edits. | [optional] 
+**Name** | Pointer to **string** | Name is the dashboard&#39;s unique internal name. | [optional] 
+**OrgId** | Pointer to **string** | OrgID is the org the dashboard belongs to. | [optional] 
 **Pinned** | Pointer to **bool** | Pinned reports whether the calling user has pinned this dashboard. | [optional] 
-**SchemaVersion** | Pointer to **string** |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
-**Spec** | Pointer to [**O11yO11yDashboardListSpec**](O11yO11yDashboardListSpec.md) |  | [optional] 
-**Tags** | Pointer to [**[]O11yO11yDashboardTag**](O11yO11yDashboardTag.md) |  | [optional] 
-**UpdatedAt** | Pointer to **time.Time** |  | [optional] 
-**UpdatedBy** | Pointer to **string** |  | [optional] 
+**SchemaVersion** | Pointer to **string** | SchemaVersion is the dashboard schema version. | [optional] 
+**Source** | Pointer to **string** | Source is where the dashboard came from: user, system or integration. | [optional] 
+**Spec** | Pointer to [**O11yO11yDashboardListSpec**](O11yO11yDashboardListSpec.md) | Spec is the display-only slice of the dashboard spec. | [optional] 
+**Tags** | Pointer to [**[]O11yO11yDashboardTag**](O11yO11yDashboardTag.md) | Tags are the dashboard&#39;s tags. | [optional] 
+**UpdatedAt** | Pointer to **time.Time** | UpdatedAt is when it last changed. | [optional] 
+**UpdatedBy** | Pointer to **string** | UpdatedBy is who last changed it. | [optional] 
 
 ## Methods
 

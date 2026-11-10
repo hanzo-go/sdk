@@ -5,40 +5,91 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteMarketingAudiencesById**](MarketingAPI.md#DeleteMarketingAudiencesById) | **Delete** /v1/marketing/audiences/{id} | Removes one of the caller org&#39;s audiences and answers 204.
+[**DeleteMarketingBroadcastsById**](MarketingAPI.md#DeleteMarketingBroadcastsById) | **Delete** /v1/marketing/broadcasts/{id} | Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
 [**DeleteMarketingCalendarById**](MarketingAPI.md#DeleteMarketingCalendarById) | **Delete** /v1/marketing/calendar/{id} | Removes one of the caller org&#39;s posts and answers 204.
 [**DeleteMarketingCampaignsById**](MarketingAPI.md#DeleteMarketingCampaignsById) | **Delete** /v1/marketing/campaigns/{id} | Removes one of the caller org&#39;s campaigns and answers 204.
+[**DeleteMarketingListsById**](MarketingAPI.md#DeleteMarketingListsById) | **Delete** /v1/marketing/lists/{id} | Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204.
+[**DeleteMarketingListsByIdSegmentsBySid**](MarketingAPI.md#DeleteMarketingListsByIdSegmentsBySid) | **Delete** /v1/marketing/lists/{id}/segments/{sid} | Deletes a saved segment and answers 204.
+[**DeleteMarketingListsByIdSubscribersBySid**](MarketingAPI.md#DeleteMarketingListsByIdSubscribersBySid) | **Delete** /v1/marketing/lists/{id}/subscribers/{sid} | Removes one subscriber from one of the org&#39;s lists and answers 204.
 [**DeleteMarketingSuppressions**](MarketingAPI.md#DeleteMarketingSuppressions) | **Delete** /v1/marketing/suppressions | Re-subscribes an address on one channel and answers 204.
-[**GetMarketingAudiences**](MarketingAPI.md#GetMarketingAudiences) | **Get** /v1/marketing/audiences | Returns the org&#39;s saved audiences, most recently updated first.
+[**GetMarketingAudiences**](MarketingAPI.md#GetMarketingAudiences) | **Get** /v1/marketing/audiences | Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
 [**GetMarketingAudiencesById**](MarketingAPI.md#GetMarketingAudiencesById) | **Get** /v1/marketing/audiences/{id} | Returns one of the caller org&#39;s saved audiences.
 [**GetMarketingAudiencesByIdPreview**](MarketingAPI.md#GetMarketingAudiencesByIdPreview) | **Get** /v1/marketing/audiences/{id}/preview | Evaluates the cohort LIVE — the same resolution an enrollment would run — and reports how big it is and how many real mailboxes it reaches.
+[**GetMarketingBeta**](MarketingAPI.md#GetMarketingBeta) | **Get** /v1/marketing/beta | Answers the signed-in caller&#39;s waitlist record: the application as it stands, the betas asked for, the points and the actions that earned them, and the place on the waitlist.
+[**GetMarketingBetaInvites**](MarketingAPI.md#GetMarketingBetaInvites) | **Get** /v1/marketing/beta/invites | Answers the caller&#39;s invites, newest first, with how many were sent, how many joined, and how many more they may send now.
+[**GetMarketingBroadcasts**](MarketingAPI.md#GetMarketingBroadcasts) | **Get** /v1/marketing/broadcasts | Returns the org&#39;s broadcasts, newest first.
+[**GetMarketingBroadcastsById**](MarketingAPI.md#GetMarketingBroadcastsById) | **Get** /v1/marketing/broadcasts/{id} | Returns one of the org&#39;s broadcasts.
+[**GetMarketingBroadcastsByIdStats**](MarketingAPI.md#GetMarketingBroadcastsByIdStats) | **Get** /v1/marketing/broadcasts/{id}/stats | Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
 [**GetMarketingCalendar**](MarketingAPI.md#GetMarketingCalendar) | **Get** /v1/marketing/calendar | Returns the org&#39;s calendar, latest scheduled first, optionally narrowed to one status.
 [**GetMarketingCalendarById**](MarketingAPI.md#GetMarketingCalendarById) | **Get** /v1/marketing/calendar/{id} | Returns one of the caller org&#39;s posts, including the exact error behind a failed publish.
 [**GetMarketingCampaigns**](MarketingAPI.md#GetMarketingCampaigns) | **Get** /v1/marketing/campaigns | Returns the org&#39;s campaigns, most recently updated first, optionally narrowed to one lifecycle status.
 [**GetMarketingCampaignsById**](MarketingAPI.md#GetMarketingCampaignsById) | **Get** /v1/marketing/campaigns/{id} | Returns one of the caller org&#39;s campaigns.
+[**GetMarketingClick**](MarketingAPI.md#GetMarketingClick) | **Get** /v1/marketing/click | Follows a tracked email link.
+[**GetMarketingFields**](MarketingAPI.md#GetMarketingFields) | **Get** /v1/marketing/fields | Returns the custom fields the org defined for its subscribers.
+[**GetMarketingImports**](MarketingAPI.md#GetMarketingImports) | **Get** /v1/marketing/imports | Returns the org&#39;s imports, newest first, each with its report.
+[**GetMarketingImportsById**](MarketingAPI.md#GetMarketingImportsById) | **Get** /v1/marketing/imports/{id} | Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+[**GetMarketingLists**](MarketingAPI.md#GetMarketingLists) | **Get** /v1/marketing/lists | Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+[**GetMarketingListsById**](MarketingAPI.md#GetMarketingListsById) | **Get** /v1/marketing/lists/{id} | Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+[**GetMarketingListsByIdExport**](MarketingAPI.md#GetMarketingListsByIdExport) | **Get** /v1/marketing/lists/{id}/export | Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields.
+[**GetMarketingListsByIdSegments**](MarketingAPI.md#GetMarketingListsByIdSegments) | **Get** /v1/marketing/lists/{id}/segments | Returns one list&#39;s saved segments, newest first.
+[**GetMarketingListsByIdStats**](MarketingAPI.md#GetMarketingListsByIdStats) | **Get** /v1/marketing/lists/{id}/stats | Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+[**GetMarketingListsByIdSubscribers**](MarketingAPI.md#GetMarketingListsByIdSubscribers) | **Get** /v1/marketing/lists/{id}/subscribers | Returns a page of one list&#39;s subscribers, newest first unless asked otherwise.
+[**GetMarketingListsByIdSubscribersBySid**](MarketingAPI.md#GetMarketingListsByIdSubscribersBySid) | **Get** /v1/marketing/lists/{id}/subscribers/{sid} | Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
 [**GetMarketingPromos**](MarketingAPI.md#GetMarketingPromos) | **Get** /v1/marketing/promos | Returns every promo the deployment offers with its live counters: how many orgs have redeemed it and how many redemptions remain under the cap.
 [**GetMarketingPromosByCodeEligibility**](MarketingAPI.md#GetMarketingPromosByCodeEligibility) | **Get** /v1/marketing/promos/{code}/eligibility | Prices a promo against a plan and seat count.
 [**GetMarketingPromosByCodeRedemption**](MarketingAPI.md#GetMarketingPromosByCodeRedemption) | **Get** /v1/marketing/promos/{code}/redemption | Returns the caller org&#39;s OWN redemption of a promo — an org-scoped read, so it can never surface another tenant&#39;s.
+[**GetMarketingSender**](MarketingAPI.md#GetMarketingSender) | **Get** /v1/marketing/sender | Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
 [**GetMarketingSequences**](MarketingAPI.md#GetMarketingSequences) | **Get** /v1/marketing/sequences | Returns the org&#39;s drip sequences, most recently updated first.
 [**GetMarketingSequencesById**](MarketingAPI.md#GetMarketingSequencesById) | **Get** /v1/marketing/sequences/{id} | Returns one of the caller org&#39;s sequences together with its steps in send order.
 [**GetMarketingSequencesByIdEnrollments**](MarketingAPI.md#GetMarketingSequencesByIdEnrollments) | **Get** /v1/marketing/sequences/{id}/enrollments | Returns who is walking one sequence, most recently enrolled first, with each walk&#39;s current step and next due time.
 [**GetMarketingSequencesByIdSteps**](MarketingAPI.md#GetMarketingSequencesByIdSteps) | **Get** /v1/marketing/sequences/{id}/steps | Returns one sequence&#39;s steps in send order.
 [**GetMarketingSummary**](MarketingAPI.md#GetMarketingSummary) | **Get** /v1/marketing/summary | Rolls up the caller org&#39;s campaigns: how many there are, how many are active, and the summed budget and spend in cents.
 [**GetMarketingSuppressions**](MarketingAPI.md#GetMarketingSuppressions) | **Get** /v1/marketing/suppressions | Returns the org&#39;s opt-out list, newest first — everyone the send gate will refuse to deliver to.
+[**GetMarketingSuppressionsCheck**](MarketingAPI.md#GetMarketingSuppressionsCheck) | **Get** /v1/marketing/suppressions/check | Answers whether the org&#39;s send gate refuses an address, and which list holds it, by the same check every commercial send asks.
 [**GetMarketingUnsubscribe**](MarketingAPI.md#GetMarketingUnsubscribe) | **Get** /v1/marketing/unsubscribe | Is the PUBLIC one-click endpoint (no principal): a recipient clicks the signed link in an email footer.
+[**PatchMarketingBroadcastsById**](MarketingAPI.md#PatchMarketingBroadcastsById) | **Patch** /v1/marketing/broadcasts/{id} | Changes the fields the body names on a draft or scheduled broadcast and answers it.
+[**PatchMarketingListsById**](MarketingAPI.md#PatchMarketingListsById) | **Patch** /v1/marketing/lists/{id} | Changes the fields the body names on one of the org&#39;s lists and answers the list.
+[**PatchMarketingListsByIdSubscribersBySid**](MarketingAPI.md#PatchMarketingListsByIdSubscribersBySid) | **Patch** /v1/marketing/lists/{id}/subscribers/{sid} | Changes the fields the body names on one subscriber and answers the row.
 [**PostMarketingAudiences**](MarketingAPI.md#PostMarketingAudiences) | **Post** /v1/marketing/audiences | Saves a cohort filter for the caller&#39;s org.
+[**PostMarketingBetaActions**](MarketingAPI.md#PostMarketingBetaActions) | **Post** /v1/marketing/beta/actions | Counts one action of the signed-in caller: a star on a Hanzo repository, verified on GitHub for the login named, or a follow of a founder&#39;s link, taken on trust.
+[**PostMarketingBetaInvites**](MarketingAPI.md#PostMarketingBetaInvites) | **Post** /v1/marketing/beta/invites | Reserves an invite for each address the limits admit and answers the message the member&#39;s mailbox sends for each: subject, text and HTML, the unsubscribe headers, with the member&#39;s referral link for that invite and a one-click unsubscribe for that address.
+[**PostMarketingBetaInvitesSent**](MarketingAPI.md#PostMarketingBetaInvitesSent) | **Post** /v1/marketing/beta/invites/sent | Records what the member&#39;s browser did with its reservations: the invites sent, and the ones that failed with the mailbox&#39;s reason.
+[**PostMarketingBetaRequest**](MarketingAPI.md#PostMarketingBetaRequest) | **Post** /v1/marketing/beta/request | Adds betas to those the signed-in caller asked for, creating the record when there is none.
+[**PostMarketingBroadcasts**](MarketingAPI.md#PostMarketingBroadcasts) | **Post** /v1/marketing/broadcasts | Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it.
+[**PostMarketingBroadcastsByIdCancel**](MarketingAPI.md#PostMarketingBroadcastsByIdCancel) | **Post** /v1/marketing/broadcasts/{id}/cancel | Stops a scheduled or sending broadcast and answers it.
+[**PostMarketingBroadcastsByIdSend**](MarketingAPI.md#PostMarketingBroadcastsByIdSend) | **Post** /v1/marketing/broadcasts/{id}/send | Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
+[**PostMarketingBroadcastsByIdTest**](MarketingAPI.md#PostMarketingBroadcastsByIdTest) | **Post** /v1/marketing/broadcasts/{id}/test | Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
 [**PostMarketingCalendar**](MarketingAPI.md#PostMarketingCalendar) | **Post** /v1/marketing/calendar | Adds a post to the content calendar.
 [**PostMarketingCampaigns**](MarketingAPI.md#PostMarketingCampaigns) | **Post** /v1/marketing/campaigns | Registers a campaign in the caller&#39;s org.
 [**PostMarketingCampaignsByIdSchedule**](MarketingAPI.md#PostMarketingCampaignsByIdSchedule) | **Post** /v1/marketing/campaigns/{id}/schedule | Sets a campaign&#39;s send time and moves it to \&quot;scheduled\&quot;.
-[**PostMarketingLeads**](MarketingAPI.md#PostMarketingLeads) | **Post** /v1/marketing/leads | Files a sales inquiry as a new lead in the deployment&#39;s own CRM and states it on the event plane.
+[**PostMarketingImports**](MarketingAPI.md#PostMarketingImports) | **Post** /v1/marketing/imports | Creates an import into one of the org&#39;s lists and answers it.
+[**PostMarketingImportsByIdCancel**](MarketingAPI.md#PostMarketingImportsByIdCancel) | **Post** /v1/marketing/imports/{id}/cancel | Stops an import that has not finished and answers it.
+[**PostMarketingImportsByIdStart**](MarketingAPI.md#PostMarketingImportsByIdStart) | **Post** /v1/marketing/imports/{id}/start | Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+[**PostMarketingLeads**](MarketingAPI.md#PostMarketingLeads) | **Post** /v1/marketing/leads | Files one public form in the deployment&#39;s own CRM.
+[**PostMarketingLeadsEsign**](MarketingAPI.md#PostMarketingLeadsEsign) | **Post** /v1/marketing/leads/esign | Takes Hanzo eSign&#39;s webhook: a SAFE was signed, countersigned, completed, declined or voided, and the investor&#39;s form in the brand&#39;s CRM moves to that status.
+[**PostMarketingLeadsResume**](MarketingAPI.md#PostMarketingLeadsResume) | **Post** /v1/marketing/leads/resume | Signs a form the careers page posts one resume through, into the brand org&#39;s private careers bucket, and answers the key to name on the application (&#x60;resume_file&#x60;).
+[**PostMarketingLists**](MarketingAPI.md#PostMarketingLists) | **Post** /v1/marketing/lists | Creates a list in the org and answers 201 with it.
+[**PostMarketingListsByIdSegments**](MarketingAPI.md#PostMarketingListsByIdSegments) | **Post** /v1/marketing/lists/{id}/segments | Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+[**PostMarketingListsByIdSubscribers**](MarketingAPI.md#PostMarketingListsByIdSubscribers) | **Post** /v1/marketing/lists/{id}/subscribers | Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row.
+[**PostMarketingListsByIdSubscribersBulk**](MarketingAPI.md#PostMarketingListsByIdSubscribersBulk) | **Post** /v1/marketing/lists/{id}/subscribers/bulk | Applies one action to a selection of a list and answers how many rows it matched and changed.
+[**PostMarketingMail**](MarketingAPI.md#PostMarketingMail) | **Post** /v1/marketing/mail | Sends one email from the org to one person, the way a person on the org&#39;s team writes back to a lead from its record.
 [**PostMarketingPromosByCodeRedeem**](MarketingAPI.md#PostMarketingPromosByCodeRedeem) | **Post** /v1/marketing/promos/{code}/redeem | Records the caller org&#39;s claim on a promo.
 [**PostMarketingSequences**](MarketingAPI.md#PostMarketingSequences) | **Post** /v1/marketing/sequences | Registers a drip sequence in the caller&#39;s org.
 [**PostMarketingSequencesByIdEnroll**](MarketingAPI.md#PostMarketingSequencesByIdEnroll) | **Post** /v1/marketing/sequences/{id}/enroll | Adds one contact or a whole audience to a sequence and schedules the first step for each.
 [**PostMarketingSequencesByIdEnrollmentsByEidCancel**](MarketingAPI.md#PostMarketingSequencesByIdEnrollmentsByEidCancel) | **Post** /v1/marketing/sequences/{id}/enrollments/{eid}/cancel | Stops one walk mid-sequence and answers 204: no further step is sent, and steps already delivered are not recalled.
 [**PostMarketingSequencesByIdStatus**](MarketingAPI.md#PostMarketingSequencesByIdStatus) | **Post** /v1/marketing/sequences/{id}/status | Flips draft/active/archived — the activation gate for sending, since only an active sequence accepts enrollments.
 [**PostMarketingSequencesByIdSteps**](MarketingAPI.md#PostMarketingSequencesByIdSteps) | **Post** /v1/marketing/sequences/{id}/steps | Appends a message to the END of a sequence: the new step&#39;s idx is one past the last, so steps arrive in the order they are added.
+[**PostMarketingSubscribe**](MarketingAPI.md#PostMarketingSubscribe) | **Post** /v1/marketing/subscribe | Asks for the brand&#39;s newsletter for an address and answers 202 pending.
+[**PostMarketingSubscribeConfirm**](MarketingAPI.md#PostMarketingSubscribeConfirm) | **Post** /v1/marketing/subscribe/confirm | Subscribes the address a confirmation link names and answers 200 confirmed.
 [**PostMarketingSuppressions**](MarketingAPI.md#PostMarketingSuppressions) | **Post** /v1/marketing/suppressions | Records an opt-out for the org (admin / self-service management).
+[**PostMarketingUnsubscribe**](MarketingAPI.md#PostMarketingUnsubscribe) | **Post** /v1/marketing/unsubscribe | Is the one-click unsubscribe a mail client sends from the List-Unsubscribe header (RFC 8058): the same signed link the footer carries, POSTed with the form body List-Unsubscribe&#x3D;One-Click.
+[**PutMarketingBeta**](MarketingAPI.md#PutMarketingBeta) | **Put** /v1/marketing/beta | Writes the signed-in caller&#39;s application: the program, the answers, the betas asked for and the lead it was filed under.
 [**PutMarketingCalendarById**](MarketingAPI.md#PutMarketingCalendarById) | **Put** /v1/marketing/calendar/{id} | Replaces a post&#39;s editable fields.
 [**PutMarketingCampaignsById**](MarketingAPI.md#PutMarketingCampaignsById) | **Put** /v1/marketing/campaigns/{id} | Replaces a campaign&#39;s editable fields.
+[**PutMarketingFields**](MarketingAPI.md#PutMarketingFields) | **Put** /v1/marketing/fields | Replaces the org&#39;s custom fields with the set the body carries and answers it.
+[**PutMarketingImportsByIdData**](MarketingAPI.md#PutMarketingImportsByIdData) | **Put** /v1/marketing/imports/{id}/data | Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds.
+[**PutMarketingListsByIdSegmentsBySid**](MarketingAPI.md#PutMarketingListsByIdSegmentsBySid) | **Put** /v1/marketing/lists/{id}/segments/{sid} | Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.
+[**PutMarketingSender**](MarketingAPI.md#PutMarketingSender) | **Put** /v1/marketing/sender | Replaces the org&#39;s sender and answers it.
 
 
 
@@ -104,6 +155,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteMarketingBroadcastsById
+
+> map[string]interface{} DeleteMarketingBroadcastsById(ctx, id).Execute()
+
+Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "brd_7a3c1e9b5d2f4068a1c3e5b7" // string | ID is the broadcast's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.DeleteMarketingBroadcastsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.DeleteMarketingBroadcastsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteMarketingBroadcastsById`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.DeleteMarketingBroadcastsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the broadcast&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteMarketingBroadcastsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -246,9 +367,225 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DeleteMarketingListsById
+
+> map[string]interface{} DeleteMarketingListsById(ctx, id).Execute()
+
+Deletes one of the org's lists with every subscriber, segment, import and broadcast it has, and answers 204.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "lst_5f1c2e9a7b3d4c6e8f0a1b2c" // string | ID is the list's id or its slug.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.DeleteMarketingListsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.DeleteMarketingListsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteMarketingListsById`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.DeleteMarketingListsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list&#39;s id or its slug. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteMarketingListsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteMarketingListsByIdSegmentsBySid
+
+> map[string]interface{} DeleteMarketingListsByIdSegmentsBySid(ctx, id, sid).Execute()
+
+Deletes a saved segment and answers 204.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug.
+	sid := "seg_0b7e3c1a9d2f4e6a8c0b1d3e" // string | SID is the segment's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.DeleteMarketingListsByIdSegmentsBySid(context.Background(), id, sid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.DeleteMarketingListsByIdSegmentsBySid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteMarketingListsByIdSegmentsBySid`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.DeleteMarketingListsByIdSegmentsBySid`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug. | 
+**sid** | **string** | SID is the segment&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteMarketingListsByIdSegmentsBySidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteMarketingListsByIdSubscribersBySid
+
+> map[string]interface{} DeleteMarketingListsByIdSubscribersBySid(ctx, id, sid).Execute()
+
+Removes one subscriber from one of the org's lists and answers 204.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug.
+	sid := int64(1842) // int64 | SID is the subscriber's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.DeleteMarketingListsByIdSubscribersBySid(context.Background(), id, sid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.DeleteMarketingListsByIdSubscribersBySid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteMarketingListsByIdSubscribersBySid`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.DeleteMarketingListsByIdSubscribersBySid`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug. | 
+**sid** | **int64** | SID is the subscriber&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteMarketingListsByIdSubscribersBySidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## DeleteMarketingSuppressions
 
-> DeleteMarketingSuppressions(ctx).Channel(channel).Address(address).Reason(reason).CreatedAt(createdAt).Execute()
+> DeleteMarketingSuppressions(ctx).Channel(channel).Address(address).Execute()
 
 Re-subscribes an address on one channel and answers 204.
 
@@ -267,14 +604,12 @@ import (
 )
 
 func main() {
-	channel := "email" // string | Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. (optional)
-	address := "person@example.com" // string | Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. (optional)
-	reason := "reason_example" // string | Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \"one-click unsubscribe\". (optional)
-	createdAt := int64(789) // int64 | CreatedAt is unix seconds, server-assigned. (optional)
+	channel := "email" // string | Channel is the surface the entry opts out of; empty is email. (optional)
+	address := "person@example.com" // string | Address is the entry: an address, or \"@example.com\" for a company. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MarketingAPI.DeleteMarketingSuppressions(context.Background()).Channel(channel).Address(address).Reason(reason).CreatedAt(createdAt).Execute()
+	r, err := apiClient.MarketingAPI.DeleteMarketingSuppressions(context.Background()).Channel(channel).Address(address).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.DeleteMarketingSuppressions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -293,10 +628,8 @@ Other parameters are passed through a pointer to a apiDeleteMarketingSuppression
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **channel** | **string** | Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. | 
- **address** | **string** | Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. | 
- **reason** | **string** | Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;. | 
- **createdAt** | **int64** | CreatedAt is unix seconds, server-assigned. | 
+ **channel** | **string** | Channel is the surface the entry opts out of; empty is email. | 
+ **address** | **string** | Address is the entry: an address, or \&quot;@example.com\&quot; for a company. | 
 
 ### Return type
 
@@ -320,7 +653,7 @@ Name | Type | Description  | Notes
 
 > MarketingAudienceList GetMarketingAudiences(ctx).Limit(limit).Execute()
 
-Returns the org's saved audiences, most recently updated first.
+Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
 
 
 
@@ -507,6 +840,338 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MarketingAudiencePreview**](MarketingAudiencePreview.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingBeta
+
+> MarketingBeta GetMarketingBeta(ctx).Execute()
+
+Answers the signed-in caller's waitlist record: the application as it stands, the betas asked for, the points and the actions that earned them, and the place on the waitlist.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingBeta(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingBeta``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingBeta`: MarketingBeta
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingBeta`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingBetaRequest struct via the builder pattern
+
+
+### Return type
+
+[**MarketingBeta**](MarketingBeta.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingBetaInvites
+
+> MarketingBetaInviteList GetMarketingBetaInvites(ctx).Execute()
+
+Answers the caller's invites, newest first, with how many were sent, how many joined, and how many more they may send now.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingBetaInvites(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingBetaInvites``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingBetaInvites`: MarketingBetaInviteList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingBetaInvites`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingBetaInvitesRequest struct via the builder pattern
+
+
+### Return type
+
+[**MarketingBetaInviteList**](MarketingBetaInviteList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingBroadcasts
+
+> MarketingBroadcastPage GetMarketingBroadcasts(ctx).List(list).Status(status).Limit(limit).Execute()
+
+Returns the org's broadcasts, newest first.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	list := "newsletter" // string | List keeps one list's broadcasts, by id or slug. (optional)
+	status := "sent" // string | Status keeps broadcasts in one status. (optional)
+	limit := int64(789) // int64 | Limit is the page size, 50 by default and at most 200. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingBroadcasts(context.Background()).List(list).Status(status).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingBroadcasts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingBroadcasts`: MarketingBroadcastPage
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingBroadcasts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingBroadcastsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **list** | **string** | List keeps one list&#39;s broadcasts, by id or slug. | 
+ **status** | **string** | Status keeps broadcasts in one status. | 
+ **limit** | **int64** | Limit is the page size, 50 by default and at most 200. | 
+
+### Return type
+
+[**MarketingBroadcastPage**](MarketingBroadcastPage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingBroadcastsById
+
+> MarketingBroadcast GetMarketingBroadcastsById(ctx, id).Execute()
+
+Returns one of the org's broadcasts.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "brd_7a3c1e9b5d2f4068a1c3e5b7" // string | ID is the broadcast's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingBroadcastsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingBroadcastsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingBroadcastsById`: MarketingBroadcast
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingBroadcastsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the broadcast&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingBroadcastsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**MarketingBroadcast**](MarketingBroadcast.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingBroadcastsByIdStats
+
+> MarketingBroadcastStats GetMarketingBroadcastsByIdStats(ctx, id).Execute()
+
+Returns one broadcast's numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "brd_7a3c1e9b5d2f4068a1c3e5b7" // string | ID is the broadcast's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingBroadcastsByIdStats(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingBroadcastsByIdStats``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingBroadcastsByIdStats`: MarketingBroadcastStats
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingBroadcastsByIdStats`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the broadcast&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingBroadcastsByIdStatsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**MarketingBroadcastStats**](MarketingBroadcastStats.md)
 
 ### Authorization
 
@@ -798,6 +1463,799 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetMarketingClick
+
+> ProblemDetails GetMarketingClick(ctx).UserAgent(userAgent).T(t).Execute()
+
+Follows a tracked email link.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	userAgent := "userAgent_example" // string | Agent is the clicker's User-Agent header. Only its family (chrome, safari, automated, …) is kept. (optional)
+	t := "AQGAgICAAQVoYW56bw…" // string | T is the click token the send minted for this link and this recipient: base64url, signed under the deployment's KMS key marketing/click-hmac. It is the request's only authority. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingClick(context.Background()).UserAgent(userAgent).T(t).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingClick``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingClick`: ProblemDetails
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingClick`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingClickRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userAgent** | **string** | Agent is the clicker&#39;s User-Agent header. Only its family (chrome, safari, automated, …) is kept. | 
+ **t** | **string** | T is the click token the send minted for this link and this recipient: base64url, signed under the deployment&#39;s KMS key marketing/click-hmac. It is the request&#39;s only authority. | 
+
+### Return type
+
+[**ProblemDetails**](ProblemDetails.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingFields
+
+> MarketingFieldSet GetMarketingFields(ctx).Execute()
+
+Returns the custom fields the org defined for its subscribers.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingFields(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingFields``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingFields`: MarketingFieldSet
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingFields`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingFieldsRequest struct via the builder pattern
+
+
+### Return type
+
+[**MarketingFieldSet**](MarketingFieldSet.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingImports
+
+> MarketingImportPage GetMarketingImports(ctx).List(list).Limit(limit).Execute()
+
+Returns the org's imports, newest first, each with its report.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	list := "newsletter" // string | List keeps one list's imports, by id or slug. (optional)
+	limit := int64(20) // int64 | Limit is the page size, 50 by default and at most 200. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingImports(context.Background()).List(list).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingImports``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingImports`: MarketingImportPage
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingImports`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingImportsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **list** | **string** | List keeps one list&#39;s imports, by id or slug. | 
+ **limit** | **int64** | Limit is the page size, 50 by default and at most 200. | 
+
+### Return type
+
+[**MarketingImportPage**](MarketingImportPage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingImportsById
+
+> MarketingImport GetMarketingImportsById(ctx, id).Execute()
+
+Returns one of the org's imports: its state, how far its bytes and its reading have come, and its report so far.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "imp_4c1e9a7b3d2f0e6a8c1b5d7e" // string | ID is the import's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingImportsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingImportsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingImportsById`: MarketingImport
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingImportsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the import&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingImportsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**MarketingImport**](MarketingImport.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingLists
+
+> MarketingListPage GetMarketingLists(ctx).Execute()
+
+Returns the org's lists, newest first, each with its subscribers counted by status.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingLists(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingLists``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingLists`: MarketingListPage
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingLists`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingListsRequest struct via the builder pattern
+
+
+### Return type
+
+[**MarketingListPage**](MarketingListPage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingListsById
+
+> MarketingList GetMarketingListsById(ctx, id).Execute()
+
+Returns one of the org's lists, by id or slug, with its subscribers counted by status.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list's id or its slug.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingListsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingListsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingListsById`: MarketingList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingListsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list&#39;s id or its slug. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingListsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**MarketingList**](MarketingList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingListsByIdExport
+
+> GetMarketingListsByIdExport(ctx, id).Execute()
+
+Streams a selection of one list as CSV (format=csv, the default) or as a JSON array (format=json), every subscriber with their consent evidence, engagement and custom fields.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.MarketingAPI.GetMarketingListsByIdExport(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingListsByIdExport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingListsByIdExportRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingListsByIdSegments
+
+> MarketingSegmentPage GetMarketingListsByIdSegments(ctx, id).Execute()
+
+Returns one list's saved segments, newest first.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list's id or its slug.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingListsByIdSegments(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingListsByIdSegments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingListsByIdSegments`: MarketingSegmentPage
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingListsByIdSegments`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list&#39;s id or its slug. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingListsByIdSegmentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**MarketingSegmentPage**](MarketingSegmentPage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingListsByIdStats
+
+> MarketingListStats GetMarketingListsByIdStats(ctx, id).From(from).To(to).Execute()
+
+Returns one list's numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug, from the path.
+	from := "2026-10-01" // string | From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)
+	to := "2026-10-31" // string | To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingListsByIdStats(context.Background(), id).From(from).To(to).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingListsByIdStats``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingListsByIdStats`: MarketingListStats
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingListsByIdStats`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingListsByIdStatsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **from** | **string** | From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. | 
+ **to** | **string** | To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. | 
+
+### Return type
+
+[**MarketingListStats**](MarketingListStats.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingListsByIdSubscribers
+
+> MarketingSubscriberPage GetMarketingListsByIdSubscribers(ctx, id).Status(status).Tag(tag).Source(source).Ref(ref).Basis(basis).Q(q).Field(field).Value(value).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ConfirmedAfter(confirmedAfter).ConfirmedBefore(confirmedBefore).OpenedAfter(openedAfter).NotOpenedSince(notOpenedSince).ClickedAfter(clickedAfter).Segment(segment).Sort(sort).Order(order).Cursor(cursor).Limit(limit).Execute()
+
+Returns a page of one list's subscribers, newest first unless asked otherwise.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug, from the path.
+	status := "subscribed" // string | Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)
+	tag := "beta" // string | Tag keeps subscribers carrying this tag. (optional)
+	source := "source_example" // string | Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)
+	ref := "ref_example" // string | Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)
+	basis := "basis_example" // string | Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)
+	q := "q_example" // string | Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)
+	field := "field_example" // string | Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)
+	value := "value_example" // string | Value is the custom field's value Field keeps. (optional)
+	createdAfter := int64(789) // int64 | CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)
+	createdBefore := int64(789) // int64 | CreatedBefore is the upper bound of CreatedAfter's range. (optional)
+	confirmedAfter := int64(789) // int64 | ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)
+	confirmedBefore := int64(789) // int64 | ConfirmedBefore is the upper bound of ConfirmedAfter's range. (optional)
+	openedAfter := int64(789) // int64 | OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)
+	notOpenedSince := int64(789) // int64 | NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)
+	clickedAfter := int64(789) // int64 | ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)
+	segment := "segment_example" // string | Segment applies a saved segment of the list; the filter fields narrow it further. (optional)
+	sort := "sort_example" // string | Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)
+	order := "order_example" // string | Order is desc (the default) or asc. (optional)
+	cursor := "cursor_example" // string | Cursor continues from where the previous page ended. (optional)
+	limit := int64(50) // int64 | Limit is the page size, 50 by default and at most 500. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingListsByIdSubscribers(context.Background(), id).Status(status).Tag(tag).Source(source).Ref(ref).Basis(basis).Q(q).Field(field).Value(value).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ConfirmedAfter(confirmedAfter).ConfirmedBefore(confirmedBefore).OpenedAfter(openedAfter).NotOpenedSince(notOpenedSince).ClickedAfter(clickedAfter).Segment(segment).Sort(sort).Order(order).Cursor(cursor).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingListsByIdSubscribers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingListsByIdSubscribers`: MarketingSubscriberPage
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingListsByIdSubscribers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingListsByIdSubscribersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **status** | **string** | Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. | 
+ **tag** | **string** | Tag keeps subscribers carrying this tag. | 
+ **source** | **string** | Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. | 
+ **ref** | **string** | Ref keeps subscribers from one source instance: a form id, a page, an import batch id. | 
+ **basis** | **string** | Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. | 
+ **q** | **string** | Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. | 
+ **field** | **string** | Field names a custom field, and Value keeps subscribers whose value for it is exactly this. | 
+ **value** | **string** | Value is the custom field&#39;s value Field keeps. | 
+ **createdAfter** | **int64** | CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. | 
+ **createdBefore** | **int64** | CreatedBefore is the upper bound of CreatedAfter&#39;s range. | 
+ **confirmedAfter** | **int64** | ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. | 
+ **confirmedBefore** | **int64** | ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. | 
+ **openedAfter** | **int64** | OpenedAfter keeps subscribers who opened a broadcast at or after this time. | 
+ **notOpenedSince** | **int64** | NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. | 
+ **clickedAfter** | **int64** | ClickedAfter keeps subscribers who clicked a link at or after this time. | 
+ **segment** | **string** | Segment applies a saved segment of the list; the filter fields narrow it further. | 
+ **sort** | **string** | Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. | 
+ **order** | **string** | Order is desc (the default) or asc. | 
+ **cursor** | **string** | Cursor continues from where the previous page ended. | 
+ **limit** | **int64** | Limit is the page size, 50 by default and at most 500. | 
+
+### Return type
+
+[**MarketingSubscriberPage**](MarketingSubscriberPage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingListsByIdSubscribersBySid
+
+> MarketingSubscriber GetMarketingListsByIdSubscribersBySid(ctx, id, sid).Execute()
+
+Returns one subscriber of one of the org's lists, with their consent evidence and engagement.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug.
+	sid := int64(1842) // int64 | SID is the subscriber's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingListsByIdSubscribersBySid(context.Background(), id, sid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingListsByIdSubscribersBySid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingListsByIdSubscribersBySid`: MarketingSubscriber
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingListsByIdSubscribersBySid`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug. | 
+**sid** | **int64** | SID is the subscriber&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingListsByIdSubscribersBySidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**MarketingSubscriber**](MarketingSubscriber.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetMarketingPromos
 
 > MarketingPromoList GetMarketingPromos(ctx).Execute()
@@ -988,6 +2446,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MarketingRedemption**](MarketingRedemption.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMarketingSender
+
+> MarketingSender GetMarketingSender(ctx).Execute()
+
+Returns the org's sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingSender(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSender``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingSender`: MarketingSender
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSender`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingSenderRequest struct via the builder pattern
+
+
+### Return type
+
+[**MarketingSender**](MarketingSender.md)
 
 ### Authorization
 
@@ -1408,9 +2927,77 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetMarketingSuppressionsCheck
+
+> MarketingSuppressionCheck GetMarketingSuppressionsCheck(ctx).Channel(channel).Address(address).Execute()
+
+Answers whether the org's send gate refuses an address, and which list holds it, by the same check every commercial send asks.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	channel := "channel_example" // string | Channel is the surface the entry opts out of; empty is email. (optional)
+	address := "person@example.com" // string | Address is the entry: an address, or \"@example.com\" for a company. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.GetMarketingSuppressionsCheck(context.Background()).Channel(channel).Address(address).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSuppressionsCheck``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMarketingSuppressionsCheck`: MarketingSuppressionCheck
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSuppressionsCheck`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMarketingSuppressionsCheckRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **channel** | **string** | Channel is the surface the entry opts out of; empty is email. | 
+ **address** | **string** | Address is the entry: an address, or \&quot;@example.com\&quot; for a company. | 
+
+### Return type
+
+[**MarketingSuppressionCheck**](MarketingSuppressionCheck.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetMarketingUnsubscribe
 
-> MarketingUnsubscribed GetMarketingUnsubscribe(ctx).Org(org).Channel(channel).Address(address).Token(token).Execute()
+> MarketingUnsubscribed GetMarketingUnsubscribe(ctx).Org(org).Channel(channel).Address(address).Token(token).Company(company).List(list).Execute()
 
 Is the PUBLIC one-click endpoint (no principal): a recipient clicks the signed link in an email footer.
 
@@ -1433,10 +3020,12 @@ func main() {
 	channel := "email" // string | Channel is the surface to opt out of. (optional)
 	address := "person@example.com" // string | Address is the recipient to opt out. (optional)
 	token := "9f2a…" // string | Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)
+	company := true // bool | Company opts out everyone at the address's domain as well, in this org alone: a company's unsubscribe. An address at a free mail provider is a person's and is refused 422. (optional)
+	list := "list_example" // string | List is the marketing list a broadcast's link leaves; with it the token is the list's, the address leaves that list alone, and the org's other mail still reaches it. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.GetMarketingUnsubscribe(context.Background()).Org(org).Channel(channel).Address(address).Token(token).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingUnsubscribe(context.Background()).Org(org).Channel(channel).Address(address).Token(token).Company(company).List(list).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingUnsubscribe``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1461,6 +3050,8 @@ Name | Type | Description  | Notes
  **channel** | **string** | Channel is the surface to opt out of. | 
  **address** | **string** | Address is the recipient to opt out. | 
  **token** | **string** | Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. | 
+ **company** | **bool** | Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. | 
+ **list** | **string** | List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. | 
 
 ### Return type
 
@@ -1468,11 +3059,230 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearer](../README.md#bearer)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchMarketingBroadcastsById
+
+> MarketingBroadcast PatchMarketingBroadcastsById(ctx, id).MarketingBroadcastIn(marketingBroadcastIn).Execute()
+
+Changes the fields the body names on a draft or scheduled broadcast and answers it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "brd_7a3c1e9b5d2f4068a1c3e5b7" // string | ID is the broadcast to change, from the path; ignored on create.
+	marketingBroadcastIn := *openapiclient.NewMarketingBroadcastIn() // MarketingBroadcastIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PatchMarketingBroadcastsById(context.Background(), id).MarketingBroadcastIn(marketingBroadcastIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PatchMarketingBroadcastsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchMarketingBroadcastsById`: MarketingBroadcast
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PatchMarketingBroadcastsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the broadcast to change, from the path; ignored on create. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchMarketingBroadcastsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **marketingBroadcastIn** | [**MarketingBroadcastIn**](MarketingBroadcastIn.md) |  | 
+
+### Return type
+
+[**MarketingBroadcast**](MarketingBroadcast.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchMarketingListsById
+
+> MarketingList PatchMarketingListsById(ctx, id).MarketingListIn(marketingListIn).Execute()
+
+Changes the fields the body names on one of the org's lists and answers the list.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list to change, from the path; ignored on create.
+	marketingListIn := *openapiclient.NewMarketingListIn() // MarketingListIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PatchMarketingListsById(context.Background(), id).MarketingListIn(marketingListIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PatchMarketingListsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchMarketingListsById`: MarketingList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PatchMarketingListsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list to change, from the path; ignored on create. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchMarketingListsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **marketingListIn** | [**MarketingListIn**](MarketingListIn.md) |  | 
+
+### Return type
+
+[**MarketingList**](MarketingList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchMarketingListsByIdSubscribersBySid
+
+> MarketingSubscriber PatchMarketingListsByIdSubscribersBySid(ctx, id, sid).MarketingSubscriberIn(marketingSubscriberIn).Execute()
+
+Changes the fields the body names on one subscriber and answers the row.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug, from the path.
+	sid := int64(1842) // int64 | SID is the subscriber to change, from the path; ignored on add.
+	marketingSubscriberIn := *openapiclient.NewMarketingSubscriberIn() // MarketingSubscriberIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PatchMarketingListsByIdSubscribersBySid(context.Background(), id, sid).MarketingSubscriberIn(marketingSubscriberIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PatchMarketingListsByIdSubscribersBySid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchMarketingListsByIdSubscribersBySid`: MarketingSubscriber
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PatchMarketingListsByIdSubscribersBySid`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug, from the path. | 
+**sid** | **int64** | SID is the subscriber to change, from the path; ignored on add. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchMarketingListsByIdSubscribersBySidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **marketingSubscriberIn** | [**MarketingSubscriberIn**](MarketingSubscriberIn.md) |  | 
+
+### Return type
+
+[**MarketingSubscriber**](MarketingSubscriber.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1531,6 +3341,550 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MarketingAudience**](MarketingAudience.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingBetaActions
+
+> MarketingBeta PostMarketingBetaActions(ctx).MarketingBetaActIn(marketingBetaActIn).Execute()
+
+Counts one action of the signed-in caller: a star on a Hanzo repository, verified on GitHub for the login named, or a follow of a founder's link, taken on trust.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingBetaActIn := *openapiclient.NewMarketingBetaActIn() // MarketingBetaActIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingBetaActions(context.Background()).MarketingBetaActIn(marketingBetaActIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingBetaActions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingBetaActions`: MarketingBeta
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingBetaActions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingBetaActionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingBetaActIn** | [**MarketingBetaActIn**](MarketingBetaActIn.md) |  | 
+
+### Return type
+
+[**MarketingBeta**](MarketingBeta.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingBetaInvites
+
+> MarketingBetaInvites PostMarketingBetaInvites(ctx).MarketingBetaInviteIn(marketingBetaInviteIn).Execute()
+
+Reserves an invite for each address the limits admit and answers the message the member's mailbox sends for each: subject, text and HTML, the unsubscribe headers, with the member's referral link for that invite and a one-click unsubscribe for that address.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingBetaInviteIn := *openapiclient.NewMarketingBetaInviteIn() // MarketingBetaInviteIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingBetaInvites(context.Background()).MarketingBetaInviteIn(marketingBetaInviteIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingBetaInvites``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingBetaInvites`: MarketingBetaInvites
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingBetaInvites`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingBetaInvitesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingBetaInviteIn** | [**MarketingBetaInviteIn**](MarketingBetaInviteIn.md) |  | 
+
+### Return type
+
+[**MarketingBetaInvites**](MarketingBetaInvites.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingBetaInvitesSent
+
+> MarketingBetaInviteRows PostMarketingBetaInvitesSent(ctx).MarketingBetaInviteSentIn(marketingBetaInviteSentIn).Execute()
+
+Records what the member's browser did with its reservations: the invites sent, and the ones that failed with the mailbox's reason.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingBetaInviteSentIn := *openapiclient.NewMarketingBetaInviteSentIn() // MarketingBetaInviteSentIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingBetaInvitesSent(context.Background()).MarketingBetaInviteSentIn(marketingBetaInviteSentIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingBetaInvitesSent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingBetaInvitesSent`: MarketingBetaInviteRows
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingBetaInvitesSent`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingBetaInvitesSentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingBetaInviteSentIn** | [**MarketingBetaInviteSentIn**](MarketingBetaInviteSentIn.md) |  | 
+
+### Return type
+
+[**MarketingBetaInviteRows**](MarketingBetaInviteRows.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingBetaRequest
+
+> MarketingBeta PostMarketingBetaRequest(ctx).MarketingBetaRequest(marketingBetaRequest).Execute()
+
+Adds betas to those the signed-in caller asked for, creating the record when there is none.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingBetaRequest := *openapiclient.NewMarketingBetaRequest() // MarketingBetaRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingBetaRequest(context.Background()).MarketingBetaRequest(marketingBetaRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingBetaRequest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingBetaRequest`: MarketingBeta
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingBetaRequest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingBetaRequestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingBetaRequest** | [**MarketingBetaRequest**](MarketingBetaRequest.md) |  | 
+
+### Return type
+
+[**MarketingBeta**](MarketingBeta.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingBroadcasts
+
+> MarketingBroadcast PostMarketingBroadcasts(ctx).MarketingBroadcastIn(marketingBroadcastIn).Execute()
+
+Composes a broadcast to one of the org's lists, or a segment of it, and answers 201 with it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingBroadcastIn := *openapiclient.NewMarketingBroadcastIn() // MarketingBroadcastIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingBroadcasts(context.Background()).MarketingBroadcastIn(marketingBroadcastIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingBroadcasts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingBroadcasts`: MarketingBroadcast
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingBroadcasts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingBroadcastsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingBroadcastIn** | [**MarketingBroadcastIn**](MarketingBroadcastIn.md) |  | 
+
+### Return type
+
+[**MarketingBroadcast**](MarketingBroadcast.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingBroadcastsByIdCancel
+
+> MarketingBroadcast PostMarketingBroadcastsByIdCancel(ctx, id).Execute()
+
+Stops a scheduled or sending broadcast and answers it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "brd_7a3c1e9b5d2f4068a1c3e5b7" // string | ID is the broadcast's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingBroadcastsByIdCancel(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingBroadcastsByIdCancel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingBroadcastsByIdCancel`: MarketingBroadcast
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingBroadcastsByIdCancel`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the broadcast&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingBroadcastsByIdCancelRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**MarketingBroadcast**](MarketingBroadcast.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingBroadcastsByIdSend
+
+> MarketingBroadcast PostMarketingBroadcastsByIdSend(ctx, id).MarketingSendIn(marketingSendIn).Execute()
+
+Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "brd_7a3c1e9b5d2f4068a1c3e5b7" // string | ID is the broadcast, from the path.
+	marketingSendIn := *openapiclient.NewMarketingSendIn() // MarketingSendIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingBroadcastsByIdSend(context.Background(), id).MarketingSendIn(marketingSendIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingBroadcastsByIdSend``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingBroadcastsByIdSend`: MarketingBroadcast
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingBroadcastsByIdSend`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the broadcast, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingBroadcastsByIdSendRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **marketingSendIn** | [**MarketingSendIn**](MarketingSendIn.md) |  | 
+
+### Return type
+
+[**MarketingBroadcast**](MarketingBroadcast.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingBroadcastsByIdTest
+
+> MarketingTestOut PostMarketingBroadcastsByIdTest(ctx, id).MarketingTestIn(marketingTestIn).Execute()
+
+Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "brd_7a3c1e9b5d2f4068a1c3e5b7" // string | ID is the broadcast, from the path.
+	marketingTestIn := *openapiclient.NewMarketingTestIn() // MarketingTestIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingBroadcastsByIdTest(context.Background(), id).MarketingTestIn(marketingTestIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingBroadcastsByIdTest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingBroadcastsByIdTest`: MarketingTestOut
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingBroadcastsByIdTest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the broadcast, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingBroadcastsByIdTestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **marketingTestIn** | [**MarketingTestIn**](MarketingTestIn.md) |  | 
+
+### Return type
+
+[**MarketingTestOut**](MarketingTestOut.md)
 
 ### Authorization
 
@@ -1750,11 +4104,217 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostMarketingImports
+
+> MarketingCreated PostMarketingImports(ctx).MarketingImportIn(marketingImportIn).Execute()
+
+Creates an import into one of the org's lists and answers it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingImportIn := *openapiclient.NewMarketingImportIn() // MarketingImportIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingImports(context.Background()).MarketingImportIn(marketingImportIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingImports``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingImports`: MarketingCreated
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingImports`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingImportsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingImportIn** | [**MarketingImportIn**](MarketingImportIn.md) |  | 
+
+### Return type
+
+[**MarketingCreated**](MarketingCreated.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingImportsByIdCancel
+
+> MarketingImport PostMarketingImportsByIdCancel(ctx, id).Execute()
+
+Stops an import that has not finished and answers it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "imp_4c1e9a7b3d2f0e6a8c1b5d7e" // string | ID is the import's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingImportsByIdCancel(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingImportsByIdCancel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingImportsByIdCancel`: MarketingImport
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingImportsByIdCancel`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the import&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingImportsByIdCancelRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**MarketingImport**](MarketingImport.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingImportsByIdStart
+
+> MarketingImport PostMarketingImportsByIdStart(ctx, id).Execute()
+
+Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "imp_4c1e9a7b3d2f0e6a8c1b5d7e" // string | ID is the import's id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingImportsByIdStart(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingImportsByIdStart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingImportsByIdStart`: MarketingImport
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingImportsByIdStart`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the import&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingImportsByIdStartRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**MarketingImport**](MarketingImport.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostMarketingLeads
 
 > MarketingLead PostMarketingLeads(ctx).MarketingLeadIn(marketingLeadIn).Execute()
 
-Files a sales inquiry as a new lead in the deployment's own CRM and states it on the event plane.
+Files one public form in the deployment's own CRM.
 
 
 
@@ -1801,6 +4361,486 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MarketingLead**](MarketingLead.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingLeadsEsign
+
+> MarketingSigning PostMarketingLeadsEsign(ctx).MarketingEsignEvent(marketingEsignEvent).Execute()
+
+Takes Hanzo eSign's webhook: a SAFE was signed, countersigned, completed, declined or voided, and the investor's form in the brand's CRM moves to that status.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingEsignEvent := *openapiclient.NewMarketingEsignEvent() // MarketingEsignEvent | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingLeadsEsign(context.Background()).MarketingEsignEvent(marketingEsignEvent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingLeadsEsign``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingLeadsEsign`: MarketingSigning
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingLeadsEsign`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingLeadsEsignRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingEsignEvent** | [**MarketingEsignEvent**](MarketingEsignEvent.md) |  | 
+
+### Return type
+
+[**MarketingSigning**](MarketingSigning.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingLeadsResume
+
+> MarketingResumeForm PostMarketingLeadsResume(ctx).MarketingResumeIn(marketingResumeIn).Execute()
+
+Signs a form the careers page posts one resume through, into the brand org's private careers bucket, and answers the key to name on the application (`resume_file`).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingResumeIn := *openapiclient.NewMarketingResumeIn() // MarketingResumeIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingLeadsResume(context.Background()).MarketingResumeIn(marketingResumeIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingLeadsResume``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingLeadsResume`: MarketingResumeForm
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingLeadsResume`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingLeadsResumeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingResumeIn** | [**MarketingResumeIn**](MarketingResumeIn.md) |  | 
+
+### Return type
+
+[**MarketingResumeForm**](MarketingResumeForm.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingLists
+
+> MarketingList PostMarketingLists(ctx).MarketingListIn(marketingListIn).Execute()
+
+Creates a list in the org and answers 201 with it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingListIn := *openapiclient.NewMarketingListIn() // MarketingListIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingLists(context.Background()).MarketingListIn(marketingListIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingLists``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingLists`: MarketingList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingLists`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingListsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingListIn** | [**MarketingListIn**](MarketingListIn.md) |  | 
+
+### Return type
+
+[**MarketingList**](MarketingList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingListsByIdSegments
+
+> MarketingSegment PostMarketingListsByIdSegments(ctx, id).MarketingSegmentIn(marketingSegmentIn).Execute()
+
+Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug, from the path.
+	marketingSegmentIn := *openapiclient.NewMarketingSegmentIn() // MarketingSegmentIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingListsByIdSegments(context.Background(), id).MarketingSegmentIn(marketingSegmentIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingListsByIdSegments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingListsByIdSegments`: MarketingSegment
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingListsByIdSegments`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingListsByIdSegmentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **marketingSegmentIn** | [**MarketingSegmentIn**](MarketingSegmentIn.md) |  | 
+
+### Return type
+
+[**MarketingSegment**](MarketingSegment.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingListsByIdSubscribers
+
+> MarketingAdded PostMarketingListsByIdSubscribers(ctx, id).MarketingSubscriberIn(marketingSubscriberIn).Execute()
+
+Adds an address to one of the org's lists, or updates it when it is already there, and answers 201 or 200 with the row.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug, from the path.
+	marketingSubscriberIn := *openapiclient.NewMarketingSubscriberIn() // MarketingSubscriberIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingListsByIdSubscribers(context.Background(), id).MarketingSubscriberIn(marketingSubscriberIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingListsByIdSubscribers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingListsByIdSubscribers`: MarketingAdded
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingListsByIdSubscribers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingListsByIdSubscribersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **marketingSubscriberIn** | [**MarketingSubscriberIn**](MarketingSubscriberIn.md) |  | 
+
+### Return type
+
+[**MarketingAdded**](MarketingAdded.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingListsByIdSubscribersBulk
+
+> MarketingBulkOut PostMarketingListsByIdSubscribersBulk(ctx, id).MarketingBulkIn(marketingBulkIn).Execute()
+
+Applies one action to a selection of a list and answers how many rows it matched and changed.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug, from the path.
+	marketingBulkIn := *openapiclient.NewMarketingBulkIn() // MarketingBulkIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingListsByIdSubscribersBulk(context.Background(), id).MarketingBulkIn(marketingBulkIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingListsByIdSubscribersBulk``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingListsByIdSubscribersBulk`: MarketingBulkOut
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingListsByIdSubscribersBulk`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingListsByIdSubscribersBulkRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **marketingBulkIn** | [**MarketingBulkIn**](MarketingBulkIn.md) |  | 
+
+### Return type
+
+[**MarketingBulkOut**](MarketingBulkOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingMail
+
+> MarketingMailOut PostMarketingMail(ctx).MarketingMailIn(marketingMailIn).Execute()
+
+Sends one email from the org to one person, the way a person on the org's team writes back to a lead from its record.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingMailIn := *openapiclient.NewMarketingMailIn() // MarketingMailIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingMail(context.Background()).MarketingMailIn(marketingMailIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingMail``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingMail`: MarketingMailOut
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingMail`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingMailRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingMailIn** | [**MarketingMailIn**](MarketingMailIn.md) |  | 
+
+### Return type
+
+[**MarketingMailOut**](MarketingMailOut.md)
 
 ### Authorization
 
@@ -2241,6 +5281,138 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostMarketingSubscribe
+
+> MarketingSubscription PostMarketingSubscribe(ctx).MarketingSubscribeIn(marketingSubscribeIn).Execute()
+
+Asks for the brand's newsletter for an address and answers 202 pending.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingSubscribeIn := *openapiclient.NewMarketingSubscribeIn() // MarketingSubscribeIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSubscribe(context.Background()).MarketingSubscribeIn(marketingSubscribeIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSubscribe``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingSubscribe`: MarketingSubscription
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSubscribe`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingSubscribeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingSubscribeIn** | [**MarketingSubscribeIn**](MarketingSubscribeIn.md) |  | 
+
+### Return type
+
+[**MarketingSubscription**](MarketingSubscription.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingSubscribeConfirm
+
+> MarketingSubscription PostMarketingSubscribeConfirm(ctx).MarketingConfirmIn(marketingConfirmIn).Execute()
+
+Subscribes the address a confirmation link names and answers 200 confirmed.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingConfirmIn := *openapiclient.NewMarketingConfirmIn() // MarketingConfirmIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSubscribeConfirm(context.Background()).MarketingConfirmIn(marketingConfirmIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSubscribeConfirm``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingSubscribeConfirm`: MarketingSubscription
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSubscribeConfirm`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingSubscribeConfirmRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingConfirmIn** | [**MarketingConfirmIn**](MarketingConfirmIn.md) |  | 
+
+### Return type
+
+[**MarketingSubscription**](MarketingSubscription.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostMarketingSuppressions
 
 > MarketingSuppression PostMarketingSuppressions(ctx).MarketingSuppression(marketingSuppression).Execute()
@@ -2292,6 +5464,148 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MarketingSuppression**](MarketingSuppression.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingUnsubscribe
+
+> MarketingUnsubscribed PostMarketingUnsubscribe(ctx).Org(org).Channel(channel).Address(address).Token(token).List(list).ListUnsubscribe(listUnsubscribe).Execute()
+
+Is the one-click unsubscribe a mail client sends from the List-Unsubscribe header (RFC 8058): the same signed link the footer carries, POSTed with the form body List-Unsubscribe=One-Click.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	org := "acme" // string | Org is the org the link was minted for. (optional)
+	channel := "email" // string | Channel is the surface to opt out of. (optional)
+	address := "person@example.com" // string | Address is the recipient to opt out. (optional)
+	token := "9f2a…" // string | Token is the HMAC over (org, channel, address), the only authority here. (optional)
+	list := "list_example" // string | List is the marketing list the link leaves, as on the signed link. (optional)
+	listUnsubscribe := "listUnsubscribe_example" // string | OneClick is the form's List-Unsubscribe field, \\\"One-Click\\\" from a mail client. The token decides; this field only names the form. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingUnsubscribe(context.Background()).Org(org).Channel(channel).Address(address).Token(token).List(list).ListUnsubscribe(listUnsubscribe).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingUnsubscribe``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingUnsubscribe`: MarketingUnsubscribed
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingUnsubscribe`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingUnsubscribeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **string** | Org is the org the link was minted for. | 
+ **channel** | **string** | Channel is the surface to opt out of. | 
+ **address** | **string** | Address is the recipient to opt out. | 
+ **token** | **string** | Token is the HMAC over (org, channel, address), the only authority here. | 
+ **list** | **string** | List is the marketing list the link leaves, as on the signed link. | 
+ **listUnsubscribe** | **string** | OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. | 
+
+### Return type
+
+[**MarketingUnsubscribed**](MarketingUnsubscribed.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded, multipart/form-data
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutMarketingBeta
+
+> MarketingBeta PutMarketingBeta(ctx).MarketingBetaIn(marketingBetaIn).Execute()
+
+Writes the signed-in caller's application: the program, the answers, the betas asked for and the lead it was filed under.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingBetaIn := *openapiclient.NewMarketingBetaIn() // MarketingBetaIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PutMarketingBeta(context.Background()).MarketingBetaIn(marketingBetaIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PutMarketingBeta``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutMarketingBeta`: MarketingBeta
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PutMarketingBeta`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutMarketingBetaRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingBetaIn** | [**MarketingBetaIn**](MarketingBetaIn.md) |  | 
+
+### Return type
+
+[**MarketingBeta**](MarketingBeta.md)
 
 ### Authorization
 
@@ -2436,6 +5750,281 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MarketingCampaign**](MarketingCampaign.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutMarketingFields
+
+> MarketingFieldSet PutMarketingFields(ctx).MarketingFieldSet(marketingFieldSet).Execute()
+
+Replaces the org's custom fields with the set the body carries and answers it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingFieldSet := *openapiclient.NewMarketingFieldSet() // MarketingFieldSet | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PutMarketingFields(context.Background()).MarketingFieldSet(marketingFieldSet).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PutMarketingFields``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutMarketingFields`: MarketingFieldSet
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PutMarketingFields`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutMarketingFieldsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingFieldSet** | [**MarketingFieldSet**](MarketingFieldSet.md) |  | 
+
+### Return type
+
+[**MarketingFieldSet**](MarketingFieldSet.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutMarketingImportsByIdData
+
+> PutMarketingImportsByIdData(ctx, id).Execute()
+
+Takes a piece of an import's file at the offset the query names and answers how many bytes the import now holds.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.MarketingAPI.PutMarketingImportsByIdData(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PutMarketingImportsByIdData``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutMarketingImportsByIdDataRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutMarketingListsByIdSegmentsBySid
+
+> MarketingSegment PutMarketingListsByIdSegmentsBySid(ctx, id, sid).MarketingSegmentIn(marketingSegmentIn).Execute()
+
+Replaces a segment's name and filter and answers it with how many subscribers it selects now.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "newsletter" // string | ID is the list, by id or slug, from the path.
+	sid := "seg_0b7e3c1a9d2f4e6a8c0b1d3e" // string | SID is the segment to change, from the path; ignored on create.
+	marketingSegmentIn := *openapiclient.NewMarketingSegmentIn() // MarketingSegmentIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PutMarketingListsByIdSegmentsBySid(context.Background(), id, sid).MarketingSegmentIn(marketingSegmentIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PutMarketingListsByIdSegmentsBySid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutMarketingListsByIdSegmentsBySid`: MarketingSegment
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PutMarketingListsByIdSegmentsBySid`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the list, by id or slug, from the path. | 
+**sid** | **string** | SID is the segment to change, from the path; ignored on create. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutMarketingListsByIdSegmentsBySidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **marketingSegmentIn** | [**MarketingSegmentIn**](MarketingSegmentIn.md) |  | 
+
+### Return type
+
+[**MarketingSegment**](MarketingSegment.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutMarketingSender
+
+> MarketingSender PutMarketingSender(ctx).MarketingSender(marketingSender).Execute()
+
+Replaces the org's sender and answers it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingSender := *openapiclient.NewMarketingSender() // MarketingSender | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PutMarketingSender(context.Background()).MarketingSender(marketingSender).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PutMarketingSender``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutMarketingSender`: MarketingSender
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PutMarketingSender`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutMarketingSenderRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingSender** | [**MarketingSender**](MarketingSender.md) |  | 
+
+### Return type
+
+[**MarketingSender**](MarketingSender.md)
 
 ### Authorization
 

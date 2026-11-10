@@ -21,6 +21,7 @@ var _ MappedNullable = &CaptureResult{}
 type CaptureResult struct {
 	Accepted             *int32 `json:"accepted,omitempty"`
 	Dropped              *int32 `json:"dropped,omitempty"`
+	Withheld             *int32 `json:"withheld,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,6 +108,38 @@ func (o *CaptureResult) SetDropped(v int32) {
 	o.Dropped = &v
 }
 
+// GetWithheld returns the Withheld field value if set, zero value otherwise.
+func (o *CaptureResult) GetWithheld() int32 {
+	if o == nil || IsNil(o.Withheld) {
+		var ret int32
+		return ret
+	}
+	return *o.Withheld
+}
+
+// GetWithheldOk returns a tuple with the Withheld field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CaptureResult) GetWithheldOk() (*int32, bool) {
+	if o == nil || IsNil(o.Withheld) {
+		return nil, false
+	}
+	return o.Withheld, true
+}
+
+// HasWithheld returns a boolean if a field has been set.
+func (o *CaptureResult) HasWithheld() bool {
+	if o != nil && !IsNil(o.Withheld) {
+		return true
+	}
+
+	return false
+}
+
+// SetWithheld gets a reference to the given int32 and assigns it to the Withheld field.
+func (o *CaptureResult) SetWithheld(v int32) {
+	o.Withheld = &v
+}
+
 func (o CaptureResult) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -122,6 +155,9 @@ func (o CaptureResult) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Dropped) {
 		toSerialize["dropped"] = o.Dropped
+	}
+	if !IsNil(o.Withheld) {
+		toSerialize["withheld"] = o.Withheld
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -147,6 +183,7 @@ func (o *CaptureResult) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accepted")
 		delete(additionalProperties, "dropped")
+		delete(additionalProperties, "withheld")
 		o.AdditionalProperties = additionalProperties
 	}
 

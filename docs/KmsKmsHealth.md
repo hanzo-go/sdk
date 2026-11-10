@@ -4,10 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Audit** | Pointer to **string** | Audit is the state of the audit trail every access is recorded to: &#x60;ok&#x60;, &#x60;failing&#x60; when it did not take the last record, or &#x60;absent&#x60; when this process has none. Every access is refused in the last two. Absent from the answer when there is no in-process client to audit. | [optional] 
 **Enforcing** | Pointer to **bool** | Enforcing is whether a secret value the declaration in force does not grant is refused. False while it says &#x60;enforce: false&#x60; and while none has loaded; every such value is then logged and audited as would-deny. | [optional] 
 **Error** | Pointer to **string** | Error is the honest reason readiness is false: no in-process KMS client, or no master key. Absent when ready. | [optional] 
 **Policy** | Pointer to **string** | Policy is the sha256 of the grant declaration in force, so a probe can prove which one is live. Absent when none has ever loaded, which measures: the rule each caller had before still decides. | [optional] 
-**Ready** | Pointer to **bool** | Ready is whether a secret operation would actually succeed right now. These are exactly the two states in which the secret operations refuse. | [optional] 
+**Ready** | Pointer to **bool** | Ready is whether a secret operation would actually succeed right now. These are exactly the states in which the secret operations refuse. | [optional] 
 **Refused** | Pointer to **string** | Refused is what the MOUNTED declaration reads as — its sha256, or \&quot;absent\&quot; or \&quot;unreadable\&quot; — when it is not the one in force: a document cloud refused to parse, or a mount that went away. The declaration in force stays, so a bad edit changes nothing, and this is where it shows. | [optional] 
 **Service** | Pointer to **string** | Service names the subsystem answering, &#x60;kms&#x60;. | [optional] 
 **Signing** | Pointer to **bool** | Signing reports whether signing keys are configured. Absent when there is no in-process client to ask. | [optional] 
@@ -31,6 +32,31 @@ will change when the set of required properties is changed
 NewKmsKmsHealthWithDefaults instantiates a new KmsKmsHealth object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAudit
+
+`func (o *KmsKmsHealth) GetAudit() string`
+
+GetAudit returns the Audit field if non-nil, zero value otherwise.
+
+### GetAuditOk
+
+`func (o *KmsKmsHealth) GetAuditOk() (*string, bool)`
+
+GetAuditOk returns a tuple with the Audit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAudit
+
+`func (o *KmsKmsHealth) SetAudit(v string)`
+
+SetAudit sets Audit field to given value.
+
+### HasAudit
+
+`func (o *KmsKmsHealth) HasAudit() bool`
+
+HasAudit returns a boolean if a field has been set.
 
 ### GetEnforcing
 

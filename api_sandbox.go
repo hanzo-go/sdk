@@ -1088,6 +1088,117 @@ func (a *SandboxAPIService) GetSandboxByIdTerminalWsExecute(r SandboxAPIGetSandb
 	return localVarHTTPResponse, nil
 }
 
+type SandboxAPIGetSandboxQuotaRequest struct {
+	ctx        context.Context
+	ApiService *SandboxAPIService
+}
+
+func (r SandboxAPIGetSandboxQuotaRequest) Execute() (*SandboxQuota, *http.Response, error) {
+	return r.ApiService.GetSandboxQuotaExecute(r)
+}
+
+/*
+GetSandboxQuota Answers the caller's sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account's paid sandboxes are running, and how many may run at once (-1 for no bound).
+
+Answers the caller's sandbox quota: the account it belongs to — the org, or a
+person in the signup org — how many of that account's paid sandboxes are
+running, and how many may run at once (-1 for no bound). Staff set the quota per
+org or per plan; where they set none it is 100.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return SandboxAPIGetSandboxQuotaRequest
+*/
+func (a *SandboxAPIService) GetSandboxQuota(ctx context.Context) SandboxAPIGetSandboxQuotaRequest {
+	return SandboxAPIGetSandboxQuotaRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SandboxQuota
+func (a *SandboxAPIService) GetSandboxQuotaExecute(r SandboxAPIGetSandboxQuotaRequest) (*SandboxQuota, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SandboxQuota
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.GetSandboxQuota")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/sandbox/quota"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type SandboxAPILeaseSandboxRequest struct {
 	ctx            context.Context
 	ApiService     *SandboxAPIService
@@ -1340,6 +1451,106 @@ func (a *SandboxAPIService) PostSandboxExecute(r SandboxAPIPostSandboxRequest) (
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type SandboxAPIPostSandboxByIdAgentRequest struct {
+	ctx        context.Context
+	ApiService *SandboxAPIService
+	id         string
+}
+
+func (r SandboxAPIPostSandboxByIdAgentRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostSandboxByIdAgentExecute(r)
+}
+
+/*
+PostSandboxByIdAgent Have a model work a sandbox
+
+Says what to do on a sandbox you hold, and a model does it there while you watch: a shell on any sandbox, and on a desktop or a browser the screen too — it takes a screenshot, clicks where it sees, types, presses keys, opens addresses and runs commands. The answer is a text/event-stream, one event a step, ending with `end`.
+
+The body is JSON: `message` (required, what to do, in words), `history` (the conversation so far, oldest first, each {role: user|assistant, text}) and `model` (a model id from GET /v1/models; empty takes the deployment's).
+
+Events (`event:` name, `data:` JSON): `say` {text} the model's words; `act` {tool, args} a tool it reached for; `result` {tool, ok, text} what the tool answered; `error` {text} the turn could not go on; `end` {rounds} the turn is over. A `: ping` comment every 15 seconds keeps intermediaries from closing the stream.
+
+The server keeps nothing between turns: send the conversation so far as `history` ({role: user|assistant, text}). The model is billed to the caller's account at the gateway's rates, and the sandbox hour is the one the lease already bills. Open the sandbox's screen (POST /v1/sandbox/{id}/screen/ticket) beside it to watch.
+
+409 when the sandbox is not running; 404 for a sandbox you do not hold; 503 where no model gateway is mounted.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return SandboxAPIPostSandboxByIdAgentRequest
+*/
+func (a *SandboxAPIService) PostSandboxByIdAgent(ctx context.Context, id string) SandboxAPIPostSandboxByIdAgentRequest {
+	return SandboxAPIPostSandboxByIdAgentRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *SandboxAPIService) PostSandboxByIdAgentExecute(r SandboxAPIPostSandboxByIdAgentRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.PostSandboxByIdAgent")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/sandbox/{id}/agent"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type SandboxAPIPostSandboxByIdExecRequest struct {

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **[]string** |  | [optional] 
 **Existing** | Pointer to **[]string** |  | [optional] 
+**Grown** | Pointer to **[]string** | Grown names the existing DocTypes that gained the fields the module now declares and the org&#39;s stored definition lacked. | [optional] 
 **Module** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -76,6 +77,31 @@ SetExisting sets Existing field to given value.
 `func (o *FrameworkInstall) HasExisting() bool`
 
 HasExisting returns a boolean if a field has been set.
+
+### GetGrown
+
+`func (o *FrameworkInstall) GetGrown() []string`
+
+GetGrown returns the Grown field if non-nil, zero value otherwise.
+
+### GetGrownOk
+
+`func (o *FrameworkInstall) GetGrownOk() (*[]string, bool)`
+
+GetGrownOk returns a tuple with the Grown field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGrown
+
+`func (o *FrameworkInstall) SetGrown(v []string)`
+
+SetGrown sets Grown field to given value.
+
+### HasGrown
+
+`func (o *FrameworkInstall) HasGrown() bool`
+
+HasGrown returns a boolean if a field has been set.
 
 ### GetModule
 

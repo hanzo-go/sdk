@@ -16,10 +16,111 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 )
 
 // GraphAPIService GraphAPI service
 type GraphAPIService service
+
+type GraphAPIGetGraphGraphqlRequest struct {
+	ctx        context.Context
+	ApiService *GraphAPIService
+}
+
+func (r GraphAPIGetGraphGraphqlRequest) Execute() (*os.File, *http.Response, error) {
+	return r.ApiService.GetGraphGraphqlExecute(r)
+}
+
+/*
+GetGraphGraphql Read the graph's GraphQL schema.
+
+Returns the schema POST at this address runs queries against, as GraphQL SDL: the five types the store models and the fields askable of each. It is what a code generator or an editor reads, and it is the same for every organization; what a query answers is scoped to the caller's.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGetGraphGraphqlRequest
+*/
+func (a *GraphAPIService) GetGraphGraphql(ctx context.Context) GraphAPIGetGraphGraphqlRequest {
+	return GraphAPIGetGraphGraphqlRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return *os.File
+func (a *GraphAPIService) GetGraphGraphqlExecute(r GraphAPIGetGraphGraphqlRequest) (*os.File, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *os.File
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GetGraphGraphql")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/graphql"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/plain; charset=utf-8"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type GraphAPIGraphAnswerRequest struct {
 	ctx                context.Context
@@ -103,6 +204,137 @@ func (a *GraphAPIService) GraphAnswerExecute(r GraphAPIGraphAnswerRequest) (*Gra
 	}
 	// body params
 	localVarPostBody = r.graphGraphAnswerIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphAppleRequest struct {
+	ctx               context.Context
+	ApiService        *GraphAPIService
+	graphGraphAppleIn *GraphGraphAppleIn
+}
+
+func (r GraphAPIGraphAppleRequest) GraphGraphAppleIn(graphGraphAppleIn GraphGraphAppleIn) GraphAPIGraphAppleRequest {
+	r.graphGraphAppleIn = &graphGraphAppleIn
+	return r
+}
+
+func (r GraphAPIGraphAppleRequest) Execute() (*GraphGraphAssertOut, *http.Response, error) {
+	return r.ApiService.GraphAppleExecute(r)
+}
+
+/*
+GraphApple Ingests an Apple Personal Knowledge Graph snapshot — live stable_graph triples, withdrawn expired_stable_graph rows and entityTagging kinship scorecards — into the organization's assertion plane.
+
+Ingests an Apple Personal Knowledge Graph snapshot — live stable_graph
+triples, withdrawn expired_stable_graph rows and entityTagging kinship
+scorecards — into the organization's assertion plane.
+
+Two-row reified edges sharing a relationship_id (one naming a CS* / nm_*
+relationship type under PS1, the other pointing at the target entity) are
+collapsed into edges under their canonical relation names while preserving
+the raw Apple predicate and relationship class in evidence. Withdrawn rows in
+expired are recorded with until stamped so they remain inspectable in history
+without holding as live facts.
+
+Time: at is the snapshot's valid instant, which an as_of read is bounded by;
+the server stamps knowable at the write, which an as_known read is bounded by.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphAppleRequest
+*/
+func (a *GraphAPIService) GraphApple(ctx context.Context) GraphAPIGraphAppleRequest {
+	return GraphAPIGraphAppleRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphAssertOut
+func (a *GraphAPIService) GraphAppleExecute(r GraphAPIGraphAppleRequest) (*GraphGraphAssertOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphAssertOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphApple")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/apple"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphAppleIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphAppleIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphAppleIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -402,6 +634,137 @@ func (a *GraphAPIService) GraphCommunitiesExecute(r GraphAPIGraphCommunitiesRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type GraphAPIGraphConvoRequest struct {
+	ctx               context.Context
+	ApiService        *GraphAPIService
+	graphGraphConvoIn *GraphGraphConvoIn
+}
+
+func (r GraphAPIGraphConvoRequest) GraphGraphConvoIn(graphGraphConvoIn GraphGraphConvoIn) GraphAPIGraphConvoRequest {
+	r.graphGraphConvoIn = &graphGraphConvoIn
+	return r
+}
+
+func (r GraphAPIGraphConvoRequest) Execute() (*GraphGraphConvoOut, *http.Response, error) {
+	return r.ApiService.GraphConvoExecute(r)
+}
+
+/*
+GraphConvo Extracts entity state and relationship assertions from conversation turns and updates the graph.
+
+Extracts entity state and relationship assertions from conversation
+turns and updates the graph.
+
+First-person statements bind to the turn's speaker, second-person statements
+to its partner, and named subjects to their entity keys. Questions are
+skipped. Single-valued state updates (such as moving cities or changing
+roles) supersede prior values at the turn's timestamp, and explicit
+departures (such as leaving an employer) file a retraction ending the prior
+claim. Set dry_run to inspect what the turns state without writing.
+
+Time: each turn's at (or the batch's at when omitted) is the valid instant of
+the assertions extracted from it, which an as_of read is bounded by; each
+becomes knowable at the write, which an as_known read is bounded by.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphConvoRequest
+*/
+func (a *GraphAPIService) GraphConvo(ctx context.Context) GraphAPIGraphConvoRequest {
+	return GraphAPIGraphConvoRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphConvoOut
+func (a *GraphAPIService) GraphConvoExecute(r GraphAPIGraphConvoRequest) (*GraphGraphConvoOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphConvoOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphConvo")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/convo"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphConvoIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphConvoIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphConvoIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type GraphAPIGraphDeriveRequest struct {
 	ctx                context.Context
 	ApiService         *GraphAPIService
@@ -620,6 +983,134 @@ func (a *GraphAPIService) GraphDiffExecute(r GraphAPIGraphDiffRequest) (*GraphGr
 	}
 	// body params
 	localVarPostBody = r.graphGraphDiffIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphEntityRequest struct {
+	ctx                context.Context
+	ApiService         *GraphAPIService
+	graphGraphEntityIn *GraphGraphEntityIn
+}
+
+func (r GraphAPIGraphEntityRequest) GraphGraphEntityIn(graphGraphEntityIn GraphGraphEntityIn) GraphAPIGraphEntityRequest {
+	r.graphGraphEntityIn = &graphGraphEntityIn
+	return r
+}
+
+func (r GraphAPIGraphEntityRequest) Execute() (*GraphGraphEntityOut, *http.Response, error) {
+	return r.ApiService.GraphEntityExecute(r)
+}
+
+/*
+GraphEntity Resolves the complete state of one entity at a point: its type, its holding properties and edges in both directions, its kinship scorecard and the expired statements it no longer holds.
+
+Resolves the complete state of one entity at a point: its type, its
+holding properties and edges in both directions, its kinship scorecard and
+the expired statements it no longer holds.
+
+Each (entity, relation) pair is settled by the same Resolve rule as
+graphResolve. Statements begun by the point that lost to a retraction, an
+until or a newer value are returned in expired rather than discarded.
+
+Time: as_of is the instant of the world asked about and as_known how much this
+plane had heard by then; either absent is now.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphEntityRequest
+*/
+func (a *GraphAPIService) GraphEntity(ctx context.Context) GraphAPIGraphEntityRequest {
+	return GraphAPIGraphEntityRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphEntityOut
+func (a *GraphAPIService) GraphEntityExecute(r GraphAPIGraphEntityRequest) (*GraphGraphEntityOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphEntityOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphEntity")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/entity"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphEntityIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphEntityIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphEntityIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1136,6 +1627,141 @@ func (a *GraphAPIService) GraphNeighborsExecute(r GraphAPIGraphNeighborsRequest)
 	}
 	// body params
 	localVarPostBody = r.graphGraphNeighborsIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphOntologyRequest struct {
+	ctx        context.Context
+	ApiService *GraphAPIService
+	group      *string
+	q          *string
+}
+
+// Group narrows classes or features to one group, such as core, person, activity, edge, identity, communication or photos. Absent returns every group.
+func (r GraphAPIGraphOntologyRequest) Group(group string) GraphAPIGraphOntologyRequest {
+	r.group = &group
+	return r
+}
+
+// Q narrows classes, predicates and features to entries whose code, label, canonical relation or source contains this substring, case-insensitively. Absent returns the whole catalog.
+func (r GraphAPIGraphOntologyRequest) Q(q string) GraphAPIGraphOntologyRequest {
+	r.q = &q
+	return r
+}
+
+func (r GraphAPIGraphOntologyRequest) Execute() (*GraphGraphOntologyOut, *http.Response, error) {
+	return r.ApiService.GraphOntologyExecute(r)
+}
+
+/*
+GraphOntology Lists the entity classes, predicates, classifier features and kinship scorecard columns of the personal knowledge graph ontology.
+
+Lists the entity classes, predicates, classifier features and
+kinship scorecard columns of the personal knowledge graph ontology.
+
+Every code graph.db and entityTagging.db write on macOS and iOS is here with
+its plain-language reading and the canonical relation key graphApple maps it
+to. Filter by group or by substring q.
+
+Time: it takes no as_of or as_known; the shipped catalog is static.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphOntologyRequest
+*/
+func (a *GraphAPIService) GraphOntology(ctx context.Context) GraphAPIGraphOntologyRequest {
+	return GraphAPIGraphOntologyRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphOntologyOut
+func (a *GraphAPIService) GraphOntologyExecute(r GraphAPIGraphOntologyRequest) (*GraphGraphOntologyOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphOntologyOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphOntology")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/ontology"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.group != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "group", r.group, "form", "")
+	}
+	if r.q != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1909,9 +2535,9 @@ Runs a GraphQL query against this organization's assertions.
 
 It is the one endpoint here a caller can TRAVERSE: the REST ops each answer a single question, so composing them — the entities this one points at, and what each of those resolves to — costs a request per hop with the intermediate keys held by the caller. Here that is one query and the nesting is the answer's shape.
 
-It adds no way to ask anything new. Every field runs the SAME operation the matching REST route runs, so the tenancy, the as-of bound, the traversal bounds and the conflict rule are the ones already in force; the schema is served by introspection.
+It adds no way to ask anything new. Every field runs the SAME operation the matching REST route runs, so the tenancy, the as-of bound, the traversal bounds and the conflict rule are the ones already in force; the schema is served by GET at this same address, and introspection is not.
 
-A query that cannot run answers 200 with an `errors` list, which is the wire every GraphQL client parses.
+A query that ran answers 200 with each failure in an `errors` list beside the data, which is the wire every GraphQL client parses; one that could not begin — it does not parse, or names a fragment it does not define — answers 400 with the reason and no data. `edges` nest at most three deep, refused before any operation runs, and one root field's edges answer at most 1000 entities.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return GraphAPIPostGraphGraphqlRequest

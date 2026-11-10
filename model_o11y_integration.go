@@ -19,18 +19,20 @@ var _ MappedNullable = &O11yIntegration{}
 
 // O11yIntegration struct for O11yIntegration
 type O11yIntegration struct {
-	Assets               *O11yIntegrationAssets           `json:"assets,omitempty"`
-	Author               *O11yIntegrationAuthor           `json:"author,omitempty"`
-	Categories           []string                         `json:"categories,omitempty"`
-	Configuration        []O11yIntegrationConfigStep      `json:"configuration,omitempty"`
-	ConnectionTests      *O11yIntegrationConnectionTests  `json:"connection_tests,omitempty"`
-	DataCollected        *O11yDataCollectedForIntegration `json:"data_collected,omitempty"`
-	Description          *string                          `json:"description,omitempty"`
-	Icon                 *string                          `json:"icon,omitempty"`
-	Id                   *string                          `json:"id,omitempty"`
-	Installation         *O11yInstalledIntegration        `json:"installation,omitempty"`
-	Overview             *string                          `json:"overview,omitempty"`
-	Title                *string                          `json:"title,omitempty"`
+	Assets          *O11yIntegrationAssets           `json:"assets,omitempty"`
+	Author          *O11yIntegrationAuthor           `json:"author,omitempty"`
+	Categories      []string                         `json:"categories,omitempty"`
+	Configuration   []O11yIntegrationConfigStep      `json:"configuration,omitempty"`
+	ConnectionTests *O11yIntegrationConnectionTests  `json:"connection_tests,omitempty"`
+	DataCollected   *O11yDataCollectedForIntegration `json:"data_collected,omitempty"`
+	// A short description
+	Description  *string                   `json:"description,omitempty"`
+	Icon         *string                   `json:"icon,omitempty"`
+	Id           *string                   `json:"id,omitempty"`
+	Installation *O11yInstalledIntegration `json:"installation,omitempty"`
+	// markdown
+	Overview             *string `json:"overview,omitempty"`
+	Title                *string `json:"title,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

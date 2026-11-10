@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is which subscription or API account under that provider served the run, up to 256 characters. It is what lets a revoke of that login stop exactly the sessions it was paying for. | [optional] 
-**Actor** | Pointer to **string** | Actor is the \&quot;org/sub\&quot; identity to record the session under, up to 256 characters. Omit it and the calling principal is used, which is almost always what you want: it is what a login revoke matches on to stop this session. | [optional] 
 **Agent** | Pointer to **string** | Agent is the label the surface opening this session calls itself by (\&quot;hanzo-dev\&quot;). REQUIRED, up to 128 characters, and free text — nothing resolves it against a defined agent. | [optional] 
 **BudgetMicroUsd** | Pointer to **int64** | BudgetMicroUSD caps what this session may spend, integer micro-USD. Zero means no cap; a cap can be raised or removed later, never added. | [optional] 
+**Channel** | Pointer to **string** | Channel is the collaborative channel this run was started in (HIP-0523), so a space view can list the sessions of one channel. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another channel, so it is absent from the patch input and from UpdateSession&#39;s SET list. | [optional] 
 **Cwd** | Pointer to **string** | Cwd is the directory the session starts in, up to 1024 characters. It can be moved later, because a linked shell walks around. | [optional] 
 **Host** | Pointer to **string** | Execution context — where this session runs (all optional). | [optional] 
 **ParentSessionId** | Pointer to **string** | ParentSessionID makes this a subagent of that session: it inherits the parent&#39;s root, so one flow stays one tree. The parent must exist IN THE SAME ORG — a foreign or unknown id is a 400, never a tree across tenants. Empty opens a root session. | [optional] 
@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **Provider** | Pointer to **string** | Account tag — the linked AI account this session ran under (login manager). | [optional] 
 **Published** | Pointer to **bool** | Published opens this session&#39;s story to the public build route. It is refused without a Project, because that route is keyed on (org, project) — a build with no product is not a story anyone can open. False keeps it org-only. | [optional] 
 **Repo** | Pointer to **string** | Repo is the code being worked on, up to 512 characters. A label the surface states; nothing resolves it against the forge. | [optional] 
-**Room** | Pointer to **string** | Room is the collaborative room this run was started in (HIP-0523), so a space view can list the sessions of one room. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another room, so it is absent from the patch input and from UpdateSession&#39;s SET list. | [optional] 
 **Status** | Pointer to **string** | Status opens the session in one of running, paused, done or error. Empty means running. A TERMINAL status here (done, error) records a session that has already finished — its end time is stamped now — and nothing can move it afterwards. | [optional] 
 **Target** | Pointer to **string** | Target names a run-target the org has registered. Unlike Host and Repo it IS resolved: a target that does not exist in this org is a 400, so a session can never claim to run on another tenant&#39;s machine. Empty names no machine. | [optional] 
 **TaskRunId** | Pointer to **string** | TaskRunID is that workflow&#39;s particular run, same bound. Recorded, not resolved: this surface does not check the workflow exists. | [optional] 
@@ -67,31 +66,6 @@ SetAccount sets Account field to given value.
 
 HasAccount returns a boolean if a field has been set.
 
-### GetActor
-
-`func (o *AgentRegisterReq) GetActor() string`
-
-GetActor returns the Actor field if non-nil, zero value otherwise.
-
-### GetActorOk
-
-`func (o *AgentRegisterReq) GetActorOk() (*string, bool)`
-
-GetActorOk returns a tuple with the Actor field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActor
-
-`func (o *AgentRegisterReq) SetActor(v string)`
-
-SetActor sets Actor field to given value.
-
-### HasActor
-
-`func (o *AgentRegisterReq) HasActor() bool`
-
-HasActor returns a boolean if a field has been set.
-
 ### GetAgent
 
 `func (o *AgentRegisterReq) GetAgent() string`
@@ -141,6 +115,31 @@ SetBudgetMicroUsd sets BudgetMicroUsd field to given value.
 `func (o *AgentRegisterReq) HasBudgetMicroUsd() bool`
 
 HasBudgetMicroUsd returns a boolean if a field has been set.
+
+### GetChannel
+
+`func (o *AgentRegisterReq) GetChannel() string`
+
+GetChannel returns the Channel field if non-nil, zero value otherwise.
+
+### GetChannelOk
+
+`func (o *AgentRegisterReq) GetChannelOk() (*string, bool)`
+
+GetChannelOk returns a tuple with the Channel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChannel
+
+`func (o *AgentRegisterReq) SetChannel(v string)`
+
+SetChannel sets Channel field to given value.
+
+### HasChannel
+
+`func (o *AgentRegisterReq) HasChannel() bool`
+
+HasChannel returns a boolean if a field has been set.
 
 ### GetCwd
 
@@ -316,31 +315,6 @@ SetRepo sets Repo field to given value.
 `func (o *AgentRegisterReq) HasRepo() bool`
 
 HasRepo returns a boolean if a field has been set.
-
-### GetRoom
-
-`func (o *AgentRegisterReq) GetRoom() string`
-
-GetRoom returns the Room field if non-nil, zero value otherwise.
-
-### GetRoomOk
-
-`func (o *AgentRegisterReq) GetRoomOk() (*string, bool)`
-
-GetRoomOk returns a tuple with the Room field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoom
-
-`func (o *AgentRegisterReq) SetRoom(v string)`
-
-SetRoom sets Room field to given value.
-
-### HasRoom
-
-`func (o *AgentRegisterReq) HasRoom() bool`
-
-HasRoom returns a boolean if a field has been set.
 
 ### GetStatus
 

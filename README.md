@@ -154,7 +154,10 @@ if resp != nil {
 Codes: `CodePlanAllowanceUsed`, `CodePaidPlanRequired`, `CodeFreePlanCap`,
 `CodeModelCap`, `CodeUsageCapExceeded`, `CodeInsufficientBalance`. Where every
 class stands is `client.AiAPI.AiLimits`; `AiSetLimits` turns credits after the
-allowance on or off.
+allowance on or off. Creative and Hyperframe graphic operations hang off the
+same `client.AiAPI`: `AiFrameGenerate` (`POST /v1/frame/generations`) and
+`AiFrameEdit` (`POST /v1/frame/edits`), alongside `AiImageGenerate`,
+`AiVideoGenerate`, `AiAudioSpeech`, `AiAudioFoley`, and `AiMeshGenerate`.
 
 ## Examples
 

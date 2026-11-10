@@ -19,17 +19,17 @@ var _ MappedNullable = &TeamListed{}
 
 // TeamListed struct for TeamListed
 type TeamListed struct {
-	// Members counts the room, and never names anybody in it.
+	// Channel addresses it in the owning store — what a join is called with.
+	Channel *string `json:"channel,omitempty"`
+	// Members counts the channel, and never names anybody in it.
 	Members *int64 `json:"members,omitempty"`
 	// Name is what a person sees, without the sigil a client draws.
 	Name *string `json:"name,omitempty"`
-	// Org owns the room. It is also what a caller filters by to browse one org.
+	// Org owns the channel. It is also what a caller filters by to browse one org.
 	Org *string `json:"org,omitempty"`
-	// Room addresses it in the owning store — what a join is called with.
-	Room *string `json:"room,omitempty"`
-	// Space is where the room lives inside that org.
+	// Space is where the channel lives inside that org.
 	Space *string `json:"space,omitempty"`
-	// Topic is the room's one-line subject, empty when it has none.
+	// Topic is the channel's one-line subject, empty when it has none.
 	Topic *string `json:"topic,omitempty"`
 	// Updated is when this row was last written, unix seconds.
 	Updated              *int64 `json:"updated,omitempty"`
@@ -53,6 +53,38 @@ func NewTeamListed() *TeamListed {
 func NewTeamListedWithDefaults() *TeamListed {
 	this := TeamListed{}
 	return &this
+}
+
+// GetChannel returns the Channel field value if set, zero value otherwise.
+func (o *TeamListed) GetChannel() string {
+	if o == nil || IsNil(o.Channel) {
+		var ret string
+		return ret
+	}
+	return *o.Channel
+}
+
+// GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TeamListed) GetChannelOk() (*string, bool) {
+	if o == nil || IsNil(o.Channel) {
+		return nil, false
+	}
+	return o.Channel, true
+}
+
+// HasChannel returns a boolean if a field has been set.
+func (o *TeamListed) HasChannel() bool {
+	if o != nil && !IsNil(o.Channel) {
+		return true
+	}
+
+	return false
+}
+
+// SetChannel gets a reference to the given string and assigns it to the Channel field.
+func (o *TeamListed) SetChannel(v string) {
+	o.Channel = &v
 }
 
 // GetMembers returns the Members field value if set, zero value otherwise.
@@ -149,38 +181,6 @@ func (o *TeamListed) HasOrg() bool {
 // SetOrg gets a reference to the given string and assigns it to the Org field.
 func (o *TeamListed) SetOrg(v string) {
 	o.Org = &v
-}
-
-// GetRoom returns the Room field value if set, zero value otherwise.
-func (o *TeamListed) GetRoom() string {
-	if o == nil || IsNil(o.Room) {
-		var ret string
-		return ret
-	}
-	return *o.Room
-}
-
-// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TeamListed) GetRoomOk() (*string, bool) {
-	if o == nil || IsNil(o.Room) {
-		return nil, false
-	}
-	return o.Room, true
-}
-
-// HasRoom returns a boolean if a field has been set.
-func (o *TeamListed) HasRoom() bool {
-	if o != nil && !IsNil(o.Room) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoom gets a reference to the given string and assigns it to the Room field.
-func (o *TeamListed) SetRoom(v string) {
-	o.Room = &v
 }
 
 // GetSpace returns the Space field value if set, zero value otherwise.
@@ -289,6 +289,9 @@ func (o TeamListed) MarshalJSON() ([]byte, error) {
 
 func (o TeamListed) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Channel) {
+		toSerialize["channel"] = o.Channel
+	}
 	if !IsNil(o.Members) {
 		toSerialize["members"] = o.Members
 	}
@@ -297,9 +300,6 @@ func (o TeamListed) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Org) {
 		toSerialize["org"] = o.Org
-	}
-	if !IsNil(o.Room) {
-		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.Space) {
 		toSerialize["space"] = o.Space
@@ -332,10 +332,10 @@ func (o *TeamListed) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "channel")
 		delete(additionalProperties, "members")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "org")
-		delete(additionalProperties, "room")
 		delete(additionalProperties, "space")
 		delete(additionalProperties, "topic")
 		delete(additionalProperties, "updated")

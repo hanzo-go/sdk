@@ -5,14 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Enabled** | Pointer to **bool** | Enabled arms or disarms its schedule. | [optional] 
+**Event** | Pointer to [**AutoOutcomeTrigger**](AutoOutcomeTrigger.md) | Event replaces the trigger with a product outcome; null clears it. | [optional] 
 **Id** | Pointer to **string** | ID is the automation, from the path. | [optional] 
 **Instructions** | Pointer to **string** |  | [optional] 
 **Model** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Notify** | Pointer to **bool** |  | [optional] 
 **Permissions** | Pointer to **string** |  | [optional] 
+**PostTo** | Pointer to **[]string** |  | [optional] 
 **Project** | Pointer to **string** |  | [optional] 
 **Schedule** | Pointer to [**AutoSchedule**](AutoSchedule.md) |  | [optional] 
+**Target** | Pointer to **string** | Target replaces the registered execution target; null clears it. | [optional] 
 
 ## Methods
 
@@ -57,6 +60,31 @@ SetEnabled sets Enabled field to given value.
 `func (o *AutoAutomationPatch) HasEnabled() bool`
 
 HasEnabled returns a boolean if a field has been set.
+
+### GetEvent
+
+`func (o *AutoAutomationPatch) GetEvent() AutoOutcomeTrigger`
+
+GetEvent returns the Event field if non-nil, zero value otherwise.
+
+### GetEventOk
+
+`func (o *AutoAutomationPatch) GetEventOk() (*AutoOutcomeTrigger, bool)`
+
+GetEventOk returns a tuple with the Event field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvent
+
+`func (o *AutoAutomationPatch) SetEvent(v AutoOutcomeTrigger)`
+
+SetEvent sets Event field to given value.
+
+### HasEvent
+
+`func (o *AutoAutomationPatch) HasEvent() bool`
+
+HasEvent returns a boolean if a field has been set.
 
 ### GetId
 
@@ -208,6 +236,31 @@ SetPermissions sets Permissions field to given value.
 
 HasPermissions returns a boolean if a field has been set.
 
+### GetPostTo
+
+`func (o *AutoAutomationPatch) GetPostTo() []string`
+
+GetPostTo returns the PostTo field if non-nil, zero value otherwise.
+
+### GetPostToOk
+
+`func (o *AutoAutomationPatch) GetPostToOk() (*[]string, bool)`
+
+GetPostToOk returns a tuple with the PostTo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPostTo
+
+`func (o *AutoAutomationPatch) SetPostTo(v []string)`
+
+SetPostTo sets PostTo field to given value.
+
+### HasPostTo
+
+`func (o *AutoAutomationPatch) HasPostTo() bool`
+
+HasPostTo returns a boolean if a field has been set.
+
 ### GetProject
 
 `func (o *AutoAutomationPatch) GetProject() string`
@@ -257,6 +310,31 @@ SetSchedule sets Schedule field to given value.
 `func (o *AutoAutomationPatch) HasSchedule() bool`
 
 HasSchedule returns a boolean if a field has been set.
+
+### GetTarget
+
+`func (o *AutoAutomationPatch) GetTarget() string`
+
+GetTarget returns the Target field if non-nil, zero value otherwise.
+
+### GetTargetOk
+
+`func (o *AutoAutomationPatch) GetTargetOk() (*string, bool)`
+
+GetTargetOk returns a tuple with the Target field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTarget
+
+`func (o *AutoAutomationPatch) SetTarget(v string)`
+
+SetTarget sets Target field to given value.
+
+### HasTarget
+
+`func (o *AutoAutomationPatch) HasTarget() bool`
+
+HasTarget returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

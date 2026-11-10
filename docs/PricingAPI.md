@@ -14,14 +14,14 @@ Method | HTTP request | Description
 [**GetPricingCompute**](PricingAPI.md#GetPricingCompute) | **Get** /v1/pricing/compute | Returns the compute section of the catalog: the cloud provider and region the prices are quoted for, the monthly markup applied to them, the full instance-size tier list and the named presets.
 [**GetPricingComputePresets**](PricingAPI.md#GetPricingComputePresets) | **Get** /v1/pricing/compute/presets | Returns just the named compute sizes — the short, human-labelled list (\&quot;Starter\&quot;, \&quot;Pro\&quot;) a size picker renders, each carrying its provider slug, vCPU, memory, disk and price.
 [**GetPricingDatastore**](PricingAPI.md#GetPricingDatastore) | **Get** /v1/pricing/datastore | Returns the Hanzo Datastore rate card: the tier list, the per-GB storage and egress usage rates, the annual discount and the trial.
-[**GetPricingEnablement**](PricingAPI.md#GetPricingEnablement) | **Get** /v1/pricing/enablement | Returns what the caller&#39;s org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+[**GetPricingEnablement**](PricingAPI.md#GetPricingEnablement) | **Get** /v1/pricing/enablement | Returns what the caller can actually use: every managed item with its global state and whether it is effective for this caller — a beta item is, while the platform&#39;s &#x60;beta&#x60; switch is on for it.
 [**GetPricingFeatured**](PricingAPI.md#GetPricingFeatured) | **Get** /v1/pricing/featured | Returns the models the catalog highlights, filtered to what the caller&#39;s org may see.
 [**GetPricingFree**](PricingAPI.md#GetPricingFree) | **Get** /v1/pricing/free | Returns the models that cost nothing to call, filtered to what the caller&#39;s org may see.
 [**GetPricingGpu**](PricingAPI.md#GetPricingGpu) | **Get** /v1/pricing/gpu | ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPU, host memory and hourly price.
 [**GetPricingHealth**](PricingAPI.md#GetPricingHealth) | **Get** /v1/pricing/health | Reports that the pricing subsystem is mounted and serving.
 [**GetPricingIam**](PricingAPI.md#GetPricingIam) | **Get** /v1/pricing/iam | ListIAMPlans returns the identity plans — the Hanzo IAM tiers, each with its monthly and annual price, monthly-active-user allowance and feature list.
 [**GetPricingModelByName**](PricingAPI.md#GetPricingModelByName) | **Get** /v1/pricing/model/{name} | Returns one model&#39;s catalog entry — its pricing, context window and capabilities as the pricing source records them.
-[**GetPricingModels**](PricingAPI.md#GetPricingModels) | **Get** /v1/pricing/models | Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller&#39;s org may see.
+[**GetPricingModels**](PricingAPI.md#GetPricingModels) | **Get** /v1/pricing/models | Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller may see.
 [**GetPricingPaas**](PricingAPI.md#GetPricingPaas) | **Get** /v1/pricing/paas | ListPaaSPlans returns the application-hosting plans — the deploy-and-host tiers, each with its monthly and annual price, app and memory allowances and feature list.
 [**GetPricingPolicy**](PricingAPI.md#GetPricingPolicy) | **Get** /v1/pricing/policy | Returns the pricing policy document: the revenue-sharing terms (the idle-resale share and the open-source share, each with its percentage and who is eligible) and the commitments Hanzo makes about how it bills — no hidden fees, no egress charges, no surprise bills.
 [**GetPricingProviders**](PricingAPI.md#GetPricingProviders) | **Get** /v1/pricing/providers | Returns the model providers the catalog knows, each with its info object, filtered to what the caller&#39;s org may see.
@@ -30,8 +30,6 @@ Method | HTTP request | Description
 [**GetPricingSummary**](PricingAPI.md#GetPricingSummary) | **Get** /v1/pricing/summary | Returns the catalog&#39;s headline statistics — model counts by family and the provider directory.
 [**GetPricingTariff**](PricingAPI.md#GetPricingTariff) | **Get** /v1/pricing/tariff | Returns the platform&#39;s rate card: what a bill is made of, what each part costs, and the completion windows a request may ask for.
 [**GetPricingTools**](PricingAPI.md#GetPricingTools) | **Get** /v1/pricing/tools | Returns the per-use tool prices — web search, web fetch, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
-[**PostPricingEnablementOptin**](PricingAPI.md#PostPricingEnablementOptin) | **Post** /v1/pricing/enablement/optin | Opts the caller&#39;s OWN org into a beta item.
-[**PostPricingEnablementOptout**](PricingAPI.md#PostPricingEnablementOptout) | **Post** /v1/pricing/enablement/optout | Removes the caller&#39;s OWN org from a beta item&#39;s grant list, the reverse of OptIntoBeta and idempotent.
 
 
 
@@ -649,7 +647,7 @@ Other parameters are passed through a pointer to a apiGetPricingDatastoreRequest
 
 > PricingEnablementBoard GetPricingEnablement(ctx).Execute()
 
-Returns what the caller's org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+Returns what the caller can actually use: every managed item with its global state and whether it is effective for this caller — a beta item is, while the platform's `beta` switch is on for it.
 
 
 
@@ -1083,9 +1081,9 @@ Name | Type | Description  | Notes
 
 ## GetPricingModels
 
-> PricingPricingModelList GetPricingModels(ctx).Execute()
+> PricingPricingModelList GetPricingModels(ctx).Id(id).Execute()
 
-Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller's org may see.
+Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller may see.
 
 
 
@@ -1102,10 +1100,11 @@ import (
 )
 
 func main() {
+	id := "id_example" // string | ID is the models to answer, comma-separated: each matches a model whose id or name is exactly it, or whose id's last path segment is (`gpt-5.5` finds `openai/gpt-5.5`). A model the catalog lists without an id is identified by its name, so `kai` also finds `hanzo/kai`. Absent answers the whole catalog. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.GetPricingModels(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingModels(context.Background()).Id(id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1117,12 +1116,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetPricingModelsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **string** | ID is the models to answer, comma-separated: each matches a model whose id or name is exactly it, or whose id&#39;s last path segment is (&#x60;gpt-5.5&#x60; finds &#x60;openai/gpt-5.5&#x60;). A model the catalog lists without an id is identified by its name, so &#x60;kai&#x60; also finds &#x60;hanzo/kai&#x60;. Absent answers the whole catalog. | 
 
 ### Return type
 
@@ -1623,138 +1626,6 @@ Other parameters are passed through a pointer to a apiGetPricingToolsRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostPricingEnablementOptin
-
-> PricingUserEnablementItem PostPricingEnablementOptin(ctx).PricingEnablementOptRef(pricingEnablementOptRef).Execute()
-
-Opts the caller's OWN org into a beta item.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	pricingEnablementOptRef := *openapiclient.NewPricingEnablementOptRef() // PricingEnablementOptRef | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.PostPricingEnablementOptin(context.Background()).PricingEnablementOptRef(pricingEnablementOptRef).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.PostPricingEnablementOptin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostPricingEnablementOptin`: PricingUserEnablementItem
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.PostPricingEnablementOptin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostPricingEnablementOptinRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **pricingEnablementOptRef** | [**PricingEnablementOptRef**](PricingEnablementOptRef.md) |  | 
-
-### Return type
-
-[**PricingUserEnablementItem**](PricingUserEnablementItem.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostPricingEnablementOptout
-
-> PricingUserEnablementItem PostPricingEnablementOptout(ctx).PricingEnablementOptRef(pricingEnablementOptRef).Execute()
-
-Removes the caller's OWN org from a beta item's grant list, the reverse of OptIntoBeta and idempotent.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	pricingEnablementOptRef := *openapiclient.NewPricingEnablementOptRef() // PricingEnablementOptRef | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.PostPricingEnablementOptout(context.Background()).PricingEnablementOptRef(pricingEnablementOptRef).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.PostPricingEnablementOptout``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostPricingEnablementOptout`: PricingUserEnablementItem
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.PostPricingEnablementOptout`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostPricingEnablementOptoutRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **pricingEnablementOptRef** | [**PricingEnablementOptRef**](PricingEnablementOptRef.md) |  | 
-
-### Return type
-
-[**PricingUserEnablementItem**](PricingUserEnablementItem.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

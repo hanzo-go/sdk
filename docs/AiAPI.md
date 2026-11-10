@@ -4,9 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AiChat**](AiAPI.md#AiChat) | **Post** /v1/ai/mcp/chat | Asks one model one prompt and answers the reply, which model served it and who paid.
+[**AiDecide**](AiAPI.md#AiDecide) | **Post** /v1/ai/mcp/decisions | Runs one decision — the caller&#39;s own POST /v1/decisions, gated and billed exactly as that route is — and answers the decision, which model served it and who paid.
 [**AiLimits**](AiAPI.md#AiLimits) | **Get** /v1/ai/limits | Reads the caller&#39;s plan usage: for each class of model the plan includes, the share used of the billing period and of its short window, who pays for the next request, and whether the caller is in limited mode and why; the share used of the session and the day; and the ways on.
 [**AiMCPTools**](AiAPI.md#AiMCPTools) | **Get** /v1/ai/mcp/tools | Reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
-[**AiSetLimits**](AiAPI.md#AiSetLimits) | **Put** /v1/ai/limits | Sets the payer&#39;s choice to keep using a model on credits once the plan&#39;s included usage of it is spent.
+[**AiModels**](AiAPI.md#AiModels) | **Get** /v1/ai/mcp/models | Searches the model catalog — the one GET /v1/models lists, every OpenRouter model among it as last synced — by text, class, family, capability or free, and answers each match with its class, family, whether it is free, its list price (per token and per million; variable for a router billed at the answering model&#39;s price; a resold model&#39;s every vendor rate and conditional rate as billed), context window, output bound, expiry and capabilities.
+[**AiRateLimit**](AiAPI.md#AiRateLimit) | **Get** /v1/ai/limits/rate | Reads the per-minute limit as it governs the organization the caller acts in: the model requests one person may make in a minute on every surface — the API, chat, coding runs, bots and MCP — the platform&#39;s default, which is the most the organization may set, and the organization&#39;s own setting.
+[**AiSetRateLimit**](AiAPI.md#AiSetRateLimit) | **Put** /v1/ai/limits/rate | Sets the model requests one person may make in a minute acting in the organization the caller acts in, on every surface: 1 up to the platform&#39;s default, never more, or 0 to hold its people to the default.
+[**DecisionsCorrect**](AiAPI.md#DecisionsCorrect) | **Post** /v1/decisions/{decision}/corrections | Files a correction of one question of one of the org&#39;s Kai decisions: the right answer, which must be one of that question&#39;s options and not what Kai answered, and why.
+[**DecisionsCorrections**](AiAPI.md#DecisionsCorrections) | **Get** /v1/decisions/{decision}/corrections | Answers one of the org&#39;s decisions&#39; corrections, each captured (it can teach) or missing (the decision was made with capture off).
+[**DecisionsUncorrect**](AiAPI.md#DecisionsUncorrect) | **Delete** /v1/decisions/{decision}/corrections/{id} | Deletes one correction of one of the org&#39;s decisions.
 [**DeleteAiArticlesByOwnerByName**](AiAPI.md#DeleteAiArticlesByOwnerByName) | **Delete** /v1/ai/articles/{owner}/{name} | Delete a article
 [**DeleteAiAssetsByOwnerByName**](AiAPI.md#DeleteAiAssetsByOwnerByName) | **Delete** /v1/ai/assets/{owner}/{name} | Delete a asset
 [**DeleteAiChatsByOwnerByName**](AiAPI.md#DeleteAiChatsByOwnerByName) | **Delete** /v1/ai/chats/{owner}/{name} | Delete a chat
@@ -42,8 +49,6 @@ Method | HTTP request | Description
 [**DeleteAiVideosByOwnerByName**](AiAPI.md#DeleteAiVideosByOwnerByName) | **Delete** /v1/ai/videos/{owner}/{name} | Delete a video
 [**DeleteAiWorkflowsByOwnerByName**](AiAPI.md#DeleteAiWorkflowsByOwnerByName) | **Delete** /v1/ai/workflows/{owner}/{name} | Delete a workflow
 [**DeleteAudioTranscriptById**](AiAPI.md#DeleteAudioTranscriptById) | **Delete** /v1/audio/transcript/{id} | Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
-[**Get3dById**](AiAPI.md#Get3dById) | **Get** /v1/3d/{id} | Implements GET /v1/3d/:id (Retrieve 3D status).
-[**Get3dByIdContent**](AiAPI.md#Get3dByIdContent) | **Get** /v1/3d/{id}/content | Implements GET /v1/3d/:id/content (Download 3D splat/glb content).
 [**GetAiAccount**](AiAPI.md#GetAiAccount) | **Get** /v1/ai/account | Account
 [**GetAiActivities**](AiAPI.md#GetAiActivities) | **Get** /v1/ai/activities | List activities
 [**GetAiAnswer**](AiAPI.md#GetAiAnswer) | **Get** /v1/ai/answer | Answer
@@ -156,6 +161,8 @@ Method | HTTP request | Description
 [**GetModels**](AiAPI.md#GetModels) | **Get** /v1/models | Returns the list of available models from the routing table.
 [**GetModelsByModelAccess**](AiAPI.md#GetModelsByModelAccess) | **Get** /v1/models/{model}/access | Returns the caller&#39;s own standing for a gated model: \&quot;granted\&quot;, \&quot;requested\&quot;, or empty when they have never asked.
 [**GetModelsProviders**](AiAPI.md#GetModelsProviders) | **Get** /v1/models/providers | Public, secret-free list of the providers serving the models that GET /v1/models lists — the same source, projected.
+[**GetModelsVendorsByVendor**](AiAPI.md#GetModelsVendorsByVendor) | **Get** /v1/models/vendors/{vendor} | Lists every model a vendor lists now, each entry exactly as the vendor listed it (prices, context, output bound, modalities, parameters, created, expiration), and when the list was last synced.
+[**GetModelsVendorsByVendorEvents**](AiAPI.md#GetModelsVendorsByVendorEvents) | **Get** /v1/models/vendors/{vendor}/events | Lists the changes syncs read in a vendor&#39;s model list, newest first.
 [**GetVideosById**](AiAPI.md#GetVideosById) | **Get** /v1/videos/{id} | Implements GET /v1/videos/{id} — poll a job&#39;s status.
 [**GetVideosByIdContent**](AiAPI.md#GetVideosByIdContent) | **Get** /v1/videos/{id}/content | Implements GET /v1/videos/{id}/content — download the finished MP4.
 [**PatchAiArticlesByOwnerByName**](AiAPI.md#PatchAiArticlesByOwnerByName) | **Patch** /v1/ai/articles/{owner}/{name} | Update a article
@@ -190,7 +197,6 @@ Method | HTTP request | Description
 [**PatchAiVectorsByOwnerByName**](AiAPI.md#PatchAiVectorsByOwnerByName) | **Patch** /v1/ai/vectors/{owner}/{name} | Update a vector
 [**PatchAiVideosByOwnerByName**](AiAPI.md#PatchAiVideosByOwnerByName) | **Patch** /v1/ai/videos/{owner}/{name} | Update a video
 [**PatchAiWorkflowsByOwnerByName**](AiAPI.md#PatchAiWorkflowsByOwnerByName) | **Patch** /v1/ai/workflows/{owner}/{name} | Update a workflow
-[**Post3dGenerations**](AiAPI.md#Post3dGenerations) | **Post** /v1/3d/generations | Implements POST /v1/3d/generations (Text/Image to 3D &amp; Gaussian Splats).
 [**PostAiArticles**](AiAPI.md#PostAiArticles) | **Post** /v1/ai/articles | Create a article
 [**PostAiAssets**](AiAPI.md#PostAiAssets) | **Post** /v1/ai/assets | Create a asset
 [**PostAiAssetsByOwnerByNameScan**](AiAPI.md#PostAiAssetsByOwnerByNameScan) | **Post** /v1/ai/assets/{owner}/{name}/scan | Scan (asset)
@@ -313,6 +319,138 @@ Method | HTTP request | Description
 [**PutAiVideosByOwnerByName**](AiAPI.md#PutAiVideosByOwnerByName) | **Put** /v1/ai/videos/{owner}/{name} | Replace a video
 [**PutAiWorkflowsByOwnerByName**](AiAPI.md#PutAiWorkflowsByOwnerByName) | **Put** /v1/ai/workflows/{owner}/{name} | Replace a workflow
 
+
+
+## AiChat
+
+> AiChat AiChat(ctx).AiChatIn(aiChatIn).Execute()
+
+Asks one model one prompt and answers the reply, which model served it and who paid.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	aiChatIn := *openapiclient.NewAiChatIn() // AiChatIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.AiChat(context.Background()).AiChatIn(aiChatIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.AiChat``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AiChat`: AiChat
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.AiChat`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAiChatRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiChatIn** | [**AiChatIn**](AiChatIn.md) |  | 
+
+### Return type
+
+[**AiChat**](AiChat.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AiDecide
+
+> AiDecision AiDecide(ctx).AiDecideIn(aiDecideIn).Execute()
+
+Runs one decision — the caller's own POST /v1/decisions, gated and billed exactly as that route is — and answers the decision, which model served it and who paid.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	aiDecideIn := *openapiclient.NewAiDecideIn() // AiDecideIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.AiDecide(context.Background()).AiDecideIn(aiDecideIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.AiDecide``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AiDecide`: AiDecision
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.AiDecide`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAiDecideRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiDecideIn** | [**AiDecideIn**](AiDecideIn.md) |  | 
+
+### Return type
+
+[**AiDecision**](AiDecision.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## AiLimits
@@ -442,11 +580,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## AiSetLimits
+## AiModels
 
-> AiLimits AiSetLimits(ctx).AiLimitsSet(aiLimitsSet).Execute()
+> AiModels AiModels(ctx).Q(q).Class(class).Family(family).Capability(capability).Free(free).Zdr(zdr).Limit(limit).Execute()
 
-Sets the payer's choice to keep using a model on credits once the plan's included usage of it is spent.
+Searches the model catalog — the one GET /v1/models lists, every OpenRouter model among it as last synced — by text, class, family, capability or free, and answers each match with its class, family, whether it is free, its list price (per token and per million; variable for a router billed at the answering model's price; a resold model's every vendor rate and conditional rate as billed), context window, output bound, expiry and capabilities.
 
 
 
@@ -463,17 +601,23 @@ import (
 )
 
 func main() {
-	aiLimitsSet := *openapiclient.NewAiLimitsSet() // AiLimitsSet | 
+	q := "q_example" // string | Q matches the model's id, name, description or owner, ignoring case. (optional)
+	class := "class_example" // string | Class keeps one class: premium (third-party frontier models), ours (Hanzo's priced models) or free. (optional)
+	family := "family_example" // string | Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)
+	capability := "capability_example" // string | Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)
+	free := true // bool | Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)
+	zdr := true // bool | ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)
+	limit := int64(789) // int64 | Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.AiSetLimits(context.Background()).AiLimitsSet(aiLimitsSet).Execute()
+	resp, r, err := apiClient.AiAPI.AiModels(context.Background()).Q(q).Class(class).Family(family).Capability(capability).Free(free).Zdr(zdr).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.AiSetLimits``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.AiModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AiSetLimits`: AiLimits
-	fmt.Fprintf(os.Stdout, "Response from `AiAPI.AiSetLimits`: %v\n", resp)
+	// response from `AiModels`: AiModels
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.AiModels`: %v\n", resp)
 }
 ```
 
@@ -483,16 +627,149 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAiSetLimitsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAiModelsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **aiLimitsSet** | [**AiLimitsSet**](AiLimitsSet.md) |  | 
+ **q** | **string** | Q matches the model&#39;s id, name, description or owner, ignoring case. | 
+ **class** | **string** | Class keeps one class: premium (third-party frontier models), ours (Hanzo&#39;s priced models) or free. | 
+ **family** | **string** | Family keeps one Hanzo family: enso, zen, kai or zoo. | 
+ **capability** | **string** | Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). | 
+ **free** | **bool** | Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). | 
+ **zdr** | **bool** | ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). | 
+ **limit** | **int64** | Limit is the most models to answer, 1 to 500; 0 answers 50. | 
 
 ### Return type
 
-[**AiLimits**](AiLimits.md)
+[**AiModels**](AiModels.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AiRateLimit
+
+> AiRate AiRateLimit(ctx).Execute()
+
+Reads the per-minute limit as it governs the organization the caller acts in: the model requests one person may make in a minute on every surface — the API, chat, coding runs, bots and MCP — the platform's default, which is the most the organization may set, and the organization's own setting.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.AiRateLimit(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.AiRateLimit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AiRateLimit`: AiRate
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.AiRateLimit`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAiRateLimitRequest struct via the builder pattern
+
+
+### Return type
+
+[**AiRate**](AiRate.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AiSetRateLimit
+
+> AiRate AiSetRateLimit(ctx).AiRateIn(aiRateIn).Execute()
+
+Sets the model requests one person may make in a minute acting in the organization the caller acts in, on every surface: 1 up to the platform's default, never more, or 0 to hold its people to the default.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	aiRateIn := *openapiclient.NewAiRateIn() // AiRateIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.AiSetRateLimit(context.Background()).AiRateIn(aiRateIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.AiSetRateLimit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AiSetRateLimit`: AiRate
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.AiSetRateLimit`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAiSetRateLimitRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiRateIn** | [**AiRateIn**](AiRateIn.md) |  | 
+
+### Return type
+
+[**AiRate**](AiRate.md)
 
 ### Authorization
 
@@ -502,6 +779,219 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DecisionsCorrect
+
+> Correction DecisionsCorrect(ctx, decision).CorrectIn(correctIn).Execute()
+
+Files a correction of one question of one of the org's Kai decisions: the right answer, which must be one of that question's options and not what Kai answered, and why.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	decision := "decision_example" // string | Decision is the decision's id.
+	correctIn := *openapiclient.NewCorrectIn() // CorrectIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.DecisionsCorrect(context.Background(), decision).CorrectIn(correctIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.DecisionsCorrect``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DecisionsCorrect`: Correction
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.DecisionsCorrect`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**decision** | **string** | Decision is the decision&#39;s id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDecisionsCorrectRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **correctIn** | [**CorrectIn**](CorrectIn.md) |  | 
+
+### Return type
+
+[**Correction**](Correction.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DecisionsCorrections
+
+> Corrections DecisionsCorrections(ctx, decision).Execute()
+
+Answers one of the org's decisions' corrections, each captured (it can teach) or missing (the decision was made with capture off).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	decision := "decision_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.DecisionsCorrections(context.Background(), decision).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.DecisionsCorrections``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DecisionsCorrections`: Corrections
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.DecisionsCorrections`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**decision** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDecisionsCorrectionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**Corrections**](Corrections.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DecisionsUncorrect
+
+> DecisionsUncorrect(ctx, decision, id).Execute()
+
+Deletes one correction of one of the org's decisions.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	decision := "decision_example" // string | 
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AiAPI.DecisionsUncorrect(context.Background(), decision, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.DecisionsUncorrect``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**decision** | **string** |  | 
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDecisionsUncorrectRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2905,142 +3395,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeleteAudioTranscriptByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## Get3dById
-
-> Get3dById(ctx, id).Execute()
-
-Implements GET /v1/3d/:id (Retrieve 3D status).
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AiAPI.Get3dById(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.Get3dById``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGet3dByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## Get3dByIdContent
-
-> Get3dByIdContent(ctx, id).Execute()
-
-Implements GET /v1/3d/:id/content (Download 3D splat/glb content).
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AiAPI.Get3dByIdContent(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.Get3dByIdContent``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGet3dByIdContentRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -10171,6 +10525,142 @@ Other parameters are passed through a pointer to a apiGetModelsProvidersRequest 
 [[Back to README]](../README.md)
 
 
+## GetModelsVendorsByVendor
+
+> GetModelsVendorsByVendor(ctx, vendor).Execute()
+
+Lists every model a vendor lists now, each entry exactly as the vendor listed it (prices, context, output bound, modalities, parameters, created, expiration), and when the list was last synced.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	vendor := "vendor_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AiAPI.GetModelsVendorsByVendor(context.Background(), vendor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.GetModelsVendorsByVendor``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**vendor** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetModelsVendorsByVendorRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetModelsVendorsByVendorEvents
+
+> GetModelsVendorsByVendorEvents(ctx, vendor).Execute()
+
+Lists the changes syncs read in a vendor's model list, newest first.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	vendor := "vendor_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AiAPI.GetModelsVendorsByVendorEvents(context.Background(), vendor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.GetModelsVendorsByVendorEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**vendor** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetModelsVendorsByVendorEventsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetVideosById
 
 > AiVideoStatus GetVideosById(ctx, id).Execute()
@@ -12589,65 +13079,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## Post3dGenerations
-
-> Post3dGenerations(ctx).Execute()
-
-Implements POST /v1/3d/generations (Text/Image to 3D & Gaussian Splats).
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AiAPI.Post3dGenerations(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.Post3dGenerations``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPost3dGenerationsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostAiArticles
 
 > PostAiArticles200Response PostAiArticles(ctx).Body(body).Execute()
@@ -13328,7 +13759,7 @@ Name | Type | Description  | Notes
 
 ## PostAiFeedback
 
-> PostAiFeedback200Response PostAiFeedback(ctx).Execute()
+> PostAiFeedback200Response PostAiFeedback(ctx).AiRoutingRewardRequest(aiRoutingRewardRequest).Execute()
 
 Attaches a per-request outcome reward to the routing decision that served request_id — the enso training loop's quality signal.
 
@@ -13347,10 +13778,11 @@ import (
 )
 
 func main() {
+	aiRoutingRewardRequest := *openapiclient.NewAiRoutingRewardRequest("RequestId_example") // AiRoutingRewardRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiFeedback(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiFeedback(context.Background()).AiRoutingRewardRequest(aiRoutingRewardRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiFeedback``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13362,12 +13794,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiFeedbackRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiRoutingRewardRequest** | [**AiRoutingRewardRequest**](AiRoutingRewardRequest.md) |  | 
 
 ### Return type
 
@@ -13379,7 +13815,7 @@ Other parameters are passed through a pointer to a apiPostAiFeedbackRequest stru
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17511,7 +17947,7 @@ Other parameters are passed through a pointer to a apiPostAudioVoiceRequest stru
 
 ## PostChat
 
-> OpenaiChatCompletionResponse PostChat(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
+> PostChat200Response PostChat(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).XMaxCost(xMaxCost).XMaxLatencyMs(xMaxLatencyMs).Execute()
 
 Implements the OpenAI-compatible chat completions API
 
@@ -17531,15 +17967,17 @@ import (
 
 func main() {
 	openaiChatCompletionRequest := *openapiclient.NewOpenaiChatCompletionRequest() // OpenaiChatCompletionRequest | 
+	xMaxCost := float32(8.14) // float32 | The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org's own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+	xMaxLatencyMs := int32(56) // int32 | The slowest model this request accepts, in milliseconds. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostChat(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
+	resp, r, err := apiClient.AiAPI.PostChat(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).XMaxCost(xMaxCost).XMaxLatencyMs(xMaxLatencyMs).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostChat``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostChat`: OpenaiChatCompletionResponse
+	// response from `PostChat`: PostChat200Response
 	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PostChat`: %v\n", resp)
 }
 ```
@@ -17556,10 +17994,12 @@ Other parameters are passed through a pointer to a apiPostChatRequest struct via
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **openaiChatCompletionRequest** | [**OpenaiChatCompletionRequest**](OpenaiChatCompletionRequest.md) |  | 
+ **xMaxCost** | **float32** | The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. | 
+ **xMaxLatencyMs** | **int32** | The slowest model this request accepts, in milliseconds. | 
 
 ### Return type
 
-[**OpenaiChatCompletionResponse**](OpenaiChatCompletionResponse.md)
+[**PostChat200Response**](PostChat200Response.md)
 
 ### Authorization
 
@@ -17577,7 +18017,7 @@ Name | Type | Description  | Notes
 
 ## PostChatCompletions
 
-> OpenaiChatCompletionResponse PostChatCompletions(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
+> PostChat200Response PostChatCompletions(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).XMaxCost(xMaxCost).XMaxLatencyMs(xMaxLatencyMs).Execute()
 
 Implements the OpenAI-compatible chat completions API
 
@@ -17597,15 +18037,17 @@ import (
 
 func main() {
 	openaiChatCompletionRequest := *openapiclient.NewOpenaiChatCompletionRequest() // OpenaiChatCompletionRequest | 
+	xMaxCost := float32(8.14) // float32 | The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org's own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+	xMaxLatencyMs := int32(56) // int32 | The slowest model this request accepts, in milliseconds. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostChatCompletions(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
+	resp, r, err := apiClient.AiAPI.PostChatCompletions(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).XMaxCost(xMaxCost).XMaxLatencyMs(xMaxLatencyMs).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostChatCompletions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostChatCompletions`: OpenaiChatCompletionResponse
+	// response from `PostChatCompletions`: PostChat200Response
 	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PostChatCompletions`: %v\n", resp)
 }
 ```
@@ -17622,10 +18064,12 @@ Other parameters are passed through a pointer to a apiPostChatCompletionsRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **openaiChatCompletionRequest** | [**OpenaiChatCompletionRequest**](OpenaiChatCompletionRequest.md) |  | 
+ **xMaxCost** | **float32** | The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. | 
+ **xMaxLatencyMs** | **int32** | The slowest model this request accepts, in milliseconds. | 
 
 ### Return type
 
-[**OpenaiChatCompletionResponse**](OpenaiChatCompletionResponse.md)
+[**PostChat200Response**](PostChat200Response.md)
 
 ### Authorization
 
@@ -17709,7 +18153,7 @@ Name | Type | Description  | Notes
 
 ## PostCompletions
 
-> OpenaiChatCompletionResponse PostCompletions(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
+> PostChat200Response PostCompletions(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).XMaxCost(xMaxCost).XMaxLatencyMs(xMaxLatencyMs).Execute()
 
 Implements the OpenAI-compatible chat completions API
 
@@ -17729,15 +18173,17 @@ import (
 
 func main() {
 	openaiChatCompletionRequest := *openapiclient.NewOpenaiChatCompletionRequest() // OpenaiChatCompletionRequest | 
+	xMaxCost := float32(8.14) // float32 | The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org's own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+	xMaxLatencyMs := int32(56) // int32 | The slowest model this request accepts, in milliseconds. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostCompletions(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
+	resp, r, err := apiClient.AiAPI.PostCompletions(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).XMaxCost(xMaxCost).XMaxLatencyMs(xMaxLatencyMs).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostCompletions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompletions`: OpenaiChatCompletionResponse
+	// response from `PostCompletions`: PostChat200Response
 	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PostCompletions`: %v\n", resp)
 }
 ```
@@ -17754,10 +18200,12 @@ Other parameters are passed through a pointer to a apiPostCompletionsRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **openaiChatCompletionRequest** | [**OpenaiChatCompletionRequest**](OpenaiChatCompletionRequest.md) |  | 
+ **xMaxCost** | **float32** | The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. | 
+ **xMaxLatencyMs** | **int32** | The slowest model this request accepts, in milliseconds. | 
 
 ### Return type
 
-[**OpenaiChatCompletionResponse**](OpenaiChatCompletionResponse.md)
+[**PostChat200Response**](PostChat200Response.md)
 
 ### Authorization
 
@@ -18226,7 +18674,7 @@ Other parameters are passed through a pointer to a apiPostRerankRequest struct v
 
 ## PostResponses
 
-> AiResponsesResource PostResponses(ctx).Execute()
+> PostResponses200Response PostResponses(ctx).XMaxCost(xMaxCost).XMaxLatencyMs(xMaxLatencyMs).Execute()
 
 Implements POST /v1/responses.
 
@@ -18245,31 +18693,38 @@ import (
 )
 
 func main() {
+	xMaxCost := float32(8.14) // float32 | The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org's own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+	xMaxLatencyMs := int32(56) // int32 | The slowest model this request accepts, in milliseconds. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostResponses(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostResponses(context.Background()).XMaxCost(xMaxCost).XMaxLatencyMs(xMaxLatencyMs).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostResponses``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostResponses`: AiResponsesResource
+	// response from `PostResponses`: PostResponses200Response
 	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PostResponses`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostResponsesRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xMaxCost** | **float32** | The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. | 
+ **xMaxLatencyMs** | **int32** | The slowest model this request accepts, in milliseconds. | 
+
 ### Return type
 
-[**AiResponsesResource**](AiResponsesResource.md)
+[**PostResponses200Response**](PostResponses200Response.md)
 
 ### Authorization
 

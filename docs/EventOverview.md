@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Commerce** | Pointer to [**EventCommerceOverview**](EventCommerceOverview.md) | Commerce is the orders/revenue lens over product events. | [optional] 
 **End** | Pointer to **string** | End is the window&#39;s exclusive upper bound, RFC3339 UTC. | [optional] 
+**Impersonated** | Pointer to **string** | Impersonated is which events web and commerce counted against the mark a platform operator leaves acting as someone else: exclude (the tenant&#39;s own traffic), include, or only. LLM reads the usage ledger, which carries no mark. | [optional] 
 **Interval** | Pointer to **string** | Interval is the bucket width the window implies: hour or day. | [optional] 
 **Llm** | Pointer to [**EventLLMOverview**](EventLLMOverview.md) | LLM is the LLM usage lens — real per-org data. | [optional] 
 **Range** | Pointer to **string** | Range is the window that was actually applied: 24h, 7d, 30d or custom. | [optional] 
@@ -81,6 +82,31 @@ SetEnd sets End field to given value.
 `func (o *EventOverview) HasEnd() bool`
 
 HasEnd returns a boolean if a field has been set.
+
+### GetImpersonated
+
+`func (o *EventOverview) GetImpersonated() string`
+
+GetImpersonated returns the Impersonated field if non-nil, zero value otherwise.
+
+### GetImpersonatedOk
+
+`func (o *EventOverview) GetImpersonatedOk() (*string, bool)`
+
+GetImpersonatedOk returns a tuple with the Impersonated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImpersonated
+
+`func (o *EventOverview) SetImpersonated(v string)`
+
+SetImpersonated sets Impersonated field to given value.
+
+### HasImpersonated
+
+`func (o *EventOverview) HasImpersonated() bool`
+
+HasImpersonated returns a boolean if a field has been set.
 
 ### GetInterval
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Active** | Pointer to **bool** | Active is false for an agent the org has retired: it stays in the roster so its past messages keep an author, and it no longer answers. | [optional] 
 **Avatar** | Pointer to **string** | Avatar is the blob id of an uploaded picture, readable at GET /v1/team/files/{space}/avatar?file&#x3D;{avatar}. Empty when the person has none and the client draws initials. | [optional] 
 **Bot** | Pointer to **bool** | Bot reports that this member is one of the org&#39;s agents rather than a person. An agent answers when it is @-mentioned or messaged directly. | [optional] 
-**Id** | Pointer to **string** | ID is the account uuid — the value every message&#39;s author, every room&#39;s members list and every &#x60;&lt;@id&gt;&#x60; mention token names. | [optional] 
+**Id** | Pointer to **string** | ID is the account uuid — the value every message&#39;s author, every channel&#39;s members list and every &#x60;&lt;@id&gt;&#x60; mention token names. | [optional] 
 **Name** | Pointer to **string** | Name is what to call them: the name IAM holds for a person, the agent&#39;s own name for an agent. Falls back to the id when neither has one. | [optional] 
 **PersonRef** | Pointer to **string** | PersonRef is the member&#39;s Person document id, the reference a mention stores. | [optional] 
 **Presence** | Pointer to **string** | Presence is \&quot;online\&quot; while the member holds a live connection to this space (a Team client or an event stream), \&quot;offline\&quot; otherwise. | [optional] 

@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetReferral**](ReferralAPI.md#GetReferral) | **Get** /v1/referral | Returns the caller&#39;s referral code, share link and the referrals they have made.
 [**PostReferralClaim**](ReferralAPI.md#PostReferralClaim) | **Post** /v1/referral/claim | Records that the caller&#39;s org signed up through a referral code.
+[**PutReferral**](ReferralAPI.md#PutReferral) | **Put** /v1/referral | Updates the caller&#39;s referral code and returns the updated referral summary.
 
 
 
@@ -121,6 +122,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReferralClaimView**](ReferralClaimView.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutReferral
+
+> ReferralMyReferrals PutReferral(ctx).ReferralSetCodeRequest(referralSetCodeRequest).Execute()
+
+Updates the caller's referral code and returns the updated referral summary.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	referralSetCodeRequest := *openapiclient.NewReferralSetCodeRequest() // ReferralSetCodeRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReferralAPI.PutReferral(context.Background()).ReferralSetCodeRequest(referralSetCodeRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReferralAPI.PutReferral``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutReferral`: ReferralMyReferrals
+	fmt.Fprintf(os.Stdout, "Response from `ReferralAPI.PutReferral`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutReferralRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **referralSetCodeRequest** | [**ReferralSetCodeRequest**](ReferralSetCodeRequest.md) |  | 
+
+### Return type
+
+[**ReferralMyReferrals**](ReferralMyReferrals.md)
 
 ### Authorization
 

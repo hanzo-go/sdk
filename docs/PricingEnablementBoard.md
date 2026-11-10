@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Betas** | Pointer to [**[]PricingUserEnablementItem**](PricingUserEnablementItem.md) | Betas are the subset of Items the caller&#39;s org may still opt into. | [optional] 
-**Items** | Pointer to [**[]PricingUserEnablementItem**](PricingUserEnablementItem.md) | Items is every managed item, each resolved for the caller&#39;s org. | [optional] 
+**Items** | Pointer to [**[]PricingUserEnablementItem**](PricingUserEnablementItem.md) | Items is every managed item, each resolved for the caller. | [optional] 
 **Org** | Pointer to **string** | Org is the org this view was resolved for; empty for a caller with no validated principal, who sees only the generally-available items. | [optional] 
 
 ## Methods
@@ -26,31 +25,6 @@ will change when the set of required properties is changed
 NewPricingEnablementBoardWithDefaults instantiates a new PricingEnablementBoard object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetBetas
-
-`func (o *PricingEnablementBoard) GetBetas() []PricingUserEnablementItem`
-
-GetBetas returns the Betas field if non-nil, zero value otherwise.
-
-### GetBetasOk
-
-`func (o *PricingEnablementBoard) GetBetasOk() (*[]PricingUserEnablementItem, bool)`
-
-GetBetasOk returns a tuple with the Betas field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBetas
-
-`func (o *PricingEnablementBoard) SetBetas(v []PricingUserEnablementItem)`
-
-SetBetas sets Betas field to given value.
-
-### HasBetas
-
-`func (o *PricingEnablementBoard) HasBetas() bool`
-
-HasBetas returns a boolean if a field has been set.
 
 ### GetItems
 

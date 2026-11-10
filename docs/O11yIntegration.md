@@ -10,11 +10,11 @@ Name | Type | Description | Notes
 **Configuration** | Pointer to [**[]O11yIntegrationConfigStep**](O11yIntegrationConfigStep.md) |  | [optional] 
 **ConnectionTests** | Pointer to [**O11yIntegrationConnectionTests**](O11yIntegrationConnectionTests.md) |  | [optional] 
 **DataCollected** | Pointer to [**O11yDataCollectedForIntegration**](O11yDataCollectedForIntegration.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | A short description | [optional] 
 **Icon** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Installation** | Pointer to [**O11yInstalledIntegration**](O11yInstalledIntegration.md) |  | [optional] 
-**Overview** | Pointer to **string** |  | [optional] 
+**Overview** | Pointer to **string** | markdown | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 
 ## Methods

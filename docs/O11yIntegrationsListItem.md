@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Author** | Pointer to [**O11yIntegrationAuthor**](O11yIntegrationAuthor.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | A short description | [optional] 
 **Icon** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **IsInstalled** | Pointer to **bool** |  | [optional] 

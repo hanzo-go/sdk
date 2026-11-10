@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** | Currency denominates Price. | [optional] 
 **Description** | Pointer to **string** | Description is the long copy, at most 4096 characters. | [optional] 
 **Docs** | Pointer to **string** | Docs is where the listing&#39;s documentation lives; empty clears it. | [optional] 
+**Expert** | Pointer to [**MarketplaceExpertIn**](MarketplaceExpertIn.md) | Expert replaces an expert listing&#39;s whole profile — rate, areas, languages, time zone and weekly hours; absent keeps it. Refused on any other kind. | [optional] 
 **Id** | Pointer to **string** | ID is the listing to edit, from the path. | [optional] 
 **Price** | Pointer to **string** | Price is the decimal USD price, exact to 18 places; \&quot;0\&quot; makes it free. | [optional] 
 **Public** | Pointer to **bool** | Public makes the listing discoverable by other orgs, or withdraws it. | [optional] 
@@ -132,6 +133,31 @@ SetDocs sets Docs field to given value.
 `func (o *MarketplacePatchReq) HasDocs() bool`
 
 HasDocs returns a boolean if a field has been set.
+
+### GetExpert
+
+`func (o *MarketplacePatchReq) GetExpert() MarketplaceExpertIn`
+
+GetExpert returns the Expert field if non-nil, zero value otherwise.
+
+### GetExpertOk
+
+`func (o *MarketplacePatchReq) GetExpertOk() (*MarketplaceExpertIn, bool)`
+
+GetExpertOk returns a tuple with the Expert field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpert
+
+`func (o *MarketplacePatchReq) SetExpert(v MarketplaceExpertIn)`
+
+SetExpert sets Expert field to given value.
+
+### HasExpert
+
+`func (o *MarketplacePatchReq) HasExpert() bool`
+
+HasExpert returns a boolean if a field has been set.
 
 ### GetId
 

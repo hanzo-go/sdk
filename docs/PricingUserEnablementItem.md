@@ -4,11 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CanOptIn** | Pointer to **bool** | CanOptIn is whether POST /v1/pricing/enablement/optin would do anything here: the item is in beta and this org is not on its list yet. False for a caller with no validated org, who has no org to enrol. | [optional] 
-**Effective** | Pointer to **bool** | Effective is whether the caller&#39;s org may use the item right now, which is the field to branch on: true for any ga item, for a beta this org holds, and never for an off one. | [optional] 
+**Effective** | Pointer to **bool** | Effective is whether the caller may use the item right now, which is the field to branch on: true for any ga item, for a beta item while the platform&#39;s &#x60;beta&#x60; switch is on for the caller, and never for an off one. | [optional] 
 **Id** | Pointer to **string** | ID is the item within that namespace — a model id, a provider name, or a feature key. | [optional] 
 **Kind** | Pointer to **string** | Kind is the namespace the id lives in: \&quot;model\&quot;, \&quot;provider\&quot; or \&quot;feature\&quot;. | [optional] 
-**OptedIn** | Pointer to **bool** | OptedIn is whether the caller&#39;s org is on this item&#39;s beta grant list. It can be true on an \&quot;off\&quot; item — the list survives the kill switch and is simply ignored while it is thrown — so it does not imply Effective. | [optional] 
 **State** | Pointer to **string** | State is the item&#39;s GLOBAL availability — \&quot;off\&quot;, \&quot;beta\&quot; or \&quot;ga\&quot; — which is the operator&#39;s setting and not this caller&#39;s answer. Effective is that. | [optional] 
 
 ## Methods
@@ -29,31 +27,6 @@ will change when the set of required properties is changed
 NewPricingUserEnablementItemWithDefaults instantiates a new PricingUserEnablementItem object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetCanOptIn
-
-`func (o *PricingUserEnablementItem) GetCanOptIn() bool`
-
-GetCanOptIn returns the CanOptIn field if non-nil, zero value otherwise.
-
-### GetCanOptInOk
-
-`func (o *PricingUserEnablementItem) GetCanOptInOk() (*bool, bool)`
-
-GetCanOptInOk returns a tuple with the CanOptIn field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCanOptIn
-
-`func (o *PricingUserEnablementItem) SetCanOptIn(v bool)`
-
-SetCanOptIn sets CanOptIn field to given value.
-
-### HasCanOptIn
-
-`func (o *PricingUserEnablementItem) HasCanOptIn() bool`
-
-HasCanOptIn returns a boolean if a field has been set.
 
 ### GetEffective
 
@@ -129,31 +102,6 @@ SetKind sets Kind field to given value.
 `func (o *PricingUserEnablementItem) HasKind() bool`
 
 HasKind returns a boolean if a field has been set.
-
-### GetOptedIn
-
-`func (o *PricingUserEnablementItem) GetOptedIn() bool`
-
-GetOptedIn returns the OptedIn field if non-nil, zero value otherwise.
-
-### GetOptedInOk
-
-`func (o *PricingUserEnablementItem) GetOptedInOk() (*bool, bool)`
-
-GetOptedInOk returns a tuple with the OptedIn field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOptedIn
-
-`func (o *PricingUserEnablementItem) SetOptedIn(v bool)`
-
-SetOptedIn sets OptedIn field to given value.
-
-### HasOptedIn
-
-`func (o *PricingUserEnablementItem) HasOptedIn() bool`
-
-HasOptedIn returns a boolean if a field has been set.
 
 ### GetState
 

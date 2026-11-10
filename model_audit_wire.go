@@ -19,9 +19,13 @@ var _ MappedNullable = &AuditWire{}
 
 // AuditWire struct for AuditWire
 type AuditWire struct {
+	// Act is present ONLY on an action taken in a support session: the platform operator IAM signed in AS this row's sub, while org, sub and email stay the person's. A console row carrying `act` was done by the operator it names.
+	Act *AuditAct `json:"act,omitempty"`
 	// Action is the verb that was performed. It is the event's name, not the HTTP method — a request-sourced record carries both, and the pair is what makes a row readable (\"grant.create\" at POST /v1/admin/grants).
 	Action *string     `json:"action,omitempty"`
 	After  interface{} `json:"after,omitempty"`
+	// Agent is present ONLY on an action a delegated token took: who acted for this row's sub — the deployment that ran their work in a sandbox — while org, sub and email stay the person's, who is billed for it.
+	Agent *string `json:"agent,omitempty"`
 	// Auth is the credential the actor presented: \"jwt\", \"api-key\", or \"none\".
 	AuthMethod *string     `json:"authMethod,omitempty"`
 	Before     interface{} `json:"before,omitempty"`
@@ -83,6 +87,38 @@ func NewAuditWire() *AuditWire {
 func NewAuditWireWithDefaults() *AuditWire {
 	this := AuditWire{}
 	return &this
+}
+
+// GetAct returns the Act field value if set, zero value otherwise.
+func (o *AuditWire) GetAct() AuditAct {
+	if o == nil || IsNil(o.Act) {
+		var ret AuditAct
+		return ret
+	}
+	return *o.Act
+}
+
+// GetActOk returns a tuple with the Act field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditWire) GetActOk() (*AuditAct, bool) {
+	if o == nil || IsNil(o.Act) {
+		return nil, false
+	}
+	return o.Act, true
+}
+
+// HasAct returns a boolean if a field has been set.
+func (o *AuditWire) HasAct() bool {
+	if o != nil && !IsNil(o.Act) {
+		return true
+	}
+
+	return false
+}
+
+// SetAct gets a reference to the given AuditAct and assigns it to the Act field.
+func (o *AuditWire) SetAct(v AuditAct) {
+	o.Act = &v
 }
 
 // GetAction returns the Action field value if set, zero value otherwise.
@@ -148,6 +184,38 @@ func (o *AuditWire) HasAfter() bool {
 // SetAfter gets a reference to the given interface{} and assigns it to the After field.
 func (o *AuditWire) SetAfter(v interface{}) {
 	o.After = v
+}
+
+// GetAgent returns the Agent field value if set, zero value otherwise.
+func (o *AuditWire) GetAgent() string {
+	if o == nil || IsNil(o.Agent) {
+		var ret string
+		return ret
+	}
+	return *o.Agent
+}
+
+// GetAgentOk returns a tuple with the Agent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditWire) GetAgentOk() (*string, bool) {
+	if o == nil || IsNil(o.Agent) {
+		return nil, false
+	}
+	return o.Agent, true
+}
+
+// HasAgent returns a boolean if a field has been set.
+func (o *AuditWire) HasAgent() bool {
+	if o != nil && !IsNil(o.Agent) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgent gets a reference to the given string and assigns it to the Agent field.
+func (o *AuditWire) SetAgent(v string) {
+	o.Agent = &v
 }
 
 // GetAuthMethod returns the AuthMethod field value if set, zero value otherwise.
@@ -833,11 +901,17 @@ func (o AuditWire) MarshalJSON() ([]byte, error) {
 
 func (o AuditWire) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Act) {
+		toSerialize["act"] = o.Act
+	}
 	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
 	if o.After != nil {
 		toSerialize["after"] = o.After
+	}
+	if !IsNil(o.Agent) {
+		toSerialize["agent"] = o.Agent
 	}
 	if !IsNil(o.AuthMethod) {
 		toSerialize["authMethod"] = o.AuthMethod
@@ -924,8 +998,10 @@ func (o *AuditWire) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "act")
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "after")
+		delete(additionalProperties, "agent")
 		delete(additionalProperties, "authMethod")
 		delete(additionalProperties, "before")
 		delete(additionalProperties, "email")

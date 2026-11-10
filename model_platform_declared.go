@@ -19,22 +19,36 @@ var _ MappedNullable = &PlatformDeclared{}
 
 // PlatformDeclared struct for PlatformDeclared
 type PlatformDeclared struct {
-	Application          *string              `json:"application,omitempty"`
-	Automated            *bool                `json:"automated,omitempty"`
-	Cd                   *PlatformCDApp       `json:"cd,omitempty"`
-	Component            *string              `json:"component,omitempty"`
-	Digest               *string              `json:"digest,omitempty"`
-	Env                  []PlatformDeclareEnv `json:"env,omitempty"`
-	Hosts                []string             `json:"hosts,omitempty"`
-	Name                 *string              `json:"name,omitempty"`
-	Org                  *string              `json:"org,omitempty"`
-	PartOf               *string              `json:"partOf,omitempty"`
-	Path                 *string              `json:"path,omitempty"`
-	Project              *string              `json:"project,omitempty"`
-	Replicas             *int64               `json:"replicas,omitempty"`
-	Repository           *string              `json:"repository,omitempty"`
-	Secrets              []PlatformSecretRef  `json:"secrets,omitempty"`
-	Tag                  *string              `json:"tag,omitempty"`
+	// Application is the CD Application name the generator mints from the path — the directory joined to the file name, less any words the two share (applicationName). It is how cd.hanzo.ai names the app.
+	Application *string `json:"application,omitempty"`
+	// Automated is cd.automated: false means the Application reports drift and NOTHING moves. It is off by default for a new file on purpose.
+	Automated *bool          `json:"automated,omitempty"`
+	Cd        *PlatformCDApp `json:"cd,omitempty"`
+	// Component is the app's role within its project (`component`), \"\" when unnamed.
+	Component *string `json:"component,omitempty"`
+	// image.digest — wins over tag
+	Digest *string `json:"digest,omitempty"`
+	// Env is the declared container environment, as the chart's list of {name,value}. It is read back so a re-declare of an identical body is a no-op rather than a refusal — idempotency is what makes a retry safe.
+	Env []PlatformDeclareEnv `json:"env,omitempty"`
+	// ingress.hosts, both shapes flattened
+	Hosts []string `json:"hosts,omitempty"`
+	// the Helm release name — the file's basename
+	Name *string `json:"name,omitempty"`
+	// Org is the owner. It is ALSO the values directory and the destination namespace, because those are one value under one name — see the header.
+	Org *string `json:"org,omitempty"`
+	// PartOf is the platform project this app belongs to: the values file's own `partOf` key, which the chart also stamps on every object it renders as app.kubernetes.io/part-of. It is the ONE declaration of membership — there is no project table — and \"\" means the file names none.
+	PartOf *string `json:"partOf,omitempty"`
+	// Path is the file, relative to the repository root.
+	Path *string `json:"path,omitempty"`
+	// Project is the AppProject the sync is admitted under, derived from the directory exactly as the ApplicationSet derives it. It differs from Org for a reserved directory, which syncs under the platform fence.
+	Project  *string `json:"project,omitempty"`
+	Replicas *int64  `json:"replicas,omitempty"`
+	// image.repository
+	Repository *string `json:"repository,omitempty"`
+	// Secrets are the KMS coordinates the app reads — kmsSecrets and secrets.paths — as paths and key names. A values file never carries a secret value, so neither does this.
+	Secrets []PlatformSecretRef `json:"secrets,omitempty"`
+	// image.tag
+	Tag                  *string `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

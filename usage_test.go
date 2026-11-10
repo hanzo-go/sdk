@@ -241,8 +241,8 @@ func TestLive(t *testing.T) {
 	if !slices.Contains([]string{"ok", "near", "limited"}, lim.GetState()) || lim.GetPlan() == "" {
 		t.Errorf("limits plan=%q state=%q", lim.GetPlan(), lim.GetState())
 	}
-	t.Logf("limits   %s plan=%s state=%s classes=%d actions=%d credits_after_allowance=%v",
-		resp.Header.Get("X-Api-Version"), lim.GetPlan(), lim.GetState(), len(lim.GetClasses()), len(lim.GetActions()), lim.GetCreditsAfterAllowance())
+	t.Logf("limits   %s plan=%s state=%s classes=%d actions=%d",
+		resp.Header.Get("X-Api-Version"), lim.GetPlan(), lim.GetState(), len(lim.GetClasses()), len(lim.GetActions()))
 
 	models, _, err := c.AiAPI.GetModels(ctx).Execute()
 	if err != nil {
@@ -271,11 +271,11 @@ func TestLive(t *testing.T) {
 
 	state := "The user asked to delete their account."
 	q := AiDecisionsQuestion{AiDecisionsChoice: &AiDecisionsChoice{Type: "choice",
-		Criteria: map[string]AiDecisionsChoiceCriteriaValue{
-			"yes": {String: PtrString("delete now")}, "no": {String: PtrString("ask to confirm")},
+		Criteria: map[string]string{
+			"yes": "delete now", "no": "ask to confirm",
 		}}}
 	decision, resp, err := c.AiAPI.PostDecisions(ctx).AiDecisionsRequest(AiDecisionsRequest{
-		Model: "kai", State: &AiDecisionSidesFalse{String: &state},
+		Model: "kai", State: state,
 		Questions: map[string]AiDecisionsQuestion{"act": q},
 	}).Execute()
 	if resp == nil {

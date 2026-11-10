@@ -14,15 +14,19 @@ Name | Type | Description | Notes
 **Deleted** | Pointer to **bool** |  | [optional] 
 **DisplayName** | Pointer to **string** | DisplayName is the human-facing label. | [optional] 
 **ExpireTime** | Pointer to **string** | ExpireTime is when the key stops being honored (empty &#x3D; never). State is the lifecycle flag (\&quot;Active\&quot;, \&quot;test\&quot;, …); \&quot;test\&quot; mints test-env credentials instead of live ones. | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Organization** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** | Owner is the tenant that holds the key; Name is unique within Owner. | [optional] 
+**Prefix** | Pointer to **string** | Prefix is the head of the credential the holder presents — the sk- of a secret key, the pk- of a publishable one — recorded when the key is minted (PrefixOf). It lets a listing say which string a row is, and is far too short to use: the secret itself is never stored. | [optional] 
+**RevokeTime** | Pointer to **string** |  | [optional] 
+**Revoker** | Pointer to **string** | Revoker is who revoked the key and RevokeTime when. Revoking sets State to KeyStateRevoked and keeps the row, so the key is still listed and its history can be read; the resolvers refuse it, and no update reopens it. | [optional] 
 **Scope** | Pointer to **string** | Scope is the key&#39;s ACCESS CLASS, orthogonal to Type (which names the bound principal). Empty (the default, \&quot;secret\&quot;) is a full key: a pk- publishable half AND a confidential sk- half, the sk- authenticating a server-side reader. KeyScopePublish is a WRITE-ONLY publishable key — a pk- half only, no secret — that resolves to just an ORG (never a principal) at the ingest endpoint and is safe to ship in client JS. A missing value on an existing row reads as the default, so every pre-Scope key is a secret key unchanged. | [optional] 
 **State** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** | Type is the scope the key is bound to — \&quot;Organization\&quot;, \&quot;Application\&quot;, \&quot;User\&quot;, or \&quot;General\&quot; — and Organization / Application / User name the concrete principal for whichever scope Type selects. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedTime** | Pointer to **string** |  | [optional] 
+**UsedTime** | Pointer to **string** | UsedTime is when the key was last presented and resolved. A list read fills it from the key&#39;s Sighting; the key row itself never holds it, so recording a use never rewrites the row a person may be editing. | [optional] 
 **User** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -394,6 +398,81 @@ SetOwner sets Owner field to given value.
 
 HasOwner returns a boolean if a field has been set.
 
+### GetPrefix
+
+`func (o *IamKey) GetPrefix() string`
+
+GetPrefix returns the Prefix field if non-nil, zero value otherwise.
+
+### GetPrefixOk
+
+`func (o *IamKey) GetPrefixOk() (*string, bool)`
+
+GetPrefixOk returns a tuple with the Prefix field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrefix
+
+`func (o *IamKey) SetPrefix(v string)`
+
+SetPrefix sets Prefix field to given value.
+
+### HasPrefix
+
+`func (o *IamKey) HasPrefix() bool`
+
+HasPrefix returns a boolean if a field has been set.
+
+### GetRevokeTime
+
+`func (o *IamKey) GetRevokeTime() string`
+
+GetRevokeTime returns the RevokeTime field if non-nil, zero value otherwise.
+
+### GetRevokeTimeOk
+
+`func (o *IamKey) GetRevokeTimeOk() (*string, bool)`
+
+GetRevokeTimeOk returns a tuple with the RevokeTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRevokeTime
+
+`func (o *IamKey) SetRevokeTime(v string)`
+
+SetRevokeTime sets RevokeTime field to given value.
+
+### HasRevokeTime
+
+`func (o *IamKey) HasRevokeTime() bool`
+
+HasRevokeTime returns a boolean if a field has been set.
+
+### GetRevoker
+
+`func (o *IamKey) GetRevoker() string`
+
+GetRevoker returns the Revoker field if non-nil, zero value otherwise.
+
+### GetRevokerOk
+
+`func (o *IamKey) GetRevokerOk() (*string, bool)`
+
+GetRevokerOk returns a tuple with the Revoker field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRevoker
+
+`func (o *IamKey) SetRevoker(v string)`
+
+SetRevoker sets Revoker field to given value.
+
+### HasRevoker
+
+`func (o *IamKey) HasRevoker() bool`
+
+HasRevoker returns a boolean if a field has been set.
+
 ### GetScope
 
 `func (o *IamKey) GetScope() string`
@@ -518,6 +597,31 @@ SetUpdatedTime sets UpdatedTime field to given value.
 `func (o *IamKey) HasUpdatedTime() bool`
 
 HasUpdatedTime returns a boolean if a field has been set.
+
+### GetUsedTime
+
+`func (o *IamKey) GetUsedTime() string`
+
+GetUsedTime returns the UsedTime field if non-nil, zero value otherwise.
+
+### GetUsedTimeOk
+
+`func (o *IamKey) GetUsedTimeOk() (*string, bool)`
+
+GetUsedTimeOk returns a tuple with the UsedTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsedTime
+
+`func (o *IamKey) SetUsedTime(v string)`
+
+SetUsedTime sets UsedTime field to given value.
+
+### HasUsedTime
+
+`func (o *IamKey) HasUsedTime() bool`
+
+HasUsedTime returns a boolean if a field has been set.
 
 ### GetUser
 

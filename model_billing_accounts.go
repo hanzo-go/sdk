@@ -19,9 +19,13 @@ var _ MappedNullable = &BillingAccounts{}
 
 // BillingAccounts struct for BillingAccounts
 type BillingAccounts struct {
-	Accounts             []BillingRoutedUsage  `json:"accounts,omitempty"`
-	Scope                *string               `json:"scope,omitempty"`
-	Source               *string               `json:"source,omitempty"`
+	// Accounts is one row per linked account the gateway actually routed through.
+	Accounts []BillingRoutedUsage `json:"accounts,omitempty"`
+	// Scope is always \"user\": the caller's own linked accounts.
+	Scope *string `json:"scope,omitempty"`
+	// Source is always \"routed\": the gateway's own routed ledger.
+	Source *string `json:"source,omitempty"`
+	// Total is the honest sum across the rows.
 	Total                *BillingAccountsTotal `json:"total,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

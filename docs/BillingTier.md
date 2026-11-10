@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Balance** | Pointer to [**BillingTierBalance**](BillingTierBalance.md) |  | [optional] 
 **Plan** | Pointer to **string** | Plan is the catalog rung the subject is served as (\&quot;\&quot; with no plan). A tier is a class of rungs; a bound that differs within one class keys on this. | [optional] 
+**PlanName** | Pointer to **string** | PlanName is the display name of the served plan (\&quot;Unlimited\&quot;), \&quot;\&quot; with no plan. A plan only the plan authority knows has no catalog name, so a reader shows this, not the tier. Last, for the ZAP wire. | [optional] 
 **Subscription** | Pointer to **string** | Subscription is the id of the subscription row whose plan is the served rung, \&quot;\&quot; when the tier is not a subscription&#39;s. | [optional] 
 **Tier** | Pointer to [**BillingTierLimits**](BillingTierLimits.md) |  | [optional] 
 **User** | Pointer to **string** |  | [optional] 
@@ -78,6 +79,31 @@ SetPlan sets Plan field to given value.
 `func (o *BillingTier) HasPlan() bool`
 
 HasPlan returns a boolean if a field has been set.
+
+### GetPlanName
+
+`func (o *BillingTier) GetPlanName() string`
+
+GetPlanName returns the PlanName field if non-nil, zero value otherwise.
+
+### GetPlanNameOk
+
+`func (o *BillingTier) GetPlanNameOk() (*string, bool)`
+
+GetPlanNameOk returns a tuple with the PlanName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlanName
+
+`func (o *BillingTier) SetPlanName(v string)`
+
+SetPlanName sets PlanName field to given value.
+
+### HasPlanName
+
+`func (o *BillingTier) HasPlanName() bool`
+
+HasPlanName returns a boolean if a field has been set.
 
 ### GetSubscription
 

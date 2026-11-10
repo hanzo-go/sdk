@@ -30,6 +30,7 @@ type CaptureEvent struct {
 	GroupId              *string                `json:"groupId,omitempty"`
 	GroupType            *string                `json:"groupType,omitempty"`
 	Kind                 *string                `json:"kind,omitempty"`
+	LastUtm              *UTM                   `json:"lastUtm,omitempty"`
 	Level                *string                `json:"level,omitempty"`
 	Library              *string                `json:"library,omitempty"`
 	LibraryVersion       *string                `json:"libraryVersion,omitempty"`
@@ -430,6 +431,38 @@ func (o *CaptureEvent) HasKind() bool {
 // SetKind gets a reference to the given string and assigns it to the Kind field.
 func (o *CaptureEvent) SetKind(v string) {
 	o.Kind = &v
+}
+
+// GetLastUtm returns the LastUtm field value if set, zero value otherwise.
+func (o *CaptureEvent) GetLastUtm() UTM {
+	if o == nil || IsNil(o.LastUtm) {
+		var ret UTM
+		return ret
+	}
+	return *o.LastUtm
+}
+
+// GetLastUtmOk returns a tuple with the LastUtm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CaptureEvent) GetLastUtmOk() (*UTM, bool) {
+	if o == nil || IsNil(o.LastUtm) {
+		return nil, false
+	}
+	return o.LastUtm, true
+}
+
+// HasLastUtm returns a boolean if a field has been set.
+func (o *CaptureEvent) HasLastUtm() bool {
+	if o != nil && !IsNil(o.LastUtm) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUtm gets a reference to the given UTM and assigns it to the LastUtm field.
+func (o *CaptureEvent) SetLastUtm(v UTM) {
+	o.LastUtm = &v
 }
 
 // GetLevel returns the Level field value if set, zero value otherwise.
@@ -1371,6 +1404,9 @@ func (o CaptureEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Kind) {
 		toSerialize["kind"] = o.Kind
 	}
+	if !IsNil(o.LastUtm) {
+		toSerialize["lastUtm"] = o.LastUtm
+	}
 	if !IsNil(o.Level) {
 		toSerialize["level"] = o.Level
 	}
@@ -1488,6 +1524,7 @@ func (o *CaptureEvent) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "groupId")
 		delete(additionalProperties, "groupType")
 		delete(additionalProperties, "kind")
+		delete(additionalProperties, "lastUtm")
 		delete(additionalProperties, "level")
 		delete(additionalProperties, "library")
 		delete(additionalProperties, "libraryVersion")

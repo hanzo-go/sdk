@@ -21,6 +21,14 @@ var _ MappedNullable = &UsageLLM{}
 type UsageLLM struct {
 	// Available is false when the warehouse was not connected or a query blipped. The totals below are then honest zeros, NOT measured ones.
 	Available *bool `json:"available,omitempty"`
+	// CacheReadTokens is how many of the prompt tokens the provider's prompt cache served, at the cache-read price.
+	CacheReadTokens *int64 `json:"cacheReadTokens,omitempty"`
+	// CacheSavedCents is what the prompt cache took off the bill, in US cents: each call's cache-read tokens at the model's input price less the same tokens at its cache-read price, from the price that call was billed at. A call recorded before this was measured counts 0, so it is a floor.
+	CacheSavedCents *int64 `json:"cacheSavedCents,omitempty"`
+	// CacheWriteTokens is how many prompt tokens were written to the prompt cache.
+	CacheWriteTokens *int64 `json:"cacheWriteTokens,omitempty"`
+	// CachedShare is CacheReadTokens over PromptTokens, 0 to 1 at four decimals; 0 when nothing was prompted.
+	CachedShare *float64 `json:"cachedShare,omitempty"`
 	// CompletionTokens is the output half.
 	CompletionTokens *int64 `json:"completionTokens,omitempty"`
 	// CostCents is what they cost the org, in US cents. This IS a Hanzo charge.
@@ -87,6 +95,134 @@ func (o *UsageLLM) HasAvailable() bool {
 // SetAvailable gets a reference to the given bool and assigns it to the Available field.
 func (o *UsageLLM) SetAvailable(v bool) {
 	o.Available = &v
+}
+
+// GetCacheReadTokens returns the CacheReadTokens field value if set, zero value otherwise.
+func (o *UsageLLM) GetCacheReadTokens() int64 {
+	if o == nil || IsNil(o.CacheReadTokens) {
+		var ret int64
+		return ret
+	}
+	return *o.CacheReadTokens
+}
+
+// GetCacheReadTokensOk returns a tuple with the CacheReadTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageLLM) GetCacheReadTokensOk() (*int64, bool) {
+	if o == nil || IsNil(o.CacheReadTokens) {
+		return nil, false
+	}
+	return o.CacheReadTokens, true
+}
+
+// HasCacheReadTokens returns a boolean if a field has been set.
+func (o *UsageLLM) HasCacheReadTokens() bool {
+	if o != nil && !IsNil(o.CacheReadTokens) {
+		return true
+	}
+
+	return false
+}
+
+// SetCacheReadTokens gets a reference to the given int64 and assigns it to the CacheReadTokens field.
+func (o *UsageLLM) SetCacheReadTokens(v int64) {
+	o.CacheReadTokens = &v
+}
+
+// GetCacheSavedCents returns the CacheSavedCents field value if set, zero value otherwise.
+func (o *UsageLLM) GetCacheSavedCents() int64 {
+	if o == nil || IsNil(o.CacheSavedCents) {
+		var ret int64
+		return ret
+	}
+	return *o.CacheSavedCents
+}
+
+// GetCacheSavedCentsOk returns a tuple with the CacheSavedCents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageLLM) GetCacheSavedCentsOk() (*int64, bool) {
+	if o == nil || IsNil(o.CacheSavedCents) {
+		return nil, false
+	}
+	return o.CacheSavedCents, true
+}
+
+// HasCacheSavedCents returns a boolean if a field has been set.
+func (o *UsageLLM) HasCacheSavedCents() bool {
+	if o != nil && !IsNil(o.CacheSavedCents) {
+		return true
+	}
+
+	return false
+}
+
+// SetCacheSavedCents gets a reference to the given int64 and assigns it to the CacheSavedCents field.
+func (o *UsageLLM) SetCacheSavedCents(v int64) {
+	o.CacheSavedCents = &v
+}
+
+// GetCacheWriteTokens returns the CacheWriteTokens field value if set, zero value otherwise.
+func (o *UsageLLM) GetCacheWriteTokens() int64 {
+	if o == nil || IsNil(o.CacheWriteTokens) {
+		var ret int64
+		return ret
+	}
+	return *o.CacheWriteTokens
+}
+
+// GetCacheWriteTokensOk returns a tuple with the CacheWriteTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageLLM) GetCacheWriteTokensOk() (*int64, bool) {
+	if o == nil || IsNil(o.CacheWriteTokens) {
+		return nil, false
+	}
+	return o.CacheWriteTokens, true
+}
+
+// HasCacheWriteTokens returns a boolean if a field has been set.
+func (o *UsageLLM) HasCacheWriteTokens() bool {
+	if o != nil && !IsNil(o.CacheWriteTokens) {
+		return true
+	}
+
+	return false
+}
+
+// SetCacheWriteTokens gets a reference to the given int64 and assigns it to the CacheWriteTokens field.
+func (o *UsageLLM) SetCacheWriteTokens(v int64) {
+	o.CacheWriteTokens = &v
+}
+
+// GetCachedShare returns the CachedShare field value if set, zero value otherwise.
+func (o *UsageLLM) GetCachedShare() float64 {
+	if o == nil || IsNil(o.CachedShare) {
+		var ret float64
+		return ret
+	}
+	return *o.CachedShare
+}
+
+// GetCachedShareOk returns a tuple with the CachedShare field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageLLM) GetCachedShareOk() (*float64, bool) {
+	if o == nil || IsNil(o.CachedShare) {
+		return nil, false
+	}
+	return o.CachedShare, true
+}
+
+// HasCachedShare returns a boolean if a field has been set.
+func (o *UsageLLM) HasCachedShare() bool {
+	if o != nil && !IsNil(o.CachedShare) {
+		return true
+	}
+
+	return false
+}
+
+// SetCachedShare gets a reference to the given float64 and assigns it to the CachedShare field.
+func (o *UsageLLM) SetCachedShare(v float64) {
+	o.CachedShare = &v
 }
 
 // GetCompletionTokens returns the CompletionTokens field value if set, zero value otherwise.
@@ -326,6 +462,18 @@ func (o UsageLLM) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Available) {
 		toSerialize["available"] = o.Available
 	}
+	if !IsNil(o.CacheReadTokens) {
+		toSerialize["cacheReadTokens"] = o.CacheReadTokens
+	}
+	if !IsNil(o.CacheSavedCents) {
+		toSerialize["cacheSavedCents"] = o.CacheSavedCents
+	}
+	if !IsNil(o.CacheWriteTokens) {
+		toSerialize["cacheWriteTokens"] = o.CacheWriteTokens
+	}
+	if !IsNil(o.CachedShare) {
+		toSerialize["cachedShare"] = o.CachedShare
+	}
 	if !IsNil(o.CompletionTokens) {
 		toSerialize["completionTokens"] = o.CompletionTokens
 	}
@@ -370,6 +518,10 @@ func (o *UsageLLM) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "available")
+		delete(additionalProperties, "cacheReadTokens")
+		delete(additionalProperties, "cacheSavedCents")
+		delete(additionalProperties, "cacheWriteTokens")
+		delete(additionalProperties, "cachedShare")
 		delete(additionalProperties, "completionTokens")
 		delete(additionalProperties, "costCents")
 		delete(additionalProperties, "models")

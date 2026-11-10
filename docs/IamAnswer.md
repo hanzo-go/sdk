@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | Pointer to **string** |  | [optional] 
+**Code** | Pointer to **string** | Code is a STABLE machine-readable reason, where the human &#x60;msg&#x60; is deliberately generic. &#x60;msg&#x60; is prose for a person and several distinct causes legitimately share one sentence; a caller that must BRANCH on the cause — or tell its own user which of them happened — cannot parse prose. Optional, so every existing envelope is byte-identical and no SDK changes. | [optional] 
 **Data** | Pointer to **interface{}** |  | [optional] 
 **Data2** | Pointer to **interface{}** |  | [optional] 
 **Data3** | Pointer to **interface{}** |  | [optional] 

@@ -55,7 +55,7 @@ type AgentAgentView struct {
 	Schedule *string `json:"schedule,omitempty"`
 	// ServiceAccountID is the IAM agent service account (<org>-<agent>) a scheduled run is billed AS. It is what makes an autonomous run attributable to a principal rather than only to the org; empty means the org itself wears the spend.
 	ServiceAccountId *string `json:"serviceAccountId,omitempty"`
-	// Status is the agent's readiness, and today it is \"ready\" on every row: an agent is a definition rather than a provisioned thing, so nothing transitions it. Server-set at create; no route accepts it.
+	// Status is the agent's readiness: \"ready\", or \"retired\" for a built-in whose member has left Hanzo's team. A retired agent is left out of the list and still answers a get by its handle. Server-set; no route accepts it.
 	Status *string `json:"status,omitempty"`
 	// Tools are the tool names this agent may call, and the list IS the authority: an agent that declares none gets none. The single entry \"*\" means whatever the fleet's MCP server serves at the moment of the run, resolved per run rather than frozen here, which is how the default assistant reaches subsystems that shipped after it was defined. Empty array, never null.
 	Tools []string `json:"tools,omitempty"`

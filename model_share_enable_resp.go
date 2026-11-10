@@ -19,7 +19,7 @@ var _ MappedNullable = &ShareEnableResp{}
 
 // ShareEnableResp struct for ShareEnableResp
 type ShareEnableResp struct {
-	// AccountToken is the org's own tunnel-account credential. Treat it as a secret: it is what the CLI enables an environment with.
+	// AccountToken is the caller's tunnel-account credential: their org's, or in a held org their own. Treat it as a secret: it is what the CLI enables an environment with.
 	AccountToken *string `json:"accountToken,omitempty"`
 	// Controller is the public controller endpoint the CLI enables against.
 	Controller *string `json:"controller,omitempty"`

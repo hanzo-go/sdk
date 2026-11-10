@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Defaults** | Pointer to [**Grants**](Grants.md) |  | [optional] 
-**Gpc** | Pointer to **bool** |  | [optional] 
+**Floor** | Pointer to **int32** |  | [optional] 
 **Mode** | Pointer to **string** |  | [optional] 
-**Notice** | Pointer to **string** |  | [optional] 
+**Refused** | Pointer to **bool** |  | [optional] 
 **Region** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
 
@@ -55,30 +55,30 @@ SetDefaults sets Defaults field to given value.
 
 HasDefaults returns a boolean if a field has been set.
 
-### GetGpc
+### GetFloor
 
-`func (o *Decision) GetGpc() bool`
+`func (o *Decision) GetFloor() int32`
 
-GetGpc returns the Gpc field if non-nil, zero value otherwise.
+GetFloor returns the Floor field if non-nil, zero value otherwise.
 
-### GetGpcOk
+### GetFloorOk
 
-`func (o *Decision) GetGpcOk() (*bool, bool)`
+`func (o *Decision) GetFloorOk() (*int32, bool)`
 
-GetGpcOk returns a tuple with the Gpc field if it's non-nil, zero value otherwise
+GetFloorOk returns a tuple with the Floor field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetGpc
+### SetFloor
 
-`func (o *Decision) SetGpc(v bool)`
+`func (o *Decision) SetFloor(v int32)`
 
-SetGpc sets Gpc field to given value.
+SetFloor sets Floor field to given value.
 
-### HasGpc
+### HasFloor
 
-`func (o *Decision) HasGpc() bool`
+`func (o *Decision) HasFloor() bool`
 
-HasGpc returns a boolean if a field has been set.
+HasFloor returns a boolean if a field has been set.
 
 ### GetMode
 
@@ -105,30 +105,30 @@ SetMode sets Mode field to given value.
 
 HasMode returns a boolean if a field has been set.
 
-### GetNotice
+### GetRefused
 
-`func (o *Decision) GetNotice() string`
+`func (o *Decision) GetRefused() bool`
 
-GetNotice returns the Notice field if non-nil, zero value otherwise.
+GetRefused returns the Refused field if non-nil, zero value otherwise.
 
-### GetNoticeOk
+### GetRefusedOk
 
-`func (o *Decision) GetNoticeOk() (*string, bool)`
+`func (o *Decision) GetRefusedOk() (*bool, bool)`
 
-GetNoticeOk returns a tuple with the Notice field if it's non-nil, zero value otherwise
+GetRefusedOk returns a tuple with the Refused field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetNotice
+### SetRefused
 
-`func (o *Decision) SetNotice(v string)`
+`func (o *Decision) SetRefused(v bool)`
 
-SetNotice sets Notice field to given value.
+SetRefused sets Refused field to given value.
 
-### HasNotice
+### HasRefused
 
-`func (o *Decision) HasNotice() bool`
+`func (o *Decision) HasRefused() bool`
 
-HasNotice returns a boolean if a field has been set.
+HasRefused returns a boolean if a field has been set.
 
 ### GetRegion
 

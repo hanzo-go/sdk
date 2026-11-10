@@ -19,6 +19,8 @@ var _ MappedNullable = &ProviderGithubBackfillIn{}
 
 // ProviderGithubBackfillIn struct for ProviderGithubBackfillIn
 type ProviderGithubBackfillIn struct {
+	// Repo narrows the pass to ONE granted repository, named `owner/name` or bare `name` (case-insensitive). Empty walks every granted repository. A project page syncs its own issues with this; the org-wide pass stays the default. A name the connection does not grant is a 404, never a silent empty pass that reads as \"this repository has no issues\".
+	Repo *string `json:"repo,omitempty"`
 	// State is the GitHub issue state to walk: \"open\" (the default), \"closed\" or \"all\". Anything else is a 400.
 	State                *string `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -41,6 +43,38 @@ func NewProviderGithubBackfillIn() *ProviderGithubBackfillIn {
 func NewProviderGithubBackfillInWithDefaults() *ProviderGithubBackfillIn {
 	this := ProviderGithubBackfillIn{}
 	return &this
+}
+
+// GetRepo returns the Repo field value if set, zero value otherwise.
+func (o *ProviderGithubBackfillIn) GetRepo() string {
+	if o == nil || IsNil(o.Repo) {
+		var ret string
+		return ret
+	}
+	return *o.Repo
+}
+
+// GetRepoOk returns a tuple with the Repo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProviderGithubBackfillIn) GetRepoOk() (*string, bool) {
+	if o == nil || IsNil(o.Repo) {
+		return nil, false
+	}
+	return o.Repo, true
+}
+
+// HasRepo returns a boolean if a field has been set.
+func (o *ProviderGithubBackfillIn) HasRepo() bool {
+	if o != nil && !IsNil(o.Repo) {
+		return true
+	}
+
+	return false
+}
+
+// SetRepo gets a reference to the given string and assigns it to the Repo field.
+func (o *ProviderGithubBackfillIn) SetRepo(v string) {
+	o.Repo = &v
 }
 
 // GetState returns the State field value if set, zero value otherwise.
@@ -85,6 +119,9 @@ func (o ProviderGithubBackfillIn) MarshalJSON() ([]byte, error) {
 
 func (o ProviderGithubBackfillIn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Repo) {
+		toSerialize["repo"] = o.Repo
+	}
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
@@ -110,6 +147,7 @@ func (o *ProviderGithubBackfillIn) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "repo")
 		delete(additionalProperties, "state")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Class** | Pointer to **string** | Class is what was actually leased, from the closed set LeaseIn.Class names: exec | dev | desktop | android. A request that named none leased an &#x60;exec&#x60;, so this is where a caller learns which kind of computer it is holding, and it is what Workdir below follows from. | [optional] 
+**Carried** | Pointer to **bool** | Carried says the lease is extended for as long as it works and its wallet pays for the next hour. A lease that is not carried ends at ExpiresAt whatever it is doing: a free one. | [optional] 
+**Class** | Pointer to **string** | Class is what was actually leased, from the closed set LeaseIn.Class names: exec | dev | desktop | browser | android. A request that named none leased an &#x60;exec&#x60;, so this is where a caller learns which kind of computer it is holding, and it is what Workdir below follows from. | [optional] 
 **Cluster** | Pointer to **string** | Cluster is the attached cluster this sandbox runs on, when one was named. Empty is the home cluster. | [optional] 
+**ExpiresAt** | Pointer to **int64** | ExpiresAt is when the lease ends, Unix seconds. A resumed sandbox keeps the expiry it had, so this is not always a fresh lease&#39;s. | [optional] 
 **Id** | Pointer to **string** | ID names this computer for every later call — run, read, write, stop and end all take it, and a LeaseIn carrying it resumes THIS sandbox instead of leasing a second one. Minted here; a caller cannot choose it, and a resumed lease that had expired comes back under a new one. | [optional] 
 **Runtime** | Pointer to **string** | Runtime is the boundary this sandbox GOT, which need not be the one asked for — carried for the same reason Workdir is, that it is a fact only the owner knows and a caller assuming it would be holding a second copy. Empty is the node&#39;s default runtime, and a real answer. | [optional] 
 **Status** | Pointer to **string** | Status is where the pod stands, from the store&#39;s three: pending | running | error. A lease that ANSWERS has already waited for the pod, so this reads &#x60;running&#x60; — a start that failed is a 503 and no sandbox at all. Read it anyway: exec refuses a sandbox that is not running, so anything else here is the reason the next call will not work. | [optional] 
@@ -29,6 +31,31 @@ will change when the set of required properties is changed
 NewSandboxLeasedWithDefaults instantiates a new SandboxLeased object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCarried
+
+`func (o *SandboxLeased) GetCarried() bool`
+
+GetCarried returns the Carried field if non-nil, zero value otherwise.
+
+### GetCarriedOk
+
+`func (o *SandboxLeased) GetCarriedOk() (*bool, bool)`
+
+GetCarriedOk returns a tuple with the Carried field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCarried
+
+`func (o *SandboxLeased) SetCarried(v bool)`
+
+SetCarried sets Carried field to given value.
+
+### HasCarried
+
+`func (o *SandboxLeased) HasCarried() bool`
+
+HasCarried returns a boolean if a field has been set.
 
 ### GetClass
 
@@ -79,6 +106,31 @@ SetCluster sets Cluster field to given value.
 `func (o *SandboxLeased) HasCluster() bool`
 
 HasCluster returns a boolean if a field has been set.
+
+### GetExpiresAt
+
+`func (o *SandboxLeased) GetExpiresAt() int64`
+
+GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
+
+### GetExpiresAtOk
+
+`func (o *SandboxLeased) GetExpiresAtOk() (*int64, bool)`
+
+GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpiresAt
+
+`func (o *SandboxLeased) SetExpiresAt(v int64)`
+
+SetExpiresAt sets ExpiresAt field to given value.
+
+### HasExpiresAt
+
+`func (o *SandboxLeased) HasExpiresAt() bool`
+
+HasExpiresAt returns a boolean if a field has been set.
 
 ### GetId
 

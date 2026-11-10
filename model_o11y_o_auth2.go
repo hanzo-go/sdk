@@ -38,12 +38,15 @@ type O11yOAuth2 struct {
 	// GrantType is the OAuth2 grant type to use. It can be one of \"client_credentials\" or \"urn:ietf:params:oauth:grant-type:jwt-bearer\" (RFC 7523). Default value is \"client_credentials\"
 	GrantType *string `json:"grant_type,omitempty"`
 	// Iss is the OAuth client identifier used when communicating with the configured OAuth provider. Default value is client_id. Only used if GrantType is set to \"urn:ietf:params:oauth:grant-type:jwt-bearer\".
-	Iss                  *string                  `json:"iss,omitempty"`
-	NoProxy              *string                  `json:"no_proxy,omitempty"`
-	ProxyConnectHeader   map[string][]interface{} `json:"proxy_connect_header,omitempty"`
-	ProxyFromEnvironment *bool                    `json:"proxy_from_environment,omitempty"`
-	ProxyUrl             interface{}              `json:"proxy_url,omitempty"`
-	Scopes               []string                 `json:"scopes,omitempty"`
+	Iss *string `json:"iss,omitempty"`
+	// NoProxy contains addresses that should not use a proxy.
+	NoProxy *string `json:"no_proxy,omitempty"`
+	// ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. Assume that at least _some_ of these headers are going to contain secrets and use Secret as the value type instead of string.
+	ProxyConnectHeader map[string][]interface{} `json:"proxy_connect_header,omitempty"`
+	// ProxyFromEnvironment makes use of net/http ProxyFromEnvironment function to determine proxies.
+	ProxyFromEnvironment *bool       `json:"proxy_from_environment,omitempty"`
+	ProxyUrl             interface{} `json:"proxy_url,omitempty"`
+	Scopes               []string    `json:"scopes,omitempty"`
 	// SignatureAlgorithm is the RSA algorithm used to sign JWT token. Only used if GrantType is set to \"urn:ietf:params:oauth:grant-type:jwt-bearer\". Default value is RS256 and valid values RS256, RS384, RS512
 	SignatureAlgorithm   *string `json:"signature_algorithm,omitempty"`
 	TokenUrl             *string `json:"token_url,omitempty"`

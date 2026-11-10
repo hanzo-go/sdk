@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Keys** | Pointer to [**[]AccountApiKey**](AccountApiKey.md) | Keys is every key the caller holds, at most one per type. | [optional] 
+**Keys** | Pointer to [**[]AccountApiKey**](AccountApiKey.md) | Keys is every key the caller may see, newest first: their own, or every key of the org when the caller administers it. Revoked keys stay listed. | [optional] 
 
 ## Methods
 

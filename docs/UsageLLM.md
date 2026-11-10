@@ -5,6 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Available** | Pointer to **bool** | Available is false when the warehouse was not connected or a query blipped. The totals below are then honest zeros, NOT measured ones. | [optional] 
+**CacheReadTokens** | Pointer to **int64** | CacheReadTokens is how many of the prompt tokens the provider&#39;s prompt cache served, at the cache-read price. | [optional] 
+**CacheSavedCents** | Pointer to **int64** | CacheSavedCents is what the prompt cache took off the bill, in US cents: each call&#39;s cache-read tokens at the model&#39;s input price less the same tokens at its cache-read price, from the price that call was billed at. A call recorded before this was measured counts 0, so it is a floor. | [optional] 
+**CacheWriteTokens** | Pointer to **int64** | CacheWriteTokens is how many prompt tokens were written to the prompt cache. | [optional] 
+**CachedShare** | Pointer to **float64** | CachedShare is CacheReadTokens over PromptTokens, 0 to 1 at four decimals; 0 when nothing was prompted. | [optional] 
 **CompletionTokens** | Pointer to **int64** | CompletionTokens is the output half. | [optional] 
 **CostCents** | Pointer to **int64** | CostCents is what they cost the org, in US cents. This IS a Hanzo charge. | [optional] 
 **Models** | Pointer to **int64** | Models is how many distinct models were used. | [optional] 
@@ -56,6 +60,106 @@ SetAvailable sets Available field to given value.
 `func (o *UsageLLM) HasAvailable() bool`
 
 HasAvailable returns a boolean if a field has been set.
+
+### GetCacheReadTokens
+
+`func (o *UsageLLM) GetCacheReadTokens() int64`
+
+GetCacheReadTokens returns the CacheReadTokens field if non-nil, zero value otherwise.
+
+### GetCacheReadTokensOk
+
+`func (o *UsageLLM) GetCacheReadTokensOk() (*int64, bool)`
+
+GetCacheReadTokensOk returns a tuple with the CacheReadTokens field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCacheReadTokens
+
+`func (o *UsageLLM) SetCacheReadTokens(v int64)`
+
+SetCacheReadTokens sets CacheReadTokens field to given value.
+
+### HasCacheReadTokens
+
+`func (o *UsageLLM) HasCacheReadTokens() bool`
+
+HasCacheReadTokens returns a boolean if a field has been set.
+
+### GetCacheSavedCents
+
+`func (o *UsageLLM) GetCacheSavedCents() int64`
+
+GetCacheSavedCents returns the CacheSavedCents field if non-nil, zero value otherwise.
+
+### GetCacheSavedCentsOk
+
+`func (o *UsageLLM) GetCacheSavedCentsOk() (*int64, bool)`
+
+GetCacheSavedCentsOk returns a tuple with the CacheSavedCents field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCacheSavedCents
+
+`func (o *UsageLLM) SetCacheSavedCents(v int64)`
+
+SetCacheSavedCents sets CacheSavedCents field to given value.
+
+### HasCacheSavedCents
+
+`func (o *UsageLLM) HasCacheSavedCents() bool`
+
+HasCacheSavedCents returns a boolean if a field has been set.
+
+### GetCacheWriteTokens
+
+`func (o *UsageLLM) GetCacheWriteTokens() int64`
+
+GetCacheWriteTokens returns the CacheWriteTokens field if non-nil, zero value otherwise.
+
+### GetCacheWriteTokensOk
+
+`func (o *UsageLLM) GetCacheWriteTokensOk() (*int64, bool)`
+
+GetCacheWriteTokensOk returns a tuple with the CacheWriteTokens field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCacheWriteTokens
+
+`func (o *UsageLLM) SetCacheWriteTokens(v int64)`
+
+SetCacheWriteTokens sets CacheWriteTokens field to given value.
+
+### HasCacheWriteTokens
+
+`func (o *UsageLLM) HasCacheWriteTokens() bool`
+
+HasCacheWriteTokens returns a boolean if a field has been set.
+
+### GetCachedShare
+
+`func (o *UsageLLM) GetCachedShare() float64`
+
+GetCachedShare returns the CachedShare field if non-nil, zero value otherwise.
+
+### GetCachedShareOk
+
+`func (o *UsageLLM) GetCachedShareOk() (*float64, bool)`
+
+GetCachedShareOk returns a tuple with the CachedShare field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCachedShare
+
+`func (o *UsageLLM) SetCachedShare(v float64)`
+
+SetCachedShare sets CachedShare field to given value.
+
+### HasCachedShare
+
+`func (o *UsageLLM) HasCachedShare() bool`
+
+HasCachedShare returns a boolean if a field has been set.
 
 ### GetCompletionTokens
 

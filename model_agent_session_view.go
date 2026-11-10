@@ -29,6 +29,8 @@ type AgentSessionView struct {
 	Base *string `json:"base,omitempty"`
 	// Branch is the branch the run pushes its work to, and the only one it may write.
 	Branch *string `json:"branch,omitempty"`
+	// Channel is the collaborative channel this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a space view show the runs of one channel beside its messages.
+	Channel *string `json:"channel,omitempty"`
 	// Children is the DIRECT fan-out — how many sessions name this one as parent — and not the size of the subtree. Read the tree for that.
 	Children *int64 `json:"children,omitempty"`
 	// CreatedAt is when the row was written, same format. Every path that opens a session stamps it and StartedAt from one clock reading, so the two are equal on every session this surface has ever produced.
@@ -39,6 +41,8 @@ type AgentSessionView struct {
 	EndedAt *string `json:"endedAt,omitempty"`
 	// Environment is where the run executes: \"sandbox\" for a Hanzo sandbox, or the id of the org's machine it was routed to (the same id Target carries).
 	Environment *string `json:"environment,omitempty"`
+	// Error explains why the session ended in error, when it did. Empty for any other status.
+	Error *string `json:"error,omitempty"`
 	// Events is how many turns the session's log holds, counted at read time. It is the whole log, however few of them RecentEvents carries.
 	Events *int64 `json:"events,omitempty"`
 	// Execution context (mission-control): the machine/repo/cwd a card shows and the run-target a session is dispatched to. Omitted when a surface didn't report it.
@@ -67,8 +71,6 @@ type AgentSessionView struct {
 	Published *bool `json:"published,omitempty"`
 	// Repo is the code the session is working on, as the surface reported it. It is truth the SURFACE states, so it is a label rather than something resolved here.
 	Repo *string `json:"repo,omitempty"`
-	// Room is the collaborative room this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a space view show the runs of one room beside its messages.
-	Room *string `json:"room,omitempty"`
 	// RootSessionID is the top of this session's tree, inherited from the parent and shared by every node in one flow. A root session's own id, when it has no parent. It is the key one indexed read pulls a whole flow by, and what ?root= narrows a list or a stream to.
 	RootSessionId *string `json:"rootSessionId,omitempty"`
 	// Sandbox is the id of the sandbox the run works in (\"m_\" and 24 hex), the handle its terminal and its screen are opened with (/v1/sandbox/{id}/terminal, /screen). Set when the run leases it, and kept once the run gives it back, when the id opens nothing. Empty for a run that never leased one — a routed run, or a turn that only talked.
@@ -271,6 +273,38 @@ func (o *AgentSessionView) SetBranch(v string) {
 	o.Branch = &v
 }
 
+// GetChannel returns the Channel field value if set, zero value otherwise.
+func (o *AgentSessionView) GetChannel() string {
+	if o == nil || IsNil(o.Channel) {
+		var ret string
+		return ret
+	}
+	return *o.Channel
+}
+
+// GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentSessionView) GetChannelOk() (*string, bool) {
+	if o == nil || IsNil(o.Channel) {
+		return nil, false
+	}
+	return o.Channel, true
+}
+
+// HasChannel returns a boolean if a field has been set.
+func (o *AgentSessionView) HasChannel() bool {
+	if o != nil && !IsNil(o.Channel) {
+		return true
+	}
+
+	return false
+}
+
+// SetChannel gets a reference to the given string and assigns it to the Channel field.
+func (o *AgentSessionView) SetChannel(v string) {
+	o.Channel = &v
+}
+
 // GetChildren returns the Children field value if set, zero value otherwise.
 func (o *AgentSessionView) GetChildren() int64 {
 	if o == nil || IsNil(o.Children) {
@@ -429,6 +463,38 @@ func (o *AgentSessionView) HasEnvironment() bool {
 // SetEnvironment gets a reference to the given string and assigns it to the Environment field.
 func (o *AgentSessionView) SetEnvironment(v string) {
 	o.Environment = &v
+}
+
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *AgentSessionView) GetError() string {
+	if o == nil || IsNil(o.Error) {
+		var ret string
+		return ret
+	}
+	return *o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentSessionView) GetErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.Error) {
+		return nil, false
+	}
+	return o.Error, true
+}
+
+// HasError returns a boolean if a field has been set.
+func (o *AgentSessionView) HasError() bool {
+	if o != nil && !IsNil(o.Error) {
+		return true
+	}
+
+	return false
+}
+
+// SetError gets a reference to the given string and assigns it to the Error field.
+func (o *AgentSessionView) SetError(v string) {
+	o.Error = &v
 }
 
 // GetEvents returns the Events field value if set, zero value otherwise.
@@ -879,38 +945,6 @@ func (o *AgentSessionView) SetRepo(v string) {
 	o.Repo = &v
 }
 
-// GetRoom returns the Room field value if set, zero value otherwise.
-func (o *AgentSessionView) GetRoom() string {
-	if o == nil || IsNil(o.Room) {
-		var ret string
-		return ret
-	}
-	return *o.Room
-}
-
-// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentSessionView) GetRoomOk() (*string, bool) {
-	if o == nil || IsNil(o.Room) {
-		return nil, false
-	}
-	return o.Room, true
-}
-
-// HasRoom returns a boolean if a field has been set.
-func (o *AgentSessionView) HasRoom() bool {
-	if o != nil && !IsNil(o.Room) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoom gets a reference to the given string and assigns it to the Room field.
-func (o *AgentSessionView) SetRoom(v string) {
-	o.Room = &v
-}
-
 // GetRootSessionId returns the RootSessionId field value if set, zero value otherwise.
 func (o *AgentSessionView) GetRootSessionId() string {
 	if o == nil || IsNil(o.RootSessionId) {
@@ -1256,6 +1290,9 @@ func (o AgentSessionView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Branch) {
 		toSerialize["branch"] = o.Branch
 	}
+	if !IsNil(o.Channel) {
+		toSerialize["channel"] = o.Channel
+	}
 	if !IsNil(o.Children) {
 		toSerialize["children"] = o.Children
 	}
@@ -1270,6 +1307,9 @@ func (o AgentSessionView) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Environment) {
 		toSerialize["environment"] = o.Environment
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
 	}
 	if !IsNil(o.Events) {
 		toSerialize["events"] = o.Events
@@ -1312,9 +1352,6 @@ func (o AgentSessionView) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Repo) {
 		toSerialize["repo"] = o.Repo
-	}
-	if !IsNil(o.Room) {
-		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.RootSessionId) {
 		toSerialize["rootSessionId"] = o.RootSessionId
@@ -1373,11 +1410,13 @@ func (o *AgentSessionView) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "agent")
 		delete(additionalProperties, "base")
 		delete(additionalProperties, "branch")
+		delete(additionalProperties, "channel")
 		delete(additionalProperties, "children")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "cwd")
 		delete(additionalProperties, "endedAt")
 		delete(additionalProperties, "environment")
+		delete(additionalProperties, "error")
 		delete(additionalProperties, "events")
 		delete(additionalProperties, "host")
 		delete(additionalProperties, "id")
@@ -1392,7 +1431,6 @@ func (o *AgentSessionView) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "provider")
 		delete(additionalProperties, "published")
 		delete(additionalProperties, "repo")
-		delete(additionalProperties, "room")
 		delete(additionalProperties, "rootSessionId")
 		delete(additionalProperties, "sandbox")
 		delete(additionalProperties, "startedAt")

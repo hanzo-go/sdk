@@ -22,6 +22,250 @@ import (
 // AiAPIService AiAPI service
 type AiAPIService service
 
+type AiAPIAiChatRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	aiChatIn   *AiChatIn
+}
+
+func (r AiAPIAiChatRequest) AiChatIn(aiChatIn AiChatIn) AiAPIAiChatRequest {
+	r.aiChatIn = &aiChatIn
+	return r
+}
+
+func (r AiAPIAiChatRequest) Execute() (*AiChat, *http.Response, error) {
+	return r.ApiService.AiChatExecute(r)
+}
+
+/*
+AiChat Asks one model one prompt and answers the reply, which model served it and who paid.
+
+Asks one model one prompt and answers the reply, which model served it and who
+paid. The call is the caller's own POST /v1/chat/completions, run as the caller,
+so it is gated, billed and refused exactly as that route is; a refusal names its
+code and what lifts it, never an amount. An empty model asks the deployment's
+default Hanzo model.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIAiChatRequest
+*/
+func (a *AiAPIService) AiChat(ctx context.Context) AiAPIAiChatRequest {
+	return AiAPIAiChatRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AiChat
+func (a *AiAPIService) AiChatExecute(r AiAPIAiChatRequest) (*AiChat, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AiChat
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.AiChat")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/mcp/chat"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.aiChatIn == nil {
+		return localVarReturnValue, nil, reportError("aiChatIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.aiChatIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIAiDecideRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	aiDecideIn *AiDecideIn
+}
+
+func (r AiAPIAiDecideRequest) AiDecideIn(aiDecideIn AiDecideIn) AiAPIAiDecideRequest {
+	r.aiDecideIn = &aiDecideIn
+	return r
+}
+
+func (r AiAPIAiDecideRequest) Execute() (*AiDecision, *http.Response, error) {
+	return r.ApiService.AiDecideExecute(r)
+}
+
+/*
+AiDecide Runs one decision — the caller's own POST /v1/decisions, gated and billed exactly as that route is — and answers the decision, which model served it and who paid.
+
+Runs one decision — the caller's own POST /v1/decisions, gated and billed
+exactly as that route is — and answers the decision, which model served it and
+who paid. A refusal names its code and what lifts it, never an amount.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIAiDecideRequest
+*/
+func (a *AiAPIService) AiDecide(ctx context.Context) AiAPIAiDecideRequest {
+	return AiAPIAiDecideRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AiDecision
+func (a *AiAPIService) AiDecideExecute(r AiAPIAiDecideRequest) (*AiDecision, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AiDecision
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.AiDecide")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/mcp/decisions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.aiDecideIn == nil {
+		return localVarReturnValue, nil, reportError("aiDecideIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.aiDecideIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AiAPIAiLimitsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -257,34 +501,79 @@ func (a *AiAPIService) AiMCPToolsExecute(r AiAPIAiMCPToolsRequest) (*AiMCPSurfac
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AiAPIAiSetLimitsRequest struct {
-	ctx         context.Context
-	ApiService  *AiAPIService
-	aiLimitsSet *AiLimitsSet
+type AiAPIAiModelsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	q          *string
+	class      *string
+	family     *string
+	capability *string
+	free       *bool
+	zdr        *bool
+	limit      *int64
 }
 
-func (r AiAPIAiSetLimitsRequest) AiLimitsSet(aiLimitsSet AiLimitsSet) AiAPIAiSetLimitsRequest {
-	r.aiLimitsSet = &aiLimitsSet
+// Q matches the model&#39;s id, name, description or owner, ignoring case.
+func (r AiAPIAiModelsRequest) Q(q string) AiAPIAiModelsRequest {
+	r.q = &q
 	return r
 }
 
-func (r AiAPIAiSetLimitsRequest) Execute() (*AiLimits, *http.Response, error) {
-	return r.ApiService.AiSetLimitsExecute(r)
+// Class keeps one class: premium (third-party frontier models), ours (Hanzo&#39;s priced models) or free.
+func (r AiAPIAiModelsRequest) Class(class string) AiAPIAiModelsRequest {
+	r.class = &class
+	return r
+}
+
+// Family keeps one Hanzo family: enso, zen, kai or zoo.
+func (r AiAPIAiModelsRequest) Family(family string) AiAPIAiModelsRequest {
+	r.family = &family
+	return r
+}
+
+// Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision).
+func (r AiAPIAiModelsRequest) Capability(capability string) AiAPIAiModelsRequest {
+	r.capability = &capability
+	return r
+}
+
+// Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance).
+func (r AiAPIAiModelsRequest) Free(free bool) AiAPIAiModelsRequest {
+	r.free = &free
+	return r
+}
+
+// ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes).
+func (r AiAPIAiModelsRequest) Zdr(zdr bool) AiAPIAiModelsRequest {
+	r.zdr = &zdr
+	return r
+}
+
+// Limit is the most models to answer, 1 to 500; 0 answers 50.
+func (r AiAPIAiModelsRequest) Limit(limit int64) AiAPIAiModelsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r AiAPIAiModelsRequest) Execute() (*AiModels, *http.Response, error) {
+	return r.ApiService.AiModelsExecute(r)
 }
 
 /*
-AiSetLimits Sets the payer's choice to keep using a model on credits once the plan's included usage of it is spent.
+AiModels Searches the model catalog — the one GET /v1/models lists, every OpenRouter model among it as last synced — by text, class, family, capability or free, and answers each match with its class, family, whether it is free, its list price (per token and per million; variable for a router billed at the answering model's price; a resold model's every vendor rate and conditional rate as billed), context window, output bound, expiry and capabilities.
 
-Sets the payer's choice to keep using a model on credits once the plan's included
-usage of it is spent. A pooled org wallet is its org admin's to set; a person's own
-wallet is theirs. Every change is on the audit trail, before and after; no trail,
-no change. Answers the limits as they read after it.
+Searches the model catalog — the one GET /v1/models lists, every OpenRouter model
+among it as last synced — by text, class, family, capability or free, and answers
+each match with its class, family, whether it is free, its list price (per token
+and per million; variable for a router billed at the answering model's price; a
+resold model's every vendor rate and conditional rate as billed), context window,
+output bound, expiry and capabilities.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AiAPIAiSetLimitsRequest
+	@return AiAPIAiModelsRequest
 */
-func (a *AiAPIService) AiSetLimits(ctx context.Context) AiAPIAiSetLimitsRequest {
-	return AiAPIAiSetLimitsRequest{
+func (a *AiAPIService) AiModels(ctx context.Context) AiAPIAiModelsRequest {
+	return AiAPIAiModelsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -292,31 +581,49 @@ func (a *AiAPIService) AiSetLimits(ctx context.Context) AiAPIAiSetLimitsRequest 
 
 // Execute executes the request
 //
-//	@return AiLimits
-func (a *AiAPIService) AiSetLimitsExecute(r AiAPIAiSetLimitsRequest) (*AiLimits, *http.Response, error) {
+//	@return AiModels
+func (a *AiAPIService) AiModelsExecute(r AiAPIAiModelsRequest) (*AiModels, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
+		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AiLimits
+		localVarReturnValue *AiModels
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.AiSetLimits")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.AiModels")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/ai/limits"
+	localVarPath := localBasePath + "/v1/ai/mcp/models"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.aiLimitsSet == nil {
-		return localVarReturnValue, nil, reportError("aiLimitsSet is required and must be specified")
-	}
 
+	if r.q != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	}
+	if r.class != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "class", r.class, "form", "")
+	}
+	if r.family != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "family", r.family, "form", "")
+	}
+	if r.capability != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "capability", r.capability, "form", "")
+	}
+	if r.free != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "free", r.free, "form", "")
+	}
+	if r.zdr != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "zdr", r.zdr, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -332,8 +639,6 @@ func (a *AiAPIService) AiSetLimitsExecute(r AiAPIAiSetLimitsRequest) (*AiLimits,
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.aiLimitsSet
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -377,6 +682,591 @@ func (a *AiAPIService) AiSetLimitsExecute(r AiAPIAiSetLimitsRequest) (*AiLimits,
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIAiRateLimitRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIAiRateLimitRequest) Execute() (*AiRate, *http.Response, error) {
+	return r.ApiService.AiRateLimitExecute(r)
+}
+
+/*
+AiRateLimit Reads the per-minute limit as it governs the organization the caller acts in: the model requests one person may make in a minute on every surface — the API, chat, coding runs, bots and MCP — the platform's default, which is the most the organization may set, and the organization's own setting.
+
+Reads the per-minute limit as it governs the organization the caller acts in: the
+model requests one person may make in a minute on every surface — the API, chat,
+coding runs, bots and MCP — the platform's default, which is the most the
+organization may set, and the organization's own setting. Any member may read it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIAiRateLimitRequest
+*/
+func (a *AiAPIService) AiRateLimit(ctx context.Context) AiAPIAiRateLimitRequest {
+	return AiAPIAiRateLimitRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AiRate
+func (a *AiAPIService) AiRateLimitExecute(r AiAPIAiRateLimitRequest) (*AiRate, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AiRate
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.AiRateLimit")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/limits/rate"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIAiSetRateLimitRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	aiRateIn   *AiRateIn
+}
+
+func (r AiAPIAiSetRateLimitRequest) AiRateIn(aiRateIn AiRateIn) AiAPIAiSetRateLimitRequest {
+	r.aiRateIn = &aiRateIn
+	return r
+}
+
+func (r AiAPIAiSetRateLimitRequest) Execute() (*AiRate, *http.Response, error) {
+	return r.ApiService.AiSetRateLimitExecute(r)
+}
+
+/*
+AiSetRateLimit Sets the model requests one person may make in a minute acting in the organization the caller acts in, on every surface: 1 up to the platform's default, never more, or 0 to hold its people to the default.
+
+Sets the model requests one person may make in a minute acting in the
+organization the caller acts in, on every surface: 1 up to the platform's
+default, never more, or 0 to hold its people to the default. An owner or admin of
+the organization, or a SuperAdmin, may; a member may not, and a shared sign-up
+org, which has no admin to speak for its people, is refused. Live at once for
+every model request. On the audit trail before the write (ai.limits.rate.attempt)
+and with its outcome (ai.limits.rate), the setting before and after; a trail that
+does not take the attempt refuses the change (503), and nothing moves.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIAiSetRateLimitRequest
+*/
+func (a *AiAPIService) AiSetRateLimit(ctx context.Context) AiAPIAiSetRateLimitRequest {
+	return AiAPIAiSetRateLimitRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AiRate
+func (a *AiAPIService) AiSetRateLimitExecute(r AiAPIAiSetRateLimitRequest) (*AiRate, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AiRate
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.AiSetRateLimit")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/limits/rate"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.aiRateIn == nil {
+		return localVarReturnValue, nil, reportError("aiRateIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.aiRateIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIDecisionsCorrectRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	decision   string
+	correctIn  *CorrectIn
+}
+
+func (r AiAPIDecisionsCorrectRequest) CorrectIn(correctIn CorrectIn) AiAPIDecisionsCorrectRequest {
+	r.correctIn = &correctIn
+	return r
+}
+
+func (r AiAPIDecisionsCorrectRequest) Execute() (*Correction, *http.Response, error) {
+	return r.ApiService.DecisionsCorrectExecute(r)
+}
+
+/*
+DecisionsCorrect Files a correction of one question of one of the org's Kai decisions: the right answer, which must be one of that question's options and not what Kai answered, and why.
+
+Files a correction of one question of one of the org's Kai
+decisions: the right answer, which must be one of that question's options and
+not what Kai answered, and why. A decision Kai captured can teach a capability
+of its question (/v1/capabilities); one made with capture off is kept with
+state missing and cannot. The org's first correction turns capture on, so its
+next decisions can teach. Refused: 409 not_wrong when the answer is Kai's own,
+409 corrected when the question already has a correction, 404 when the
+decision captured no such question.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param decision Decision is the decision's id.
+	@return AiAPIDecisionsCorrectRequest
+*/
+func (a *AiAPIService) DecisionsCorrect(ctx context.Context, decision string) AiAPIDecisionsCorrectRequest {
+	return AiAPIDecisionsCorrectRequest{
+		ApiService: a,
+		ctx:        ctx,
+		decision:   decision,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Correction
+func (a *AiAPIService) DecisionsCorrectExecute(r AiAPIDecisionsCorrectRequest) (*Correction, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Correction
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DecisionsCorrect")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/decisions/{decision}/corrections"
+	localVarPath = strings.Replace(localVarPath, "{"+"decision"+"}", url.PathEscape(parameterValueToString(r.decision, "decision")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.correctIn == nil {
+		return localVarReturnValue, nil, reportError("correctIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.correctIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIDecisionsCorrectionsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	decision   string
+}
+
+func (r AiAPIDecisionsCorrectionsRequest) Execute() (*Corrections, *http.Response, error) {
+	return r.ApiService.DecisionsCorrectionsExecute(r)
+}
+
+/*
+DecisionsCorrections Answers one of the org's decisions' corrections, each captured (it can teach) or missing (the decision was made with capture off).
+
+Answers one of the org's decisions' corrections, each
+captured (it can teach) or missing (the decision was made with capture off).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param decision
+	@return AiAPIDecisionsCorrectionsRequest
+*/
+func (a *AiAPIService) DecisionsCorrections(ctx context.Context, decision string) AiAPIDecisionsCorrectionsRequest {
+	return AiAPIDecisionsCorrectionsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		decision:   decision,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Corrections
+func (a *AiAPIService) DecisionsCorrectionsExecute(r AiAPIDecisionsCorrectionsRequest) (*Corrections, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Corrections
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DecisionsCorrections")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/decisions/{decision}/corrections"
+	localVarPath = strings.Replace(localVarPath, "{"+"decision"+"}", url.PathEscape(parameterValueToString(r.decision, "decision")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIDecisionsUncorrectRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	decision   string
+	id         string
+}
+
+func (r AiAPIDecisionsUncorrectRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DecisionsUncorrectExecute(r)
+}
+
+/*
+DecisionsUncorrect Deletes one correction of one of the org's decisions.
+
+Deletes one correction of one of the org's decisions.
+A capability already taught from it keeps its versions.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param decision
+	@param id
+	@return AiAPIDecisionsUncorrectRequest
+*/
+func (a *AiAPIService) DecisionsUncorrect(ctx context.Context, decision string, id string) AiAPIDecisionsUncorrectRequest {
+	return AiAPIDecisionsUncorrectRequest{
+		ApiService: a,
+		ctx:        ctx,
+		decision:   decision,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DecisionsUncorrectExecute(r AiAPIDecisionsUncorrectRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DecisionsUncorrect")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/decisions/{decision}/corrections/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"decision"+"}", url.PathEscape(parameterValueToString(r.decision, "decision")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiArticlesByOwnerByNameRequest struct {
@@ -4205,190 +5095,6 @@ func (a *AiAPIService) DeleteAudioTranscriptByIdExecute(r AiAPIDeleteAudioTransc
 	return localVarHTTPResponse, nil
 }
 
-type AiAPIGet3dByIdRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
-	id         string
-}
-
-func (r AiAPIGet3dByIdRequest) Execute() (*http.Response, error) {
-	return r.ApiService.Get3dByIdExecute(r)
-}
-
-/*
-Get3dById Implements GET /v1/3d/:id (Retrieve 3D status).
-
-Implements GET /v1/3d/:id (Retrieve 3D status).
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return AiAPIGet3dByIdRequest
-*/
-func (a *AiAPIService) Get3dById(ctx context.Context, id string) AiAPIGet3dByIdRequest {
-	return AiAPIGet3dByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *AiAPIService) Get3dByIdExecute(r AiAPIGet3dByIdRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.Get3dById")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/3d/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type AiAPIGet3dByIdContentRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
-	id         string
-}
-
-func (r AiAPIGet3dByIdContentRequest) Execute() (*http.Response, error) {
-	return r.ApiService.Get3dByIdContentExecute(r)
-}
-
-/*
-Get3dByIdContent Implements GET /v1/3d/:id/content (Download 3D splat/glb content).
-
-Implements GET /v1/3d/:id/content (Download 3D splat/glb content).
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return AiAPIGet3dByIdContentRequest
-*/
-func (a *AiAPIService) Get3dByIdContent(ctx context.Context, id string) AiAPIGet3dByIdContentRequest {
-	return AiAPIGet3dByIdContentRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *AiAPIService) Get3dByIdContentExecute(r AiAPIGet3dByIdContentRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.Get3dByIdContent")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/3d/{id}/content"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type AiAPIGetAiAccountRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -5627,8 +6333,9 @@ Begins an OAuth connection for the caller's org: it binds the
 org into a signed state and sends the caller to the provider's authorize URL. By
 default it 302-redirects (a top-level browser "connect your login" click); a
 SPA/BFF that needs to drive the redirect itself passes ?format=json and gets
-{authorizeUrl} in the standard envelope. The org is the VERIFIED principal, so
-only the caller's own connection can result.
+{authorizeUrl} in the standard envelope. The org is the VERIFIED principal's, and
+only its admins may begin one (requireConnectionAdmin), so the state this signs
+names an org its holder administers.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param provider
@@ -15673,6 +16380,10 @@ A credential that is presented is verified, never merely shape-checked: a caller
 using /v1/models to ask "is my key working?" gets an honest answer, because a key
 that does not verify annotates nothing rather than reading as accepted.
 
+?id= narrows the listing to the models a page names, comma-separated and at most
+100, in the listing's order; an id nothing lists is absent. Without it the
+listing is whole, which is what every OpenAI-compatible caller reads.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AiAPIGetModelsRequest
 */
@@ -15965,6 +16676,197 @@ func (a *AiAPIService) GetModelsProvidersExecute(r AiAPIGetModelsProvidersReques
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIGetModelsVendorsByVendorRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	vendor     string
+}
+
+func (r AiAPIGetModelsVendorsByVendorRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetModelsVendorsByVendorExecute(r)
+}
+
+/*
+GetModelsVendorsByVendor Lists every model a vendor lists now, each entry exactly as the vendor listed it (prices, context, output bound, modalities, parameters, created, expiration), and when the list was last synced.
+
+Lists every model a vendor lists now, each entry exactly as the vendor
+listed it (prices, context, output bound, modalities, parameters, created,
+expiration), and when the list was last synced. ?free=1 keeps the models the
+vendor charges nothing for. Public, as the vendor's own list is: the free lane
+reads it in place of the vendor's.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param vendor
+	@return AiAPIGetModelsVendorsByVendorRequest
+*/
+func (a *AiAPIService) GetModelsVendorsByVendor(ctx context.Context, vendor string) AiAPIGetModelsVendorsByVendorRequest {
+	return AiAPIGetModelsVendorsByVendorRequest{
+		ApiService: a,
+		ctx:        ctx,
+		vendor:     vendor,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetModelsVendorsByVendorExecute(r AiAPIGetModelsVendorsByVendorRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetModelsVendorsByVendor")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/models/vendors/{vendor}"
+	localVarPath = strings.Replace(localVarPath, "{"+"vendor"+"}", url.PathEscape(parameterValueToString(r.vendor, "vendor")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetModelsVendorsByVendorEventsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	vendor     string
+}
+
+func (r AiAPIGetModelsVendorsByVendorEventsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetModelsVendorsByVendorEventsExecute(r)
+}
+
+/*
+GetModelsVendorsByVendorEvents Lists the changes syncs read in a vendor's model list, newest first.
+
+Lists the changes syncs read in a vendor's model list, newest
+first. Each is new, back, gone, price, free (was priced, now free) or paid (was
+free, now priced), with the price list before and after. ?id= keeps one model's;
+?limit= bounds the rows (100, at most 1000).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param vendor
+	@return AiAPIGetModelsVendorsByVendorEventsRequest
+*/
+func (a *AiAPIService) GetModelsVendorsByVendorEvents(ctx context.Context, vendor string) AiAPIGetModelsVendorsByVendorEventsRequest {
+	return AiAPIGetModelsVendorsByVendorEventsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		vendor:     vendor,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetModelsVendorsByVendorEventsExecute(r AiAPIGetModelsVendorsByVendorEventsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetModelsVendorsByVendorEvents")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/models/vendors/{vendor}/events"
+	localVarPath = strings.Replace(localVarPath, "{"+"vendor"+"}", url.PathEscape(parameterValueToString(r.vendor, "vendor")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetVideosByIdRequest struct {
@@ -19977,94 +20879,6 @@ func (a *AiAPIService) PatchAiWorkflowsByOwnerByNameExecute(r AiAPIPatchAiWorkfl
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AiAPIPost3dGenerationsRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
-}
-
-func (r AiAPIPost3dGenerationsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.Post3dGenerationsExecute(r)
-}
-
-/*
-Post3dGenerations Implements POST /v1/3d/generations (Text/Image to 3D & Gaussian Splats).
-
-Implements POST /v1/3d/generations (Text/Image to 3D & Gaussian Splats).
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AiAPIPost3dGenerationsRequest
-*/
-func (a *AiAPIService) Post3dGenerations(ctx context.Context) AiAPIPost3dGenerationsRequest {
-	return AiAPIPost3dGenerationsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *AiAPIService) Post3dGenerationsExecute(r AiAPIPost3dGenerationsRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.Post3dGenerations")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/3d/generations"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type AiAPIPostAiArticlesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -21178,8 +21992,14 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeployExecute(r AiAPIPost
 }
 
 type AiAPIPostAiFeedbackRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
+	ctx                    context.Context
+	ApiService             *AiAPIService
+	aiRoutingRewardRequest *AiRoutingRewardRequest
+}
+
+func (r AiAPIPostAiFeedbackRequest) AiRoutingRewardRequest(aiRoutingRewardRequest AiRoutingRewardRequest) AiAPIPostAiFeedbackRequest {
+	r.aiRoutingRewardRequest = &aiRoutingRewardRequest
+	return r
 }
 
 func (r AiAPIPostAiFeedbackRequest) Execute() (*PostAiFeedback200Response, *http.Response, error) {
@@ -21228,9 +22048,12 @@ func (a *AiAPIService) PostAiFeedbackExecute(r AiAPIPostAiFeedbackRequest) (*Pos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.aiRoutingRewardRequest == nil {
+		return localVarReturnValue, nil, reportError("aiRoutingRewardRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21246,6 +22069,8 @@ func (a *AiAPIService) PostAiFeedbackExecute(r AiAPIPostAiFeedbackRequest) (*Pos
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.aiRoutingRewardRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -28259,6 +29084,8 @@ type AiAPIPostChatRequest struct {
 	ctx                         context.Context
 	ApiService                  *AiAPIService
 	openaiChatCompletionRequest *OpenaiChatCompletionRequest
+	xMaxCost                    *float32
+	xMaxLatencyMs               *int32
 }
 
 func (r AiAPIPostChatRequest) OpenaiChatCompletionRequest(openaiChatCompletionRequest OpenaiChatCompletionRequest) AiAPIPostChatRequest {
@@ -28266,7 +29093,19 @@ func (r AiAPIPostChatRequest) OpenaiChatCompletionRequest(openaiChatCompletionRe
 	return r
 }
 
-func (r AiAPIPostChatRequest) Execute() (*OpenaiChatCompletionResponse, *http.Response, error) {
+// The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds.
+func (r AiAPIPostChatRequest) XMaxCost(xMaxCost float32) AiAPIPostChatRequest {
+	r.xMaxCost = &xMaxCost
+	return r
+}
+
+// The slowest model this request accepts, in milliseconds.
+func (r AiAPIPostChatRequest) XMaxLatencyMs(xMaxLatencyMs int32) AiAPIPostChatRequest {
+	r.xMaxLatencyMs = &xMaxLatencyMs
+	return r
+}
+
+func (r AiAPIPostChatRequest) Execute() (*PostChat200Response, *http.Response, error) {
 	return r.ApiService.PostChatExecute(r)
 }
 
@@ -28287,13 +29126,13 @@ func (a *AiAPIService) PostChat(ctx context.Context) AiAPIPostChatRequest {
 
 // Execute executes the request
 //
-//	@return OpenaiChatCompletionResponse
-func (a *AiAPIService) PostChatExecute(r AiAPIPostChatRequest) (*OpenaiChatCompletionResponse, *http.Response, error) {
+//	@return PostChat200Response
+func (a *AiAPIService) PostChatExecute(r AiAPIPostChatRequest) (*PostChat200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OpenaiChatCompletionResponse
+		localVarReturnValue *PostChat200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostChat")
@@ -28326,6 +29165,12 @@ func (a *AiAPIService) PostChatExecute(r AiAPIPostChatRequest) (*OpenaiChatCompl
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xMaxCost != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Max-Cost", r.xMaxCost, "simple", "")
+	}
+	if r.xMaxLatencyMs != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Max-Latency-Ms", r.xMaxLatencyMs, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.openaiChatCompletionRequest
@@ -28370,6 +29215,8 @@ type AiAPIPostChatCompletionsRequest struct {
 	ctx                         context.Context
 	ApiService                  *AiAPIService
 	openaiChatCompletionRequest *OpenaiChatCompletionRequest
+	xMaxCost                    *float32
+	xMaxLatencyMs               *int32
 }
 
 func (r AiAPIPostChatCompletionsRequest) OpenaiChatCompletionRequest(openaiChatCompletionRequest OpenaiChatCompletionRequest) AiAPIPostChatCompletionsRequest {
@@ -28377,7 +29224,19 @@ func (r AiAPIPostChatCompletionsRequest) OpenaiChatCompletionRequest(openaiChatC
 	return r
 }
 
-func (r AiAPIPostChatCompletionsRequest) Execute() (*OpenaiChatCompletionResponse, *http.Response, error) {
+// The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds.
+func (r AiAPIPostChatCompletionsRequest) XMaxCost(xMaxCost float32) AiAPIPostChatCompletionsRequest {
+	r.xMaxCost = &xMaxCost
+	return r
+}
+
+// The slowest model this request accepts, in milliseconds.
+func (r AiAPIPostChatCompletionsRequest) XMaxLatencyMs(xMaxLatencyMs int32) AiAPIPostChatCompletionsRequest {
+	r.xMaxLatencyMs = &xMaxLatencyMs
+	return r
+}
+
+func (r AiAPIPostChatCompletionsRequest) Execute() (*PostChat200Response, *http.Response, error) {
 	return r.ApiService.PostChatCompletionsExecute(r)
 }
 
@@ -28398,13 +29257,13 @@ func (a *AiAPIService) PostChatCompletions(ctx context.Context) AiAPIPostChatCom
 
 // Execute executes the request
 //
-//	@return OpenaiChatCompletionResponse
-func (a *AiAPIService) PostChatCompletionsExecute(r AiAPIPostChatCompletionsRequest) (*OpenaiChatCompletionResponse, *http.Response, error) {
+//	@return PostChat200Response
+func (a *AiAPIService) PostChatCompletionsExecute(r AiAPIPostChatCompletionsRequest) (*PostChat200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OpenaiChatCompletionResponse
+		localVarReturnValue *PostChat200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostChatCompletions")
@@ -28437,6 +29296,12 @@ func (a *AiAPIService) PostChatCompletionsExecute(r AiAPIPostChatCompletionsRequ
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xMaxCost != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Max-Cost", r.xMaxCost, "simple", "")
+	}
+	if r.xMaxLatencyMs != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Max-Latency-Ms", r.xMaxLatencyMs, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.openaiChatCompletionRequest
@@ -28592,6 +29457,8 @@ type AiAPIPostCompletionsRequest struct {
 	ctx                         context.Context
 	ApiService                  *AiAPIService
 	openaiChatCompletionRequest *OpenaiChatCompletionRequest
+	xMaxCost                    *float32
+	xMaxLatencyMs               *int32
 }
 
 func (r AiAPIPostCompletionsRequest) OpenaiChatCompletionRequest(openaiChatCompletionRequest OpenaiChatCompletionRequest) AiAPIPostCompletionsRequest {
@@ -28599,7 +29466,19 @@ func (r AiAPIPostCompletionsRequest) OpenaiChatCompletionRequest(openaiChatCompl
 	return r
 }
 
-func (r AiAPIPostCompletionsRequest) Execute() (*OpenaiChatCompletionResponse, *http.Response, error) {
+// The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds.
+func (r AiAPIPostCompletionsRequest) XMaxCost(xMaxCost float32) AiAPIPostCompletionsRequest {
+	r.xMaxCost = &xMaxCost
+	return r
+}
+
+// The slowest model this request accepts, in milliseconds.
+func (r AiAPIPostCompletionsRequest) XMaxLatencyMs(xMaxLatencyMs int32) AiAPIPostCompletionsRequest {
+	r.xMaxLatencyMs = &xMaxLatencyMs
+	return r
+}
+
+func (r AiAPIPostCompletionsRequest) Execute() (*PostChat200Response, *http.Response, error) {
 	return r.ApiService.PostCompletionsExecute(r)
 }
 
@@ -28620,13 +29499,13 @@ func (a *AiAPIService) PostCompletions(ctx context.Context) AiAPIPostCompletions
 
 // Execute executes the request
 //
-//	@return OpenaiChatCompletionResponse
-func (a *AiAPIService) PostCompletionsExecute(r AiAPIPostCompletionsRequest) (*OpenaiChatCompletionResponse, *http.Response, error) {
+//	@return PostChat200Response
+func (a *AiAPIService) PostCompletionsExecute(r AiAPIPostCompletionsRequest) (*PostChat200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OpenaiChatCompletionResponse
+		localVarReturnValue *PostChat200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostCompletions")
@@ -28659,6 +29538,12 @@ func (a *AiAPIService) PostCompletionsExecute(r AiAPIPostCompletionsRequest) (*O
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xMaxCost != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Max-Cost", r.xMaxCost, "simple", "")
+	}
+	if r.xMaxLatencyMs != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Max-Latency-Ms", r.xMaxLatencyMs, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.openaiChatCompletionRequest
@@ -28720,15 +29605,23 @@ PostDecisions Implements POST /v1/decisions (the Decisions API).
 Implements POST /v1/decisions (the Decisions API).
 
 Body: {"model": "kai", "state": "..."|{...}|[...], "questions": {"<name>":
-{"type": "choice"|"noul"|"score", "instructions": ..., "criteria": ...}}}.
+{"type": "boolean"|"choice"|"score", "instructions": ..., "criteria": ...}}}.
 model is kai, Kai's versioned id kai-<12 hex of the weights' sha256> — priced as
 kai and sent as asked — or Jev by OpenRouter's vendor ids, typesafe/jev-1.13 and
-~typesafe/jev-latest, which reach Jev itself and bill at Jev's list price. No Jev
-id is ever answered by Kai: a bare one, such as jev-latest, is an unknown model.
-model is required; state and questions are required unless the request names a
-handle, which carries neither. instructions is optional and any JSON. A choice
-names at least 2 labels and a score at least 1 level, bounded by the token
-budget rather than a count; questions holds 1 to 100.
+~typesafe/jev-latest, which reach Jev itself and bill at Jev's list price, or Zen
+by zenlm/zen6 and zenlm/zen6-flash, answered by a chat completion under a strict
+schema and billed its output beside its input. No Jev id is ever answered by Kai:
+a bare one, such as jev-latest, is an unknown model. model is required; state
+and questions are required unless the request names a handle, which carries
+neither. instructions is optional and any JSON. A choice names at least 2 labels
+and a score at least 1 level, bounded by the token budget rather than a count;
+questions holds 1 to 100.
+
+A boolean is a yes/no probability, answered {"type": "boolean", "probability":
+p}. noul is accepted as Jev's spelling of it and answered in Jev's shape,
+{"type": "noul", "noul": p}; an older Kai adds confidence and answer_confidence to
+a noul's. A boolean carries no confidence. Jev is asked a boolean as a noul, and
+its answer comes back as exactly the boolean.
 
 observe holds the state under an id, and a later request naming that id as its
 handle decides over it again. An id is 1 to 128 characters of A-Z, a-z, 0-9, '.',
@@ -28751,7 +29644,7 @@ id, a state beyond the checkpoint's reach (code state_too_long) or a body past 1
 MiB (code request_too_long), 429 rate limited or queue full, 502 the service
 failed, 503 the model is known and not served, 529 overloaded. 402, 429 and 529
 carry Retry-After and Retry-After-Ms, and every answer carries X-Request-Id.
-Billed on the answer's input tokens at the model's price.
+Billed on the answer's input and output tokens at the model's price.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AiAPIPostDecisionsRequest
@@ -29602,11 +30495,25 @@ func (a *AiAPIService) PostRerankExecute(r AiAPIPostRerankRequest) (*AiRanking, 
 }
 
 type AiAPIPostResponsesRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
+	ctx           context.Context
+	ApiService    *AiAPIService
+	xMaxCost      *float32
+	xMaxLatencyMs *int32
 }
 
-func (r AiAPIPostResponsesRequest) Execute() (*AiResponsesResource, *http.Response, error) {
+// The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds.
+func (r AiAPIPostResponsesRequest) XMaxCost(xMaxCost float32) AiAPIPostResponsesRequest {
+	r.xMaxCost = &xMaxCost
+	return r
+}
+
+// The slowest model this request accepts, in milliseconds.
+func (r AiAPIPostResponsesRequest) XMaxLatencyMs(xMaxLatencyMs int32) AiAPIPostResponsesRequest {
+	r.xMaxLatencyMs = &xMaxLatencyMs
+	return r
+}
+
+func (r AiAPIPostResponsesRequest) Execute() (*PostResponses200Response, *http.Response, error) {
 	return r.ApiService.PostResponsesExecute(r)
 }
 
@@ -29629,13 +30536,13 @@ func (a *AiAPIService) PostResponses(ctx context.Context) AiAPIPostResponsesRequ
 
 // Execute executes the request
 //
-//	@return AiResponsesResource
-func (a *AiAPIService) PostResponsesExecute(r AiAPIPostResponsesRequest) (*AiResponsesResource, *http.Response, error) {
+//	@return PostResponses200Response
+func (a *AiAPIService) PostResponsesExecute(r AiAPIPostResponsesRequest) (*PostResponses200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AiResponsesResource
+		localVarReturnValue *PostResponses200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostResponses")
@@ -29665,6 +30572,12 @@ func (a *AiAPIService) PostResponsesExecute(r AiAPIPostResponsesRequest) (*AiRes
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xMaxCost != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Max-Cost", r.xMaxCost, "simple", "")
+	}
+	if r.xMaxLatencyMs != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Max-Latency-Ms", r.xMaxLatencyMs, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {

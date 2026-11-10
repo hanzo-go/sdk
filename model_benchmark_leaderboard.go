@@ -21,7 +21,9 @@ var _ MappedNullable = &BenchmarkLeaderboard{}
 type BenchmarkLeaderboard struct {
 	// Benchmark is the catalog id these rows are about.
 	Benchmark *string `json:"benchmark,omitempty"`
-	// Rows is one per model, ordered by measured accuracy descending.
+	// Direction is \"higher\" or \"lower\": which way this benchmark's score improves, and so which way Rows is ordered.
+	Direction *string `json:"direction,omitempty"`
+	// Rows is one per model, best first in Direction: measured rows by their measurement, then claim-only rows by their published score, ties by model.
 	Rows                 []BenchmarkLeaderRow `json:"rows,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -77,6 +79,38 @@ func (o *BenchmarkLeaderboard) SetBenchmark(v string) {
 	o.Benchmark = &v
 }
 
+// GetDirection returns the Direction field value if set, zero value otherwise.
+func (o *BenchmarkLeaderboard) GetDirection() string {
+	if o == nil || IsNil(o.Direction) {
+		var ret string
+		return ret
+	}
+	return *o.Direction
+}
+
+// GetDirectionOk returns a tuple with the Direction field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkLeaderboard) GetDirectionOk() (*string, bool) {
+	if o == nil || IsNil(o.Direction) {
+		return nil, false
+	}
+	return o.Direction, true
+}
+
+// HasDirection returns a boolean if a field has been set.
+func (o *BenchmarkLeaderboard) HasDirection() bool {
+	if o != nil && !IsNil(o.Direction) {
+		return true
+	}
+
+	return false
+}
+
+// SetDirection gets a reference to the given string and assigns it to the Direction field.
+func (o *BenchmarkLeaderboard) SetDirection(v string) {
+	o.Direction = &v
+}
+
 // GetRows returns the Rows field value if set, zero value otherwise.
 func (o *BenchmarkLeaderboard) GetRows() []BenchmarkLeaderRow {
 	if o == nil || IsNil(o.Rows) {
@@ -122,6 +156,9 @@ func (o BenchmarkLeaderboard) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Benchmark) {
 		toSerialize["benchmark"] = o.Benchmark
 	}
+	if !IsNil(o.Direction) {
+		toSerialize["direction"] = o.Direction
+	}
 	if !IsNil(o.Rows) {
 		toSerialize["rows"] = o.Rows
 	}
@@ -148,6 +185,7 @@ func (o *BenchmarkLeaderboard) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "benchmark")
+		delete(additionalProperties, "direction")
 		delete(additionalProperties, "rows")
 		o.AdditionalProperties = additionalProperties
 	}

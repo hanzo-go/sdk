@@ -19,12 +19,10 @@ var _ MappedNullable = &AccountOnboardResp{}
 
 // AccountOnboardResp struct for AccountOnboardResp
 type AccountOnboardResp struct {
-	// AccessKey is the identifier of the org-scoped credential provisioning minted with the organization. Present on a first run that actually minted one.
+	// AccessKey is the publishable half of the organization's default API key, held by its creator. Absent when the key could not be minted; the creator then mints one from the keys page.
 	AccessKey *string `json:"accessKey,omitempty"`
-	// AccessSecret is that credential's confidential half, returned ONCE — on the response that mints it and never again. IAM keeps only its argon2id digest and blanks the plaintext, so this is the single moment it exists in a form its owner can read; a replay of the same provision re-reveals nothing.
+	// AccessSecret is that credential's confidential half, returned ONCE — on the response that mints it and never again. IAM keeps only its argon2id digest and blanks the plaintext, so this is the single moment it exists in a form its owner can read.
 	AccessSecret *string `json:"accessSecret,omitempty"`
-	// Additional is true when the caller already had an organization and this one was created WITHOUT moving them into it — they reach it via the org switcher.
-	Additional *bool `json:"additional,omitempty"`
 	// DisplayName is the organization's human name.
 	DisplayName *string `json:"displayName,omitempty"`
 	// Org is the created organization's slug, which is what X-Org-Id carries.
@@ -115,38 +113,6 @@ func (o *AccountOnboardResp) SetAccessSecret(v string) {
 	o.AccessSecret = &v
 }
 
-// GetAdditional returns the Additional field value if set, zero value otherwise.
-func (o *AccountOnboardResp) GetAdditional() bool {
-	if o == nil || IsNil(o.Additional) {
-		var ret bool
-		return ret
-	}
-	return *o.Additional
-}
-
-// GetAdditionalOk returns a tuple with the Additional field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountOnboardResp) GetAdditionalOk() (*bool, bool) {
-	if o == nil || IsNil(o.Additional) {
-		return nil, false
-	}
-	return o.Additional, true
-}
-
-// HasAdditional returns a boolean if a field has been set.
-func (o *AccountOnboardResp) HasAdditional() bool {
-	if o != nil && !IsNil(o.Additional) {
-		return true
-	}
-
-	return false
-}
-
-// SetAdditional gets a reference to the given bool and assigns it to the Additional field.
-func (o *AccountOnboardResp) SetAdditional(v bool) {
-	o.Additional = &v
-}
-
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *AccountOnboardResp) GetDisplayName() string {
 	if o == nil || IsNil(o.DisplayName) {
@@ -227,9 +193,6 @@ func (o AccountOnboardResp) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccessSecret) {
 		toSerialize["accessSecret"] = o.AccessSecret
 	}
-	if !IsNil(o.Additional) {
-		toSerialize["additional"] = o.Additional
-	}
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
@@ -260,7 +223,6 @@ func (o *AccountOnboardResp) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessKey")
 		delete(additionalProperties, "accessSecret")
-		delete(additionalProperties, "additional")
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "org")
 		o.AdditionalProperties = additionalProperties

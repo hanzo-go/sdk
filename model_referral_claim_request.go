@@ -20,7 +20,9 @@ var _ MappedNullable = &ReferralClaimRequest{}
 // ReferralClaimRequest struct for ReferralClaimRequest
 type ReferralClaimRequest struct {
 	// Code is the referrer's referral code, as it appeared in their ?ref= link. Case and surrounding whitespace do not matter.
-	Code                 *string `json:"code,omitempty"`
+	Code *string `json:"code,omitempty"`
+	// Invite is the beta invite the referee's link carried (its utm_content), when it carried one. Optional; it only lets the referrer's invite be marked joined, and never changes who the referral credits.
+	Invite               *string `json:"invite,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,6 +77,38 @@ func (o *ReferralClaimRequest) SetCode(v string) {
 	o.Code = &v
 }
 
+// GetInvite returns the Invite field value if set, zero value otherwise.
+func (o *ReferralClaimRequest) GetInvite() string {
+	if o == nil || IsNil(o.Invite) {
+		var ret string
+		return ret
+	}
+	return *o.Invite
+}
+
+// GetInviteOk returns a tuple with the Invite field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReferralClaimRequest) GetInviteOk() (*string, bool) {
+	if o == nil || IsNil(o.Invite) {
+		return nil, false
+	}
+	return o.Invite, true
+}
+
+// HasInvite returns a boolean if a field has been set.
+func (o *ReferralClaimRequest) HasInvite() bool {
+	if o != nil && !IsNil(o.Invite) {
+		return true
+	}
+
+	return false
+}
+
+// SetInvite gets a reference to the given string and assigns it to the Invite field.
+func (o *ReferralClaimRequest) SetInvite(v string) {
+	o.Invite = &v
+}
+
 func (o ReferralClaimRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -87,6 +121,9 @@ func (o ReferralClaimRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Code) {
 		toSerialize["code"] = o.Code
+	}
+	if !IsNil(o.Invite) {
+		toSerialize["invite"] = o.Invite
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,6 +148,7 @@ func (o *ReferralClaimRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "code")
+		delete(additionalProperties, "invite")
 		o.AdditionalProperties = additionalProperties
 	}
 

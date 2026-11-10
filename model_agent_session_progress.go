@@ -27,7 +27,7 @@ type AgentSessionProgress struct {
 	Estimated *bool `json:"estimated,omitempty"`
 	// Pct is how much of the run is done, 0 to 100. THE KEY IS ABSENT when progress is indeterminate — a run nobody can estimate is not a run that has done nothing, and rendering the second for the first is the mistake this omission exists to make impossible. Read `phase` before reaching for it.
 	Pct *int64 `json:"pct,omitempty"`
-	// Phase is what shape the run is in: running, blocked, done, error, or unknown when nothing has estimated it yet. blocked means the transcript shows the run waiting on something — an approval, a credential, an answer — which is the one state the running surface cannot report about itself. error only ever comes from the session's own terminal status.
+	// Phase is what shape the run is in: queued, running, blocked, done, error, or unknown when nothing has estimated it yet. blocked means the transcript shows the run waiting on something — an approval, a credential, an answer — which is the one state the running surface cannot report about itself. error only ever comes from the session's own terminal status. queued is the run's own word that it is accepted and waiting for a place to start.
 	Phase                *string `json:"phase,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

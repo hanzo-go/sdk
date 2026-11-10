@@ -2666,8 +2666,8 @@ GetPlatformProjectsByProjectAppsByAppDomains Returns every hostname this app ans
 
 Returns every hostname this app answers on.
 
-It lists the app's hosts: the permanent default host it was born with, any
-org-subtree hosts attached to it, and every custom host claimed for it with its
+It lists the app's hosts: the permanent default host it was born with, and
+every custom host claimed for it with its
 verification state and, while pending, the DNS challenge records to publish. Live
 endpoint status for each host is observed from the cluster. Requires a validated
 principal; 401 without one.
@@ -3073,7 +3073,7 @@ An org is its name: the values DIRECTORY, the destination NAMESPACE and the AppP
 
 `org` is an ACT-AS, not a placement field: it defaults to the caller's own, and naming another requires SuperAdmin. So does naming a RESERVED org — the platform's own namespace family (the brands and their environments, the control and delivery planes, `admin`) — even when it is the caller's own, because an IAM org named `kube-system` does not own Kubernetes. Both refuse rather than downgrade, so an escape attempt is never indistinguishable from a normal request.
 
-A host outside the caller's org subtree is refused: claim and verify a custom domain first.
+The app answers at `<name>.<sites host>`, and its name is claimed in the one namespace app and site names share, first come first served across every org: a name held by another org, app or site is 409. Any other host under the sites host is refused, and a custom domain is claimed and verified first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PlatformAPIPostPlatformAppsRequest
@@ -3615,18 +3615,16 @@ PostPlatformProjectsByProjectAppsByAppDomains Attaches a hostname — instantly 
 Attaches a hostname — instantly if you already own it, otherwise with a
 DNS challenge.
 
-It attaches `host` to the app, and which of two things happens depends on who
-owns the name. A host inside the caller org's own subtree is structurally owned,
-so it goes ACTIVE immediately and answers 201. A bring-your-own host is claimed
-as PENDING and answers the DNS challenge records to publish; it is NOT rendered
+It attaches a bring-your-own `host` to the app: the host is claimed as PENDING
+and answers 201 with the DNS challenge records to publish. It is NOT rendered
 into the app's ingress until /verify passes.
 
 Claims are globally unique. A host already claimed by another organization is
 409, and so is one claimed by a different app in your own; re-adding this app's
 OWN claim is idempotent and answers its current state at 200. The default host is
-always attached and re-adding it is 409. A host under the platform's shared apex
-that is not the caller's own subtree is 403 — it belongs to whoever owns that
-subtree and can never be grabbed through the custom path.
+always attached and re-adding it is 409. Any other host under the platform's
+shared apex is 403: a name there is an app's own, taken when that app was
+created, and is never claimed through the custom path.
 
 `host` must be a valid DNS hostname; anything else is 400. Requires a validated
 principal; 401 without one.

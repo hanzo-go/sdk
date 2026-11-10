@@ -44,8 +44,9 @@ type IamOrganization struct {
 	FailedSigninLimit *int64  `json:"failedSigninLimit,omitempty"`
 	Favicon           *string `json:"favicon,omitempty"`
 	// Founder is the stable storage id of the identity that provisioned this org (self-service onboarding). It is the resume token that makes provisioning converge on a backend where each write autocommits independently (no transaction rollback): after a partial failure that created the org but did not move the founder in, a retry recognises the org as the founder's own and completes it, instead of refusing it as \"already taken\". It also fences the org to ONE tenant — a different identity can never complete or join it.
-	Founder                *string      `json:"founder,omitempty"`
-	HasPrivilegeConsent    *bool        `json:"hasPrivilegeConsent,omitempty"`
+	Founder             *string `json:"founder,omitempty"`
+	HasPrivilegeConsent *bool   `json:"hasPrivilegeConsent,omitempty"`
+	// Persisted fields
 	Id                     *string      `json:"id,omitempty"`
 	InitScore              *int64       `json:"initScore,omitempty"`
 	IpRestriction          *string      `json:"ipRestriction,omitempty"`

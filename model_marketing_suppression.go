@@ -19,7 +19,7 @@ var _ MappedNullable = &MarketingSuppression{}
 
 // MarketingSuppression struct for MarketingSuppression
 type MarketingSuppression struct {
-	// Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required.
+	// Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. An entry \"@example.com\" opts out everyone at that domain, a company's unsubscribe; a free mail provider's domain is refused.
 	Address *string `json:"address,omitempty"`
 	// Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable.
 	Channel *string `json:"channel,omitempty"`

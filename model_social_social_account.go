@@ -21,6 +21,8 @@ var _ MappedNullable = &SocialSocialAccount{}
 type SocialSocialAccount struct {
 	// CreatedAt is when the account was connected, as a unix timestamp in seconds.
 	CreatedAt *int64 `json:"createdAt,omitempty"`
+	// ExternalID is the platform id the sealed token is stored under. Empty for an account recorded by hand, before a consent named one. A publish uses it to choose that token rather than another account on the same network.
+	ExternalId *string `json:"externalId,omitempty"`
 	// Handle is the account's public name on the network, as the customer knows it. Trimmed and bounded at 1024 characters.  Example: \"@acme\"
 	Handle *string `json:"handle,omitempty"`
 	// ID is the account's identifier, minted on connect and the id every later call addresses it by.  Example: \"acct_7f3c1a\"
@@ -83,6 +85,38 @@ func (o *SocialSocialAccount) HasCreatedAt() bool {
 // SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
 func (o *SocialSocialAccount) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *SocialSocialAccount) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SocialSocialAccount) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *SocialSocialAccount) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *SocialSocialAccount) SetExternalId(v string) {
+	o.ExternalId = &v
 }
 
 // GetHandle returns the Handle field value if set, zero value otherwise.
@@ -258,6 +292,9 @@ func (o SocialSocialAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["externalId"] = o.ExternalId
+	}
 	if !IsNil(o.Handle) {
 		toSerialize["handle"] = o.Handle
 	}
@@ -296,6 +333,7 @@ func (o *SocialSocialAccount) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "handle")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "provider")

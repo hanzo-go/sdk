@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **CiHigh** | Pointer to **float64** | CIHigh is the upper bound of that interval. Wilson rather than the normal approximation because the normal one produces bounds past 100 exactly where benchmark scores live — at 194/198 that is the top of the board, not a corner case. | [optional] 
 **CiLow** | Pointer to **float64** | CILow and CIHigh are the 95% Wilson interval on Measured, in percent. They are what makes the score comparable: at n&#x3D;198 a 98% carries roughly ±2 points, so most differences at the top of a board are not distinguishable and a bare number implies a precision it does not have. Absent when there is no measurement. | [optional] 
 **Claims** | Pointer to **int64** | Claims is how many independent claims the platform holds for this model on this benchmark. More than one means several sources reported it. | [optional] 
+**Evidence** | Pointer to **[]string** | Evidence are the evidence uris the Published claim rests on (GET /v1/research/evidence?uri&#x3D;). | [optional] 
+**From** | Pointer to **string** | From is the org whose claim Published was promoted from, when a SuperAdmin published another org&#39;s claim rather than writing one under org admin: \&quot;hanzo\&quot; on a row Hanzo measured and the platform published. | [optional] 
 **Gap** | Pointer to **float64** | published − measured (the arena signal) | [optional] 
 **Mean** | Pointer to **float64** | Mean is the unweighted average of every claim, which answers a different question from Published: what the field says on average, rather than what the vendor says about itself. With one claim the two are equal. | [optional] 
 **Measured** | Pointer to **float64** | hanzo-measured accuracy % (nil if unrun) | [optional] 
@@ -16,6 +18,7 @@ Name | Type | Description | Notes
 **Protocol** | Pointer to **string** | how the vendor scored their claim: single-attempt, pass@k or agentic | [optional] 
 **Published** | Pointer to **float64** | the platform&#39;s selected claim % (nil if none) | [optional] 
 **Run** | Pointer to **string** | Run names the measurement Measured came from, and MeasuredAt is when it ran. A score with no date is not a fact about a model, it is a fact about a model on a day — and models change, so the date is what makes the number checkable rather than merely quoted. | [optional] 
+**Runs** | Pointer to **[]string** | Runs are the research run ids the Published claim rests on (GET /v1/research/runs?id&#x3D;). | [optional] 
 **Spread** | Pointer to **float64** | Spread is the distance between the highest and lowest of them, nil when there is only one. It is the disagreement AMONG sources, which a single Published number cannot show — signal in the same way the published-minus-measured gap is. | [optional] 
 
 ## Methods
@@ -111,6 +114,56 @@ SetClaims sets Claims field to given value.
 `func (o *BenchmarkLeaderRow) HasClaims() bool`
 
 HasClaims returns a boolean if a field has been set.
+
+### GetEvidence
+
+`func (o *BenchmarkLeaderRow) GetEvidence() []string`
+
+GetEvidence returns the Evidence field if non-nil, zero value otherwise.
+
+### GetEvidenceOk
+
+`func (o *BenchmarkLeaderRow) GetEvidenceOk() (*[]string, bool)`
+
+GetEvidenceOk returns a tuple with the Evidence field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvidence
+
+`func (o *BenchmarkLeaderRow) SetEvidence(v []string)`
+
+SetEvidence sets Evidence field to given value.
+
+### HasEvidence
+
+`func (o *BenchmarkLeaderRow) HasEvidence() bool`
+
+HasEvidence returns a boolean if a field has been set.
+
+### GetFrom
+
+`func (o *BenchmarkLeaderRow) GetFrom() string`
+
+GetFrom returns the From field if non-nil, zero value otherwise.
+
+### GetFromOk
+
+`func (o *BenchmarkLeaderRow) GetFromOk() (*string, bool)`
+
+GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFrom
+
+`func (o *BenchmarkLeaderRow) SetFrom(v string)`
+
+SetFrom sets From field to given value.
+
+### HasFrom
+
+`func (o *BenchmarkLeaderRow) HasFrom() bool`
+
+HasFrom returns a boolean if a field has been set.
 
 ### GetGap
 
@@ -336,6 +389,31 @@ SetRun sets Run field to given value.
 `func (o *BenchmarkLeaderRow) HasRun() bool`
 
 HasRun returns a boolean if a field has been set.
+
+### GetRuns
+
+`func (o *BenchmarkLeaderRow) GetRuns() []string`
+
+GetRuns returns the Runs field if non-nil, zero value otherwise.
+
+### GetRunsOk
+
+`func (o *BenchmarkLeaderRow) GetRunsOk() (*[]string, bool)`
+
+GetRunsOk returns a tuple with the Runs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRuns
+
+`func (o *BenchmarkLeaderRow) SetRuns(v []string)`
+
+SetRuns sets Runs field to given value.
+
+### HasRuns
+
+`func (o *BenchmarkLeaderRow) HasRuns() bool`
+
+HasRuns returns a boolean if a field has been set.
 
 ### GetSpread
 

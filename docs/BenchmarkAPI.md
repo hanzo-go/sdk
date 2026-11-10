@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetBenchmarkCatalog**](BenchmarkAPI.md#GetBenchmarkCatalog) | **Get** /v1/benchmark/catalog | Is the canonical public benchmarks this arena runs — the id, title, axis, item count and upstream source of each, with native marking the ones the standardized harness runs today; the rest are registered and adapter-pending.
+[**GetBenchmarkCatalog**](BenchmarkAPI.md#GetBenchmarkCatalog) | **Get** /v1/benchmark/catalog | Is the canonical benchmarks this arena reads — the id, title, axis, item count, upstream source and direction of each, with native marking the ones the standardized harness runs today.
 [**GetBenchmarkClaims**](BenchmarkAPI.md#GetBenchmarkClaims) | **Get** /v1/benchmark/claims | Lists the effective claims the caller may read, each labelled with the org that made it and the user who recorded it.
 [**GetBenchmarkCompare**](BenchmarkAPI.md#GetBenchmarkCompare) | **Get** /v1/benchmark/compare | Is the ONLY valid arm-vs-arm test: it pairs the two models on the items BOTH completed, and answers rescue and damage counts with an exact-McNemar p.
 [**GetBenchmarkHistory**](BenchmarkAPI.md#GetBenchmarkHistory) | **Get** /v1/benchmark/history | Returns each model&#39;s measured score per run over time, oldest first, with the change between runs.
 [**GetBenchmarkLeaderboard**](BenchmarkAPI.md#GetBenchmarkLeaderboard) | **Get** /v1/benchmark/leaderboard | Answers one row per model for the benchmark named — what our own harness measured, beside what the vendor claims, and the gap between them.
-[**GetBenchmarkPresets**](BenchmarkAPI.md#GetBenchmarkPresets) | **Get** /v1/benchmark/presets | Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each served by the model layer as enso-&lt;name&gt;.
+[**GetBenchmarkPresets**](BenchmarkAPI.md#GetBenchmarkPresets) | **Get** /v1/benchmark/presets | Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each named for the model layer as enso-&lt;name&gt;.
 [**PostBenchmarkClaims**](BenchmarkAPI.md#PostBenchmarkClaims) | **Post** /v1/benchmark/claims | Records claims for the caller&#39;s org: one to correct a number, many to import a leaderboard.
-[**PostBenchmarkPresets**](BenchmarkAPI.md#PostBenchmarkPresets) | **Post** /v1/benchmark/presets | Validates a router blend — its name, its arms, the rank they escalate through and the panel fan-out width — and answers 202 with the preset and the enso-&lt;name&gt; it would be served as.
-[**PostBenchmarkRuns**](BenchmarkAPI.md#PostBenchmarkRuns) | **Post** /v1/benchmark/runs | Admits and queues a benchmark run against a model or your own endpoint, and answers 202 with the receipt.
+[**PostBenchmarkPresets**](BenchmarkAPI.md#PostBenchmarkPresets) | **Post** /v1/benchmark/presets | Stores a router blend for the caller&#39;s org — its name, its arms, the rank they escalate through and the panel fan-out width — and answers with the stored blend and the enso-&lt;name&gt; it would be resolved under.
+[**PostBenchmarkRuns**](BenchmarkAPI.md#PostBenchmarkRuns) | **Post** /v1/benchmark/runs | Answers what the arena already holds for a model on each benchmark asked about, and spends nothing.
 
 
 
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 > BenchmarkBenchmarkCatalog GetBenchmarkCatalog(ctx).Execute()
 
-Is the canonical public benchmarks this arena runs — the id, title, axis, item count and upstream source of each, with native marking the ones the standardized harness runs today; the rest are registered and adapter-pending.
+Is the canonical benchmarks this arena reads — the id, title, axis, item count, upstream source and direction of each, with native marking the ones the standardized harness runs today.
 
 
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 > BenchmarkPresetList GetBenchmarkPresets(ctx).Execute()
 
-Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each served by the model layer as enso-<name>.
+Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each named for the model layer as enso-<name>.
 
 
 
@@ -486,9 +486,9 @@ Name | Type | Description  | Notes
 
 ## PostBenchmarkPresets
 
-> BenchmarkPresetAccepted PostBenchmarkPresets(ctx).BenchmarkPreset(benchmarkPreset).Execute()
+> BenchmarkPresetStored PostBenchmarkPresets(ctx).BenchmarkPreset(benchmarkPreset).Execute()
 
-Validates a router blend — its name, its arms, the rank they escalate through and the panel fan-out width — and answers 202 with the preset and the enso-<name> it would be served as.
+Stores a router blend for the caller's org — its name, its arms, the rank they escalate through and the panel fan-out width — and answers with the stored blend and the enso-<name> it would be resolved under.
 
 
 
@@ -514,7 +514,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.PostBenchmarkPresets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBenchmarkPresets`: BenchmarkPresetAccepted
+	// response from `PostBenchmarkPresets`: BenchmarkPresetStored
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.PostBenchmarkPresets`: %v\n", resp)
 }
 ```
@@ -534,7 +534,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BenchmarkPresetAccepted**](BenchmarkPresetAccepted.md)
+[**BenchmarkPresetStored**](BenchmarkPresetStored.md)
 
 ### Authorization
 
@@ -552,9 +552,9 @@ Name | Type | Description  | Notes
 
 ## PostBenchmarkRuns
 
-> BenchmarkAdmission PostBenchmarkRuns(ctx).BenchmarkSuite(benchmarkSuite).Execute()
+> BenchmarkMeasurements PostBenchmarkRuns(ctx).BenchmarkSuite(benchmarkSuite).Execute()
 
-Admits and queues a benchmark run against a model or your own endpoint, and answers 202 with the receipt.
+Answers what the arena already holds for a model on each benchmark asked about, and spends nothing.
 
 
 
@@ -580,7 +580,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.PostBenchmarkRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBenchmarkRuns`: BenchmarkAdmission
+	// response from `PostBenchmarkRuns`: BenchmarkMeasurements
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.PostBenchmarkRuns`: %v\n", resp)
 }
 ```
@@ -600,7 +600,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BenchmarkAdmission**](BenchmarkAdmission.md)
+[**BenchmarkMeasurements**](BenchmarkMeasurements.md)
 
 ### Authorization
 

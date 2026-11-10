@@ -19,8 +19,8 @@ var _ MappedNullable = &AiDecisionSides{}
 
 // AiDecisionSides struct for AiDecisionSides
 type AiDecisionSides struct {
-	False                *AiDecisionSidesFalse `json:"false,omitempty"`
-	True                 *AiDecisionSidesFalse `json:"true,omitempty"`
+	False                interface{} `json:"false,omitempty"`
+	True                 interface{} `json:"true,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,22 +43,23 @@ func NewAiDecisionSidesWithDefaults() *AiDecisionSides {
 	return &this
 }
 
-// GetFalse returns the False field value if set, zero value otherwise.
-func (o *AiDecisionSides) GetFalse() AiDecisionSidesFalse {
-	if o == nil || IsNil(o.False) {
-		var ret AiDecisionSidesFalse
+// GetFalse returns the False field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AiDecisionSides) GetFalse() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
-	return *o.False
+	return o.False
 }
 
 // GetFalseOk returns a tuple with the False field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiDecisionSides) GetFalseOk() (*AiDecisionSidesFalse, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiDecisionSides) GetFalseOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.False) {
 		return nil, false
 	}
-	return o.False, true
+	return &o.False, true
 }
 
 // HasFalse returns a boolean if a field has been set.
@@ -70,27 +71,28 @@ func (o *AiDecisionSides) HasFalse() bool {
 	return false
 }
 
-// SetFalse gets a reference to the given AiDecisionSidesFalse and assigns it to the False field.
-func (o *AiDecisionSides) SetFalse(v AiDecisionSidesFalse) {
-	o.False = &v
+// SetFalse gets a reference to the given interface{} and assigns it to the False field.
+func (o *AiDecisionSides) SetFalse(v interface{}) {
+	o.False = v
 }
 
-// GetTrue returns the True field value if set, zero value otherwise.
-func (o *AiDecisionSides) GetTrue() AiDecisionSidesFalse {
-	if o == nil || IsNil(o.True) {
-		var ret AiDecisionSidesFalse
+// GetTrue returns the True field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AiDecisionSides) GetTrue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
-	return *o.True
+	return o.True
 }
 
 // GetTrueOk returns a tuple with the True field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiDecisionSides) GetTrueOk() (*AiDecisionSidesFalse, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiDecisionSides) GetTrueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.True) {
 		return nil, false
 	}
-	return o.True, true
+	return &o.True, true
 }
 
 // HasTrue returns a boolean if a field has been set.
@@ -102,9 +104,9 @@ func (o *AiDecisionSides) HasTrue() bool {
 	return false
 }
 
-// SetTrue gets a reference to the given AiDecisionSidesFalse and assigns it to the True field.
-func (o *AiDecisionSides) SetTrue(v AiDecisionSidesFalse) {
-	o.True = &v
+// SetTrue gets a reference to the given interface{} and assigns it to the True field.
+func (o *AiDecisionSides) SetTrue(v interface{}) {
+	o.True = v
 }
 
 func (o AiDecisionSides) MarshalJSON() ([]byte, error) {
@@ -117,10 +119,10 @@ func (o AiDecisionSides) MarshalJSON() ([]byte, error) {
 
 func (o AiDecisionSides) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.False) {
+	if o.False != nil {
 		toSerialize["false"] = o.False
 	}
-	if !IsNil(o.True) {
+	if o.True != nil {
 		toSerialize["true"] = o.True
 	}
 

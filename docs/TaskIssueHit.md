@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Assignee** | Pointer to **string** | Assignee is who holds the work. EMPTY MEANS UNHELD, which is what makes the issue claimable: claiming one already held by someone else is refused with 409 rather than quietly taken. | [optional] 
+**Channel** | Pointer to **string** | Channel is the collaboration channel the issue belongs to, spelled \&quot;&lt;space&gt;_&lt;channel&gt;\&quot; — empty when it is not channel-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read. | [optional] 
 **Kind** | Pointer to **string** | Kind is what the row IS: issue, pr or epic. | [optional] 
 **Number** | Pointer to **int64** | Number is the issue&#39;s number on that board, from 1 and monotonic there. Unique per board, never across the org — so it addresses an issue only together with Project. | [optional] 
 **Priority** | Pointer to **string** | Priority is urgent, high, medium, low or none. Never empty — an unset priority is the value \&quot;none\&quot;. | [optional] 
 **Project** | Pointer to **string** | Project is the board key the issue is on. It and Number are the issue&#39;s address in every other route on this surface, which is why a hit carries it. | [optional] 
 **Repo** | Pointer to **string** | Repo is the git repository the issue is bound to, empty when it is not repo-bound. | [optional] 
-**Room** | Pointer to **string** | Room is the collaboration room the issue belongs to, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read. | [optional] 
 **Source** | Pointer to **string** | Source is which surface opened it: team, git, crm, helpdesk, cms or agent. \&quot;git\&quot; is how the mirrored forge and GitHub rows are spelled. | [optional] 
 **Status** | Pointer to **string** | Status is the board column: backlog, todo, in_progress, done or canceled. Claiming moves backlog and todo to in_progress and leaves the other three where they are. | [optional] 
 **Title** | Pointer to **string** | Title is the issue&#39;s one-line summary — what the q filter matched, along with the description. | [optional] 
@@ -59,6 +59,31 @@ SetAssignee sets Assignee field to given value.
 `func (o *TaskIssueHit) HasAssignee() bool`
 
 HasAssignee returns a boolean if a field has been set.
+
+### GetChannel
+
+`func (o *TaskIssueHit) GetChannel() string`
+
+GetChannel returns the Channel field if non-nil, zero value otherwise.
+
+### GetChannelOk
+
+`func (o *TaskIssueHit) GetChannelOk() (*string, bool)`
+
+GetChannelOk returns a tuple with the Channel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChannel
+
+`func (o *TaskIssueHit) SetChannel(v string)`
+
+SetChannel sets Channel field to given value.
+
+### HasChannel
+
+`func (o *TaskIssueHit) HasChannel() bool`
+
+HasChannel returns a boolean if a field has been set.
 
 ### GetKind
 
@@ -184,31 +209,6 @@ SetRepo sets Repo field to given value.
 `func (o *TaskIssueHit) HasRepo() bool`
 
 HasRepo returns a boolean if a field has been set.
-
-### GetRoom
-
-`func (o *TaskIssueHit) GetRoom() string`
-
-GetRoom returns the Room field if non-nil, zero value otherwise.
-
-### GetRoomOk
-
-`func (o *TaskIssueHit) GetRoomOk() (*string, bool)`
-
-GetRoomOk returns a tuple with the Room field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoom
-
-`func (o *TaskIssueHit) SetRoom(v string)`
-
-SetRoom sets Room field to given value.
-
-### HasRoom
-
-`func (o *TaskIssueHit) HasRoom() bool`
-
-HasRoom returns a boolean if a field has been set.
 
 ### GetSource
 

@@ -19,16 +19,12 @@ var _ MappedNullable = &PricingUserEnablementItem{}
 
 // PricingUserEnablementItem struct for PricingUserEnablementItem
 type PricingUserEnablementItem struct {
-	// CanOptIn is whether POST /v1/pricing/enablement/optin would do anything here: the item is in beta and this org is not on its list yet. False for a caller with no validated org, who has no org to enrol.
-	CanOptIn *bool `json:"canOptIn,omitempty"`
-	// Effective is whether the caller's org may use the item right now, which is the field to branch on: true for any ga item, for a beta this org holds, and never for an off one.
+	// Effective is whether the caller may use the item right now, which is the field to branch on: true for any ga item, for a beta item while the platform's `beta` switch is on for the caller, and never for an off one.
 	Effective *bool `json:"effective,omitempty"`
 	// ID is the item within that namespace — a model id, a provider name, or a feature key.
 	Id *string `json:"id,omitempty"`
 	// Kind is the namespace the id lives in: \"model\", \"provider\" or \"feature\".
 	Kind *string `json:"kind,omitempty"`
-	// OptedIn is whether the caller's org is on this item's beta grant list. It can be true on an \"off\" item — the list survives the kill switch and is simply ignored while it is thrown — so it does not imply Effective.
-	OptedIn *bool `json:"optedIn,omitempty"`
 	// State is the item's GLOBAL availability — \"off\", \"beta\" or \"ga\" — which is the operator's setting and not this caller's answer. Effective is that.
 	State                *string `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -51,38 +47,6 @@ func NewPricingUserEnablementItem() *PricingUserEnablementItem {
 func NewPricingUserEnablementItemWithDefaults() *PricingUserEnablementItem {
 	this := PricingUserEnablementItem{}
 	return &this
-}
-
-// GetCanOptIn returns the CanOptIn field value if set, zero value otherwise.
-func (o *PricingUserEnablementItem) GetCanOptIn() bool {
-	if o == nil || IsNil(o.CanOptIn) {
-		var ret bool
-		return ret
-	}
-	return *o.CanOptIn
-}
-
-// GetCanOptInOk returns a tuple with the CanOptIn field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PricingUserEnablementItem) GetCanOptInOk() (*bool, bool) {
-	if o == nil || IsNil(o.CanOptIn) {
-		return nil, false
-	}
-	return o.CanOptIn, true
-}
-
-// HasCanOptIn returns a boolean if a field has been set.
-func (o *PricingUserEnablementItem) HasCanOptIn() bool {
-	if o != nil && !IsNil(o.CanOptIn) {
-		return true
-	}
-
-	return false
-}
-
-// SetCanOptIn gets a reference to the given bool and assigns it to the CanOptIn field.
-func (o *PricingUserEnablementItem) SetCanOptIn(v bool) {
-	o.CanOptIn = &v
 }
 
 // GetEffective returns the Effective field value if set, zero value otherwise.
@@ -181,38 +145,6 @@ func (o *PricingUserEnablementItem) SetKind(v string) {
 	o.Kind = &v
 }
 
-// GetOptedIn returns the OptedIn field value if set, zero value otherwise.
-func (o *PricingUserEnablementItem) GetOptedIn() bool {
-	if o == nil || IsNil(o.OptedIn) {
-		var ret bool
-		return ret
-	}
-	return *o.OptedIn
-}
-
-// GetOptedInOk returns a tuple with the OptedIn field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PricingUserEnablementItem) GetOptedInOk() (*bool, bool) {
-	if o == nil || IsNil(o.OptedIn) {
-		return nil, false
-	}
-	return o.OptedIn, true
-}
-
-// HasOptedIn returns a boolean if a field has been set.
-func (o *PricingUserEnablementItem) HasOptedIn() bool {
-	if o != nil && !IsNil(o.OptedIn) {
-		return true
-	}
-
-	return false
-}
-
-// SetOptedIn gets a reference to the given bool and assigns it to the OptedIn field.
-func (o *PricingUserEnablementItem) SetOptedIn(v bool) {
-	o.OptedIn = &v
-}
-
 // GetState returns the State field value if set, zero value otherwise.
 func (o *PricingUserEnablementItem) GetState() string {
 	if o == nil || IsNil(o.State) {
@@ -255,9 +187,6 @@ func (o PricingUserEnablementItem) MarshalJSON() ([]byte, error) {
 
 func (o PricingUserEnablementItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CanOptIn) {
-		toSerialize["canOptIn"] = o.CanOptIn
-	}
 	if !IsNil(o.Effective) {
 		toSerialize["effective"] = o.Effective
 	}
@@ -266,9 +195,6 @@ func (o PricingUserEnablementItem) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Kind) {
 		toSerialize["kind"] = o.Kind
-	}
-	if !IsNil(o.OptedIn) {
-		toSerialize["optedIn"] = o.OptedIn
 	}
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
@@ -295,11 +221,9 @@ func (o *PricingUserEnablementItem) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "canOptIn")
 		delete(additionalProperties, "effective")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "kind")
-		delete(additionalProperties, "optedIn")
 		delete(additionalProperties, "state")
 		o.AdditionalProperties = additionalProperties
 	}

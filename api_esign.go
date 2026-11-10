@@ -41,6 +41,9 @@ Each carries its status, recipients and field layout. The listing is capped at
 complete export. It reads the caller's own tenant store, so no other org's
 documents can appear in it.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EsignAPIGetEsignDocumentsRequest
 */
@@ -155,6 +158,9 @@ and every field with its type, page and position — the view a sender's UI
 renders, and where the field ids come from. The id is resolved in the caller's
 OWN tenant store, so another org's document id is a 404 rather than a refusal
 that would confirm it exists.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the document to act on. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id belonging to another tenant is simply not found.
@@ -277,6 +283,9 @@ in the surface edits it.
 The id is resolved in the caller's OWN tenant store, so another org's document
 id is a 404.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the document to act on. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id belonging to another tenant is simply not found.
 	@return EsignAPIGetEsignDocumentsByIdAuditRequest
@@ -397,6 +406,9 @@ either way, so sealed is what tells you which you are holding.
 
 The id is resolved in the caller's OWN tenant store, so another org's document
 id is a 404.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the document to act on. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id belonging to another tenant is simply not found.
@@ -768,6 +780,9 @@ lands in that principal's OWN org. Isolation is physical rather than a filter �
 each tenant has its own store — so another org's document id is simply not
 there. A body over 32 MiB is refused with 413.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EsignAPIPostEsignDocumentsRequest
 */
@@ -896,6 +911,9 @@ Fields are what make a recipient signable: a document cannot be sent while any
 signing recipient has none. Only while DRAFT — adding a field to a sent document
 is a 409 — and an unknown document is a 404. The addition is recorded on the
 audit trail.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1030,6 +1048,9 @@ Only while DRAFT: adding a recipient to a document already sent is a 409,
 because the field layout and the turn order were fixed when it went out. An
 unknown document is a 404. The addition is recorded on the audit trail.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
 	@return EsignAPIPostEsignDocumentsByIdRecipientsRequest
@@ -1157,6 +1178,9 @@ is any signing recipient with no fields to fill, named in the error. Re-sending
 an already-pending document is allowed and re-issues the same links rather than
 restarting anything; a completed document is a 409, and an unknown one a 404.
 The send is recorded on the audit trail.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the document to send. The URL is the addressing authority.

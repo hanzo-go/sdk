@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**CacheWriteTokens** | Pointer to **int32** |  | [optional] 
 **CachedTokens** | Pointer to **int32** |  | [optional] 
 
 ## Methods
@@ -24,6 +25,31 @@ will change when the set of required properties is changed
 NewAiResponsesInputDetailsWithDefaults instantiates a new AiResponsesInputDetails object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCacheWriteTokens
+
+`func (o *AiResponsesInputDetails) GetCacheWriteTokens() int32`
+
+GetCacheWriteTokens returns the CacheWriteTokens field if non-nil, zero value otherwise.
+
+### GetCacheWriteTokensOk
+
+`func (o *AiResponsesInputDetails) GetCacheWriteTokensOk() (*int32, bool)`
+
+GetCacheWriteTokensOk returns a tuple with the CacheWriteTokens field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCacheWriteTokens
+
+`func (o *AiResponsesInputDetails) SetCacheWriteTokens(v int32)`
+
+SetCacheWriteTokens sets CacheWriteTokens field to given value.
+
+### HasCacheWriteTokens
+
+`func (o *AiResponsesInputDetails) HasCacheWriteTokens() bool`
+
+HasCacheWriteTokens returns a boolean if a field has been set.
 
 ### GetCachedTokens
 

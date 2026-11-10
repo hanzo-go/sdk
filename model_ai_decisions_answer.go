@@ -20,15 +20,16 @@ var _ MappedNullable = &AiDecisionsAnswer{}
 
 // AiDecisionsAnswer struct for AiDecisionsAnswer
 type AiDecisionsAnswer struct {
-	Action               *AiDecisionsAction              `json:"action,omitempty"`
-	AnswerConfidence     *float32                        `json:"answer_confidence,omitempty"`
-	Choice               *string                         `json:"choice,omitempty"`
-	Confidence           *float32                        `json:"confidence,omitempty"`
-	Legend               map[string]AiDecisionSidesFalse `json:"legend,omitempty"`
-	Noul                 *float32                        `json:"noul,omitempty"`
-	Probabilities        map[string]float32              `json:"probabilities,omitempty"`
-	Score                *float32                        `json:"score,omitempty"`
-	Type                 string                          `json:"type"`
+	Action               *AiDecisionsAction     `json:"action,omitempty"`
+	AnswerConfidence     *float32               `json:"answer_confidence,omitempty"`
+	Choice               *string                `json:"choice,omitempty"`
+	Confidence           *float32               `json:"confidence,omitempty"`
+	Legend               map[string]interface{} `json:"legend,omitempty"`
+	Noul                 *float32               `json:"noul,omitempty"`
+	Probabilities        map[string]float32     `json:"probabilities,omitempty"`
+	Probability          *float32               `json:"probability,omitempty"`
+	Score                *float32               `json:"score,omitempty"`
+	Type                 string                 `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -181,9 +182,9 @@ func (o *AiDecisionsAnswer) SetConfidence(v float32) {
 }
 
 // GetLegend returns the Legend field value if set, zero value otherwise.
-func (o *AiDecisionsAnswer) GetLegend() map[string]AiDecisionSidesFalse {
+func (o *AiDecisionsAnswer) GetLegend() map[string]interface{} {
 	if o == nil || IsNil(o.Legend) {
-		var ret map[string]AiDecisionSidesFalse
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Legend
@@ -191,9 +192,9 @@ func (o *AiDecisionsAnswer) GetLegend() map[string]AiDecisionSidesFalse {
 
 // GetLegendOk returns a tuple with the Legend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiDecisionsAnswer) GetLegendOk() (map[string]AiDecisionSidesFalse, bool) {
+func (o *AiDecisionsAnswer) GetLegendOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Legend) {
-		return map[string]AiDecisionSidesFalse{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Legend, true
 }
@@ -207,8 +208,8 @@ func (o *AiDecisionsAnswer) HasLegend() bool {
 	return false
 }
 
-// SetLegend gets a reference to the given map[string]AiDecisionSidesFalse and assigns it to the Legend field.
-func (o *AiDecisionsAnswer) SetLegend(v map[string]AiDecisionSidesFalse) {
+// SetLegend gets a reference to the given map[string]interface{} and assigns it to the Legend field.
+func (o *AiDecisionsAnswer) SetLegend(v map[string]interface{}) {
 	o.Legend = v
 }
 
@@ -274,6 +275,38 @@ func (o *AiDecisionsAnswer) HasProbabilities() bool {
 // SetProbabilities gets a reference to the given map[string]float32 and assigns it to the Probabilities field.
 func (o *AiDecisionsAnswer) SetProbabilities(v map[string]float32) {
 	o.Probabilities = v
+}
+
+// GetProbability returns the Probability field value if set, zero value otherwise.
+func (o *AiDecisionsAnswer) GetProbability() float32 {
+	if o == nil || IsNil(o.Probability) {
+		var ret float32
+		return ret
+	}
+	return *o.Probability
+}
+
+// GetProbabilityOk returns a tuple with the Probability field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiDecisionsAnswer) GetProbabilityOk() (*float32, bool) {
+	if o == nil || IsNil(o.Probability) {
+		return nil, false
+	}
+	return o.Probability, true
+}
+
+// HasProbability returns a boolean if a field has been set.
+func (o *AiDecisionsAnswer) HasProbability() bool {
+	if o != nil && !IsNil(o.Probability) {
+		return true
+	}
+
+	return false
+}
+
+// SetProbability gets a reference to the given float32 and assigns it to the Probability field.
+func (o *AiDecisionsAnswer) SetProbability(v float32) {
+	o.Probability = &v
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
@@ -363,6 +396,9 @@ func (o AiDecisionsAnswer) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Probabilities) {
 		toSerialize["probabilities"] = o.Probabilities
 	}
+	if !IsNil(o.Probability) {
+		toSerialize["probability"] = o.Probability
+	}
 	if !IsNil(o.Score) {
 		toSerialize["score"] = o.Score
 	}
@@ -417,6 +453,7 @@ func (o *AiDecisionsAnswer) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "legend")
 		delete(additionalProperties, "noul")
 		delete(additionalProperties, "probabilities")
+		delete(additionalProperties, "probability")
 		delete(additionalProperties, "score")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties

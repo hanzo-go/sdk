@@ -16,10 +16,130 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // WebsearchAPIService WebsearchAPI service
 type WebsearchAPIService service
+
+type WebsearchAPIDeleteSearchEngineKeyRequest struct {
+	ctx        context.Context
+	ApiService *WebsearchAPIService
+	name       string
+}
+
+func (r WebsearchAPIDeleteSearchEngineKeyRequest) Execute() (*WebsearchSearchEngineKeyed, *http.Response, error) {
+	return r.ApiService.DeleteSearchEngineKeyExecute(r)
+}
+
+/*
+DeleteSearchEngineKey Removes an engine's API key from KMS.
+
+Removes an engine's API key from KMS.
+
+Searches stop using the key at once. Removing a key that is not held answers
+the same as removing one that is. 409 when the saved setting would be left with
+no engine that can answer — enable bing or ddg first.
+
+SuperAdmin only. 404 for an engine that does not exist, 400 for one that takes
+no key, 503 when the settings store or KMS cannot answer.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name is the engine, from the path.
+	@return WebsearchAPIDeleteSearchEngineKeyRequest
+*/
+func (a *WebsearchAPIService) DeleteSearchEngineKey(ctx context.Context, name string) WebsearchAPIDeleteSearchEngineKeyRequest {
+	return WebsearchAPIDeleteSearchEngineKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return WebsearchSearchEngineKeyed
+func (a *WebsearchAPIService) DeleteSearchEngineKeyExecute(r WebsearchAPIDeleteSearchEngineKeyRequest) (*WebsearchSearchEngineKeyed, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebsearchSearchEngineKeyed
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebsearchAPIService.DeleteSearchEngineKey")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/websearch/engines/{name}/key"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type WebsearchAPIDeleteWebsearchSearchRequest struct {
 	ctx        context.Context
@@ -31,11 +151,11 @@ func (r WebsearchAPIDeleteWebsearchSearchRequest) Execute() (*http.Response, err
 }
 
 /*
-DeleteWebsearchSearch Keyless web meta-search, in the SearXNG JSON envelope.
+DeleteWebsearchSearch Web meta-search, in the SearXNG JSON envelope.
 
 Answers {query, number_of_results, results:[{url, title, content, engine}]} — the exact /search?format=json contract a SearXNG client decodes, so an agent tool configured against SearXNG reaches this with no change. `q` is the query and `language` narrows it; both are read from the QUERY STRING.
 
-Served in-process by a Go meta-search over keyless public engines, never a third-party search API and never a search key. The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Ranking is deterministic rather than scored: the first configured engine's hits lead.
+Served in-process by a Go meta-search over the engines the platform enables (GET /v1/websearch/engines). The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Hits several engines agree on rank first.
 
 TWO WAYS IN, one-way equivalent, and no third: a validated principal — the same gate the whole data plane uses — passes straight through, and a caller without one must present the shared service key as X-API-Key, compared in constant time. A deployment with no key configured answers 503 rather than opening the surface to everyone, and a missing or wrong key is 401. It is never an open proxy. There is no tenant scoping beyond that gate, and there is nothing to scope: the results are public web pages, identical for every caller.
 
@@ -127,11 +247,11 @@ func (r WebsearchAPIGetWebsearchSearchRequest) Execute() (*http.Response, error)
 }
 
 /*
-GetWebsearchSearch Keyless web meta-search, in the SearXNG JSON envelope.
+GetWebsearchSearch Web meta-search, in the SearXNG JSON envelope.
 
 Answers {query, number_of_results, results:[{url, title, content, engine}]} — the exact /search?format=json contract a SearXNG client decodes, so an agent tool configured against SearXNG reaches this with no change. `q` is the query and `language` narrows it; both are read from the QUERY STRING.
 
-Served in-process by a Go meta-search over keyless public engines, never a third-party search API and never a search key. The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Ranking is deterministic rather than scored: the first configured engine's hits lead.
+Served in-process by a Go meta-search over the engines the platform enables (GET /v1/websearch/engines). The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Hits several engines agree on rank first.
 
 TWO WAYS IN, one-way equivalent, and no third: a validated principal — the same gate the whole data plane uses — passes straight through, and a caller without one must present the shared service key as X-API-Key, compared in constant time. A deployment with no key configured answers 503 rather than opening the surface to everyone, and a missing or wrong key is 401. It is never an open proxy. There is no tenant scoping beyond that gate, and there is nothing to scope: the results are public web pages, identical for every caller.
 
@@ -213,6 +333,128 @@ func (a *WebsearchAPIService) GetWebsearchSearchExecute(r WebsearchAPIGetWebsear
 	return localVarHTTPResponse, nil
 }
 
+type WebsearchAPIListSearchEnginesRequest struct {
+	ctx        context.Context
+	ApiService *WebsearchAPIService
+}
+
+func (r WebsearchAPIListSearchEnginesRequest) Execute() (*WebsearchSearchEngines, *http.Response, error) {
+	return r.ApiService.ListSearchEnginesExecute(r)
+}
+
+/*
+ListSearchEngines Lists every engine web search can run and how the platform runs it.
+
+Lists every engine web search can run and how the platform runs it.
+
+For each engine: whether it is enabled and its place in the run order, whether
+it takes an API key and whether it needs one, whether the platform holds that
+key (`keyed` — the key itself is never returned), whether it answers from this
+cluster as things stand (`available`), the option values it is asked with and
+the options it supports with their bounds. Enabled engines come first, in the
+order they run.
+
+`saved` is false when no setting is stored, and the engines shown enabled are
+then the default: Mojeek alone when its key is held, otherwise bing, ddg and
+Mojeek — Mojeek's keyless page does not answer from this cluster on its own.
+
+SuperAdmin only. 503 when the settings store or KMS cannot answer: a board
+that guessed would show an operator a configuration nobody saved.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return WebsearchAPIListSearchEnginesRequest
+*/
+func (a *WebsearchAPIService) ListSearchEngines(ctx context.Context) WebsearchAPIListSearchEnginesRequest {
+	return WebsearchAPIListSearchEnginesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return WebsearchSearchEngines
+func (a *WebsearchAPIService) ListSearchEnginesExecute(r WebsearchAPIListSearchEnginesRequest) (*WebsearchSearchEngines, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebsearchSearchEngines
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebsearchAPIService.ListSearchEngines")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/websearch/engines"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type WebsearchAPIPatchWebsearchSearchRequest struct {
 	ctx        context.Context
 	ApiService *WebsearchAPIService
@@ -223,11 +465,11 @@ func (r WebsearchAPIPatchWebsearchSearchRequest) Execute() (*http.Response, erro
 }
 
 /*
-PatchWebsearchSearch Keyless web meta-search, in the SearXNG JSON envelope.
+PatchWebsearchSearch Web meta-search, in the SearXNG JSON envelope.
 
 Answers {query, number_of_results, results:[{url, title, content, engine}]} — the exact /search?format=json contract a SearXNG client decodes, so an agent tool configured against SearXNG reaches this with no change. `q` is the query and `language` narrows it; both are read from the QUERY STRING.
 
-Served in-process by a Go meta-search over keyless public engines, never a third-party search API and never a search key. The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Ranking is deterministic rather than scored: the first configured engine's hits lead.
+Served in-process by a Go meta-search over the engines the platform enables (GET /v1/websearch/engines). The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Hits several engines agree on rank first.
 
 TWO WAYS IN, one-way equivalent, and no third: a validated principal — the same gate the whole data plane uses — passes straight through, and a caller without one must present the shared service key as X-API-Key, compared in constant time. A deployment with no key configured answers 503 rather than opening the surface to everyone, and a missing or wrong key is 401. It is never an open proxy. There is no tenant scoping beyond that gate, and there is nothing to scope: the results are public web pages, identical for every caller.
 
@@ -415,11 +657,11 @@ func (r WebsearchAPIPostWebsearchSearchRequest) Execute() (*http.Response, error
 }
 
 /*
-PostWebsearchSearch Keyless web meta-search, in the SearXNG JSON envelope.
+PostWebsearchSearch Web meta-search, in the SearXNG JSON envelope.
 
 Answers {query, number_of_results, results:[{url, title, content, engine}]} — the exact /search?format=json contract a SearXNG client decodes, so an agent tool configured against SearXNG reaches this with no change. `q` is the query and `language` narrows it; both are read from the QUERY STRING.
 
-Served in-process by a Go meta-search over keyless public engines, never a third-party search API and never a search key. The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Ranking is deterministic rather than scored: the first configured engine's hits lead.
+Served in-process by a Go meta-search over the engines the platform enables (GET /v1/websearch/engines). The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Hits several engines agree on rank first.
 
 TWO WAYS IN, one-way equivalent, and no third: a validated principal — the same gate the whole data plane uses — passes straight through, and a caller without one must present the shared service key as X-API-Key, compared in constant time. A deployment with no key configured answers 503 rather than opening the surface to everyone, and a missing or wrong key is 401. It is never an open proxy. There is no tenant scoping beyond that gate, and there is nothing to scope: the results are public web pages, identical for every caller.
 
@@ -511,11 +753,11 @@ func (r WebsearchAPIPutWebsearchSearchRequest) Execute() (*http.Response, error)
 }
 
 /*
-PutWebsearchSearch Keyless web meta-search, in the SearXNG JSON envelope.
+PutWebsearchSearch Web meta-search, in the SearXNG JSON envelope.
 
 Answers {query, number_of_results, results:[{url, title, content, engine}]} — the exact /search?format=json contract a SearXNG client decodes, so an agent tool configured against SearXNG reaches this with no change. `q` is the query and `language` narrows it; both are read from the QUERY STRING.
 
-Served in-process by a Go meta-search over keyless public engines, never a third-party search API and never a search key. The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Ranking is deterministic rather than scored: the first configured engine's hits lead.
+Served in-process by a Go meta-search over the engines the platform enables (GET /v1/websearch/engines). The enabled engines run concurrently and their hits are merged, deduplicated by normalised URL (host and path, trailing slash and fragment dropped, query kept — distinct queries are distinct results) and capped at 30. Hits several engines agree on rank first.
 
 TWO WAYS IN, one-way equivalent, and no third: a validated principal — the same gate the whole data plane uses — passes straight through, and a caller without one must present the shared service key as X-API-Key, compared in constant time. A deployment with no key configured answers 503 rather than opening the surface to everyone, and a missing or wrong key is 401. It is never an open proxy. There is no tenant scoping beyond that gate, and there is nothing to scope: the results are public web pages, identical for every caller.
 
@@ -623,12 +865,13 @@ outage, a release that postdates any model's training. `q` is the query and
 results:[{url, title, content, engine}]}`, where `content` is the ENGINE's
 snippet and not the page: read a page with POST /v1/crawl.
 
-It is served in-process by a Go meta-search over keyless public engines — never
-a third-party search API and never a search key. The enabled engines run
-concurrently and their hits are merged, deduplicated by normalised URL (host
-and path, trailing slash and fragment dropped, query kept, so distinct queries
-stay distinct results) and capped at 30. Ranking is deterministic rather than
-scored: the first configured engine's hits lead.
+It is served in-process by a Go meta-search over the engines the platform
+enables (GET /v1/websearch/engines): Mojeek's API by default when the platform
+holds its key, otherwise the keyless engines that answer from this cluster. The
+enabled engines run concurrently and their hits are merged, deduplicated by
+normalised URL (host and path, trailing slash and fragment dropped, query kept,
+so distinct queries stay distinct results) and capped at 30. Hits that several
+engines agree on rank first; ties keep a stable order.
 
 It fails SOFT on the engines. One that errors, times out or is served a
 bot-challenge page contributes zero results and never fails the call, so an
@@ -714,6 +957,270 @@ func (a *WebsearchAPIService) SearchWebExecute(r WebsearchAPISearchWebRequest) (
 	}
 	// body params
 	localVarPostBody = r.websearchWebSearchQuery
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type WebsearchAPISetSearchEngineKeyRequest struct {
+	ctx                      context.Context
+	ApiService               *WebsearchAPIService
+	name                     string
+	websearchSearchEngineKey *WebsearchSearchEngineKey
+}
+
+func (r WebsearchAPISetSearchEngineKeyRequest) WebsearchSearchEngineKey(websearchSearchEngineKey WebsearchSearchEngineKey) WebsearchAPISetSearchEngineKeyRequest {
+	r.websearchSearchEngineKey = &websearchSearchEngineKey
+	return r
+}
+
+func (r WebsearchAPISetSearchEngineKeyRequest) Execute() (*WebsearchSearchEngineKeyed, *http.Response, error) {
+	return r.ApiService.SetSearchEngineKeyExecute(r)
+}
+
+/*
+SetSearchEngineKey Seals an engine's API key in KMS, replacing any key held.
+
+Seals an engine's API key in KMS, replacing any key held.
+
+The key is the platform's: it lives in KMS under the platform org admin at
+/websearch/<ENGINE>_KEY (env prod), every search reads it from there at the
+moment it runs, and no
+operation returns, logs or echoes it — the answer says only that a key is now
+held. Only an engine that takes a key accepts one (mojeek, brave).
+
+SuperAdmin only. 404 for an engine that does not exist, 400 for one that takes
+no key or a key that is empty, longer than 4096 bytes or holds whitespace or
+control characters, 503 when KMS cannot take it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name is the engine, from the path.
+	@return WebsearchAPISetSearchEngineKeyRequest
+*/
+func (a *WebsearchAPIService) SetSearchEngineKey(ctx context.Context, name string) WebsearchAPISetSearchEngineKeyRequest {
+	return WebsearchAPISetSearchEngineKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return WebsearchSearchEngineKeyed
+func (a *WebsearchAPIService) SetSearchEngineKeyExecute(r WebsearchAPISetSearchEngineKeyRequest) (*WebsearchSearchEngineKeyed, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebsearchSearchEngineKeyed
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebsearchAPIService.SetSearchEngineKey")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/websearch/engines/{name}/key"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.websearchSearchEngineKey == nil {
+		return localVarReturnValue, nil, reportError("websearchSearchEngineKey is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.websearchSearchEngineKey
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type WebsearchAPISetSearchEnginesRequest struct {
+	ctx                       context.Context
+	ApiService                *WebsearchAPIService
+	websearchSearchEnginesSet *WebsearchSearchEnginesSet
+}
+
+func (r WebsearchAPISetSearchEnginesRequest) WebsearchSearchEnginesSet(websearchSearchEnginesSet WebsearchSearchEnginesSet) WebsearchAPISetSearchEnginesRequest {
+	r.websearchSearchEnginesSet = &websearchSearchEnginesSet
+	return r
+}
+
+func (r WebsearchAPISetSearchEnginesRequest) Execute() (*WebsearchSearchEngines, *http.Response, error) {
+	return r.ApiService.SetSearchEnginesExecute(r)
+}
+
+/*
+SetSearchEngines Replaces the platform's web search engine setting and answers the result.
+
+Replaces the platform's web search engine setting and answers the result.
+
+`enabled` lists the engines searches run, in order — at least one, each a
+registered engine named once, and at least one that is available (needs no key
+here, or its key is held). `options` gives each engine's values by name; an
+engine or a field left out takes its default, because the setting replaces the
+stored one whole. A count must lie within the engine's bounds, a language is a
+tag like `en` or `en-US`, a region a two-letter country code, and an option the
+engine does not support is refused.
+
+SuperAdmin only. 400 names every problem with the setting at once; 503 when
+the settings store or KMS cannot answer. The answer is the engine list as it
+now stands, so the caller sees the effect without a second read.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return WebsearchAPISetSearchEnginesRequest
+*/
+func (a *WebsearchAPIService) SetSearchEngines(ctx context.Context) WebsearchAPISetSearchEnginesRequest {
+	return WebsearchAPISetSearchEnginesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return WebsearchSearchEngines
+func (a *WebsearchAPIService) SetSearchEnginesExecute(r WebsearchAPISetSearchEnginesRequest) (*WebsearchSearchEngines, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebsearchSearchEngines
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebsearchAPIService.SetSearchEngines")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/websearch/engines"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.websearchSearchEnginesSet == nil {
+		return localVarReturnValue, nil, reportError("websearchSearchEnginesSet is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.websearchSearchEnginesSet
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

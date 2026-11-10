@@ -19,8 +19,11 @@ var _ MappedNullable = &Approval{}
 
 // Approval struct for Approval
 type Approval struct {
-	Clause               *string `json:"clause,omitempty"`
-	Reason               *string `json:"reason,omitempty"`
+	// Clause names the clause of the rule that asked for sign-off.
+	Clause *string `json:"clause,omitempty"`
+	// Reason is what a person reads before answering.
+	Reason *string `json:"reason,omitempty"`
+	// Status is always held: the op stopped for sign-off and did not run.
 	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

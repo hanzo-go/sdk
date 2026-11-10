@@ -4,17 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**After** | Pointer to **string** | After names a previous run&#39;s session, and starts this one from where that one stopped instead of from the repository&#39;s default. It is how a follow-up instruction — \&quot;now add tests for it\&quot; — builds on work already done rather than beginning again on a fresh clone: the follow-up resumes the earlier run&#39;s sandbox and works in its tree, files, installs and all, while that sandbox is kept; one reaped by then is cloned again from the earlier branch.  It sets the base and nothing else, so this run still writes its OWN branch. One run, one branch: a run that wrote back onto an earlier run&#39;s branch would break the rule the forge&#39;s ref policy is built on, and would leave two turns of work with one name to review.  A caller who already knows the branch may pass Base directly; this exists because the branch is derived from a session id and nobody should have to know how. Base wins if both are given. | [optional] 
+**After** | Pointer to **string** | After names a previous run&#39;s session, and starts this one from where that one stopped instead of from the repository&#39;s default. It is how a follow-up instruction — \&quot;now add tests for it\&quot; — builds on work already done rather than beginning again on a fresh clone: the follow-up resumes the earlier run&#39;s sandbox and works in its tree, files, installs and all, while that sandbox is kept; one reaped by then is cloned again from the earlier branch.  The follow-up writes the SAME branch the earlier run did, on top of its commits, so one piece of work is one branch and one pull request however many instructions it takes. It pushes without force, so it only ever adds to that branch. When the earlier run was on another repository, or kept its work local, there is no branch to carry on and the follow-up writes a new one. Branch names the branch instead.  A caller who already knows the branch may pass Base directly. Base wins if both are given. | [optional] 
 **AgentRef** | Pointer to **string** | AgentRef names a configured agent to run as, which is how an org pins a harness, a model and a prompt to a name. Empty runs the default agent. | [optional] 
 **Base** | Pointer to **string** | Base is the branch to start from. Empty takes the repository&#39;s default. The run never writes here — it writes the agent branch it answers with. | [optional] 
+**Branch** | Pointer to **string** | Branch names the branch the run writes, as &#x60;agent/&lt;name&gt;&#x60;: pass the name alone, or with the prefix. Runs write only under &#x60;agent/&#x60;, never to Base or to the default branch, so the name is letters, digits, &#x60;.&#x60;, &#x60;_&#x60; and &#x60;-&#x60;. Empty takes &#x60;agent/&#x60; and the first part of the run&#39;s session id, or the earlier run&#39;s branch when After names one.  A branch that already exists on the repository is carried on, not replaced: the run starts from it and adds commits, and its pull request is the one it already has. | [optional] 
 **Desktop** | Pointer to **bool** | Desktop asks for a run with a SCREEN — an image carrying an X server — for a task that has to drive a browser or another windowed program. False, the default, is a headless checkout, which is what writing code needs. | [optional] 
 **Effort** | Pointer to **string** | Effort is how hard that model reasons: low, medium or high. Empty takes the model&#39;s own default. Taken by the dev and codex harnesses, like Model. | [optional] 
-**Issue** | Pointer to **int64** | Issue is the number of the issue on Repo this run resolves. Its pull request says &#x60;Closes #&lt;n&gt;&#x60;, so merging the work closes the issue. Zero is a run no issue asked for. | [optional] 
+**Issue** | Pointer to **string** | Issue is the issue this run resolves: its number on Repo (&#x60;464&#x60; or &#x60;#464&#x60;), or &#x60;owner/name#464&#x60; for an issue in another repository. Its pull request says &#x60;Closes &lt;issue&gt;&#x60;, so merging the work closes the issue. Empty, or 0, is a run no issue asked for. | [optional] 
 **Mode** | Pointer to **string** | Mode is what the run may do to the repository: &#x60;build&#x60; edits, commits and pushes its branch; &#x60;plan&#x60; reads the repository and answers with a plan, writing nothing — its sandbox is handed a credential that can only read and no push step runs, and the plan arrives as the run&#39;s final status. &#x60;setup&#x60; is a plan put to one question: its agent explores the checkout, installs and checks what it finds, and ends with the codebase&#39;s environment, which is kept as the proposal at /v1/environment/{repo} until someone saves it. Empty is &#x60;build&#x60;. A plan or a setup runs in our sandbox only: a claimed machine clones and pushes with its own credential, so one routed to a machine is refused. | [optional] 
 **Model** | Pointer to **string** | Model is the model the run&#39;s agent thinks with, by the id GET /v1/models lists. Empty takes the platform&#39;s coding model. The dev and codex harnesses take it; the others do not think with a model we name, so naming one for them is refused. | [optional] 
 **Project** | Pointer to **string** | Project scopes the run to one board&#39;s work when the org keeps more than one. Empty is the org&#39;s default. | [optional] 
 **Prompt** | Pointer to **string** | Prompt is the task, in the words you would use with a colleague who has the checkout open. It is the whole instruction: there is no second field for context, and a prompt that names files and the outcome it wants gets a run that does not have to guess either. | [optional] 
-**Reply** | Pointer to [**AgentReply**](AgentReply.md) | Reply is WHERE THE RUN NARRATES ITSELF, when the surface that started it has somewhere for it to talk. Empty means nobody is listening and the run simply does not narrate — which is the app surface&#39;s case, because /v1/agent/coding hands back a session id and the session stream is a better progress feed than any message could be.  IT IS NOT A FIELD A MODEL FILLS IN. A run asked for in a conversation is dispatched with the address that conversation is happening at, written over whatever arrived here (apps/agents/replyto.go). A model naming a channel is a model naming a room it was not spoken to in, so the value it chose is discarded rather than argued with — which is the same rule that left the org and the subject off this type entirely. | [optional] 
+**Pull** | Pointer to **bool** | Pull is whether the run opens a pull request for what it pushed. Unset, it pushes the branch and opens none: a pull request is the step after the work, taken when it is ready, and a run resumed with &#x60;after&#x60; adds to the same branch. True opens one when the run changed something. | [optional] 
+**Reply** | Pointer to [**AgentReply**](AgentReply.md) | Reply is WHERE THE RUN NARRATES ITSELF, when the surface that started it has somewhere for it to talk. Empty means nobody is listening and the run simply does not narrate — which is the app surface&#39;s case, because /v1/agent/coding hands back a session id and the session stream is a better progress feed than any message could be.  IT IS NOT A FIELD A MODEL FILLS IN. A run asked for in a conversation is dispatched with the address that conversation is happening at, written over whatever arrived here (apps/agents/replyto.go). A model naming a channel is a model naming a channel it was not spoken to in, so the value it chose is discarded rather than argued with — which is the same rule that left the org and the subject off this type entirely. | [optional] 
 **Repo** | Pointer to **string** | Repo is what to work on: a repository&#39;s name, &#x60;owner/name&#x60; in the caller&#39;s own org, or the site a repository serves (&#x60;hanzo.ai&#x60;), as the person said it. The engine resolves it against the org&#39;s own repositories — a name that matches none is refused with the nearest ones — and finds the clone URL and the push credential from the org itself, so this says WHICH repository and never how to reach it.  A repository on GitHub is named by GitHub&#39;s address, &#x60;github.com/owner/name&#x60; — or &#x60;owner/name&#x60; when the owner is not the org&#39;s own — and runs there directly: it is admitted when the caller&#39;s own connected GitHub may push to it, or when the caller administers the org and the org&#39;s installation holds it, and refused otherwise.  A repository the caller can read and not push to — a public repository, or one their GitHub reads — is cloned read-only: the run works, commits in its workspace, and pushes nothing; its change is kept as the run&#39;s artifacts.  Empty runs in an empty workspace: a fresh git repository in the sandbox, with nothing cloned and nothing pushed. | [optional] 
 **TargetId** | Pointer to **string** | TargetID routes the run to a registered machine the org has claimed instead of to a sandbox in our cluster. Empty runs it here, which is the usual case. | [optional] 
 **Task** | Pointer to **string** | Task is Prompt under the name a caller asking for work tends to reach for. The two are one field: Prompt wins when both are given. | [optional] 
@@ -115,6 +117,31 @@ SetBase sets Base field to given value.
 
 HasBase returns a boolean if a field has been set.
 
+### GetBranch
+
+`func (o *AgentCodingStartIn) GetBranch() string`
+
+GetBranch returns the Branch field if non-nil, zero value otherwise.
+
+### GetBranchOk
+
+`func (o *AgentCodingStartIn) GetBranchOk() (*string, bool)`
+
+GetBranchOk returns a tuple with the Branch field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBranch
+
+`func (o *AgentCodingStartIn) SetBranch(v string)`
+
+SetBranch sets Branch field to given value.
+
+### HasBranch
+
+`func (o *AgentCodingStartIn) HasBranch() bool`
+
+HasBranch returns a boolean if a field has been set.
+
 ### GetDesktop
 
 `func (o *AgentCodingStartIn) GetDesktop() bool`
@@ -167,20 +194,20 @@ HasEffort returns a boolean if a field has been set.
 
 ### GetIssue
 
-`func (o *AgentCodingStartIn) GetIssue() int64`
+`func (o *AgentCodingStartIn) GetIssue() string`
 
 GetIssue returns the Issue field if non-nil, zero value otherwise.
 
 ### GetIssueOk
 
-`func (o *AgentCodingStartIn) GetIssueOk() (*int64, bool)`
+`func (o *AgentCodingStartIn) GetIssueOk() (*string, bool)`
 
 GetIssueOk returns a tuple with the Issue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIssue
 
-`func (o *AgentCodingStartIn) SetIssue(v int64)`
+`func (o *AgentCodingStartIn) SetIssue(v string)`
 
 SetIssue sets Issue field to given value.
 
@@ -289,6 +316,31 @@ SetPrompt sets Prompt field to given value.
 `func (o *AgentCodingStartIn) HasPrompt() bool`
 
 HasPrompt returns a boolean if a field has been set.
+
+### GetPull
+
+`func (o *AgentCodingStartIn) GetPull() bool`
+
+GetPull returns the Pull field if non-nil, zero value otherwise.
+
+### GetPullOk
+
+`func (o *AgentCodingStartIn) GetPullOk() (*bool, bool)`
+
+GetPullOk returns a tuple with the Pull field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPull
+
+`func (o *AgentCodingStartIn) SetPull(v bool)`
+
+SetPull sets Pull field to given value.
+
+### HasPull
+
+`func (o *AgentCodingStartIn) HasPull() bool`
+
+HasPull returns a boolean if a field has been set.
 
 ### GetReply
 

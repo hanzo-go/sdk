@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## PostTranslate
 
-> PostTranslate(ctx).Execute()
+> Delivery PostTranslate(ctx).Brief(brief).Execute()
 
 Translate a string or a batch into one target language
 
@@ -101,29 +101,36 @@ import (
 )
 
 func main() {
+	brief := *openapiclient.NewBrief("Target_example") // Brief |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TranslateAPI.PostTranslate(context.Background()).Execute()
+	resp, r, err := apiClient.TranslateAPI.PostTranslate(context.Background()).Brief(brief).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TranslateAPI.PostTranslate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostTranslate`: Delivery
+	fmt.Fprintf(os.Stdout, "Response from `TranslateAPI.PostTranslate`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostTranslateRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **brief** | [**Brief**](Brief.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**Delivery**](Delivery.md)
 
 ### Authorization
 
@@ -131,8 +138,8 @@ Other parameters are passed through a pointer to a apiPostTranslateRequest struc
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

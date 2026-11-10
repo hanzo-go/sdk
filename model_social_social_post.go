@@ -27,7 +27,7 @@ type SocialSocialPost struct {
 	Content *string `json:"content,omitempty"`
 	// CreatedAt is when the post was created, as a unix timestamp in seconds.
 	CreatedAt *int64 `json:"createdAt,omitempty"`
-	// Error is why the last publish attempt failed, verbatim and bounded. Absent when no attempt has failed; cleared by a later success.
+	// Error is why the last publish attempt failed, verbatim and bounded. Absent when no attempt has failed; cleared by a later success. A post published to several accounts that only some took is published, and this names the rest.
 	Error *string `json:"error,omitempty"`
 	// ExternalID is the id the network returned for the published post, which is what reconciles this row against the post on the network. Absent until a publish succeeds.
 	ExternalId *string `json:"externalId,omitempty"`

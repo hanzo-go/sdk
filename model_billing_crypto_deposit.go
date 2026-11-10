@@ -19,12 +19,33 @@ var _ MappedNullable = &BillingCryptoDeposit{}
 
 // BillingCryptoDeposit struct for BillingCryptoDeposit
 type BillingCryptoDeposit struct {
-	AddressTag           *string `json:"addressTag,omitempty"`
-	Chain                *string `json:"chain,omitempty"`
-	DepositAddress       *string `json:"depositAddress,omitempty"`
-	ExpiresAt            *string `json:"expiresAt,omitempty"`
-	Id                   *string `json:"id,omitempty"`
-	Status               *string `json:"status,omitempty"`
+	// AddressTag is the destination tag the payment must carry, on a chain whose address is shared. Absent where the address alone names the payer.
+	AddressTag *string `json:"addressTag,omitempty"`
+	// AmountCents is what the payer said they would send, in USD cents, when the address was asked for: a record of intent, not a quote. What is credited is what arrives. Absent when nothing was named.
+	AmountCents *int64 `json:"amountCents,omitempty"`
+	// Chain is the network to send on.
+	Chain *string `json:"chain,omitempty"`
+	// Confirmations is how deep the transfer being confirmed is now; zero until one is seen.
+	Confirmations *int64 `json:"confirmations,omitempty"`
+	// CreditedCents is what the transfer this intent confirmed credited, in USD cents, once it succeeded. A later transfer to the same address is credited too, and shows in the balance rather than here.
+	CreditedCents *int64 `json:"creditedCents,omitempty"`
+	// DepositAddress is where to send it.
+	DepositAddress *string `json:"depositAddress,omitempty"`
+	// ExpiresAt is when this address stops being handed out again (RFC3339). A transfer that arrives after it is still credited.
+	ExpiresAt *string `json:"expiresAt,omitempty"`
+	// FeeCents is deducted from every deposit before it is credited: the cost of sweeping it out of the custody address. Absent deducts nothing.
+	FeeCents *int64 `json:"feeCents,omitempty"`
+	// ID names the intent; read it back at GET /v1/billing/crypto/deposit/{id}.
+	Id *string `json:"id,omitempty"`
+	// Instructions says, in one line, what to send where and when it is credited.
+	Instructions *string `json:"instructions,omitempty"`
+	// MinimumCents is the smallest deposit, in USD cents, that credits anything; less credits nothing. Absent when nothing is watching this asset now, and then nothing sent to it is credited.
+	MinimumCents *int64 `json:"minimumCents,omitempty"`
+	// RequiredConfirmations is how many blocks deep the transfer must be before it is credited.
+	RequiredConfirmations *int64 `json:"requiredConfirmations,omitempty"`
+	// Status is pending until a transfer to the address is seen, confirming while the chain buries it, and succeeded once it is credited as cash in the payer's balance (GET /v1/billing/balance, cash).
+	Status *string `json:"status,omitempty"`
+	// Token is the asset to send; this intent credits that token alone.
 	Token                *string `json:"token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -80,6 +101,38 @@ func (o *BillingCryptoDeposit) SetAddressTag(v string) {
 	o.AddressTag = &v
 }
 
+// GetAmountCents returns the AmountCents field value if set, zero value otherwise.
+func (o *BillingCryptoDeposit) GetAmountCents() int64 {
+	if o == nil || IsNil(o.AmountCents) {
+		var ret int64
+		return ret
+	}
+	return *o.AmountCents
+}
+
+// GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingCryptoDeposit) GetAmountCentsOk() (*int64, bool) {
+	if o == nil || IsNil(o.AmountCents) {
+		return nil, false
+	}
+	return o.AmountCents, true
+}
+
+// HasAmountCents returns a boolean if a field has been set.
+func (o *BillingCryptoDeposit) HasAmountCents() bool {
+	if o != nil && !IsNil(o.AmountCents) {
+		return true
+	}
+
+	return false
+}
+
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *BillingCryptoDeposit) SetAmountCents(v int64) {
+	o.AmountCents = &v
+}
+
 // GetChain returns the Chain field value if set, zero value otherwise.
 func (o *BillingCryptoDeposit) GetChain() string {
 	if o == nil || IsNil(o.Chain) {
@@ -110,6 +163,70 @@ func (o *BillingCryptoDeposit) HasChain() bool {
 // SetChain gets a reference to the given string and assigns it to the Chain field.
 func (o *BillingCryptoDeposit) SetChain(v string) {
 	o.Chain = &v
+}
+
+// GetConfirmations returns the Confirmations field value if set, zero value otherwise.
+func (o *BillingCryptoDeposit) GetConfirmations() int64 {
+	if o == nil || IsNil(o.Confirmations) {
+		var ret int64
+		return ret
+	}
+	return *o.Confirmations
+}
+
+// GetConfirmationsOk returns a tuple with the Confirmations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingCryptoDeposit) GetConfirmationsOk() (*int64, bool) {
+	if o == nil || IsNil(o.Confirmations) {
+		return nil, false
+	}
+	return o.Confirmations, true
+}
+
+// HasConfirmations returns a boolean if a field has been set.
+func (o *BillingCryptoDeposit) HasConfirmations() bool {
+	if o != nil && !IsNil(o.Confirmations) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfirmations gets a reference to the given int64 and assigns it to the Confirmations field.
+func (o *BillingCryptoDeposit) SetConfirmations(v int64) {
+	o.Confirmations = &v
+}
+
+// GetCreditedCents returns the CreditedCents field value if set, zero value otherwise.
+func (o *BillingCryptoDeposit) GetCreditedCents() int64 {
+	if o == nil || IsNil(o.CreditedCents) {
+		var ret int64
+		return ret
+	}
+	return *o.CreditedCents
+}
+
+// GetCreditedCentsOk returns a tuple with the CreditedCents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingCryptoDeposit) GetCreditedCentsOk() (*int64, bool) {
+	if o == nil || IsNil(o.CreditedCents) {
+		return nil, false
+	}
+	return o.CreditedCents, true
+}
+
+// HasCreditedCents returns a boolean if a field has been set.
+func (o *BillingCryptoDeposit) HasCreditedCents() bool {
+	if o != nil && !IsNil(o.CreditedCents) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreditedCents gets a reference to the given int64 and assigns it to the CreditedCents field.
+func (o *BillingCryptoDeposit) SetCreditedCents(v int64) {
+	o.CreditedCents = &v
 }
 
 // GetDepositAddress returns the DepositAddress field value if set, zero value otherwise.
@@ -176,6 +293,38 @@ func (o *BillingCryptoDeposit) SetExpiresAt(v string) {
 	o.ExpiresAt = &v
 }
 
+// GetFeeCents returns the FeeCents field value if set, zero value otherwise.
+func (o *BillingCryptoDeposit) GetFeeCents() int64 {
+	if o == nil || IsNil(o.FeeCents) {
+		var ret int64
+		return ret
+	}
+	return *o.FeeCents
+}
+
+// GetFeeCentsOk returns a tuple with the FeeCents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingCryptoDeposit) GetFeeCentsOk() (*int64, bool) {
+	if o == nil || IsNil(o.FeeCents) {
+		return nil, false
+	}
+	return o.FeeCents, true
+}
+
+// HasFeeCents returns a boolean if a field has been set.
+func (o *BillingCryptoDeposit) HasFeeCents() bool {
+	if o != nil && !IsNil(o.FeeCents) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeeCents gets a reference to the given int64 and assigns it to the FeeCents field.
+func (o *BillingCryptoDeposit) SetFeeCents(v int64) {
+	o.FeeCents = &v
+}
+
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *BillingCryptoDeposit) GetId() string {
 	if o == nil || IsNil(o.Id) {
@@ -206,6 +355,102 @@ func (o *BillingCryptoDeposit) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *BillingCryptoDeposit) SetId(v string) {
 	o.Id = &v
+}
+
+// GetInstructions returns the Instructions field value if set, zero value otherwise.
+func (o *BillingCryptoDeposit) GetInstructions() string {
+	if o == nil || IsNil(o.Instructions) {
+		var ret string
+		return ret
+	}
+	return *o.Instructions
+}
+
+// GetInstructionsOk returns a tuple with the Instructions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingCryptoDeposit) GetInstructionsOk() (*string, bool) {
+	if o == nil || IsNil(o.Instructions) {
+		return nil, false
+	}
+	return o.Instructions, true
+}
+
+// HasInstructions returns a boolean if a field has been set.
+func (o *BillingCryptoDeposit) HasInstructions() bool {
+	if o != nil && !IsNil(o.Instructions) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstructions gets a reference to the given string and assigns it to the Instructions field.
+func (o *BillingCryptoDeposit) SetInstructions(v string) {
+	o.Instructions = &v
+}
+
+// GetMinimumCents returns the MinimumCents field value if set, zero value otherwise.
+func (o *BillingCryptoDeposit) GetMinimumCents() int64 {
+	if o == nil || IsNil(o.MinimumCents) {
+		var ret int64
+		return ret
+	}
+	return *o.MinimumCents
+}
+
+// GetMinimumCentsOk returns a tuple with the MinimumCents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingCryptoDeposit) GetMinimumCentsOk() (*int64, bool) {
+	if o == nil || IsNil(o.MinimumCents) {
+		return nil, false
+	}
+	return o.MinimumCents, true
+}
+
+// HasMinimumCents returns a boolean if a field has been set.
+func (o *BillingCryptoDeposit) HasMinimumCents() bool {
+	if o != nil && !IsNil(o.MinimumCents) {
+		return true
+	}
+
+	return false
+}
+
+// SetMinimumCents gets a reference to the given int64 and assigns it to the MinimumCents field.
+func (o *BillingCryptoDeposit) SetMinimumCents(v int64) {
+	o.MinimumCents = &v
+}
+
+// GetRequiredConfirmations returns the RequiredConfirmations field value if set, zero value otherwise.
+func (o *BillingCryptoDeposit) GetRequiredConfirmations() int64 {
+	if o == nil || IsNil(o.RequiredConfirmations) {
+		var ret int64
+		return ret
+	}
+	return *o.RequiredConfirmations
+}
+
+// GetRequiredConfirmationsOk returns a tuple with the RequiredConfirmations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingCryptoDeposit) GetRequiredConfirmationsOk() (*int64, bool) {
+	if o == nil || IsNil(o.RequiredConfirmations) {
+		return nil, false
+	}
+	return o.RequiredConfirmations, true
+}
+
+// HasRequiredConfirmations returns a boolean if a field has been set.
+func (o *BillingCryptoDeposit) HasRequiredConfirmations() bool {
+	if o != nil && !IsNil(o.RequiredConfirmations) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequiredConfirmations gets a reference to the given int64 and assigns it to the RequiredConfirmations field.
+func (o *BillingCryptoDeposit) SetRequiredConfirmations(v int64) {
+	o.RequiredConfirmations = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -285,8 +530,17 @@ func (o BillingCryptoDeposit) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AddressTag) {
 		toSerialize["addressTag"] = o.AddressTag
 	}
+	if !IsNil(o.AmountCents) {
+		toSerialize["amountCents"] = o.AmountCents
+	}
 	if !IsNil(o.Chain) {
 		toSerialize["chain"] = o.Chain
+	}
+	if !IsNil(o.Confirmations) {
+		toSerialize["confirmations"] = o.Confirmations
+	}
+	if !IsNil(o.CreditedCents) {
+		toSerialize["creditedCents"] = o.CreditedCents
 	}
 	if !IsNil(o.DepositAddress) {
 		toSerialize["depositAddress"] = o.DepositAddress
@@ -294,8 +548,20 @@ func (o BillingCryptoDeposit) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
+	if !IsNil(o.FeeCents) {
+		toSerialize["feeCents"] = o.FeeCents
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Instructions) {
+		toSerialize["instructions"] = o.Instructions
+	}
+	if !IsNil(o.MinimumCents) {
+		toSerialize["minimumCents"] = o.MinimumCents
+	}
+	if !IsNil(o.RequiredConfirmations) {
+		toSerialize["requiredConfirmations"] = o.RequiredConfirmations
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
@@ -326,10 +592,17 @@ func (o *BillingCryptoDeposit) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "addressTag")
+		delete(additionalProperties, "amountCents")
 		delete(additionalProperties, "chain")
+		delete(additionalProperties, "confirmations")
+		delete(additionalProperties, "creditedCents")
 		delete(additionalProperties, "depositAddress")
 		delete(additionalProperties, "expiresAt")
+		delete(additionalProperties, "feeCents")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "instructions")
+		delete(additionalProperties, "minimumCents")
+		delete(additionalProperties, "requiredConfirmations")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "token")
 		o.AdditionalProperties = additionalProperties

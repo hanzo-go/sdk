@@ -126,7 +126,7 @@ Name | Type | Description | Notes
 **Microsoftonline** | Pointer to **string** |  | [optional] 
 **MultiFactorAuths** | Pointer to [**[]IamMfaProps**](IamMfaProps.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**NameKey** | Pointer to **string** |  | [optional] [readonly] 
+**NameKey** | Pointer to **string** | NameKey is Fold(Name), derived on every save (BeforeCreate, BeforeUpdate) and on every open for a row saved without it (store.Prepare): the indexed key a case-insensitive username lookup reads (store.GetUserByName). It is always written, empty or not, so a row that has been keyed is never mistaken for one that has not. | [optional] [readonly] 
 **Naver** | Pointer to **string** |  | [optional] 
 **NeedUpdatePassword** | Pointer to **bool** |  | [optional] 
 **Nextcloud** | Pointer to **string** |  | [optional] 

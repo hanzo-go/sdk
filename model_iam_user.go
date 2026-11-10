@@ -146,19 +146,20 @@ type IamUser struct {
 	MfaRadiusUsername      *string             `json:"mfaRadiusUsername,omitempty"`
 	MfaRememberDeadline    *string             `json:"mfaRememberDeadline,omitempty"`
 	// MfaRememberDigest is the digest of the token held by the ONE browser the deadline above applies to. Without it the deadline is account-wide and \"don't ask again on this browser\" switches the second factor off everywhere. It is a digest, never the token, so a database dump yields nothing presentable — and it carries a REAL json tag because orm persists via json.Marshal, so `json:\"-\"` would never be stored (the trap PasswordHash documents above); Mask() strips it from every response instead.
-	MfaRememberDigest    *string       `json:"mfaRememberDigest,omitempty"`
-	Microsoftonline      *string       `json:"microsoftonline,omitempty"`
-	MultiFactorAuths     []IamMfaProps `json:"multiFactorAuths,omitempty"`
-	Name                 *string       `json:"name,omitempty"`
-	NameKey              *string       `json:"nameKey,omitempty"`
-	Naver                *string       `json:"naver,omitempty"`
-	NeedUpdatePassword   *bool         `json:"needUpdatePassword,omitempty"`
-	Nextcloud            *string       `json:"nextcloud,omitempty"`
-	Okta                 *string       `json:"okta,omitempty"`
-	Onedrive             *string       `json:"onedrive,omitempty"`
-	OriginalRefreshToken *string       `json:"originalRefreshToken,omitempty"`
-	OriginalToken        *string       `json:"originalToken,omitempty"`
-	Oura                 *string       `json:"oura,omitempty"`
+	MfaRememberDigest *string       `json:"mfaRememberDigest,omitempty"`
+	Microsoftonline   *string       `json:"microsoftonline,omitempty"`
+	MultiFactorAuths  []IamMfaProps `json:"multiFactorAuths,omitempty"`
+	Name              *string       `json:"name,omitempty"`
+	// NameKey is Fold(Name), derived on every save (BeforeCreate, BeforeUpdate) and on every open for a row saved without it (store.Prepare): the indexed key a case-insensitive username lookup reads (store.GetUserByName). It is always written, empty or not, so a row that has been keyed is never mistaken for one that has not.
+	NameKey              *string `json:"nameKey,omitempty"`
+	Naver                *string `json:"naver,omitempty"`
+	NeedUpdatePassword   *bool   `json:"needUpdatePassword,omitempty"`
+	Nextcloud            *string `json:"nextcloud,omitempty"`
+	Okta                 *string `json:"okta,omitempty"`
+	Onedrive             *string `json:"onedrive,omitempty"`
+	OriginalRefreshToken *string `json:"originalRefreshToken,omitempty"`
+	OriginalToken        *string `json:"originalToken,omitempty"`
+	Oura                 *string `json:"oura,omitempty"`
 	// Identity / tenancy. (Owner, Name) is the natural key.
 	Owner *string `json:"owner,omitempty"`
 	// Credential material. PasswordHash is a one-way bcrypt digest and is verify-only. It MUST be persisted (orm serializes the entity to its JSON data column, so a json:\"-\" field would never be stored — that silently broke login), so it carries a real json tag; the users API redact() strips it (and every other secret) from every response. PasswordType and PasswordSalt describe the digest scheme so rows hashed under the legacy argon2id scheme can still be verified and lazily re-hashed to bcrypt.

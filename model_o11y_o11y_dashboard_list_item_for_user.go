@@ -20,21 +20,34 @@ var _ MappedNullable = &O11yO11yDashboardListItemForUser{}
 
 // O11yO11yDashboardListItemForUser struct for O11yO11yDashboardListItemForUser
 type O11yO11yDashboardListItemForUser struct {
+	// CreatedAt is when the dashboard was created.
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
-	CreatedBy *string    `json:"createdBy,omitempty"`
-	Id        *string    `json:"id,omitempty"`
-	Image     *string    `json:"image,omitempty"`
-	Locked    *bool      `json:"locked,omitempty"`
-	Name      *string    `json:"name,omitempty"`
-	OrgId     *string    `json:"orgId,omitempty"`
+	// CreatedBy is who created it.
+	CreatedBy *string `json:"createdBy,omitempty"`
+	// ID is the dashboard's id.
+	Id *string `json:"id,omitempty"`
+	// Image is an optional cover image reference.
+	Image *string `json:"image,omitempty"`
+	// Locked reports whether the dashboard is locked against edits.
+	Locked *bool `json:"locked,omitempty"`
+	// Name is the dashboard's unique internal name.
+	Name *string `json:"name,omitempty"`
+	// OrgID is the org the dashboard belongs to.
+	OrgId *string `json:"orgId,omitempty"`
 	// Pinned reports whether the calling user has pinned this dashboard.
-	Pinned               *bool                      `json:"pinned,omitempty"`
-	SchemaVersion        *string                    `json:"schemaVersion,omitempty"`
-	Source               *string                    `json:"source,omitempty"`
-	Spec                 *O11yO11yDashboardListSpec `json:"spec,omitempty"`
-	Tags                 []O11yO11yDashboardTag     `json:"tags,omitempty"`
-	UpdatedAt            *time.Time                 `json:"updatedAt,omitempty"`
-	UpdatedBy            *string                    `json:"updatedBy,omitempty"`
+	Pinned *bool `json:"pinned,omitempty"`
+	// SchemaVersion is the dashboard schema version.
+	SchemaVersion *string `json:"schemaVersion,omitempty"`
+	// Source is where the dashboard came from: user, system or integration.
+	Source *string `json:"source,omitempty"`
+	// Spec is the display-only slice of the dashboard spec.
+	Spec *O11yO11yDashboardListSpec `json:"spec,omitempty"`
+	// Tags are the dashboard's tags.
+	Tags []O11yO11yDashboardTag `json:"tags,omitempty"`
+	// UpdatedAt is when it last changed.
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	// UpdatedBy is who last changed it.
+	UpdatedBy            *string `json:"updatedBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

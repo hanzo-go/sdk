@@ -7,11 +7,14 @@ Name | Type | Description | Notes
 **At** | Pointer to **time.Time** | At is when a stored row was recorded. Zero for a seed row. | [optional] 
 **Benchmark** | Pointer to **string** | Benchmark is the canonical test id the claim is about, from /catalog. | [optional] 
 **By** | Pointer to **string** | By is the verified user who recorded a stored row. Empty for a seed row. | [optional] 
+**Evidence** | Pointer to **[]string** | Evidence are the evidence uris the claim rests on (GET /v1/research/evidence?uri&#x3D;). | [optional] 
+**From** | Pointer to **string** | From is the org a curator row was promoted from: the org that filed the claim before a SuperAdmin published it. Empty on every other row. | [optional] 
 **Model** | Pointer to **string** | Model is the system the score is claimed for. | [optional] 
 **Org** | Pointer to **string** | Org is the org that made the claim. \&quot;admin\&quot; is the platform&#39;s own curated reading; any other org is that org&#39;s claim, not the platform&#39;s. Empty on an unattributed row. | [optional] 
 **Origin** | Pointer to **string** | Origin is \&quot;seed\&quot; for a compiled row, \&quot;stored\&quot; for one a verified caller wrote through this surface, and \&quot;unattributed\&quot; for a stored row no verified caller vouches for, which never reaches the leaderboard. | [optional] 
 **Protocol** | Pointer to **string** | Protocol records HOW it was scored — provider-reported, agentic, third-party-leaderboard — so a provider card is never read as a measurement. | [optional] 
 **Provider** | Pointer to **string** | Provider is who the claim belongs to — the lab or leaderboard whose number this is. | [optional] 
+**Runs** | Pointer to **[]string** | Runs are the research run ids the claim rests on (GET /v1/research/runs?id&#x3D;). | [optional] 
 **Score** | Pointer to **float64** | Score is the reported aggregate, as a percentage. | [optional] 
 **Source** | Pointer to **string** | Source is the citation the row was read from. | [optional] 
 **Visibility** | Pointer to **string** | Visibility is \&quot;public\&quot;, readable by anyone, or \&quot;private\&quot;, readable by Org&#39;s own members only. Only the curator&#39;s public claims reach the leaderboard. | [optional] 
@@ -109,6 +112,56 @@ SetBy sets By field to given value.
 `func (o *BenchmarkClaimRow) HasBy() bool`
 
 HasBy returns a boolean if a field has been set.
+
+### GetEvidence
+
+`func (o *BenchmarkClaimRow) GetEvidence() []string`
+
+GetEvidence returns the Evidence field if non-nil, zero value otherwise.
+
+### GetEvidenceOk
+
+`func (o *BenchmarkClaimRow) GetEvidenceOk() (*[]string, bool)`
+
+GetEvidenceOk returns a tuple with the Evidence field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvidence
+
+`func (o *BenchmarkClaimRow) SetEvidence(v []string)`
+
+SetEvidence sets Evidence field to given value.
+
+### HasEvidence
+
+`func (o *BenchmarkClaimRow) HasEvidence() bool`
+
+HasEvidence returns a boolean if a field has been set.
+
+### GetFrom
+
+`func (o *BenchmarkClaimRow) GetFrom() string`
+
+GetFrom returns the From field if non-nil, zero value otherwise.
+
+### GetFromOk
+
+`func (o *BenchmarkClaimRow) GetFromOk() (*string, bool)`
+
+GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFrom
+
+`func (o *BenchmarkClaimRow) SetFrom(v string)`
+
+SetFrom sets From field to given value.
+
+### HasFrom
+
+`func (o *BenchmarkClaimRow) HasFrom() bool`
+
+HasFrom returns a boolean if a field has been set.
 
 ### GetModel
 
@@ -234,6 +287,31 @@ SetProvider sets Provider field to given value.
 `func (o *BenchmarkClaimRow) HasProvider() bool`
 
 HasProvider returns a boolean if a field has been set.
+
+### GetRuns
+
+`func (o *BenchmarkClaimRow) GetRuns() []string`
+
+GetRuns returns the Runs field if non-nil, zero value otherwise.
+
+### GetRunsOk
+
+`func (o *BenchmarkClaimRow) GetRunsOk() (*[]string, bool)`
+
+GetRunsOk returns a tuple with the Runs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRuns
+
+`func (o *BenchmarkClaimRow) SetRuns(v []string)`
+
+SetRuns sets Runs field to given value.
+
+### HasRuns
+
+`func (o *BenchmarkClaimRow) HasRuns() bool`
+
+HasRuns returns a boolean if a field has been set.
 
 ### GetScore
 

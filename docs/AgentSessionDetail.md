@@ -4,43 +4,44 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | Pointer to **string** |  | [optional] 
-**Actor** | Pointer to **string** |  | [optional] 
-**Agent** | Pointer to **string** |  | [optional] 
-**Base** | Pointer to **string** |  | [optional] 
-**Branch** | Pointer to **string** |  | [optional] 
+**Account** | Pointer to **string** | Account is which subscription or API account under that provider served it. Together with Provider it is what a login revoke matches on to stop the sessions a withdrawn account was paying for. | [optional] 
+**Actor** | Pointer to **string** | Actor is WHO this session belongs to, as \&quot;org/sub\&quot; — the same identity a run is billed under. A register that names none takes the calling principal. It is what scopes a login revoke, so a session with the wrong actor is a session the right person cannot stop. | [optional] 
+**Agent** | Pointer to **string** | Agent is the label the surface running this session calls itself by (\&quot;hanzo-dev\&quot;), up to 128 characters. Required at register. It is free text, not a reference: it need not name a defined agent, and nothing resolves it. | [optional] 
+**Base** | Pointer to **string** | Base is the branch the run started from. Empty when it took the repository&#39;s default and did not say which. | [optional] 
+**Branch** | Pointer to **string** | Branch is the branch the run pushes its work to, and the only one it may write. | [optional] 
+**Channel** | Pointer to **string** | Channel is the collaborative channel this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a space view show the runs of one channel beside its messages. | [optional] 
 **ChildSessions** | Pointer to [**[]AgentSessionView**](AgentSessionView.md) | Children is the session&#39;s DIRECT children, one level down, each with its own counts. The promoted &#x60;children&#x60; integer beside it is how many there are; this is who they are. For the whole subtree, read the tree. | [optional] 
-**Children** | Pointer to **int64** |  | [optional] 
-**CreatedAt** | Pointer to **string** |  | [optional] 
-**Cwd** | Pointer to **string** |  | [optional] 
-**EndedAt** | Pointer to **string** |  | [optional] 
-**Environment** | Pointer to **string** |  | [optional] 
-**Events** | Pointer to **int64** |  | [optional] 
-**Host** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**LastEvent** | Pointer to [**AgentLastEventView**](AgentLastEventView.md) |  | [optional] 
-**Mode** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**ParentSessionId** | Pointer to **string** |  | [optional] 
-**Pr** | Pointer to **string** |  | [optional] 
-**Progress** | Pointer to [**AgentSessionProgress**](AgentSessionProgress.md) |  | [optional] 
-**Project** | Pointer to **string** |  | [optional] 
-**Provider** | Pointer to **string** |  | [optional] 
-**Published** | Pointer to **bool** |  | [optional] 
+**Children** | Pointer to **int64** | Children is the DIRECT fan-out — how many sessions name this one as parent — and not the size of the subtree. Read the tree for that. | [optional] 
+**CreatedAt** | Pointer to **string** | CreatedAt is when the row was written, same format. Every path that opens a session stamps it and StartedAt from one clock reading, so the two are equal on every session this surface has ever produced. | [optional] 
+**Cwd** | Pointer to **string** | Cwd is the directory the session is working in NOW, not the one it started in: a linked shell moves around, and a card showing where &#x60;hanzo link&#x60; was run answers \&quot;which work is this\&quot; with something that was true once. | [optional] 
+**EndedAt** | Pointer to **string** | EndedAt is when it reached done or error, same format. Empty while it is still running or paused, which is how absence reads here: not over yet. | [optional] 
+**Environment** | Pointer to **string** | Environment is where the run executes: \&quot;sandbox\&quot; for a Hanzo sandbox, or the id of the org&#39;s machine it was routed to (the same id Target carries). | [optional] 
+**Error** | Pointer to **string** | Error explains why the session ended in error, when it did. Empty for any other status. | [optional] 
+**Events** | Pointer to **int64** | Events is how many turns the session&#39;s log holds, counted at read time. It is the whole log, however few of them RecentEvents carries. | [optional] 
+**Host** | Pointer to **string** | Execution context (mission-control): the machine/repo/cwd a card shows and the run-target a session is dispatched to. Omitted when a surface didn&#39;t report it. | [optional] 
+**Id** | Pointer to **string** | ID is the session&#39;s handle, minted here as \&quot;sess_\&quot; + 32 hex characters. Every later read, patch, event append and control command is addressed with it, and a caller cannot choose it. | [optional] 
+**Kind** | Pointer to **string** | Kind is what sort of run this session is the view of — \&quot;coding\&quot; for a coding run. Empty for a session no run tagged. | [optional] 
+**LastEvent** | Pointer to [**AgentLastEventView**](AgentLastEventView.md) | LastEvent is the compact latest-activity line for the list projection (nil in register/patch/tree responses; set by list + detail). It lets a swipe card show a live one-line preview without fetching full detail. | [optional] 
+**Mode** | Pointer to **string** | Mode is what the run may do to its repository: \&quot;build\&quot; edits, commits and pushes its branch; \&quot;plan\&quot; reads and answers with a plan, writing nothing. Empty for a session no run tagged. | [optional] 
+**Org** | Pointer to **string** | Org is the caller&#39;s OWN tenant, echoed so a client can build the public build URL (/builds/:org/:project) without a second call or a guess. It is never another tenant&#39;s — every read is org-scoped before it gets here. | [optional] 
+**ParentSessionId** | Pointer to **string** | ParentSessionID is the session that spawned this one, making this a subagent of it. Empty means this session is a root — a flow of its own. A parent always belongs to the same org, so a tree never crosses a tenant. | [optional] 
+**Pr** | Pointer to **string** | PR is the address of the pull request the run proposed. Empty until it proposes one, and for a run that changed nothing. | [optional] 
+**Progress** | Pointer to [**AgentSessionProgress**](AgentSessionProgress.md) | Progress is how far along this run is — a share of its goal, a phase, and a line saying what it is doing. Always present, so a board never branches on whether it is there; &#x60;phase&#x60; says \&quot;unknown\&quot; when nothing has estimated it. It is a MODEL ESTIMATE wherever &#x60;estimated&#x60; is true, and the row&#39;s own word where it is false. See progress.go. | [optional] 
+**Project** | Pointer to **string** | The readable build: the product this session built and whether its story is public (provenance.go). | [optional] 
+**Provider** | Pointer to **string** | Provider is the linked AI account&#39;s provider (claude | codex | hanzo | …) that served this run. Empty when the surface did not say. | [optional] 
+**Published** | Pointer to **bool** | Published is the author&#39;s decision to let anyone read this session&#39;s story at the public build route. It only ever widens READ access to a session that already exists and grants nothing else; false, an unpublished session is invisible there no matter who asks. It cannot be true without a Project, because that route is keyed on (org, project). | [optional] 
 **RecentEvents** | Pointer to [**[]AgentEventView**](AgentEventView.md) | RecentEvents is the 50 most recent turns, OLDEST of those first — a transcript to read down, not a feed. The promoted &#x60;events&#x60; integer says how many the log holds in total; page the rest from a seq. | [optional] 
-**Repo** | Pointer to **string** |  | [optional] 
-**Room** | Pointer to **string** |  | [optional] 
-**RootSessionId** | Pointer to **string** |  | [optional] 
-**Sandbox** | Pointer to **string** |  | [optional] 
-**StartedAt** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Target** | Pointer to **string** |  | [optional] 
-**TaskRunId** | Pointer to **string** |  | [optional] 
-**TaskWorkflowId** | Pointer to **string** |  | [optional] 
-**Terminal** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **string** |  | [optional] 
+**Repo** | Pointer to **string** | Repo is the code the session is working on, as the surface reported it. It is truth the SURFACE states, so it is a label rather than something resolved here. | [optional] 
+**RootSessionId** | Pointer to **string** | RootSessionID is the top of this session&#39;s tree, inherited from the parent and shared by every node in one flow. A root session&#39;s own id, when it has no parent. It is the key one indexed read pulls a whole flow by, and what ?root&#x3D; narrows a list or a stream to. | [optional] 
+**Sandbox** | Pointer to **string** | Sandbox is the id of the sandbox the run works in (\&quot;m_\&quot; and 24 hex), the handle its terminal and its screen are opened with (/v1/sandbox/{id}/terminal, /screen). Set when the run leases it, and kept once the run gives it back, when the id opens nothing. Empty for a run that never leased one — a routed run, or a turn that only talked. | [optional] 
+**StartedAt** | Pointer to **string** | StartedAt is when the session opened, RFC 3339 in UTC to the second. | [optional] 
+**Status** | Pointer to **string** | Status is one of exactly four: running, paused, done, error. running and paused are LIVE; done and error are TERMINAL and monotonic — once a session reaches one it can never go back, because reopening a finished run would fabricate liveness. A control command never moves it: the surface running the agent reports the new status, and until it does the command is only recorded. | [optional] 
+**Target** | Pointer to **string** | Target is the registered run-target this session is dispatched to — a machine the org claimed, resolved same-org when it was set, so it can never point at another tenant&#39;s computer. Empty means the session names no machine. | [optional] 
+**TaskRunId** | Pointer to **string** | TaskRunID is that workflow&#39;s particular run. A workflow is the definition and a run is one execution of it, which is why both are carried. | [optional] 
+**TaskWorkflowId** | Pointer to **string** | TaskWorkflowID is the hanzoai/tasks durable workflow that actually EXECUTES this session — this registry is the view, control and stream layer over it. Set, a control command is FORWARDED to that engine; empty, the running surface polls for commands instead, which is every session today. | [optional] 
+**Terminal** | Pointer to **string** | Terminal is where this session can be WATCHED — the URL the machine published for its live terminal. Omitted when it publishes none. | [optional] 
+**Title** | Pointer to **string** | Title is the human line a card shows (\&quot;ship the landing page\&quot;), up to 512 characters. Free text, and the one field a surface may rewrite as the work turns out to be something else. | [optional] 
+**UpdatedAt** | Pointer to **string** | UpdatedAt is the session&#39;s last-activity clock, same format. It moves on a write to the row — a status, a title, a re-dispatch — AND on every appended turn, because the append bumps it in the same transaction. The list is ordered on CreatedAt, so this is the field that says whether a session is still saying anything. | [optional] 
 
 ## Methods
 
@@ -185,6 +186,31 @@ SetBranch sets Branch field to given value.
 `func (o *AgentSessionDetail) HasBranch() bool`
 
 HasBranch returns a boolean if a field has been set.
+
+### GetChannel
+
+`func (o *AgentSessionDetail) GetChannel() string`
+
+GetChannel returns the Channel field if non-nil, zero value otherwise.
+
+### GetChannelOk
+
+`func (o *AgentSessionDetail) GetChannelOk() (*string, bool)`
+
+GetChannelOk returns a tuple with the Channel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChannel
+
+`func (o *AgentSessionDetail) SetChannel(v string)`
+
+SetChannel sets Channel field to given value.
+
+### HasChannel
+
+`func (o *AgentSessionDetail) HasChannel() bool`
+
+HasChannel returns a boolean if a field has been set.
 
 ### GetChildSessions
 
@@ -335,6 +361,31 @@ SetEnvironment sets Environment field to given value.
 `func (o *AgentSessionDetail) HasEnvironment() bool`
 
 HasEnvironment returns a boolean if a field has been set.
+
+### GetError
+
+`func (o *AgentSessionDetail) GetError() string`
+
+GetError returns the Error field if non-nil, zero value otherwise.
+
+### GetErrorOk
+
+`func (o *AgentSessionDetail) GetErrorOk() (*string, bool)`
+
+GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetError
+
+`func (o *AgentSessionDetail) SetError(v string)`
+
+SetError sets Error field to given value.
+
+### HasError
+
+`func (o *AgentSessionDetail) HasError() bool`
+
+HasError returns a boolean if a field has been set.
 
 ### GetEvents
 
@@ -710,31 +761,6 @@ SetRepo sets Repo field to given value.
 `func (o *AgentSessionDetail) HasRepo() bool`
 
 HasRepo returns a boolean if a field has been set.
-
-### GetRoom
-
-`func (o *AgentSessionDetail) GetRoom() string`
-
-GetRoom returns the Room field if non-nil, zero value otherwise.
-
-### GetRoomOk
-
-`func (o *AgentSessionDetail) GetRoomOk() (*string, bool)`
-
-GetRoomOk returns a tuple with the Room field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoom
-
-`func (o *AgentSessionDetail) SetRoom(v string)`
-
-SetRoom sets Room field to given value.
-
-### HasRoom
-
-`func (o *AgentSessionDetail) HasRoom() bool`
-
-HasRoom returns a boolean if a field has been set.
 
 ### GetRootSessionId
 

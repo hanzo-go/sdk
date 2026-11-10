@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Accounts** | Pointer to [**[]BillingRoutedUsage**](BillingRoutedUsage.md) |  | [optional] 
-**Scope** | Pointer to **string** |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
-**Total** | Pointer to [**BillingAccountsTotal**](BillingAccountsTotal.md) |  | [optional] 
+**Accounts** | Pointer to [**[]BillingRoutedUsage**](BillingRoutedUsage.md) | Accounts is one row per linked account the gateway actually routed through. | [optional] 
+**Scope** | Pointer to **string** | Scope is always \&quot;user\&quot;: the caller&#39;s own linked accounts. | [optional] 
+**Source** | Pointer to **string** | Source is always \&quot;routed\&quot;: the gateway&#39;s own routed ledger. | [optional] 
+**Total** | Pointer to [**BillingAccountsTotal**](BillingAccountsTotal.md) | Total is the honest sum across the rows. | [optional] 
 
 ## Methods
 

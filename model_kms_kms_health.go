@@ -19,13 +19,15 @@ var _ MappedNullable = &KmsKmsHealth{}
 
 // KmsKmsHealth struct for KmsKmsHealth
 type KmsKmsHealth struct {
+	// Audit is the state of the audit trail every access is recorded to: `ok`, `failing` when it did not take the last record, or `absent` when this process has none. Every access is refused in the last two. Absent from the answer when there is no in-process client to audit.
+	Audit *string `json:"audit,omitempty"`
 	// Enforcing is whether a secret value the declaration in force does not grant is refused. False while it says `enforce: false` and while none has loaded; every such value is then logged and audited as would-deny.
 	Enforcing *bool `json:"enforcing,omitempty"`
 	// Error is the honest reason readiness is false: no in-process KMS client, or no master key. Absent when ready.
 	Error *string `json:"error,omitempty"`
 	// Policy is the sha256 of the grant declaration in force, so a probe can prove which one is live. Absent when none has ever loaded, which measures: the rule each caller had before still decides.
 	Policy *string `json:"policy,omitempty"`
-	// Ready is whether a secret operation would actually succeed right now. These are exactly the two states in which the secret operations refuse.
+	// Ready is whether a secret operation would actually succeed right now. These are exactly the states in which the secret operations refuse.
 	Ready *bool `json:"ready,omitempty"`
 	// Refused is what the MOUNTED declaration reads as — its sha256, or \"absent\" or \"unreadable\" — when it is not the one in force: a document cloud refused to parse, or a mount that went away. The declaration in force stays, so a bad edit changes nothing, and this is where it shows.
 	Refused *string `json:"refused,omitempty"`
@@ -55,6 +57,38 @@ func NewKmsKmsHealth() *KmsKmsHealth {
 func NewKmsKmsHealthWithDefaults() *KmsKmsHealth {
 	this := KmsKmsHealth{}
 	return &this
+}
+
+// GetAudit returns the Audit field value if set, zero value otherwise.
+func (o *KmsKmsHealth) GetAudit() string {
+	if o == nil || IsNil(o.Audit) {
+		var ret string
+		return ret
+	}
+	return *o.Audit
+}
+
+// GetAuditOk returns a tuple with the Audit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KmsKmsHealth) GetAuditOk() (*string, bool) {
+	if o == nil || IsNil(o.Audit) {
+		return nil, false
+	}
+	return o.Audit, true
+}
+
+// HasAudit returns a boolean if a field has been set.
+func (o *KmsKmsHealth) HasAudit() bool {
+	if o != nil && !IsNil(o.Audit) {
+		return true
+	}
+
+	return false
+}
+
+// SetAudit gets a reference to the given string and assigns it to the Audit field.
+func (o *KmsKmsHealth) SetAudit(v string) {
+	o.Audit = &v
 }
 
 // GetEnforcing returns the Enforcing field value if set, zero value otherwise.
@@ -323,6 +357,9 @@ func (o KmsKmsHealth) MarshalJSON() ([]byte, error) {
 
 func (o KmsKmsHealth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Audit) {
+		toSerialize["audit"] = o.Audit
+	}
 	if !IsNil(o.Enforcing) {
 		toSerialize["enforcing"] = o.Enforcing
 	}
@@ -369,6 +406,7 @@ func (o *KmsKmsHealth) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "audit")
 		delete(additionalProperties, "enforcing")
 		delete(additionalProperties, "error")
 		delete(additionalProperties, "policy")

@@ -23,15 +23,15 @@ type ProjectProjectsComplete struct {
 	Bytes *int64 `json:"bytes,omitempty"`
 	// Commit is the revision that was built, recorded on the deployment.
 	Commit *string `json:"commit,omitempty"`
-	// Copy lists the keys to take from CopyFrom's prefix, relative to it. They are also named in Keys, which stays the whole release.
+	// Copy lists the keys to take from CopyFrom's prefix, relative to it, copied before the release is checked. Each must also be named in Keys, which stays the whole release, and be a clean relative path; anything else is a 400.
 	Copy []string `json:"copy,omitempty"`
-	// CopyFrom names another site of the same org whose prefix already holds the bytes of Copy. A host that shares a build with another differs from it by a page or two, so CI uploads those and asks for the rest to be copied inside the object store instead of sent again over the runner's link.
+	// CopyFrom names another site of the same org whose prefix already holds the bytes of Copy. A host that shares a build with another differs from it by a page or two, so CI uploads those and asks for the rest to be copied inside the object store instead of sent again over the runner's link. A site the org does not hold is a 404. Read only on a live completion that names keys.
 	CopyFrom *string `json:"copyFrom,omitempty"`
 	// Files is how many objects CI published.
 	Files *int64 `json:"files,omitempty"`
 	// ID is the queued deployment to complete, from the path.
 	Id *string `json:"id,omitempty"`
-	// Keys is the manifest CI just uploaded, RELATIVE to the deployment prefix. It is what replaces `aws s3 sync --delete`: an upload grant authorizes writes only, so CI cannot remove a file, and cloud reconciles the prefix against this list instead (grant.go). Omit it and nothing is deleted — the prefix only grows, which is the old pre-grant behaviour and a safe default.
+	// Keys is the whole release, RELATIVE to the deployment prefix. A live completion that names it is refused with 409 while any of these keys is absent from the store, and the prefix is then reconciled against it: an upload grant authorizes writes only, so CI cannot remove a file, and cloud deletes what this list does not name instead (grant.go). Omit it and nothing is checked or deleted — the prefix only grows, the pre-grant behaviour.
 	Keys []string `json:"keys,omitempty"`
 	// LiveURL is a HINT at the address the site should serve at. The public host is claimed by cloud first, so this can refine the URL a deployment reports but can never assert a subdomain another tenant holds.
 	LiveUrl *string `json:"liveUrl,omitempty"`

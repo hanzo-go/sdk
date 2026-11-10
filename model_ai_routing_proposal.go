@@ -22,6 +22,7 @@ type AiRoutingProposal struct {
 	Base                 *int32  `json:"base,omitempty"`
 	Diff                 *string `json:"diff,omitempty"`
 	Family               *string `json:"family,omitempty"`
+	Refused              *string `json:"refused,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,6 +141,38 @@ func (o *AiRoutingProposal) SetFamily(v string) {
 	o.Family = &v
 }
 
+// GetRefused returns the Refused field value if set, zero value otherwise.
+func (o *AiRoutingProposal) GetRefused() string {
+	if o == nil || IsNil(o.Refused) {
+		var ret string
+		return ret
+	}
+	return *o.Refused
+}
+
+// GetRefusedOk returns a tuple with the Refused field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiRoutingProposal) GetRefusedOk() (*string, bool) {
+	if o == nil || IsNil(o.Refused) {
+		return nil, false
+	}
+	return o.Refused, true
+}
+
+// HasRefused returns a boolean if a field has been set.
+func (o *AiRoutingProposal) HasRefused() bool {
+	if o != nil && !IsNil(o.Refused) {
+		return true
+	}
+
+	return false
+}
+
+// SetRefused gets a reference to the given string and assigns it to the Refused field.
+func (o *AiRoutingProposal) SetRefused(v string) {
+	o.Refused = &v
+}
+
 func (o AiRoutingProposal) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -158,6 +191,9 @@ func (o AiRoutingProposal) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Family) {
 		toSerialize["family"] = o.Family
+	}
+	if !IsNil(o.Refused) {
+		toSerialize["refused"] = o.Refused
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -184,6 +220,7 @@ func (o *AiRoutingProposal) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "base")
 		delete(additionalProperties, "diff")
 		delete(additionalProperties, "family")
+		delete(additionalProperties, "refused")
 		o.AdditionalProperties = additionalProperties
 	}
 

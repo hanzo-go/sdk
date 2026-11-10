@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Branch** | Pointer to **string** | Branch is the ref the run will push its work to, and the ONLY ref it is permitted to write. It exists before the work does, so it is safe to tell somebody where to look while the run is still going. | [optional] 
+**Pull** | Pointer to **string** | Pull is the CLI command or instruction to pull this run locally, e.g. &#x60;hanzo pull &lt;sessionId&gt;&#x60;. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repository the run was admitted against, echoed back as the engine resolved it. | [optional] 
 **Routed** | Pointer to **bool** | Routed says the run went to one of the org&#39;s own registered machines rather than to a sandbox in our cluster. False is the ordinary case. | [optional] 
 **SessionId** | Pointer to **string** | SessionID is the run&#39;s handle: its durable record, and the root its live progress streams under at /v1/agent/sessions/stream?root&#x3D;&lt;sessionId&gt;. Every later question about this run is asked with it. | [optional] 
@@ -53,6 +54,31 @@ SetBranch sets Branch field to given value.
 `func (o *AgentCodingStarted) HasBranch() bool`
 
 HasBranch returns a boolean if a field has been set.
+
+### GetPull
+
+`func (o *AgentCodingStarted) GetPull() string`
+
+GetPull returns the Pull field if non-nil, zero value otherwise.
+
+### GetPullOk
+
+`func (o *AgentCodingStarted) GetPullOk() (*string, bool)`
+
+GetPullOk returns a tuple with the Pull field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPull
+
+`func (o *AgentCodingStarted) SetPull(v string)`
+
+SetPull sets Pull field to given value.
+
+### HasPull
+
+`func (o *AgentCodingStarted) HasPull() bool`
+
+HasPull returns a boolean if a field has been set.
 
 ### GetRepo
 

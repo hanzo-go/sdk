@@ -8,11 +8,11 @@ Method | HTTP request | Description
 [**GetMarketplace**](MarketplaceAPI.md#GetMarketplace) | **Get** /v1/marketplace | Lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
 [**GetMarketplaceJobs**](MarketplaceAPI.md#GetMarketplaceJobs) | **Get** /v1/marketplace/jobs | Lists the jobs the caller&#39;s org is a party to, newest first: as buyer, the work it hired — with the quotes it has not paid and the jobs being funded, each with the attempt that made it, so a hire whose answer was lost is found here — and as seller, the work it was hired for, which never includes another org&#39;s quote.
 [**GetMarketplaceJobsById**](MarketplaceAPI.md#GetMarketplaceJobsById) | **Get** /v1/marketplace/jobs/{id} | Reads one job the caller&#39;s org is a party to.
-[**GetMarketplaceListings**](MarketplaceAPI.md#GetMarketplaceListings) | **Get** /v1/marketplace/listings | Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy.
+[**GetMarketplaceListings**](MarketplaceAPI.md#GetMarketplaceListings) | **Get** /v1/marketplace/listings | Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy — optionally of one kind.
 [**GetMarketplaceSeller**](MarketplaceAPI.md#GetMarketplaceSeller) | **Get** /v1/marketplace/seller | Answers where the caller&#39;s org stands as a seller, in one read: its founders&#39; identity verification (KYC) and legal entity (KYB), its tax form and whether it is certified and valid, its own sanctions screening — only what an org may see about itself — the payout wallet it proved, the TaxPrincipalCredentials signed for its agents, what it earned in the year from the economic events the rails stated, and the 1099s payers furnished it.
 [**GetMarketplaceShop**](MarketplaceAPI.md#GetMarketplaceShop) | **Get** /v1/marketplace/shop | Searches every public listing of every kind — agents and personas to hire, apps, skills, MCP servers and tools — newest first, with facets by kind, category, price and rating, paged.
 [**GetMarketplaceShopById**](MarketplaceAPI.md#GetMarketplaceShopById) | **Get** /v1/marketplace/shop/{id} | Reads one public listing as the shop shows it — its seller&#39;s public face, its reputation and the ways to buy it.
-[**PatchMarketplaceListingsById**](MarketplaceAPI.md#PatchMarketplaceListingsById) | **Patch** /v1/marketplace/listings/{id} | Edits one of the caller org&#39;s listings — its copy, price, payout wallet, visibility and documentation — under the same rules publish applies, and answers the listing as it now stands.
+[**PatchMarketplaceListingsById**](MarketplaceAPI.md#PatchMarketplaceListingsById) | **Patch** /v1/marketplace/listings/{id} | Edits one of the caller org&#39;s listings — its copy, price, payout wallet, visibility and documentation, and an expert&#39;s profile — under the same rules publish applies, and answers the listing as it now stands.
 [**PostMarketplaceInstall**](MarketplaceAPI.md#PostMarketplaceInstall) | **Post** /v1/marketplace/install | Activates one tool for the caller&#39;s own org and project.
 [**PostMarketplaceJobs**](MarketplaceAPI.md#PostMarketplaceJobs) | **Post** /v1/marketplace/jobs | Hires another org for a piece of work, through a public listing or by a direct offer, and answers 201 with the job — open, waiting for the seller.
 [**PostMarketplaceJobsByIdAccept**](MarketplaceAPI.md#PostMarketplaceJobsByIdAccept) | **Post** /v1/marketplace/jobs/{id}/accept | Accepts a job the caller&#39;s org was hired for: the seller takes the work on and the clock toward its deadline is the seller&#39;s.
@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**PostMarketplaceJobsByIdRefund**](MarketplaceAPI.md#PostMarketplaceJobsByIdRefund) | **Post** /v1/marketplace/jobs/{id}/refund | Refunds a job the caller&#39;s org accepted, as the seller, at any point before it is paid: nothing was moved, so the buyer&#39;s authorization is given up, never settled, and the amount it set aside returns to the buyer&#39;s wallet.
 [**PostMarketplaceJobsByIdRelease**](MarketplaceAPI.md#PostMarketplaceJobsByIdRelease) | **Post** /v1/marketplace/jobs/{id}/release | Releases a job the caller&#39;s org is paying for, paying the seller the whole amount: the buyer&#39;s authorization is settled on the rail, once, and the rail states the payment.
 [**PostMarketplaceListings**](MarketplaceAPI.md#PostMarketplaceListings) | **Post** /v1/marketplace/listings | Offers one thing the caller&#39;s org owns on the marketplace — an agent, persona, app, skill or MCP server, or, for the platform, a tool sold per call — optionally monetized.
+[**PostMarketplaceListingsByIdVerify**](MarketplaceAPI.md#PostMarketplaceListingsByIdVerify) | **Post** /v1/marketplace/listings/{id}/verify | Marks an expert listing verified, or takes the mark away, whichever org published it.
 [**PostMarketplaceSellerPayout**](MarketplaceAPI.md#PostMarketplaceSellerPayout) | **Post** /v1/marketplace/seller/payout | Starts binding one of the caller org&#39;s wallets as the wallet it is paid into: answers a challenge naming the org, the wallet and its address, to be signed with that wallet within fifteen minutes and sent to POST /v1/marketplace/seller/payout/verify.
 [**PostMarketplaceSellerPayoutVerify**](MarketplaceAPI.md#PostMarketplaceSellerPayoutVerify) | **Post** /v1/marketplace/seller/payout/verify | Binds the caller org&#39;s payout wallet: the signature over its outstanding challenge is recovered, and must recover to the wallet&#39;s address, before the challenge expires.
 [**PostMarketplaceUninstall**](MarketplaceAPI.md#PostMarketplaceUninstall) | **Post** /v1/marketplace/uninstall | Deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
@@ -299,9 +300,9 @@ Name | Type | Description  | Notes
 
 ## GetMarketplaceListings
 
-> MarketplaceListingPage GetMarketplaceListings(ctx).Execute()
+> MarketplaceListingPage GetMarketplaceListings(ctx).Kind(kind).Execute()
 
-Returns the listings the caller's own org has published — what this org is offering, not what it can buy.
+Returns the listings the caller's own org has published — what this org is offering, not what it can buy — optionally of one kind.
 
 
 
@@ -318,10 +319,11 @@ import (
 )
 
 func main() {
+	kind := "kind_example" // string | Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketplaceAPI.GetMarketplaceListings(context.Background()).Execute()
+	resp, r, err := apiClient.MarketplaceAPI.GetMarketplaceListings(context.Background()).Kind(kind).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.GetMarketplaceListings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -333,12 +335,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetMarketplaceListingsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kind** | **string** | Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert. | 
 
 ### Return type
 
@@ -426,7 +432,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketplaceShop
 
-> MarketplaceShop GetMarketplaceShop(ctx).Q(q).Kind(kind).Category(category).Price(price).Rating(rating).Seller(seller).Limit(limit).Offset(offset).Execute()
+> MarketplaceShop GetMarketplaceShop(ctx).Q(q).Kind(kind).Category(category).Price(price).Rating(rating).Seller(seller).Area(area).Limit(limit).Offset(offset).Execute()
 
 Searches every public listing of every kind — agents and personas to hire, apps, skills, MCP servers and tools — newest first, with facets by kind, category, price and rating, paged.
 
@@ -446,17 +452,18 @@ import (
 
 func main() {
 	q := "research" // string | Q keeps listings whose title, description, category, thing or seller contains every word of it, case-insensitively. (optional)
-	kind := "agent" // string | Kind keeps one kind: agent, persona, app, skill, mcp or tool. (optional)
+	kind := "agent" // string | Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert. (optional)
 	category := "category_example" // string | Category keeps one category, exactly. (optional)
 	price := "price_example" // string | Price keeps free listings or priced ones. (optional)
 	rating := int64(789) // int64 | Rating keeps listings rated at least this many stars, 1 to 5. (optional)
 	seller := "seller_example" // string | Seller keeps one seller org's listings. (optional)
+	area := "area_example" // string | Area keeps the experts who work on one area: configure, base, commerce, bot, agents, cloud, models, creative or freelance. (optional)
 	limit := int64(48) // int64 | Limit is the page size: 48 by default, 200 at most. (optional)
 	offset := int64(789) // int64 | Offset is where the page starts. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketplaceAPI.GetMarketplaceShop(context.Background()).Q(q).Kind(kind).Category(category).Price(price).Rating(rating).Seller(seller).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.MarketplaceAPI.GetMarketplaceShop(context.Background()).Q(q).Kind(kind).Category(category).Price(price).Rating(rating).Seller(seller).Area(area).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.GetMarketplaceShop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -478,11 +485,12 @@ Other parameters are passed through a pointer to a apiGetMarketplaceShopRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **q** | **string** | Q keeps listings whose title, description, category, thing or seller contains every word of it, case-insensitively. | 
- **kind** | **string** | Kind keeps one kind: agent, persona, app, skill, mcp or tool. | 
+ **kind** | **string** | Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert. | 
  **category** | **string** | Category keeps one category, exactly. | 
  **price** | **string** | Price keeps free listings or priced ones. | 
  **rating** | **int64** | Rating keeps listings rated at least this many stars, 1 to 5. | 
  **seller** | **string** | Seller keeps one seller org&#39;s listings. | 
+ **area** | **string** | Area keeps the experts who work on one area: configure, base, commerce, bot, agents, cloud, models, creative or freelance. | 
  **limit** | **int64** | Limit is the page size: 48 by default, 200 at most. | 
  **offset** | **int64** | Offset is where the page starts. | 
 
@@ -578,7 +586,7 @@ No authorization required
 
 > MarketplaceListing PatchMarketplaceListingsById(ctx, id).MarketplacePatchReq(marketplacePatchReq).Execute()
 
-Edits one of the caller org's listings — its copy, price, payout wallet, visibility and documentation — under the same rules publish applies, and answers the listing as it now stands.
+Edits one of the caller org's listings — its copy, price, payout wallet, visibility and documentation, and an expert's profile — under the same rules publish applies, and answers the listing as it now stands.
 
 
 
@@ -1393,6 +1401,78 @@ Other parameters are passed through a pointer to a apiPostMarketplaceListingsReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **marketplacePublishReq** | [**MarketplacePublishReq**](MarketplacePublishReq.md) |  | 
+
+### Return type
+
+[**MarketplaceListing**](MarketplaceListing.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketplaceListingsByIdVerify
+
+> MarketplaceListing PostMarketplaceListingsByIdVerify(ctx, id).MarketplaceVerifyReq(marketplaceVerifyReq).Execute()
+
+Marks an expert listing verified, or takes the mark away, whichever org published it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "lst_4f1c" // string | ID is the expert listing, from the path.
+	marketplaceVerifyReq := *openapiclient.NewMarketplaceVerifyReq() // MarketplaceVerifyReq | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketplaceAPI.PostMarketplaceListingsByIdVerify(context.Background(), id).MarketplaceVerifyReq(marketplaceVerifyReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.PostMarketplaceListingsByIdVerify``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketplaceListingsByIdVerify`: MarketplaceListing
+	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.PostMarketplaceListingsByIdVerify`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the expert listing, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketplaceListingsByIdVerifyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **marketplaceVerifyReq** | [**MarketplaceVerifyReq**](MarketplaceVerifyReq.md) |  | 
 
 ### Return type
 

@@ -25,6 +25,8 @@ type UsageUsageSummary struct {
 	End *string `json:"end,omitempty"`
 	// Interval is the bucket width the spend series is gap-filled at.
 	Interval *string `json:"interval,omitempty"`
+	// Kai is the org's Kai decisions: count, input tokens and cost. Also counted in LLM.
+	Kai *UsageKai `json:"kai,omitempty"`
 	// LLM is the org's Hanzo-routed inference totals from the warehouse.
 	Llm *UsageLLM `json:"llm,omitempty"`
 	// Range is the window label that was served.
@@ -153,6 +155,38 @@ func (o *UsageUsageSummary) HasInterval() bool {
 // SetInterval gets a reference to the given string and assigns it to the Interval field.
 func (o *UsageUsageSummary) SetInterval(v string) {
 	o.Interval = &v
+}
+
+// GetKai returns the Kai field value if set, zero value otherwise.
+func (o *UsageUsageSummary) GetKai() UsageKai {
+	if o == nil || IsNil(o.Kai) {
+		var ret UsageKai
+		return ret
+	}
+	return *o.Kai
+}
+
+// GetKaiOk returns a tuple with the Kai field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageUsageSummary) GetKaiOk() (*UsageKai, bool) {
+	if o == nil || IsNil(o.Kai) {
+		return nil, false
+	}
+	return o.Kai, true
+}
+
+// HasKai returns a boolean if a field has been set.
+func (o *UsageUsageSummary) HasKai() bool {
+	if o != nil && !IsNil(o.Kai) {
+		return true
+	}
+
+	return false
+}
+
+// SetKai gets a reference to the given UsageKai and assigns it to the Kai field.
+func (o *UsageUsageSummary) SetKai(v UsageKai) {
+	o.Kai = &v
 }
 
 // GetLlm returns the Llm field value if set, zero value otherwise.
@@ -366,6 +400,9 @@ func (o UsageUsageSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Interval) {
 		toSerialize["interval"] = o.Interval
 	}
+	if !IsNil(o.Kai) {
+		toSerialize["kai"] = o.Kai
+	}
 	if !IsNil(o.Llm) {
 		toSerialize["llm"] = o.Llm
 	}
@@ -409,6 +446,7 @@ func (o *UsageUsageSummary) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "accounts")
 		delete(additionalProperties, "end")
 		delete(additionalProperties, "interval")
+		delete(additionalProperties, "kai")
 		delete(additionalProperties, "llm")
 		delete(additionalProperties, "range")
 		delete(additionalProperties, "scope")

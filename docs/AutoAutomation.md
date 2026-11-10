@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Created** | Pointer to **string** | Created and Updated are RFC 3339 UTC. | [optional] 
 **Draft** | Pointer to **bool** | Draft is a flow with no step yet: it has no instructions, never runs, and becomes an automation when its instructions are saved. | [optional] 
 **Enabled** | Pointer to **bool** | Enabled is whether its schedule is armed. | [optional] 
+**Event** | Pointer to [**AutoOutcomeTrigger**](AutoOutcomeTrigger.md) | Event runs the automation on a committed product outcome instead of a schedule. | [optional] 
 **Id** | Pointer to **string** | ID is the automation&#39;s id, which is also its flow&#39;s. | [optional] 
 **Instructions** | Pointer to **string** | Instructions are what the agent is asked to do each run. | [optional] 
 **Last** | Pointer to [**AutoLastRun**](AutoLastRun.md) | Last is its most recent run that was not skipped; null before the first. | [optional] 
@@ -15,8 +16,11 @@ Name | Type | Description | Notes
 **Next** | Pointer to **string** | Next is when it runs next, RFC 3339 UTC; null when manual or disabled. | [optional] 
 **Notify** | Pointer to **bool** | Notify sends a one-line summary to the automation&#39;s person when a run ends. | [optional] 
 **Permissions** | Pointer to **string** | Permissions is auto (works and uses connectors without stopping) or ask (changes nothing and ends with the actions it proposes; agent.go agentTask). | [optional] 
+**PostTo** | Pointer to **[]string** | PostTo are the connected accounts each run&#39;s answer is posted to — x, linkedin, facebook — after review when Permissions is ask (post.go). Never null. | [optional] 
 **Project** | Pointer to **string** | Project is the Dev project the run works in, by its slug; null for none. | [optional] 
 **Schedule** | Pointer to [**AutoSchedule**](AutoSchedule.md) | Schedule is when it runs. | [optional] 
+**Source** | Pointer to **string** | Source is the product it was made in: chat, dev, studio or workflow. | [optional] 
+**Target** | Pointer to **string** | Target is an optional registered execution target, such as the person&#39;s local machine. | [optional] 
 **Updated** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -112,6 +116,31 @@ SetEnabled sets Enabled field to given value.
 `func (o *AutoAutomation) HasEnabled() bool`
 
 HasEnabled returns a boolean if a field has been set.
+
+### GetEvent
+
+`func (o *AutoAutomation) GetEvent() AutoOutcomeTrigger`
+
+GetEvent returns the Event field if non-nil, zero value otherwise.
+
+### GetEventOk
+
+`func (o *AutoAutomation) GetEventOk() (*AutoOutcomeTrigger, bool)`
+
+GetEventOk returns a tuple with the Event field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvent
+
+`func (o *AutoAutomation) SetEvent(v AutoOutcomeTrigger)`
+
+SetEvent sets Event field to given value.
+
+### HasEvent
+
+`func (o *AutoAutomation) HasEvent() bool`
+
+HasEvent returns a boolean if a field has been set.
 
 ### GetId
 
@@ -313,6 +342,31 @@ SetPermissions sets Permissions field to given value.
 
 HasPermissions returns a boolean if a field has been set.
 
+### GetPostTo
+
+`func (o *AutoAutomation) GetPostTo() []string`
+
+GetPostTo returns the PostTo field if non-nil, zero value otherwise.
+
+### GetPostToOk
+
+`func (o *AutoAutomation) GetPostToOk() (*[]string, bool)`
+
+GetPostToOk returns a tuple with the PostTo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPostTo
+
+`func (o *AutoAutomation) SetPostTo(v []string)`
+
+SetPostTo sets PostTo field to given value.
+
+### HasPostTo
+
+`func (o *AutoAutomation) HasPostTo() bool`
+
+HasPostTo returns a boolean if a field has been set.
+
 ### GetProject
 
 `func (o *AutoAutomation) GetProject() string`
@@ -362,6 +416,56 @@ SetSchedule sets Schedule field to given value.
 `func (o *AutoAutomation) HasSchedule() bool`
 
 HasSchedule returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *AutoAutomation) GetSource() string`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *AutoAutomation) GetSourceOk() (*string, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *AutoAutomation) SetSource(v string)`
+
+SetSource sets Source field to given value.
+
+### HasSource
+
+`func (o *AutoAutomation) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
+
+### GetTarget
+
+`func (o *AutoAutomation) GetTarget() string`
+
+GetTarget returns the Target field if non-nil, zero value otherwise.
+
+### GetTargetOk
+
+`func (o *AutoAutomation) GetTargetOk() (*string, bool)`
+
+GetTargetOk returns a tuple with the Target field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTarget
+
+`func (o *AutoAutomation) SetTarget(v string)`
+
+SetTarget sets Target field to given value.
+
+### HasTarget
+
+`func (o *AutoAutomation) HasTarget() bool`
+
+HasTarget returns a boolean if a field has been set.
 
 ### GetUpdated
 

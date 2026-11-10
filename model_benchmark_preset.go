@@ -12,6 +12,7 @@ package hanzoai
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the BenchmarkPreset type satisfies the MappedNullable interface at compile time
@@ -21,7 +22,11 @@ var _ MappedNullable = &BenchmarkPreset{}
 type BenchmarkPreset struct {
 	// the blend — model ids from the arena
 	Arms []string `json:"arms,omitempty"`
-	// served as enso-<name>
+	// At is when this version was stored. Set by the server; a value sent is not read. Zero on the reference blend.
+	At *time.Time `json:"at,omitempty"`
+	// By is the verified user who stored it. Set by the server; a value sent is not read.
+	By *string `json:"by,omitempty"`
+	// the part after enso-: lowercase letters, digits and inner hyphens, at most 64
 	Name *string `json:"name,omitempty"`
 	// why this blend (audit)
 	Note *string `json:"note,omitempty"`
@@ -83,6 +88,70 @@ func (o *BenchmarkPreset) HasArms() bool {
 // SetArms gets a reference to the given []string and assigns it to the Arms field.
 func (o *BenchmarkPreset) SetArms(v []string) {
 	o.Arms = v
+}
+
+// GetAt returns the At field value if set, zero value otherwise.
+func (o *BenchmarkPreset) GetAt() time.Time {
+	if o == nil || IsNil(o.At) {
+		var ret time.Time
+		return ret
+	}
+	return *o.At
+}
+
+// GetAtOk returns a tuple with the At field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkPreset) GetAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.At) {
+		return nil, false
+	}
+	return o.At, true
+}
+
+// HasAt returns a boolean if a field has been set.
+func (o *BenchmarkPreset) HasAt() bool {
+	if o != nil && !IsNil(o.At) {
+		return true
+	}
+
+	return false
+}
+
+// SetAt gets a reference to the given time.Time and assigns it to the At field.
+func (o *BenchmarkPreset) SetAt(v time.Time) {
+	o.At = &v
+}
+
+// GetBy returns the By field value if set, zero value otherwise.
+func (o *BenchmarkPreset) GetBy() string {
+	if o == nil || IsNil(o.By) {
+		var ret string
+		return ret
+	}
+	return *o.By
+}
+
+// GetByOk returns a tuple with the By field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BenchmarkPreset) GetByOk() (*string, bool) {
+	if o == nil || IsNil(o.By) {
+		return nil, false
+	}
+	return o.By, true
+}
+
+// HasBy returns a boolean if a field has been set.
+func (o *BenchmarkPreset) HasBy() bool {
+	if o != nil && !IsNil(o.By) {
+		return true
+	}
+
+	return false
+}
+
+// SetBy gets a reference to the given string and assigns it to the By field.
+func (o *BenchmarkPreset) SetBy(v string) {
+	o.By = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -258,6 +327,12 @@ func (o BenchmarkPreset) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Arms) {
 		toSerialize["arms"] = o.Arms
 	}
+	if !IsNil(o.At) {
+		toSerialize["at"] = o.At
+	}
+	if !IsNil(o.By) {
+		toSerialize["by"] = o.By
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
@@ -296,6 +371,8 @@ func (o *BenchmarkPreset) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "arms")
+		delete(additionalProperties, "at")
+		delete(additionalProperties, "by")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "note")
 		delete(additionalProperties, "owner")

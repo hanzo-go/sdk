@@ -23,17 +23,15 @@ type AiLimits struct {
 	Actions []AiAction `json:"actions,omitempty"`
 	// Classes are premium (third-party frontier models) and ours (Hanzo's), each present when the plan includes it.
 	Classes map[string]AiClass `json:"classes,omitempty"`
-	// CreditsAfterAllowance is the payer's choice to keep using a model on credits once the plan's included usage of it is spent (PUT /v1/ai/limits sets it).
-	CreditsAfterAllowance *bool     `json:"credits_after_allowance,omitempty"`
-	Day                   *AiWindow `json:"day,omitempty"`
+	Day     *AiWindow          `json:"day,omitempty"`
 	// Limited is present in limited mode.
 	Limited *AiLimited `json:"limited,omitempty"`
 	// Paused are the models whose share of the plan is used for now: each is answered by its fallback in chat until its share resets.
 	Paused    []AiPaused `json:"paused,omitempty"`
 	PeriodEnd *string    `json:"period_end,omitempty"`
-	// PeriodStart and PeriodEnd bound the billing period (RFC3339).
+	// PeriodStart and PeriodEnd bound the month the plan's usage renews over (RFC3339): the billing period, or one month of a yearly one.
 	PeriodStart *string `json:"period_start,omitempty"`
-	// Plan is the plan the caller is served as (\"dev\", \"max-5x\", \"max-20x\", \"team\", \"team-annual\", \"agency\", \"advisory\", \"dedicated\", ...), \"free\" when none counts.
+	// Plan is the plan the caller is served as (\"dev\", \"max-5x\", \"max-20x\", \"team\", \"agency\", \"advisory\", \"dedicated\", ...), \"free\" when none counts.
 	Plan *string `json:"plan,omitempty"`
 	// Session and Day are the request windows over every request the plan covers.
 	Session *AiWindow `json:"session,omitempty"`
@@ -125,38 +123,6 @@ func (o *AiLimits) HasClasses() bool {
 // SetClasses gets a reference to the given map[string]AiClass and assigns it to the Classes field.
 func (o *AiLimits) SetClasses(v map[string]AiClass) {
 	o.Classes = v
-}
-
-// GetCreditsAfterAllowance returns the CreditsAfterAllowance field value if set, zero value otherwise.
-func (o *AiLimits) GetCreditsAfterAllowance() bool {
-	if o == nil || IsNil(o.CreditsAfterAllowance) {
-		var ret bool
-		return ret
-	}
-	return *o.CreditsAfterAllowance
-}
-
-// GetCreditsAfterAllowanceOk returns a tuple with the CreditsAfterAllowance field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AiLimits) GetCreditsAfterAllowanceOk() (*bool, bool) {
-	if o == nil || IsNil(o.CreditsAfterAllowance) {
-		return nil, false
-	}
-	return o.CreditsAfterAllowance, true
-}
-
-// HasCreditsAfterAllowance returns a boolean if a field has been set.
-func (o *AiLimits) HasCreditsAfterAllowance() bool {
-	if o != nil && !IsNil(o.CreditsAfterAllowance) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreditsAfterAllowance gets a reference to the given bool and assigns it to the CreditsAfterAllowance field.
-func (o *AiLimits) SetCreditsAfterAllowance(v bool) {
-	o.CreditsAfterAllowance = &v
 }
 
 // GetDay returns the Day field value if set, zero value otherwise.
@@ -463,9 +429,6 @@ func (o AiLimits) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Classes) {
 		toSerialize["classes"] = o.Classes
 	}
-	if !IsNil(o.CreditsAfterAllowance) {
-		toSerialize["credits_after_allowance"] = o.CreditsAfterAllowance
-	}
 	if !IsNil(o.Day) {
 		toSerialize["day"] = o.Day
 	}
@@ -517,7 +480,6 @@ func (o *AiLimits) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "classes")
-		delete(additionalProperties, "credits_after_allowance")
 		delete(additionalProperties, "day")
 		delete(additionalProperties, "limited")
 		delete(additionalProperties, "paused")

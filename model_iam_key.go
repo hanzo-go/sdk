@@ -35,20 +35,28 @@ type IamKey struct {
 	// DisplayName is the human-facing label.
 	DisplayName *string `json:"displayName,omitempty"`
 	// ExpireTime is when the key stops being honored (empty = never). State is the lifecycle flag (\"Active\", \"test\", …); \"test\" mints test-env credentials instead of live ones.
-	ExpireTime   *string `json:"expireTime,omitempty"`
+	ExpireTime *string `json:"expireTime,omitempty"`
+	// Persisted fields
 	Id           *string `json:"id,omitempty"`
 	Name         *string `json:"name,omitempty"`
 	Organization *string `json:"organization,omitempty"`
 	// Owner is the tenant that holds the key; Name is unique within Owner.
 	Owner *string `json:"owner,omitempty"`
+	// Prefix is the head of the credential the holder presents — the sk- of a secret key, the pk- of a publishable one — recorded when the key is minted (PrefixOf). It lets a listing say which string a row is, and is far too short to use: the secret itself is never stored.
+	Prefix     *string `json:"prefix,omitempty"`
+	RevokeTime *string `json:"revokeTime,omitempty"`
+	// Revoker is who revoked the key and RevokeTime when. Revoking sets State to KeyStateRevoked and keeps the row, so the key is still listed and its history can be read; the resolvers refuse it, and no update reopens it.
+	Revoker *string `json:"revoker,omitempty"`
 	// Scope is the key's ACCESS CLASS, orthogonal to Type (which names the bound principal). Empty (the default, \"secret\") is a full key: a pk- publishable half AND a confidential sk- half, the sk- authenticating a server-side reader. KeyScopePublish is a WRITE-ONLY publishable key — a pk- half only, no secret — that resolves to just an ORG (never a principal) at the ingest endpoint and is safe to ship in client JS. A missing value on an existing row reads as the default, so every pre-Scope key is a secret key unchanged.
 	Scope *string `json:"scope,omitempty"`
 	State *string `json:"state,omitempty"`
 	// Type is the scope the key is bound to — \"Organization\", \"Application\", \"User\", or \"General\" — and Organization / Application / User name the concrete principal for whichever scope Type selects.
-	Type                 *string    `json:"type,omitempty"`
-	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
-	UpdatedTime          *string    `json:"updatedTime,omitempty"`
-	User                 *string    `json:"user,omitempty"`
+	Type        *string    `json:"type,omitempty"`
+	UpdatedAt   *time.Time `json:"updatedAt,omitempty"`
+	UpdatedTime *string    `json:"updatedTime,omitempty"`
+	// UsedTime is when the key was last presented and resolved. A list read fills it from the key's Sighting; the key row itself never holds it, so recording a use never rewrites the row a person may be editing.
+	UsedTime             *string `json:"usedTime,omitempty"`
+	User                 *string `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -519,6 +527,102 @@ func (o *IamKey) SetOwner(v string) {
 	o.Owner = &v
 }
 
+// GetPrefix returns the Prefix field value if set, zero value otherwise.
+func (o *IamKey) GetPrefix() string {
+	if o == nil || IsNil(o.Prefix) {
+		var ret string
+		return ret
+	}
+	return *o.Prefix
+}
+
+// GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamKey) GetPrefixOk() (*string, bool) {
+	if o == nil || IsNil(o.Prefix) {
+		return nil, false
+	}
+	return o.Prefix, true
+}
+
+// HasPrefix returns a boolean if a field has been set.
+func (o *IamKey) HasPrefix() bool {
+	if o != nil && !IsNil(o.Prefix) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrefix gets a reference to the given string and assigns it to the Prefix field.
+func (o *IamKey) SetPrefix(v string) {
+	o.Prefix = &v
+}
+
+// GetRevokeTime returns the RevokeTime field value if set, zero value otherwise.
+func (o *IamKey) GetRevokeTime() string {
+	if o == nil || IsNil(o.RevokeTime) {
+		var ret string
+		return ret
+	}
+	return *o.RevokeTime
+}
+
+// GetRevokeTimeOk returns a tuple with the RevokeTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamKey) GetRevokeTimeOk() (*string, bool) {
+	if o == nil || IsNil(o.RevokeTime) {
+		return nil, false
+	}
+	return o.RevokeTime, true
+}
+
+// HasRevokeTime returns a boolean if a field has been set.
+func (o *IamKey) HasRevokeTime() bool {
+	if o != nil && !IsNil(o.RevokeTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevokeTime gets a reference to the given string and assigns it to the RevokeTime field.
+func (o *IamKey) SetRevokeTime(v string) {
+	o.RevokeTime = &v
+}
+
+// GetRevoker returns the Revoker field value if set, zero value otherwise.
+func (o *IamKey) GetRevoker() string {
+	if o == nil || IsNil(o.Revoker) {
+		var ret string
+		return ret
+	}
+	return *o.Revoker
+}
+
+// GetRevokerOk returns a tuple with the Revoker field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamKey) GetRevokerOk() (*string, bool) {
+	if o == nil || IsNil(o.Revoker) {
+		return nil, false
+	}
+	return o.Revoker, true
+}
+
+// HasRevoker returns a boolean if a field has been set.
+func (o *IamKey) HasRevoker() bool {
+	if o != nil && !IsNil(o.Revoker) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevoker gets a reference to the given string and assigns it to the Revoker field.
+func (o *IamKey) SetRevoker(v string) {
+	o.Revoker = &v
+}
+
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *IamKey) GetScope() string {
 	if o == nil || IsNil(o.Scope) {
@@ -679,6 +783,38 @@ func (o *IamKey) SetUpdatedTime(v string) {
 	o.UpdatedTime = &v
 }
 
+// GetUsedTime returns the UsedTime field value if set, zero value otherwise.
+func (o *IamKey) GetUsedTime() string {
+	if o == nil || IsNil(o.UsedTime) {
+		var ret string
+		return ret
+	}
+	return *o.UsedTime
+}
+
+// GetUsedTimeOk returns a tuple with the UsedTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamKey) GetUsedTimeOk() (*string, bool) {
+	if o == nil || IsNil(o.UsedTime) {
+		return nil, false
+	}
+	return o.UsedTime, true
+}
+
+// HasUsedTime returns a boolean if a field has been set.
+func (o *IamKey) HasUsedTime() bool {
+	if o != nil && !IsNil(o.UsedTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsedTime gets a reference to the given string and assigns it to the UsedTime field.
+func (o *IamKey) SetUsedTime(v string) {
+	o.UsedTime = &v
+}
+
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *IamKey) GetUser() string {
 	if o == nil || IsNil(o.User) {
@@ -763,6 +899,15 @@ func (o IamKey) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
+	if !IsNil(o.Prefix) {
+		toSerialize["prefix"] = o.Prefix
+	}
+	if !IsNil(o.RevokeTime) {
+		toSerialize["revokeTime"] = o.RevokeTime
+	}
+	if !IsNil(o.Revoker) {
+		toSerialize["revoker"] = o.Revoker
+	}
 	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
@@ -777,6 +922,9 @@ func (o IamKey) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.UpdatedTime) {
 		toSerialize["updatedTime"] = o.UpdatedTime
+	}
+	if !IsNil(o.UsedTime) {
+		toSerialize["usedTime"] = o.UsedTime
 	}
 	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
@@ -817,11 +965,15 @@ func (o *IamKey) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "organization")
 		delete(additionalProperties, "owner")
+		delete(additionalProperties, "prefix")
+		delete(additionalProperties, "revokeTime")
+		delete(additionalProperties, "revoker")
 		delete(additionalProperties, "scope")
 		delete(additionalProperties, "state")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "updatedAt")
 		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "usedTime")
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
 	}

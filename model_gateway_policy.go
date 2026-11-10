@@ -29,9 +29,11 @@ type GatewayPolicy struct {
 	Methods []string `json:"methods,omitempty"`
 	// Mode is the abuse gate's posture for THIS scope: \"shadow\" scores traffic and records the verdict without acting on it, \"live\" enforces it. Unset means shadow.  It is the one per-org field that does NOT inherit. Every other field here layers a platform default under the org's own value, which is right for a default: a tenant that sets no rate ceiling should get the platform's. Mode is not a default, it is an ARMING DECISION — it is what makes a statistical judgement start refusing real traffic — and inheriting it means arming one scope arms every tenant that never asked for it, without a write to their row and without anything in their config changing. So a tenant is live only if that tenant's OWN row says live, and the platform row's mode governs exactly one scope: the anonymous lane, which has no tenant of its own.  It is also not self-service. Writing it requires SuperAdmin (see the /v1/gateway config op): the subject of an abuse control does not get to switch the control off.
 	Mode *string `json:"mode,omitempty"`
-	// OrgRPM is the org's OWN authenticated rate ceiling, requests per minute, as ScopeRateLimit enforces it. Unset inherits the platform default, then the static boot default.
+	// OrgCap is the most this organization's ceiling may be, requests per minute. Unset, it is the platform's org_rpm, else 60,000. Only a SuperAdmin sets it: it is how the platform raises one organization above the default, and the organization a limit governs does not get to remove it. It does not inherit from the platform row. Read back, it is the cap in force.
+	OrgCap *int64 `json:"org_cap,omitempty"`
+	// OrgRPM is the org's OWN authenticated rate ceiling, requests per minute, as ScopeRateLimit enforces it across the deployment. An organization may lower it but never raise it past its cap (org_cap); unset, the org is held to its cap. On the platform row it is every organization's default cap, and it does not inherit into any organization's own row. Read back, it is the ceiling in force: the org's own, clipped to its cap.
 	OrgRpm *int64 `json:"org_rpm,omitempty"`
-	// PerIPRPM is the PLATFORM-scope pre-auth flood cap: requests EdgeRateLimit admits per WindowSec from one client IP. SuperAdmin-only, same reason.
+	// PerIPRPM is the PLATFORM-scope flood cap: requests admitted per WindowSec from one client IP that presents no credential, or a credential that resolves to nobody. A request presenting a credential is held to ten times this from its address until the credential is checked; a validated caller is then held by its key and org ceilings instead. SuperAdmin-only, same reason.
 	PerIpRpm *int64 `json:"per_ip_rpm,omitempty"`
 	// UpdatedAt is the unix second this policy row was last written. Server-stamped; a client-supplied value is ignored.
 	UpdatedAt *int64 `json:"updated_at,omitempty"`
@@ -221,6 +223,38 @@ func (o *GatewayPolicy) SetMode(v string) {
 	o.Mode = &v
 }
 
+// GetOrgCap returns the OrgCap field value if set, zero value otherwise.
+func (o *GatewayPolicy) GetOrgCap() int64 {
+	if o == nil || IsNil(o.OrgCap) {
+		var ret int64
+		return ret
+	}
+	return *o.OrgCap
+}
+
+// GetOrgCapOk returns a tuple with the OrgCap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GatewayPolicy) GetOrgCapOk() (*int64, bool) {
+	if o == nil || IsNil(o.OrgCap) {
+		return nil, false
+	}
+	return o.OrgCap, true
+}
+
+// HasOrgCap returns a boolean if a field has been set.
+func (o *GatewayPolicy) HasOrgCap() bool {
+	if o != nil && !IsNil(o.OrgCap) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrgCap gets a reference to the given int64 and assigns it to the OrgCap field.
+func (o *GatewayPolicy) SetOrgCap(v int64) {
+	o.OrgCap = &v
+}
+
 // GetOrgRpm returns the OrgRpm field value if set, zero value otherwise.
 func (o *GatewayPolicy) GetOrgRpm() int64 {
 	if o == nil || IsNil(o.OrgRpm) {
@@ -406,6 +440,9 @@ func (o GatewayPolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Mode) {
 		toSerialize["mode"] = o.Mode
 	}
+	if !IsNil(o.OrgCap) {
+		toSerialize["org_cap"] = o.OrgCap
+	}
 	if !IsNil(o.OrgRpm) {
 		toSerialize["org_rpm"] = o.OrgRpm
 	}
@@ -448,6 +485,7 @@ func (o *GatewayPolicy) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "cors_origins")
 		delete(additionalProperties, "methods")
 		delete(additionalProperties, "mode")
+		delete(additionalProperties, "org_cap")
 		delete(additionalProperties, "org_rpm")
 		delete(additionalProperties, "per_ip_rpm")
 		delete(additionalProperties, "updated_at")

@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **License** | Pointer to **string** | License is the terms that upstream work carries. Absent has the same reading: undeclared, not unencumbered. | [optional] 
 **LiveUrl** | Pointer to **string** | LiveURL is where the site answers today. Absent until something has been deployed. | [optional] 
 **Name** | Pointer to **string** | Name is the project&#39;s display name, free text a person chose. | [optional] 
+**Namespace** | Pointer to **string** | Namespace is where the site&#39;s files are kept: &#x60;&lt;namespace&gt;/&lt;slug&gt;/&#x60; in the sites bucket. It is the GitHub org the project&#39;s repository lives in when this org holds that GitHub account, and the org otherwise, decided when the repository is linked. | [optional] 
 **Org** | Pointer to **string** | Org is the organisation that owns the project, and therefore who pays for it and who may change it. It is also the AUTHORSHIP line a gallery credits; there is no separate author field. | [optional] 
 **Repo** | Pointer to [**ProjectProjectsRepo**](ProjectProjectsRepo.md) | Repo is the git source this project builds from, empty when it is deployed by uploading an artifact instead. | [optional] 
 **Slug** | Pointer to **string** | Slug is the identifier that MATTERS: the handle every later call addresses, the S3 key segment the site&#39;s objects live under, and the label of the public host &#x60;&lt;slug&gt;.hanzo.app&#x60;. Because it is a hostname it is constrained and reserved labels such as &#x60;api&#x60; are refused. | [optional] 
@@ -501,6 +502,31 @@ SetName sets Name field to given value.
 `func (o *ProjectProjectsProject) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetNamespace
+
+`func (o *ProjectProjectsProject) GetNamespace() string`
+
+GetNamespace returns the Namespace field if non-nil, zero value otherwise.
+
+### GetNamespaceOk
+
+`func (o *ProjectProjectsProject) GetNamespaceOk() (*string, bool)`
+
+GetNamespaceOk returns a tuple with the Namespace field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNamespace
+
+`func (o *ProjectProjectsProject) SetNamespace(v string)`
+
+SetNamespace sets Namespace field to given value.
+
+### HasNamespace
+
+`func (o *ProjectProjectsProject) HasNamespace() bool`
+
+HasNamespace returns a boolean if a field has been set.
 
 ### GetOrg
 

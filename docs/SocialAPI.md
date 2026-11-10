@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteSocialPostsById**](SocialAPI.md#DeleteSocialPostsById) | **Delete** /v1/social/posts/{id} | Removes one post from the org and answers 204 with no body; an id that is not there is 404.
 [**GetSocialAccounts**](SocialAPI.md#GetSocialAccounts) | **Get** /v1/social/accounts | Returns the org&#39;s connected accounts — each one&#39;s id, network, handle, status and timestamps, most-recently-updated first.
 [**GetSocialAccountsById**](SocialAPI.md#GetSocialAccountsById) | **Get** /v1/social/accounts/{id} | Returns one of the org&#39;s connected accounts by id — its network, handle, status and timestamps — or 404.
+[**GetSocialCredentials**](SocialAPI.md#GetSocialCredentials) | **Get** /v1/social/credentials | Lists the apps this org has sealed.
 [**GetSocialPosts**](SocialAPI.md#GetSocialPosts) | **Get** /v1/social/posts | Returns the org&#39;s posts — content, channel, status, scheduled time, media and timestamps — most-recently-updated first.
 [**GetSocialPostsById**](SocialAPI.md#GetSocialPostsById) | **Get** /v1/social/posts/{id} | Returns one of the org&#39;s posts by id, with its current status, scheduled time, media and — once it has published — the account and external id it published under.
 [**GetSocialProviders**](SocialAPI.md#GetSocialProviders) | **Get** /v1/social/providers | Reports each supported network&#39;s publish-readiness: whether this deployment holds the OAuth application credentials for it and, when it does not, exactly which environment variables are missing.
@@ -16,6 +17,7 @@ Method | HTTP request | Description
 [**PostSocialPosts**](SocialAPI.md#PostSocialPosts) | **Post** /v1/social/posts | Stores a post for the org and answers 201 with the stored row.
 [**PostSocialPostsByIdPublish**](SocialAPI.md#PostSocialPostsByIdPublish) | **Post** /v1/social/posts/{id}/publish | Publishes the post immediately to the connected accounts on its channel and answers with the updated row, carrying the account and external id it published under.
 [**PutSocialAccountsById**](SocialAPI.md#PutSocialAccountsById) | **Put** /v1/social/accounts/{id} | Replaces the account&#39;s network, handle and status with what the body carries, and answers with the stored row.
+[**PutSocialCredentials**](SocialAPI.md#PutSocialCredentials) | **Put** /v1/social/credentials | Seals the apps in the body.
 [**PutSocialPostsById**](SocialAPI.md#PutSocialPostsById) | **Put** /v1/social/posts/{id} | Replaces the post&#39;s content, channel, status, scheduled time and media with what the body carries, and answers with the stored row.
 
 
@@ -279,6 +281,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SocialSocialAccount**](SocialSocialAccount.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSocialCredentials
+
+> SocialOrgApps GetSocialCredentials(ctx).Execute()
+
+Lists the apps this org has sealed.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SocialAPI.GetSocialCredentials(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialCredentials``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSocialCredentials`: SocialOrgApps
+	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.GetSocialCredentials`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSocialCredentialsRequest struct via the builder pattern
+
+
+### Return type
+
+[**SocialOrgApps**](SocialOrgApps.md)
 
 ### Authorization
 
@@ -813,6 +876,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SocialSocialAccount**](SocialSocialAccount.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutSocialCredentials
+
+> SocialOrgApps PutSocialCredentials(ctx).SocialOrgAppsWrite(socialOrgAppsWrite).Execute()
+
+Seals the apps in the body.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	socialOrgAppsWrite := *openapiclient.NewSocialOrgAppsWrite() // SocialOrgAppsWrite | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SocialAPI.PutSocialCredentials(context.Background()).SocialOrgAppsWrite(socialOrgAppsWrite).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PutSocialCredentials``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutSocialCredentials`: SocialOrgApps
+	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.PutSocialCredentials`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutSocialCredentialsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **socialOrgAppsWrite** | [**SocialOrgAppsWrite**](SocialOrgAppsWrite.md) |  | 
+
+### Return type
+
+[**SocialOrgApps**](SocialOrgApps.md)
 
 ### Authorization
 

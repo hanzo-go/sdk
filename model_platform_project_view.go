@@ -19,19 +19,26 @@ var _ MappedNullable = &PlatformProjectView{}
 
 // PlatformProjectView struct for PlatformProjectView
 type PlatformProjectView struct {
+	// Apps is how many declarations name the project.
 	Apps *int64 `json:"apps,omitempty"`
 	// CD says why the reconciliation columns are missing, when they are.
 	CdUnavailable *PlatformUnreadable `json:"cdUnavailable,omitempty"`
 	// Cluster says why the running columns are missing, when they are.
-	ClusterUnavailable *PlatformUnreadable  `json:"clusterUnavailable,omitempty"`
-	Drift              *PlatformDriftTally  `json:"drift,omitempty"`
-	Health             *PlatformHealthTally `json:"health,omitempty"`
+	ClusterUnavailable *PlatformUnreadable `json:"clusterUnavailable,omitempty"`
+	// Drift counts its apps by drift severity.
+	Drift *PlatformDriftTally `json:"drift,omitempty"`
+	// Health counts its apps by CD's health verdict.
+	Health *PlatformHealthTally `json:"health,omitempty"`
 	// Members are the project's apps, sorted by namespace then name.
-	Members    []PlatformProjectApp `json:"members,omitempty"`
-	Name       *string              `json:"name,omitempty"`
-	Namespaces []string             `json:"namespaces,omitempty"`
-	Org        *string              `json:"org,omitempty"`
-	Sync       *PlatformSyncTally   `json:"sync,omitempty"`
+	Members []PlatformProjectApp `json:"members,omitempty"`
+	// Name is the project, as the values files spell it in `partOf`.
+	Name *string `json:"name,omitempty"`
+	// Namespaces are the namespaces its apps deploy into, sorted.
+	Namespaces []string `json:"namespaces,omitempty"`
+	// Org is the organization that owns the project. Absent for the platform's own projects, whose apps live in the platform's directories.
+	Org *string `json:"org,omitempty"`
+	// Sync counts its apps by CD's sync verdict.
+	Sync *PlatformSyncTally `json:"sync,omitempty"`
 	// Unreadable are the values files in the owner's scope that do not parse, any of which may name this project. Absent when every file parsed.
 	Unreadable           []PlatformUnreadableFile `json:"unreadable,omitempty"`
 	AdditionalProperties map[string]interface{}

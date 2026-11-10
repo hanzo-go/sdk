@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Metrics** | Pointer to [**AgentMetrics**](AgentMetrics.md) | Metrics is what the machine was DOING at its last heartbeat — loadavg, memory, accelerator utilization. Absent when it has never beaten. It is a SNAPSHOT: the series over time lives in the fleet samples, not here. | [optional] 
 **MetricsAt** | Pointer to **string** | MetricsAt is when that heartbeat was recorded, RFC 3339 in UTC, and the SERVER stamps it — a client cannot backdate or forge the staleness clock. Absent means never beaten, which is exactly the case where Status is taken at its word. | [optional] 
 **Running** | Pointer to **int64** | Running is how many of those are in &#x60;running&#x60; right now — the number a dispatcher weighs against Capacity. paused sessions are in Sessions and not here. | [optional] 
+**Serving** | Pointer to **bool** | Serving says whether a run the caller sends here now would be taken: the machine is the caller&#39;s (or the caller is an org admin), and it is online with a runner that polled for work within the last 90 seconds — the online and runner half is what dispatch checks (TargetDispatchable). A heartbeat alone keeps a machine online, not serving, and a colleague&#39;s machine never serves the caller. | [optional] 
 **Sessions** | Pointer to **int64** | Sessions is how many of the org&#39;s sessions are mapped to this machine, by target id OR by matching Host. All of them, whatever their status. | [optional] 
 **Spec** | Pointer to [**AgentSpec**](AgentSpec.md) | Spec is what the machine IS — os, arch, cores, RAM, accelerators — the static half, changed only when something reports it again. Absent when nothing has ever been reported, and a scheduler reads absence as \&quot;cannot satisfy a floor\&quot; rather than as \&quot;no limits\&quot;. | [optional] 
 **Status** | Pointer to **string** | Status is the EFFECTIVE liveness — online | offline | draining — not the stored one. offline and draining are operator INTENT and are reported as they stand; &#x60;online&#x60; is checked against the heartbeat, and a machine that has beaten before but not in the last 90 seconds reports offline whatever its row says. A target that has NEVER beaten keeps its stored status, because a hand-registered destination has no fact to check. | [optional] 
@@ -261,6 +262,31 @@ SetRunning sets Running field to given value.
 `func (o *AgentTargetView) HasRunning() bool`
 
 HasRunning returns a boolean if a field has been set.
+
+### GetServing
+
+`func (o *AgentTargetView) GetServing() bool`
+
+GetServing returns the Serving field if non-nil, zero value otherwise.
+
+### GetServingOk
+
+`func (o *AgentTargetView) GetServingOk() (*bool, bool)`
+
+GetServingOk returns a tuple with the Serving field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetServing
+
+`func (o *AgentTargetView) SetServing(v bool)`
+
+SetServing sets Serving field to given value.
+
+### HasServing
+
+`func (o *AgentTargetView) HasServing() bool`
+
+HasServing returns a boolean if a field has been set.
 
 ### GetSessions
 

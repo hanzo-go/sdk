@@ -19,14 +19,20 @@ var _ MappedNullable = &O11yO11yQueryRangePreviewIn{}
 
 // O11yO11yQueryRangePreviewIn struct for O11yO11yQueryRangePreviewIn
 type O11yO11yQueryRangePreviewIn struct {
-	CompositeQuery *O11yCompositeQuery         `json:"compositeQuery,omitempty"`
-	End            *int32                      `json:"end,omitempty"`
-	FormatOptions  *O11yFormatOptions          `json:"formatOptions,omitempty"`
-	NoCache        *bool                       `json:"noCache,omitempty"`
-	RequestType    interface{}                 `json:"requestType,omitempty"`
-	SchemaVersion  *string                     `json:"schemaVersion,omitempty"`
-	Start          *int32                      `json:"start,omitempty"`
-	Variables      map[string]O11yVariableItem `json:"variables,omitempty"`
+	// CompositeQuery is the composite query to use for the request.
+	CompositeQuery *O11yCompositeQuery `json:"compositeQuery,omitempty"`
+	// End is the end time of the query in epoch milliseconds.
+	End           *int32             `json:"end,omitempty"`
+	FormatOptions *O11yFormatOptions `json:"formatOptions,omitempty"`
+	// NoCache is a flag to disable caching for the request.
+	NoCache     *bool       `json:"noCache,omitempty"`
+	RequestType interface{} `json:"requestType,omitempty"`
+	// SchemaVersion is the version of the schema to use for the request payload.
+	SchemaVersion *string `json:"schemaVersion,omitempty"`
+	// Start is the start time of the query in epoch milliseconds.
+	Start *int32 `json:"start,omitempty"`
+	// Variables is the variables to use for the request.
+	Variables map[string]O11yVariableItem `json:"variables,omitempty"`
 	// Verbose selects the answer's depth. Empty or \"true\" renders the underlying Datastore SQL with EXPLAIN and granule analysis; \"false\" returns only the per-query valid/error/warnings verdict with no Datastore round trips.
 	Verbose              *string `json:"verbose,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Clause** | Pointer to **string** |  | [optional] 
-**Reason** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Clause** | Pointer to **string** | Clause names the clause of the rule that asked for sign-off. | [optional] 
+**Reason** | Pointer to **string** | Reason is what a person reads before answering. | [optional] 
+**Status** | Pointer to **string** | Status is always held: the op stopped for sign-off and did not run. | [optional] 
 
 ## Methods
 

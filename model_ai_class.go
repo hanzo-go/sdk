@@ -24,7 +24,9 @@ type AiClass struct {
 	Percent  *int64  `json:"percent,omitempty"`
 	ResetsAt *string `json:"resets_at,omitempty"`
 	// State is ok, near, or limited when the class is used up and nothing else pays.
-	State                *string   `json:"state,omitempty"`
+	State *string `json:"state,omitempty"`
+	// Unbounded says the plan includes all of this class's use: there is no share to use up, and Percent is 0.
+	Unbounded            *bool     `json:"unbounded,omitempty"`
 	Window               *AiWindow `json:"window,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -176,6 +178,38 @@ func (o *AiClass) SetState(v string) {
 	o.State = &v
 }
 
+// GetUnbounded returns the Unbounded field value if set, zero value otherwise.
+func (o *AiClass) GetUnbounded() bool {
+	if o == nil || IsNil(o.Unbounded) {
+		var ret bool
+		return ret
+	}
+	return *o.Unbounded
+}
+
+// GetUnboundedOk returns a tuple with the Unbounded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiClass) GetUnboundedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Unbounded) {
+		return nil, false
+	}
+	return o.Unbounded, true
+}
+
+// HasUnbounded returns a boolean if a field has been set.
+func (o *AiClass) HasUnbounded() bool {
+	if o != nil && !IsNil(o.Unbounded) {
+		return true
+	}
+
+	return false
+}
+
+// SetUnbounded gets a reference to the given bool and assigns it to the Unbounded field.
+func (o *AiClass) SetUnbounded(v bool) {
+	o.Unbounded = &v
+}
+
 // GetWindow returns the Window field value if set, zero value otherwise.
 func (o *AiClass) GetWindow() AiWindow {
 	if o == nil || IsNil(o.Window) {
@@ -230,6 +264,9 @@ func (o AiClass) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
+	if !IsNil(o.Unbounded) {
+		toSerialize["unbounded"] = o.Unbounded
+	}
 	if !IsNil(o.Window) {
 		toSerialize["window"] = o.Window
 	}
@@ -259,6 +296,7 @@ func (o *AiClass) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "percent")
 		delete(additionalProperties, "resets_at")
 		delete(additionalProperties, "state")
+		delete(additionalProperties, "unbounded")
 		delete(additionalProperties, "window")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -33,6 +33,8 @@ type GitRepoView struct {
 	Head *string `json:"head,omitempty"`
 	// ID is the repo's stable, prefixed identifier (\"repo_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
+	// Link is where the repo's history lives when it is on another host: reads are served from a cache filled from there and pushes go there. Absent for a repo whose history is here.
+	Link *GitLink `json:"link,omitempty"`
 	// Name is the org-unique handle, and the last path segment of both URLs below.
 	Name *string `json:"name,omitempty"`
 	// Org owns the repo — the gateway-minted X-Org-Id, and the isolation key.
@@ -293,6 +295,38 @@ func (o *GitRepoView) SetId(v string) {
 	o.Id = &v
 }
 
+// GetLink returns the Link field value if set, zero value otherwise.
+func (o *GitRepoView) GetLink() GitLink {
+	if o == nil || IsNil(o.Link) {
+		var ret GitLink
+		return ret
+	}
+	return *o.Link
+}
+
+// GetLinkOk returns a tuple with the Link field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GitRepoView) GetLinkOk() (*GitLink, bool) {
+	if o == nil || IsNil(o.Link) {
+		return nil, false
+	}
+	return o.Link, true
+}
+
+// HasLink returns a boolean if a field has been set.
+func (o *GitRepoView) HasLink() bool {
+	if o != nil && !IsNil(o.Link) {
+		return true
+	}
+
+	return false
+}
+
+// SetLink gets a reference to the given GitLink and assigns it to the Link field.
+func (o *GitRepoView) SetLink(v GitLink) {
+	o.Link = &v
+}
+
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *GitRepoView) GetName() string {
 	if o == nil || IsNil(o.Name) {
@@ -548,6 +582,9 @@ func (o GitRepoView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
+	if !IsNil(o.Link) {
+		toSerialize["link"] = o.Link
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
@@ -598,6 +635,7 @@ func (o *GitRepoView) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "head")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "link")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "org")
 		delete(additionalProperties, "project")

@@ -20,11 +20,12 @@ var _ MappedNullable = &IamTeam{}
 
 // IamTeam struct for IamTeam
 type IamTeam struct {
-	CreatedAt            *time.Time `json:"createdAt,omitempty"`
-	CreatedTime          *string    `json:"createdTime,omitempty"`
-	Deleted              *bool      `json:"deleted,omitempty"`
-	Description          *string    `json:"description,omitempty"`
-	DisplayName          *string    `json:"displayName,omitempty"`
+	CreatedAt   *time.Time `json:"createdAt,omitempty"`
+	CreatedTime *string    `json:"createdTime,omitempty"`
+	Deleted     *bool      `json:"deleted,omitempty"`
+	Description *string    `json:"description,omitempty"`
+	DisplayName *string    `json:"displayName,omitempty"`
+	// Persisted fields
 	Id                   *string    `json:"id,omitempty"`
 	IsEnabled            *bool      `json:"isEnabled,omitempty"`
 	Name                 *string    `json:"name,omitempty"`

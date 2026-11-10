@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Criteria** | [**[]AiDecisionSidesFalse**](AiDecisionSidesFalse.md) |  | 
-**Instructions** | Pointer to [**AiDecisionSidesFalse**](AiDecisionSidesFalse.md) |  | [optional] 
+**Criteria** | **[]interface{}** |  | 
+**Instructions** | Pointer to **interface{}** |  | [optional] 
 **Type** | **string** |  | 
 
 ## Methods
 
 ### NewAiDecisionsScore
 
-`func NewAiDecisionsScore(criteria []AiDecisionSidesFalse, type_ string, ) *AiDecisionsScore`
+`func NewAiDecisionsScore(criteria []interface{}, type_ string, ) *AiDecisionsScore`
 
 NewAiDecisionsScore instantiates a new AiDecisionsScore object
 This constructor will assign default values to properties that have it defined,
@@ -29,40 +29,40 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCriteria
 
-`func (o *AiDecisionsScore) GetCriteria() []AiDecisionSidesFalse`
+`func (o *AiDecisionsScore) GetCriteria() []interface{}`
 
 GetCriteria returns the Criteria field if non-nil, zero value otherwise.
 
 ### GetCriteriaOk
 
-`func (o *AiDecisionsScore) GetCriteriaOk() (*[]AiDecisionSidesFalse, bool)`
+`func (o *AiDecisionsScore) GetCriteriaOk() (*[]interface{}, bool)`
 
 GetCriteriaOk returns a tuple with the Criteria field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCriteria
 
-`func (o *AiDecisionsScore) SetCriteria(v []AiDecisionSidesFalse)`
+`func (o *AiDecisionsScore) SetCriteria(v []interface{})`
 
 SetCriteria sets Criteria field to given value.
 
 
 ### GetInstructions
 
-`func (o *AiDecisionsScore) GetInstructions() AiDecisionSidesFalse`
+`func (o *AiDecisionsScore) GetInstructions() interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *AiDecisionsScore) GetInstructionsOk() (*AiDecisionSidesFalse, bool)`
+`func (o *AiDecisionsScore) GetInstructionsOk() (*interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *AiDecisionsScore) SetInstructions(v AiDecisionSidesFalse)`
+`func (o *AiDecisionsScore) SetInstructions(v interface{})`
 
 SetInstructions sets Instructions field to given value.
 
@@ -72,6 +72,16 @@ SetInstructions sets Instructions field to given value.
 
 HasInstructions returns a boolean if a field has been set.
 
+### SetInstructionsNil
+
+`func (o *AiDecisionsScore) SetInstructionsNil(b bool)`
+
+ SetInstructionsNil sets the value for Instructions to be an explicit nil
+
+### UnsetInstructions
+`func (o *AiDecisionsScore) UnsetInstructions()`
+
+UnsetInstructions ensures that no value is present for Instructions, not even an explicit nil
 ### GetType
 
 `func (o *AiDecisionsScore) GetType() string`

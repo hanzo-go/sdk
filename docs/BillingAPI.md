@@ -4,6 +4,7 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AssignSeats**](BillingAPI.md#AssignSeats) | **Put** /v1/billing/subscriptions/{id}/seats | Assign a team&#39;s seats
 [**CancelSubscription**](BillingAPI.md#CancelSubscription) | **Post** /v1/billing/subscriptions/{id}/cancel | End a subscription
 [**CollectInvoice**](BillingAPI.md#CollectInvoice) | **Post** /v1/billing/invoices/{id}/collect | Collect an issued invoice from credits, balance, then card
 [**DeleteBillingAlertsById**](BillingAPI.md#DeleteBillingAlertsById) | **Delete** /v1/billing/alerts/{id} | Removes one of the caller&#39;s spend caps and answers 204.
@@ -18,17 +19,21 @@ Method | HTTP request | Description
 [**GetBillingCreditBalanceBreakdown**](BillingAPI.md#GetBillingCreditBalanceBreakdown) | **Get** /v1/billing/credit-balance/breakdown | Answers that same spendable credit split by grant tag, with the earliest expiry under each and the total across all of them.
 [**GetBillingCredits**](BillingAPI.md#GetBillingCredits) | **Get** /v1/billing/credits | Lists the caller&#39;s credit grants — every one of them, spent and lapsed and voided included.
 [**GetBillingCryptoDepositById**](BillingAPI.md#GetBillingCryptoDepositById) | **Get** /v1/billing/crypto/deposit/{id} | Reads one of the caller&#39;s own deposit intents back — pending, confirming, or succeeded.
-[**GetBillingCryptoOptions**](BillingAPI.md#GetBillingCryptoOptions) | **Get** /v1/billing/crypto/options | Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
+[**GetBillingCryptoGateway**](BillingAPI.md#GetBillingCryptoGateway) | **Get** /v1/billing/crypto/gateway | Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+[**GetBillingCryptoGatewayById**](BillingAPI.md#GetBillingCryptoGatewayById) | **Get** /v1/billing/crypto/gateway/{id} | Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+[**GetBillingCryptoOptions**](BillingAPI.md#GetBillingCryptoOptions) | **Get** /v1/billing/crypto/options | Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer.
 [**GetBillingInvoices**](BillingAPI.md#GetBillingInvoices) | **Get** /v1/billing/invoices | Lists the caller&#39;s invoices, newest first, with the count beside them.
 [**GetBillingInvoicesByIdPdf**](BillingAPI.md#GetBillingInvoicesByIdPdf) | **Get** /v1/billing/invoices/{id}/pdf | Download one invoice as a PDF
+[**GetBillingInvoicesHostedByLink**](BillingAPI.md#GetBillingInvoicesHostedByLink) | **Get** /v1/billing/invoices/hosted/{link} | Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+[**GetBillingInvoicesHostedByLinkPdf**](BillingAPI.md#GetBillingInvoicesHostedByLinkPdf) | **Get** /v1/billing/invoices/hosted/{link}/pdf | Is the order invoice a link shows, as a PDF to print or save.
 [**GetBillingLedger**](BillingAPI.md#GetBillingLedger) | **Get** /v1/billing/ledger | Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;), a HOLD sets money aside for a payment agreed and not yet made (negative, account &#x60;held:&lt;org&gt;&#x60;) and its return gives it back (positive), and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
 [**GetBillingMethods**](BillingAPI.md#GetBillingMethods) | **Get** /v1/billing/methods | Cards and accounts on file for the caller
 [**GetBillingPayouts**](BillingAPI.md#GetBillingPayouts) | **Get** /v1/billing/payouts | Answers the org&#39;s outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.
 [**GetBillingPlans**](BillingAPI.md#GetBillingPlans) | **Get** /v1/billing/plans | The plan catalog, priced with whatever offer is in force
 [**GetBillingPortalMethods**](BillingAPI.md#GetBillingPortalMethods) | **Get** /v1/billing/portal/methods | Cards and accounts on file for the caller
-[**GetBillingRecharge**](BillingAPI.md#GetBillingRecharge) | **Get** /v1/billing/recharge | Reads the caller&#39;s auto-reload rule: top the balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging the card on file off-session.
+[**GetBillingRecharge**](BillingAPI.md#GetBillingRecharge) | **Get** /v1/billing/recharge | Reads the auto-reload rule of the wallet the caller pays from — the org&#39;s own account, or a person&#39;s wallet in the signup org: top that balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging that payer&#39;s card on file off-session, at most &#x60;perDay&#x60; times in a UTC day (0 is no daily limit, which the payer&#39;s plan sets).
 [**GetBillingSettings**](BillingAPI.md#GetBillingSettings) | **Get** /v1/billing/settings | Answers the PUBLIC half of this org&#39;s processor configuration — the ids a browser needs to tokenize a card, and the environment it must tokenize against.
-[**GetBillingSubscriptions**](BillingAPI.md#GetBillingSubscriptions) | **Get** /v1/billing/subscriptions | Lists the plans the caller holds, with the count beside them.
+[**GetBillingSubscriptions**](BillingAPI.md#GetBillingSubscriptions) | **Get** /v1/billing/subscriptions | Lists the plans the caller may see, with the count beside them.
 [**GetBillingTier**](BillingAPI.md#GetBillingTier) | **Get** /v1/billing/tier | Answers which tier the caller is on, what it allows, and what is left to spend.
 [**GetBillingTransactions**](BillingAPI.md#GetBillingTransactions) | **Get** /v1/billing/transactions | Answers one page of the caller&#39;s own ledger, newest first: what moved, how much, when, and what it was tagged with.
 [**GetBillingTransactionsById**](BillingAPI.md#GetBillingTransactionsById) | **Get** /v1/billing/transactions/{id} | Reads one ledger entry by its id.
@@ -41,24 +46,100 @@ Method | HTTP request | Description
 [**PatchBillingAlertsById**](BillingAPI.md#PatchBillingAlertsById) | **Patch** /v1/billing/alerts/{id} | Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.
 [**PostBillingAlerts**](BillingAPI.md#PostBillingAlerts) | **Post** /v1/billing/alerts | Opens a spend cap on the caller&#39;s own org.
 [**PostBillingCryptoDeposit**](BillingAPI.md#PostBillingCryptoDeposit) | **Post** /v1/billing/crypto/deposit | Issues a deposit address the caller can send crypto to, on the asset they ask for.
+[**PostBillingCryptoGateway**](BillingAPI.md#PostBillingCryptoGateway) | **Post** /v1/billing/crypto/gateway | Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.
 [**PostBillingMethods**](BillingAPI.md#PostBillingMethods) | **Post** /v1/billing/methods | Save a card or account for the caller
 [**PostBillingMode**](BillingAPI.md#PostBillingMode) | **Post** /v1/billing/mode | Moves this org between sandbox money and real money.
+[**PostBillingPaypalOrder**](BillingAPI.md#PostBillingPaypalOrder) | **Post** /v1/billing/paypal/order | Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).
 [**PostBillingPortalMethods**](BillingAPI.md#PostBillingPortalMethods) | **Post** /v1/billing/portal/methods | Save a card or account for the caller
 [**PostBillingRechargeRunAll**](BillingAPI.md#PostBillingRechargeRunAll) | **Post** /v1/billing/recharge/run-all | Sweeps every org&#39;s auto-recharge and answers what it did.
 [**PostBillingSubscribeCard**](BillingAPI.md#PostBillingSubscribeCard) | **Post** /v1/billing/subscribe/card | Buy a plan with a card
+[**PostBillingSubscribeInvoice**](BillingAPI.md#PostBillingSubscribeInvoice) | **Post** /v1/billing/subscribe/invoice | Order a plan by invoice, paid by wire
 [**PostBillingTopup**](BillingAPI.md#PostBillingTopup) | **Post** /v1/billing/topup | Charges a card the caller already saved and credits the balance.
 [**PostBillingTopupToken**](BillingAPI.md#PostBillingTopupToken) | **Post** /v1/billing/topup/token | Charges a single-use card token and credits the caller&#39;s balance.
 [**PostBillingUsage**](BillingAPI.md#PostBillingUsage) | **Post** /v1/billing/usage | Debits one act an application metered to the org it acts for, and answers the receipt.
-[**PutBillingRecharge**](BillingAPI.md#PutBillingRecharge) | **Put** /v1/billing/recharge | Sets the caller&#39;s auto-reload rule, and answers with the rule as stored.
+[**PutBillingRecharge**](BillingAPI.md#PutBillingRecharge) | **Put** /v1/billing/recharge | Sets the auto-reload rule of the wallet the caller pays from, and answers with the rule as stored.
 [**RaiseInvoice**](BillingAPI.md#RaiseInvoice) | **Post** /v1/billing/invoices | Raise a draft invoice against a customer
 [**ReactivateSubscription**](BillingAPI.md#ReactivateSubscription) | **Post** /v1/billing/subscriptions/{id}/reactivate | Put a canceled subscription back on its plan
+[**ResizeSubscription**](BillingAPI.md#ResizeSubscription) | **Post** /v1/billing/subscriptions/{id}/resize | Change a team&#39;s seats
 [**VoidInvoice**](BillingAPI.md#VoidInvoice) | **Post** /v1/billing/invoices/{id}/void | Void a draft or issued invoice
 
 
 
+## AssignSeats
+
+> BillingSubscription AssignSeats(ctx, id).BillingAssignment(billingAssignment).Execute()
+
+Assign a team's seats
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+	billingAssignment := *openapiclient.NewBillingAssignment() // BillingAssignment | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.AssignSeats(context.Background(), id).BillingAssignment(billingAssignment).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.AssignSeats``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AssignSeats`: BillingSubscription
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.AssignSeats`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAssignSeatsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **billingAssignment** | [**BillingAssignment**](BillingAssignment.md) |  | 
+
+### Return type
+
+[**BillingSubscription**](BillingSubscription.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## CancelSubscription
 
-> BillingSubscription CancelSubscription(ctx, id).BillingSubscriptionRef(billingSubscriptionRef).Execute()
+> BillingSubscription CancelSubscription(ctx, id).BillingSubscriptionAct(billingSubscriptionAct).Execute()
 
 End a subscription
 
@@ -77,12 +158,12 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
-	billingSubscriptionRef := *openapiclient.NewBillingSubscriptionRef() // BillingSubscriptionRef | 
+	id := "id_example" // string | ID is the subscription, from the path.
+	billingSubscriptionAct := *openapiclient.NewBillingSubscriptionAct() // BillingSubscriptionAct | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.CancelSubscription(context.Background(), id).BillingSubscriptionRef(billingSubscriptionRef).Execute()
+	resp, r, err := apiClient.BillingAPI.CancelSubscription(context.Background(), id).BillingSubscriptionAct(billingSubscriptionAct).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.CancelSubscription``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -98,7 +179,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the subscription, from the path. | 
 
 ### Other Parameters
 
@@ -108,7 +189,7 @@ Other parameters are passed through a pointer to a apiCancelSubscriptionRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **billingSubscriptionRef** | [**BillingSubscriptionRef**](BillingSubscriptionRef.md) |  | 
+ **billingSubscriptionAct** | [**BillingSubscriptionAct**](BillingSubscriptionAct.md) |  | 
 
 ### Return type
 
@@ -130,7 +211,7 @@ Name | Type | Description  | Notes
 
 ## CollectInvoice
 
-> BillingCollected CollectInvoice(ctx, id).Execute()
+> BillingCollected CollectInvoice(ctx, id).BillingInvoiceRef(billingInvoiceRef).Execute()
 
 Collect an issued invoice from credits, balance, then card
 
@@ -150,10 +231,11 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the invoice id.
+	billingInvoiceRef := *openapiclient.NewBillingInvoiceRef() // BillingInvoiceRef | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.CollectInvoice(context.Background(), id).Execute()
+	resp, r, err := apiClient.BillingAPI.CollectInvoice(context.Background(), id).BillingInvoiceRef(billingInvoiceRef).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.CollectInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -179,6 +261,7 @@ Other parameters are passed through a pointer to a apiCollectInvoiceRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **billingInvoiceRef** | [**BillingInvoiceRef**](BillingInvoiceRef.md) |  | 
 
 ### Return type
 
@@ -190,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -982,11 +1065,142 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetBillingCryptoGateway
+
+> BillingGatewayTerms GetBillingCryptoGateway(ctx).Execute()
+
+Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.GetBillingCryptoGateway(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingCryptoGateway``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBillingCryptoGateway`: BillingGatewayTerms
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingCryptoGateway`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBillingCryptoGatewayRequest struct via the builder pattern
+
+
+### Return type
+
+[**BillingGatewayTerms**](BillingGatewayTerms.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBillingCryptoGatewayById
+
+> BillingGatewayPayment GetBillingCryptoGatewayById(ctx, id).Execute()
+
+Reads one of the caller's own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the top-up's id, from the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.GetBillingCryptoGatewayById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingCryptoGatewayById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBillingCryptoGatewayById`: BillingGatewayPayment
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingCryptoGatewayById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the top-up&#39;s id, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBillingCryptoGatewayByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**BillingGatewayPayment**](BillingGatewayPayment.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetBillingCryptoOptions
 
 > BillingCryptoOptions GetBillingCryptoOptions(ctx).Execute()
 
-Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
+Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer.
 
 
 
@@ -1161,6 +1375,142 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetBillingInvoicesByIdPdfRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBillingInvoicesHostedByLink
+
+> GetBillingInvoicesHostedByLink(ctx, link).Execute()
+
+Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand's host is a miss.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	link := "link_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BillingAPI.GetBillingInvoicesHostedByLink(context.Background(), link).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingInvoicesHostedByLink``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**link** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBillingInvoicesHostedByLinkRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBillingInvoicesHostedByLinkPdf
+
+> GetBillingInvoicesHostedByLinkPdf(ctx, link).Execute()
+
+Is the order invoice a link shows, as a PDF to print or save.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	link := "link_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BillingAPI.GetBillingInvoicesHostedByLinkPdf(context.Background(), link).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingInvoicesHostedByLinkPdf``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**link** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBillingInvoicesHostedByLinkPdfRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1493,7 +1843,7 @@ Other parameters are passed through a pointer to a apiGetBillingPortalMethodsReq
 
 > BillingAutoRecharge GetBillingRecharge(ctx).Execute()
 
-Reads the caller's auto-reload rule: top the balance up by `amountCents` whenever it falls below `thresholdCents`, charging the card on file off-session.
+Reads the auto-reload rule of the wallet the caller pays from — the org's own account, or a person's wallet in the signup org: top that balance up by `amountCents` whenever it falls below `thresholdCents`, charging that payer's card on file off-session, at most `perDay` times in a UTC day (0 is no daily limit, which the payer's plan sets).
 
 
 
@@ -1615,7 +1965,7 @@ Other parameters are passed through a pointer to a apiGetBillingSettingsRequest 
 
 > BillingSubscriptions GetBillingSubscriptions(ctx).Execute()
 
-Lists the plans the caller holds, with the count beside them.
+Lists the plans the caller may see, with the count beside them.
 
 
 
@@ -2117,7 +2467,7 @@ Other parameters are passed through a pointer to a apiGetBillingWireRequest stru
 
 ## GetInvoice
 
-> BillingInvoice GetInvoice(ctx, id).Execute()
+> BillingInvoice GetInvoice(ctx, id).Brand(brand).Execute()
 
 Read one invoice
 
@@ -2137,10 +2487,11 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the invoice id.
+	brand := "brand_example" // string | Brand is the brand that bills (hanzo, lux, zoo, pars), whose mark and address a rendered invoice carries. The edge sets it from the caller's issuer; empty is Hanzo. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.GetInvoice(context.Background(), id).Execute()
+	resp, r, err := apiClient.BillingAPI.GetInvoice(context.Background(), id).Brand(brand).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2166,6 +2517,7 @@ Other parameters are passed through a pointer to a apiGetInvoiceRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **brand** | **string** | Brand is the brand that bills (hanzo, lux, zoo, pars), whose mark and address a rendered invoice carries. The edge sets it from the caller&#39;s issuer; empty is Hanzo. | 
 
 ### Return type
 
@@ -2187,7 +2539,7 @@ Name | Type | Description  | Notes
 
 ## IssueInvoice
 
-> BillingInvoice IssueInvoice(ctx, id).Execute()
+> BillingInvoice IssueInvoice(ctx, id).BillingInvoiceRef(billingInvoiceRef).Execute()
 
 Issue a draft invoice, making it collectible
 
@@ -2207,10 +2559,11 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the invoice id.
+	billingInvoiceRef := *openapiclient.NewBillingInvoiceRef() // BillingInvoiceRef | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.IssueInvoice(context.Background(), id).Execute()
+	resp, r, err := apiClient.BillingAPI.IssueInvoice(context.Background(), id).BillingInvoiceRef(billingInvoiceRef).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.IssueInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2236,6 +2589,7 @@ Other parameters are passed through a pointer to a apiIssueInvoiceRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **billingInvoiceRef** | [**BillingInvoiceRef**](BillingInvoiceRef.md) |  | 
 
 ### Return type
 
@@ -2247,7 +2601,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -2459,6 +2813,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostBillingCryptoGateway
+
+> BillingGatewayPayment PostBillingCryptoGateway(ctx).BillingSignedPayment(billingSignedPayment).Execute()
+
+Takes a signed USDC payment from the caller's Circle Gateway balance to the treasury, and answers what became of it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	billingSignedPayment := *openapiclient.NewBillingSignedPayment() // BillingSignedPayment | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.PostBillingCryptoGateway(context.Background()).BillingSignedPayment(billingSignedPayment).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingCryptoGateway``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostBillingCryptoGateway`: BillingGatewayPayment
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingCryptoGateway`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostBillingCryptoGatewayRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **billingSignedPayment** | [**BillingSignedPayment**](BillingSignedPayment.md) |  | 
+
+### Return type
+
+[**BillingGatewayPayment**](BillingGatewayPayment.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostBillingMethods
 
 > PostBillingMethods(ctx).Execute()
@@ -2569,6 +2989,74 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BillingMode**](BillingMode.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostBillingPaypalOrder
+
+> BillingPayPalOrderOut PostBillingPaypalOrder(ctx).BillingPaypalOrderIn(billingPaypalOrderIn).XIdempotencyKey(xIdempotencyKey).Execute()
+
+Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase's first period (intent AUTHORIZE).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	billingPaypalOrderIn := *openapiclient.NewBillingPaypalOrderIn() // BillingPaypalOrderIn | 
+	xIdempotencyKey := "xIdempotencyKey_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.PostBillingPaypalOrder(context.Background()).BillingPaypalOrderIn(billingPaypalOrderIn).XIdempotencyKey(xIdempotencyKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingPaypalOrder``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostBillingPaypalOrder`: BillingPayPalOrderOut
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingPaypalOrder`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostBillingPaypalOrderRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **billingPaypalOrderIn** | [**BillingPaypalOrderIn**](BillingPaypalOrderIn.md) |  | 
+ **xIdempotencyKey** | **string** |  | 
+
+### Return type
+
+[**BillingPayPalOrderOut**](BillingPayPalOrderOut.md)
 
 ### Authorization
 
@@ -2743,6 +3231,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostBillingSubscribeCardRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostBillingSubscribeInvoice
+
+> PostBillingSubscribeInvoice(ctx).Execute()
+
+Order a plan by invoice, paid by wire
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BillingAPI.PostBillingSubscribeInvoice(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingSubscribeInvoice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostBillingSubscribeInvoiceRequest struct via the builder pattern
 
 
 ### Return type
@@ -2969,7 +3516,7 @@ Name | Type | Description  | Notes
 
 > BillingAutoRecharge PutBillingRecharge(ctx).BillingAutoRechargeEdit(billingAutoRechargeEdit).Execute()
 
-Sets the caller's auto-reload rule, and answers with the rule as stored.
+Sets the auto-reload rule of the wallet the caller pays from, and answers with the rule as stored.
 
 
 
@@ -3099,7 +3646,7 @@ Name | Type | Description  | Notes
 
 ## ReactivateSubscription
 
-> BillingSubscription ReactivateSubscription(ctx, id).BillingSubscriptionRef(billingSubscriptionRef).Execute()
+> BillingSubscription ReactivateSubscription(ctx, id).BillingSubscriptionAct(billingSubscriptionAct).Execute()
 
 Put a canceled subscription back on its plan
 
@@ -3118,12 +3665,12 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
-	billingSubscriptionRef := *openapiclient.NewBillingSubscriptionRef() // BillingSubscriptionRef | 
+	id := "id_example" // string | ID is the subscription, from the path.
+	billingSubscriptionAct := *openapiclient.NewBillingSubscriptionAct() // BillingSubscriptionAct | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.ReactivateSubscription(context.Background(), id).BillingSubscriptionRef(billingSubscriptionRef).Execute()
+	resp, r, err := apiClient.BillingAPI.ReactivateSubscription(context.Background(), id).BillingSubscriptionAct(billingSubscriptionAct).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.ReactivateSubscription``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3139,7 +3686,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the subscription, from the path. | 
 
 ### Other Parameters
 
@@ -3149,7 +3696,79 @@ Other parameters are passed through a pointer to a apiReactivateSubscriptionRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **billingSubscriptionRef** | [**BillingSubscriptionRef**](BillingSubscriptionRef.md) |  | 
+ **billingSubscriptionAct** | [**BillingSubscriptionAct**](BillingSubscriptionAct.md) |  | 
+
+### Return type
+
+[**BillingSubscription**](BillingSubscription.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ResizeSubscription
+
+> BillingSubscription ResizeSubscription(ctx, id).BillingResize(billingResize).Execute()
+
+Change a team's seats
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+	billingResize := *openapiclient.NewBillingResize() // BillingResize | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.ResizeSubscription(context.Background(), id).BillingResize(billingResize).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.ResizeSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResizeSubscription`: BillingSubscription
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.ResizeSubscription`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResizeSubscriptionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **billingResize** | [**BillingResize**](BillingResize.md) |  | 
 
 ### Return type
 
@@ -3171,7 +3790,7 @@ Name | Type | Description  | Notes
 
 ## VoidInvoice
 
-> BillingInvoice VoidInvoice(ctx, id).Execute()
+> BillingInvoice VoidInvoice(ctx, id).BillingInvoiceRef(billingInvoiceRef).Execute()
 
 Void a draft or issued invoice
 
@@ -3191,10 +3810,11 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the invoice id.
+	billingInvoiceRef := *openapiclient.NewBillingInvoiceRef() // BillingInvoiceRef | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.VoidInvoice(context.Background(), id).Execute()
+	resp, r, err := apiClient.BillingAPI.VoidInvoice(context.Background(), id).BillingInvoiceRef(billingInvoiceRef).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.VoidInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3220,6 +3840,7 @@ Other parameters are passed through a pointer to a apiVoidInvoiceRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **billingInvoiceRef** | [**BillingInvoiceRef**](BillingInvoiceRef.md) |  | 
 
 ### Return type
 
@@ -3231,7 +3852,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

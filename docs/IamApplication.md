@@ -53,7 +53,7 @@ Name | Type | Description | Notes
 **GrantTypes** | Pointer to **[]string** |  | [optional] 
 **HeaderHtml** | Pointer to **string** |  | [optional] 
 **HomepageUrl** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **IpRestriction** | Pointer to **string** |  | [optional] 
 **IpWhitelist** | Pointer to **string** |  | [optional] 
 **IsShared** | Pointer to **bool** |  | [optional] 

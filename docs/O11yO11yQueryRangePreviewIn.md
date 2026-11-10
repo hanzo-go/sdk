@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CompositeQuery** | Pointer to [**O11yCompositeQuery**](O11yCompositeQuery.md) |  | [optional] 
-**End** | Pointer to **int32** |  | [optional] 
+**CompositeQuery** | Pointer to [**O11yCompositeQuery**](O11yCompositeQuery.md) | CompositeQuery is the composite query to use for the request. | [optional] 
+**End** | Pointer to **int32** | End is the end time of the query in epoch milliseconds. | [optional] 
 **FormatOptions** | Pointer to [**O11yFormatOptions**](O11yFormatOptions.md) |  | [optional] 
-**NoCache** | Pointer to **bool** |  | [optional] 
+**NoCache** | Pointer to **bool** | NoCache is a flag to disable caching for the request. | [optional] 
 **RequestType** | Pointer to **interface{}** |  | [optional] 
-**SchemaVersion** | Pointer to **string** |  | [optional] 
-**Start** | Pointer to **int32** |  | [optional] 
-**Variables** | Pointer to [**map[string]O11yVariableItem**](O11yVariableItem.md) |  | [optional] 
+**SchemaVersion** | Pointer to **string** | SchemaVersion is the version of the schema to use for the request payload. | [optional] 
+**Start** | Pointer to **int32** | Start is the start time of the query in epoch milliseconds. | [optional] 
+**Variables** | Pointer to [**map[string]O11yVariableItem**](O11yVariableItem.md) | Variables is the variables to use for the request. | [optional] 
 **Verbose** | Pointer to **string** | Verbose selects the answer&#39;s depth. Empty or \&quot;true\&quot; renders the underlying Datastore SQL with EXPLAIN and granule analysis; \&quot;false\&quot; returns only the per-query valid/error/warnings verdict with no Datastore round trips. | [optional] 
 
 ## Methods

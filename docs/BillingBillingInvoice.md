@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** |  | [optional] 
 **CustomerEmail** | Pointer to **string** |  | [optional] 
 **Discount** | Pointer to **int64** |  | [optional] 
+**DiscountName** | Pointer to **string** | DiscountName names what Discount took off (\&quot;Customer price: $195.00/month\&quot;, a promo, a coupon&#39;s month). Last, for the ZAP wire. | [optional] 
 **DueDate** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **LineItems** | Pointer to [**[]BillingInvoiceLineItem**](BillingInvoiceLineItem.md) | LineItems carries no omitempty and is never allocated empty, because the wire it reproduces sends &#x60;null&#x60; for an invoice with no lines. An empty array there would be a different answer to \&quot;were there lines\&quot;. | [optional] 
@@ -248,6 +249,31 @@ SetDiscount sets Discount field to given value.
 `func (o *BillingBillingInvoice) HasDiscount() bool`
 
 HasDiscount returns a boolean if a field has been set.
+
+### GetDiscountName
+
+`func (o *BillingBillingInvoice) GetDiscountName() string`
+
+GetDiscountName returns the DiscountName field if non-nil, zero value otherwise.
+
+### GetDiscountNameOk
+
+`func (o *BillingBillingInvoice) GetDiscountNameOk() (*string, bool)`
+
+GetDiscountNameOk returns a tuple with the DiscountName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDiscountName
+
+`func (o *BillingBillingInvoice) SetDiscountName(v string)`
+
+SetDiscountName sets DiscountName field to given value.
+
+### HasDiscountName
+
+`func (o *BillingBillingInvoice) HasDiscountName() bool`
+
+HasDiscountName returns a boolean if a field has been set.
 
 ### GetDueDate
 

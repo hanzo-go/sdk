@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **int64** | CreatedAt is the unix second the custom claim was made. | [optional] 
 **Detail** | Pointer to **string** | Detail says why a claim is still pending, in the resolver&#39;s own words. | [optional] 
 **Host** | Pointer to **string** | Host is the hostname itself. | [optional] 
-**Kind** | Pointer to **string** | Kind is &#x60;default&#x60;, &#x60;subtree&#x60; or &#x60;custom&#x60; — how the org came to own it. | [optional] 
+**Kind** | Pointer to **string** | Kind is &#x60;default&#x60; (the app&#39;s own name) or &#x60;custom&#x60; — how the org came to own it. | [optional] 
 **Primary** | Pointer to **bool** | Primary marks the app&#39;s permanent default host. | [optional] 
 **Records** | Pointer to [**[]PlatformRecord**](PlatformRecord.md) | Records are the DNS records to publish while a custom claim is pending. | [optional] 
 **Status** | Pointer to **string** | Status is &#x60;live&#x60;, &#x60;provisioning&#x60;, &#x60;pending_deploy&#x60; or &#x60;pending&#x60;, derived from the operator CR and never fabricated. | [optional] 

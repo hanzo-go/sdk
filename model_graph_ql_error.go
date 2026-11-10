@@ -19,8 +19,8 @@ var _ MappedNullable = &GraphQLError{}
 
 // GraphQLError struct for GraphQLError
 type GraphQLError struct {
-	Message              *string  `json:"message,omitempty"`
-	Path                 []string `json:"path,omitempty"`
+	Message              *string       `json:"message,omitempty"`
+	Path                 []interface{} `json:"path,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,9 +76,9 @@ func (o *GraphQLError) SetMessage(v string) {
 }
 
 // GetPath returns the Path field value if set, zero value otherwise.
-func (o *GraphQLError) GetPath() []string {
+func (o *GraphQLError) GetPath() []interface{} {
 	if o == nil || IsNil(o.Path) {
-		var ret []string
+		var ret []interface{}
 		return ret
 	}
 	return o.Path
@@ -86,7 +86,7 @@ func (o *GraphQLError) GetPath() []string {
 
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphQLError) GetPathOk() ([]string, bool) {
+func (o *GraphQLError) GetPathOk() ([]interface{}, bool) {
 	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
@@ -102,8 +102,8 @@ func (o *GraphQLError) HasPath() bool {
 	return false
 }
 
-// SetPath gets a reference to the given []string and assigns it to the Path field.
-func (o *GraphQLError) SetPath(v []string) {
+// SetPath gets a reference to the given []interface{} and assigns it to the Path field.
+func (o *GraphQLError) SetPath(v []interface{}) {
 	o.Path = v
 }
 

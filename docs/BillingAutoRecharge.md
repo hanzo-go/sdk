@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **LastRechargedAt** | Pointer to **string** |  | [optional] 
+**PerDay** | Pointer to **int64** | PerDay is the most times the sweep reloads the balance in one UTC day. | [optional] 
 **Stored** | Pointer to **bool** |  | [optional] 
 **Subject** | Pointer to **string** |  | [optional] 
 **ThresholdCents** | Pointer to **int64** |  | [optional] 
@@ -130,6 +131,31 @@ SetLastRechargedAt sets LastRechargedAt field to given value.
 `func (o *BillingAutoRecharge) HasLastRechargedAt() bool`
 
 HasLastRechargedAt returns a boolean if a field has been set.
+
+### GetPerDay
+
+`func (o *BillingAutoRecharge) GetPerDay() int64`
+
+GetPerDay returns the PerDay field if non-nil, zero value otherwise.
+
+### GetPerDayOk
+
+`func (o *BillingAutoRecharge) GetPerDayOk() (*int64, bool)`
+
+GetPerDayOk returns a tuple with the PerDay field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPerDay
+
+`func (o *BillingAutoRecharge) SetPerDay(v int64)`
+
+SetPerDay sets PerDay field to given value.
+
+### HasPerDay
+
+`func (o *BillingAutoRecharge) HasPerDay() bool`
+
+HasPerDay returns a boolean if a field has been set.
 
 ### GetStored
 

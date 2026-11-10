@@ -29,9 +29,11 @@ type MarketplaceListing struct {
 	Description *string `json:"description,omitempty"`
 	// Docs is where the listing's documentation lives: an https URL, or a path on docs.hanzo.ai. Empty when the seller named none.
 	Docs *string `json:"docs,omitempty"`
+	// Expert is the person behind a listing of kind expert (expert.go); absent on every other kind.
+	Expert *MarketplaceExpert `json:"expert,omitempty"`
 	// ID is the listing's id, minted here as \"lst_\" + 16 hex characters. A publisher cannot choose it: Create overwrites whatever arrives. It is unique within PublisherOrg (the primary key is the pair), and it is the path segment DELETE /v1/marketplace/listings/:id takes.
 	Id *string `json:"id,omitempty"`
-	// Kind is what the listing sells: agent, persona, app, skill, mcp or tool. Listings published before kinds existed sold tools, and read as tool.
+	// Kind is what the listing sells: agent, persona, app, skill, mcp, tool or expert. Listings published before kinds existed sold tools, and read as tool.
 	Kind  *string     `json:"kind,omitempty"`
 	Price interface{} `json:"price,omitempty"`
 	// Public is whether other orgs can discover the listing. It also decides ENFORCEMENT: only public rows reach the price table, so a private listing with a price charges nobody. False leaves the row visible to its publisher alone.
@@ -44,7 +46,7 @@ type MarketplaceListing struct {
 	Ref *string `json:"ref,omitempty"`
 	// Title is the shop-window name, required and refused past 200 bytes. It is what discovery paints over the tool's registry name.
 	Title *string `json:"title,omitempty"`
-	// Tool names the thing sold, as the seller named it: the agent, app, skill or MCP server's name or id, or the tool's registry name. It was proved the seller's own when the listing was published. For a tool it is what install switches on.
+	// Tool names the thing sold, as the seller named it: the agent, app, skill or MCP server's name or id, or the tool's registry name. It was proved the seller's own when the listing was published. For a tool it is what install switches on. For an expert it is the person's IAM identity.
 	Tool *string `json:"tool,omitempty"`
 	// UpdatedAt is when the listing was last edited, unix seconds; its creation when it never was.
 	UpdatedAt            *int64 `json:"updatedAt,omitempty"`
@@ -228,6 +230,38 @@ func (o *MarketplaceListing) HasDocs() bool {
 // SetDocs gets a reference to the given string and assigns it to the Docs field.
 func (o *MarketplaceListing) SetDocs(v string) {
 	o.Docs = &v
+}
+
+// GetExpert returns the Expert field value if set, zero value otherwise.
+func (o *MarketplaceListing) GetExpert() MarketplaceExpert {
+	if o == nil || IsNil(o.Expert) {
+		var ret MarketplaceExpert
+		return ret
+	}
+	return *o.Expert
+}
+
+// GetExpertOk returns a tuple with the Expert field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketplaceListing) GetExpertOk() (*MarketplaceExpert, bool) {
+	if o == nil || IsNil(o.Expert) {
+		return nil, false
+	}
+	return o.Expert, true
+}
+
+// HasExpert returns a boolean if a field has been set.
+func (o *MarketplaceListing) HasExpert() bool {
+	if o != nil && !IsNil(o.Expert) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpert gets a reference to the given MarketplaceExpert and assigns it to the Expert field.
+func (o *MarketplaceListing) SetExpert(v MarketplaceExpert) {
+	o.Expert = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -576,6 +610,9 @@ func (o MarketplaceListing) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Docs) {
 		toSerialize["docs"] = o.Docs
 	}
+	if !IsNil(o.Expert) {
+		toSerialize["expert"] = o.Expert
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -633,6 +670,7 @@ func (o *MarketplaceListing) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "docs")
+		delete(additionalProperties, "expert")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "kind")
 		delete(additionalProperties, "price")

@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Author** | Pointer to **string** | Author is the team account uuid that wrote it. It is an ACCOUNT and not a display name: what to call somebody is the roster&#39;s answer (GET /v1/team/members), and copying it onto every message is how the two come to disagree. An agent&#39;s messages carry the account derived from its id, so the same field answers for both. | [optional] 
+**Channel** | Pointer to **string** | Channel is the channel it was said in — the same id the channel listing answers with, so a caller holding a message can name its channel without a second read. A reply names the channel its thread is in; a comment on a document has none. | [optional] 
 **CreatedOn** | Pointer to **int64** | CreatedOn is unix MILLIseconds, which is what the platform stamps. | [optional] 
-**Doc** | Pointer to **string** | Doc is the document this message is a comment on. Empty for a message in a room. | [optional] 
+**Doc** | Pointer to **string** | Doc is the document this message is a comment on. Empty for a message in a channel. | [optional] 
 **EditedOn** | Pointer to **int64** | EditedOn is when the author last edited the message, unix milliseconds. Absent for a message never edited. | [optional] 
 **Files** | Pointer to [**[]TeamTeamFile**](TeamTeamFile.md) | Files are the files attached to the message. | [optional] 
 **Id** | Pointer to **string** | ID is the message document&#39;s own id. | [optional] 
 **LastReply** | Pointer to **int64** | LastReply is when the thread was last answered, unix milliseconds. Absent for a message with no replies. | [optional] 
-**Mentions** | Pointer to **[]string** | Mentions are the account uuids the message @-mentions — exactly the people notify.go told they were mentioned. | [optional] 
+**Mentions** | Pointer to **[]string** | Mentions are the account uuids the message @-mentions — exactly the people inbox.go told they were mentioned. | [optional] 
 **Reactions** | Pointer to [**[]TeamTeamReaction**](TeamTeamReaction.md) | Reactions are the emoji people reacted with, one entry per emoji, in the order each emoji was first used. | [optional] 
 **Replies** | Pointer to **int64** | Replies is how many replies the message&#39;s thread holds. | [optional] 
-**Room** | Pointer to **string** | Room is the room it was said in — the same id the room listing answers with, so a caller holding a message can name its room without a second read. A reply names the room its thread is in; a comment on a document has none. | [optional] 
 **Text** | Pointer to **string** | Text is the message as PLAIN TEXT. The document stores markup; this is the same &#x60;plainText&#x60; reduction the agent responder reads a prompt with, so a caller never has to parse the client&#39;s markup to know what was said. A mention reads as \&quot;@Name\&quot; here and is listed by id in Mentions. | [optional] 
 **Thread** | Pointer to **string** | Thread is the message this one replies to. Empty for a message that starts a conversation rather than answering one. | [optional] 
 
@@ -61,6 +61,31 @@ SetAuthor sets Author field to given value.
 `func (o *TeamTeamMessage) HasAuthor() bool`
 
 HasAuthor returns a boolean if a field has been set.
+
+### GetChannel
+
+`func (o *TeamTeamMessage) GetChannel() string`
+
+GetChannel returns the Channel field if non-nil, zero value otherwise.
+
+### GetChannelOk
+
+`func (o *TeamTeamMessage) GetChannelOk() (*string, bool)`
+
+GetChannelOk returns a tuple with the Channel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChannel
+
+`func (o *TeamTeamMessage) SetChannel(v string)`
+
+SetChannel sets Channel field to given value.
+
+### HasChannel
+
+`func (o *TeamTeamMessage) HasChannel() bool`
+
+HasChannel returns a boolean if a field has been set.
 
 ### GetCreatedOn
 
@@ -286,31 +311,6 @@ SetReplies sets Replies field to given value.
 `func (o *TeamTeamMessage) HasReplies() bool`
 
 HasReplies returns a boolean if a field has been set.
-
-### GetRoom
-
-`func (o *TeamTeamMessage) GetRoom() string`
-
-GetRoom returns the Room field if non-nil, zero value otherwise.
-
-### GetRoomOk
-
-`func (o *TeamTeamMessage) GetRoomOk() (*string, bool)`
-
-GetRoomOk returns a tuple with the Room field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoom
-
-`func (o *TeamTeamMessage) SetRoom(v string)`
-
-SetRoom sets Room field to given value.
-
-### HasRoom
-
-`func (o *TeamTeamMessage) HasRoom() bool`
-
-HasRoom returns a boolean if a field has been set.
 
 ### GetText
 

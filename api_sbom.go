@@ -16,10 +16,145 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // SbomAPIService SbomAPI service
 type SbomAPIService service
+
+type SbomAPIGetSbomByWildcard1Request struct {
+	ctx        context.Context
+	ApiService *SbomAPIService
+	wildcard1  string
+}
+
+func (r SbomAPIGetSbomByWildcard1Request) Execute() (*SbomSbomView, *http.Response, error) {
+	return r.ApiService.GetSbomByWildcard1Execute(r)
+}
+
+/*
+GetSbomByWildcard1 Returns everything inside one container image, addressed by its digest or by its image ref.
+
+Returns everything inside one container image, addressed by its digest
+or by its image ref.
+
+Each component comes back with its name, version, type, package URL and license.
+
+This read is GLOBAL, not tenant-scoped, and deliberately so: a bill of materials
+belongs to a content-addressed digest rather than to an org, so every caller
+deploying the same image resolves the same components, and nothing tenant-owned
+is exposed by it. It still requires an attested caller — global is not public —
+and answers 401 without one. Ingest is the closed half of the pair.
+
+A miss is not the end of the lookup. The registry is the source of truth, so an
+unmaterialized ref is pulled from the SBOM attached to that image, persisted, and
+answered from the store — the first read of a freshly built image pays for the
+pull, later ones do not. The pull reads OUR registries and nothing else, which is
+what makes one shared answer trustworthy for every tenant: an attached document
+is whoever controls that repository speaking, so a ref outside them answers 404
+rather than a stranger's account of what is in their image. A bare digest with no
+repository is not pullable and answers an honest 404, as does a ref with no
+attached document. Repeated ingests collapse to the latest, components come back
+ordered by type then name, and a result over 5000 components is capped with
+`truncated` set. When the datastore is not connected the answer is 503 rather
+than a fabricated empty image.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param wildcard1 Ref is the image to resolve, either its content-addressed digest (`sha256:…`) or its full reference (`oci.hanzo.ai/hanzo/cloud:v1`). Both are matched, so either spelling of one image answers the same components. It is the greedy tail of the address, so slashes, a tag and a digest all travel in it whole, and a percent-encoded ref is decoded before it is looked up. Empty is a 400, never a scan of the store.
+	@return SbomAPIGetSbomByWildcard1Request
+*/
+func (a *SbomAPIService) GetSbomByWildcard1(ctx context.Context, wildcard1 string) SbomAPIGetSbomByWildcard1Request {
+	return SbomAPIGetSbomByWildcard1Request{
+		ApiService: a,
+		ctx:        ctx,
+		wildcard1:  wildcard1,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SbomSbomView
+func (a *SbomAPIService) GetSbomByWildcard1Execute(r SbomAPIGetSbomByWildcard1Request) (*SbomSbomView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SbomSbomView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SbomAPIService.GetSbomByWildcard1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/sbom/{wildcard1}"
+	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type SbomAPIGetSbomHealthRequest struct {
 	ctx        context.Context

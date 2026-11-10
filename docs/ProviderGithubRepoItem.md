@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Codebase** | Pointer to **string** | Codebase is the name it has in the org&#39;s code workspace once brought in (POST /v1/provider/github/repos/import): listed by GET /v1/git/repos when it is there. | [optional] 
 **DefaultBranch** | Pointer to **string** | DefaultBranch is the branch GitHub opens it on. | [optional] 
 **FullName** | Pointer to **string** | FullName is owner/name, the address a coding run, a branch listing and a deploy take. | [optional] 
 **InstallationId** | Pointer to **int64** | InstallationID is the installation of the Hanzo Platform App that reaches it — the grant a run on it is minted from. | [optional] 
@@ -30,6 +31,31 @@ will change when the set of required properties is changed
 NewProviderGithubRepoItemWithDefaults instantiates a new ProviderGithubRepoItem object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCodebase
+
+`func (o *ProviderGithubRepoItem) GetCodebase() string`
+
+GetCodebase returns the Codebase field if non-nil, zero value otherwise.
+
+### GetCodebaseOk
+
+`func (o *ProviderGithubRepoItem) GetCodebaseOk() (*string, bool)`
+
+GetCodebaseOk returns a tuple with the Codebase field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCodebase
+
+`func (o *ProviderGithubRepoItem) SetCodebase(v string)`
+
+SetCodebase sets Codebase field to given value.
+
+### HasCodebase
+
+`func (o *ProviderGithubRepoItem) HasCodebase() bool`
+
+HasCodebase returns a boolean if a field has been set.
 
 ### GetDefaultBranch
 

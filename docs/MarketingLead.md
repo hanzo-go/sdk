@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Lead** | Pointer to **string** | Lead is the lead&#39;s reference, \&quot;lead_\&quot; and 24 hex characters. It is random, not the lead&#39;s internal name, so it says nothing about how many leads the team has. | [optional] 
+**Lead** | Pointer to **string** | Lead is the reference of what was filed: \&quot;lead_\&quot; and 24 hex characters for a lead, \&quot;cand_\&quot; and 24 for a job application. It is random, not a record&#39;s id, so it says nothing about how many the team has. | [optional] 
+**Offer** | Pointer to **string** | Offer says what an application&#39;s code did: \&quot;mailed\&quot;, a new code went to the address; \&quot;held\&quot;, the address already holds one. Absent when no code was given. The code itself is never answered here. | [optional] 
+**Sent** | Pointer to **bool** | Sent says whether an investor&#39;s SAFE went out for signature from Hanzo eSign: false when the deployment sends none yet, or eSign did not take it, and the investor is filed either way. Absent on every other form. | [optional] 
 **Stage** | Pointer to **string** | Stage is where the lead stands. Always \&quot;new\&quot; on a fresh lead. | [optional] 
 
 ## Methods
@@ -50,6 +52,56 @@ SetLead sets Lead field to given value.
 `func (o *MarketingLead) HasLead() bool`
 
 HasLead returns a boolean if a field has been set.
+
+### GetOffer
+
+`func (o *MarketingLead) GetOffer() string`
+
+GetOffer returns the Offer field if non-nil, zero value otherwise.
+
+### GetOfferOk
+
+`func (o *MarketingLead) GetOfferOk() (*string, bool)`
+
+GetOfferOk returns a tuple with the Offer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOffer
+
+`func (o *MarketingLead) SetOffer(v string)`
+
+SetOffer sets Offer field to given value.
+
+### HasOffer
+
+`func (o *MarketingLead) HasOffer() bool`
+
+HasOffer returns a boolean if a field has been set.
+
+### GetSent
+
+`func (o *MarketingLead) GetSent() bool`
+
+GetSent returns the Sent field if non-nil, zero value otherwise.
+
+### GetSentOk
+
+`func (o *MarketingLead) GetSentOk() (*bool, bool)`
+
+GetSentOk returns a tuple with the Sent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSent
+
+`func (o *MarketingLead) SetSent(v bool)`
+
+SetSent sets Sent field to given value.
+
+### HasSent
+
+`func (o *MarketingLead) HasSent() bool`
+
+HasSent returns a boolean if a field has been set.
 
 ### GetStage
 

@@ -346,6 +346,8 @@ On an app it is that app's own surface; on the fleet's public endpoint it is the
 
 Rendered once and served as bytes thereafter, so the route table's immutability is what makes a repeat request a memcpy rather than a re-encode of a megabyte document.
 
+The whole document is megabytes, so ask for less. ?capability=<name> returns only that capability's operations and the schemas they reach (?tag=<name> is the same filter); ?operation=<operationId> returns one operation; ?path=<prefix> returns the operations whose address starts with that prefix. They combine. A slice is a valid document on its own. GET /v1 lists the capabilities and GET /v1/<name> lists one capability's operations, so a reader can walk from the index down to a single schema without fetching the rest. A query nothing matches is 404.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return OpenapiAPIGetOpenapiJsonRequest
 */

@@ -19,6 +19,8 @@ var _ MappedNullable = &ProviderGithubImportOut{}
 
 // ProviderGithubImportOut struct for ProviderGithubImportOut
 type ProviderGithubImportOut struct {
+	// Codebases are the names they take in the org's code workspace, in the same order: poll GET /v1/git/repos for each to appear.
+	Codebases []string `json:"codebases,omitempty"`
 	// Queued is how many repositories were handed to the background importer.
 	Queued *int64 `json:"queued,omitempty"`
 	// Repos names those repositories, in the installation's listing order.
@@ -43,6 +45,38 @@ func NewProviderGithubImportOut() *ProviderGithubImportOut {
 func NewProviderGithubImportOutWithDefaults() *ProviderGithubImportOut {
 	this := ProviderGithubImportOut{}
 	return &this
+}
+
+// GetCodebases returns the Codebases field value if set, zero value otherwise.
+func (o *ProviderGithubImportOut) GetCodebases() []string {
+	if o == nil || IsNil(o.Codebases) {
+		var ret []string
+		return ret
+	}
+	return o.Codebases
+}
+
+// GetCodebasesOk returns a tuple with the Codebases field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProviderGithubImportOut) GetCodebasesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Codebases) {
+		return nil, false
+	}
+	return o.Codebases, true
+}
+
+// HasCodebases returns a boolean if a field has been set.
+func (o *ProviderGithubImportOut) HasCodebases() bool {
+	if o != nil && !IsNil(o.Codebases) {
+		return true
+	}
+
+	return false
+}
+
+// SetCodebases gets a reference to the given []string and assigns it to the Codebases field.
+func (o *ProviderGithubImportOut) SetCodebases(v []string) {
+	o.Codebases = v
 }
 
 // GetQueued returns the Queued field value if set, zero value otherwise.
@@ -119,6 +153,9 @@ func (o ProviderGithubImportOut) MarshalJSON() ([]byte, error) {
 
 func (o ProviderGithubImportOut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Codebases) {
+		toSerialize["codebases"] = o.Codebases
+	}
 	if !IsNil(o.Queued) {
 		toSerialize["queued"] = o.Queued
 	}
@@ -147,6 +184,7 @@ func (o *ProviderGithubImportOut) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "codebases")
 		delete(additionalProperties, "queued")
 		delete(additionalProperties, "repos")
 		o.AdditionalProperties = additionalProperties

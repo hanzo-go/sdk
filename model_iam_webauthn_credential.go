@@ -23,15 +23,16 @@ type IamWebauthnCredential struct {
 	Aaguid     *string `json:"aaguid,omitempty"`
 	Attachment *string `json:"attachment,omitempty"`
 	// AttestationFormat is the statement format the authenticator attested in (\"packed\", \"apple\", \"none\", …), which is a DIFFERENT value from the attestation type above. The library reads it back when resolving the FIDO AppID extension, so a row that dropped it would round-trip a credential the verifier no longer recognises as the one it stored.
-	AttestationFormat    *string    `json:"attestationFormat,omitempty"`
-	AttestationType      *string    `json:"attestationType,omitempty"`
-	BackupEligible       *bool      `json:"backupEligible,omitempty"`
-	BackupState          *bool      `json:"backupState,omitempty"`
-	CloneWarning         *bool      `json:"cloneWarning,omitempty"`
-	CreatedAt            *time.Time `json:"createdAt,omitempty"`
-	CreatedTime          *string    `json:"createdTime,omitempty"`
-	CredentialId         *string    `json:"credentialId,omitempty"`
-	Deleted              *bool      `json:"deleted,omitempty"`
+	AttestationFormat *string    `json:"attestationFormat,omitempty"`
+	AttestationType   *string    `json:"attestationType,omitempty"`
+	BackupEligible    *bool      `json:"backupEligible,omitempty"`
+	BackupState       *bool      `json:"backupState,omitempty"`
+	CloneWarning      *bool      `json:"cloneWarning,omitempty"`
+	CreatedAt         *time.Time `json:"createdAt,omitempty"`
+	CreatedTime       *string    `json:"createdTime,omitempty"`
+	CredentialId      *string    `json:"credentialId,omitempty"`
+	Deleted           *bool      `json:"deleted,omitempty"`
+	// Persisted fields
 	Id                   *string    `json:"id,omitempty"`
 	Name                 *string    `json:"name,omitempty"`
 	Owner                *string    `json:"owner,omitempty"`

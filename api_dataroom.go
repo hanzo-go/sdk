@@ -43,6 +43,9 @@ A room id outside the caller's own tenant store is not found. Only links that
 NAME the room are counted — a link created over a single document contributes
 nothing here, even when that document also sits in the room.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param dataroomId DataroomID is the room to report on. It is the path segment, resolved in the caller's own tenant store.
 	@return DataroomAPIGetDataroomAnalyticsDataroomByDataroomidRequest
@@ -161,6 +164,9 @@ The link is resolved in the caller's OWN tenant store, so another org's link id
 is not found — knowing a link id is enough to OPEN the room it shares, and
 never enough to read who has been reading it.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param linkId LinkID is the link to report on. It is the path segment, resolved in the caller's own tenant store.
 	@return DataroomAPIGetDataroomAnalyticsLinkByLinkidRequest
@@ -276,6 +282,9 @@ first, with its short public id, name, description and timestamps.
 Documents are not included — a room's contents come from reading the single
 room.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DataroomAPIGetDataroomDataroomsRequest
 */
@@ -390,6 +399,9 @@ The documents are sorted by that index with unordered ones last and creation
 time breaking ties — the SAME order a link's visitor sees, so this is what the
 room looks like from the outside. A room id outside the caller's own tenant
 store is not found.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the room to read. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
@@ -508,6 +520,9 @@ Tenant isolation is the per-org store itself: there is one SQLite file per org
 and the org is never a parameter, so no input the caller controls can address
 another tenant's documents. Metadata only — the bytes come from the file route.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DataroomAPIGetDataroomDocumentsRequest
 */
@@ -622,6 +637,9 @@ The lookup runs in the caller's own tenant store, so an id belonging to another
 org is not found exactly like one that never existed. Metadata only: the bytes
 are a separate read.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the document to read. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
 	@return DataroomAPIGetDataroomDocumentsByIdRequest
@@ -734,7 +752,7 @@ GetDataroomDocumentsByIdFile Download a document's bytes as its owner
 
 Streams the stored file back under the type read from its BYTES — a raster image or a PDF renders in place, and anything else is served as application/octet-stream with an attachment disposition, so a stored file never executes as markup in this origin. Every response carries nosniff, which keeps the declared type binding.
 
-Requires a validated principal; 401 without one, and the document is resolved in the caller's own tenant store, so another org's id is a 404. This is the OWNER's path and applies no link gate at all — the per-link password, email and download controls live on the viewer surface, not here. Bytes that cannot be fetched from object storage are 502, never a truncated or empty file.
+Requires a validated principal that is a SuperAdmin or an admin of the org; 401 without one, 403 for a member who is neither, and the document is resolved in the caller's own tenant store, so another org's id is a 404. This is the OWNER's path and applies no link gate at all — the per-link password, email and download controls live on the viewer surface, not here. Bytes that cannot be fetched from object storage are 502, never a truncated or empty file.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -947,6 +965,9 @@ is permitted, and when the link expires.
 Archived links are omitted entirely. A link reports only THAT a password is
 set — the stored form is a bcrypt hash and no route returns it.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DataroomAPIGetDataroomLinksRequest
 */
@@ -1061,6 +1082,9 @@ so this op cannot be pointed at another tenant — there is no field for one. An
 org that has never opened a centre reads back an empty one rather than an error,
 because having no trust centre is an ordinary state and this is the read that
 tells you so.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DataroomAPIGetDataroomTrustRequest
@@ -1737,6 +1761,9 @@ room holds no documents and is reachable by NOBODY until a share link is
 created over it — opening a room and granting access are two separate acts, so
 a room cannot leak by existing.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DataroomAPIPostDataroomDataroomsRequest
 */
@@ -1864,6 +1891,9 @@ document must exist in the caller's own store — either missing is not found �
 and a document already in the room is refused as a conflict rather than
 duplicated.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the room to add to. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
 	@return DataroomAPIPostDataroomDataroomsByIdDocumentsRequest
@@ -1980,7 +2010,7 @@ PostDataroomDocuments Upload a document's bytes and record it
 
 Takes the file ITSELF as the raw request body — not a JSON envelope, not multipart — stores it on the object-storage client, and records the metadata row, answering with the new document. `?name=` names it (default "document"), the request's Content-Type is recorded as the document's mime type, and `?numPages=` is optional. That recorded type is metadata the owner sees; what the file is later SERVED as is read from the bytes.
 
-Requires a validated principal; 401 without one. An empty body is 400 and anything over 64 MiB is 413 — a data room holds decks and PDFs, not a media library.
+Requires a validated principal that is a SuperAdmin or an admin of the org; 401 without one, 403 for a member who is neither. An empty body is 400 and anything over 64 MiB is 413 — a data room holds decks and PDFs, not a media library.
 
 The storage key is 128 random bits under the tenant's own key prefix, minted before the bytes are written: if the system's randomness is unavailable the upload fails 500 rather than fall back to a predictable key that could overwrite another document's bytes. A storage write that fails is 502 and no metadata row is recorded, so a document never exists without its file.
 
@@ -2096,6 +2126,9 @@ could open is never handed back as usable.
 The address a visitor later states is recorded UNVERIFIED, so a link gated only
 by email is openable by anyone the link reaches. Use a password for a link that
 must not travel.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DataroomAPIPostDataroomLinksRequest

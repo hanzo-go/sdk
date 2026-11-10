@@ -869,6 +869,125 @@ func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type DeployAPIGetDeployLiveRequest struct {
+	ctx        context.Context
+	ApiService *DeployAPIService
+}
+
+func (r DeployAPIGetDeployLiveRequest) Execute() (*DeployLive, *http.Response, error) {
+	return r.ApiService.GetDeployLiveExecute(r)
+}
+
+/*
+GetDeployLive Lists which image and which commit each service is running: for every Hanzo CD Application the caller may see, the images its live pods run (tag, digest, and the commit each was built from where the registry answers it), the universe commit CD last applied, CD's sync and health verdicts, and when it last synced.
+
+Lists which image and which commit each service is running: for every
+Hanzo CD Application the caller may see, the images its live pods run (tag,
+digest, and the commit each was built from where the registry answers it), the
+universe commit CD last applied, CD's sync and health verdicts, and when it
+last synced.
+
+It reads CD's own state and derives nothing CD already says. Read-only, and
+scoped exactly as /v1/deploy/gitops is: a SuperAdmin sees every Application, a
+validated org member only its own org's, anyone else 403s.
+
+installed is false — with a reason and an empty list — when the CD CRD is not
+served in this cluster.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return DeployAPIGetDeployLiveRequest
+*/
+func (a *DeployAPIService) GetDeployLive(ctx context.Context) DeployAPIGetDeployLiveRequest {
+	return DeployAPIGetDeployLiveRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return DeployLive
+func (a *DeployAPIService) GetDeployLiveExecute(r DeployAPIGetDeployLiveRequest) (*DeployLive, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeployLive
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployLive")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/deploy/live"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type DeployAPIGetDeployLoginRequest struct {
 	ctx        context.Context
 	ApiService *DeployAPIService

@@ -31,7 +31,7 @@ type AgentCodingChanges struct {
 	MoreCommits *bool `json:"moreCommits,omitempty"`
 	// MoreFiles says the change is larger than one read answers — past 8 MiB of diff or 3000 files — so Files lists the files before that, and the last of them is marked truncated with the counts of the part read.
 	MoreFiles *bool `json:"moreFiles,omitempty"`
-	// Pull is the run's pull request on the forge, or null while it has none — and for a run proposed somewhere else, a repository the forge only mirrors from GitHub.
+	// Pull is the run's pull request, or null while it has none. The forge's own is read whole; one proposed somewhere else — a repository the forge only mirrors from GitHub — is the address and number the run recorded, with its state, title and reviews empty.
 	Pull *AgentCodingPull `json:"pull,omitempty"`
 	// Repo is the run's repository on the forge, owner/name.
 	Repo                 *string `json:"repo,omitempty"`

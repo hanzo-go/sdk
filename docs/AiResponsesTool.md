@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Parameters** | Pointer to **interface{}** |  | [optional] 
 **Strict** | Pointer to **bool** |  | [optional] 
+**Tools** | Pointer to [**[]AiResponsesTool**](AiResponsesTool.md) |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -174,6 +175,31 @@ SetStrict sets Strict field to given value.
 `func (o *AiResponsesTool) HasStrict() bool`
 
 HasStrict returns a boolean if a field has been set.
+
+### GetTools
+
+`func (o *AiResponsesTool) GetTools() []AiResponsesTool`
+
+GetTools returns the Tools field if non-nil, zero value otherwise.
+
+### GetToolsOk
+
+`func (o *AiResponsesTool) GetToolsOk() (*[]AiResponsesTool, bool)`
+
+GetToolsOk returns a tuple with the Tools field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTools
+
+`func (o *AiResponsesTool) SetTools(v []AiResponsesTool)`
+
+SetTools sets Tools field to given value.
+
+### HasTools
+
+`func (o *AiResponsesTool) HasTools() bool`
+
+HasTools returns a boolean if a field has been set.
 
 ### GetType
 

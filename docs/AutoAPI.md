@@ -6,20 +6,25 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteAutoAutomationsById**](AutoAPI.md#DeleteAutoAutomationsById) | **Delete** /v1/auto/automations/{id} | Deletes an automation, its schedule and its run history, and stops a Dev run it has going.
 [**DeleteAutoFlowsById**](AutoAPI.md#DeleteAutoFlowsById) | **Delete** /v1/auto/flows/{id} | Deletes one automation, its versions and its run history.
-[**GetAutoAutomations**](AutoAPI.md#GetAutoAutomations) | **Get** /v1/auto/automations | Returns the org&#39;s automations.
+[**GetAutoAutomations**](AutoAPI.md#GetAutoAutomations) | **Get** /v1/auto/automations | Returns your automations — another member&#39;s are never listed.
 [**GetAutoAutomationsById**](AutoAPI.md#GetAutoAutomationsById) | **Get** /v1/auto/automations/{id} | Returns one automation.
-[**GetAutoAutomationsByIdRuns**](AutoAPI.md#GetAutoAutomationsByIdRuns) | **Get** /v1/auto/automations/{id}/runs | Returns one automation&#39;s runs, newest first, to the person it runs as or an admin of the org.
+[**GetAutoAutomationsByIdRuns**](AutoAPI.md#GetAutoAutomationsByIdRuns) | **Get** /v1/auto/automations/{id}/runs | Returns one automation&#39;s runs, newest first, to the person it runs as.
+[**GetAutoEvents**](AutoAPI.md#GetAutoEvents) | **Get** /v1/auto/events | Stream your jobs and automations as they change, as Server-Sent Events
 [**GetAutoFlows**](AutoAPI.md#GetAutoFlows) | **Get** /v1/auto/flows | Returns the caller org&#39;s automations, most-recently-updated first.
 [**GetAutoFlowsById**](AutoAPI.md#GetAutoFlowsById) | **Get** /v1/auto/flows/{id} | Returns one automation and its latest version.
 [**GetAutoFlowsByIdVersions**](AutoAPI.md#GetAutoFlowsByIdVersions) | **Get** /v1/auto/flows/{id}/versions | Returns one flow&#39;s versions, newest first.
+[**GetAutoJobs**](AutoAPI.md#GetAutoJobs) | **Get** /v1/auto/jobs | Lists everything of yours that runs without you watching, across every product: each run of your automations and workflows, and every Studio render, long video or other background run a product recorded for you.
+[**GetAutoJobsById**](AutoAPI.md#GetAutoJobsById) | **Get** /v1/auto/jobs/{id} | Reads one of your jobs.
 [**GetAutoProvider**](AutoAPI.md#GetAutoProvider) | **Get** /v1/auto/provider | Returns the connector catalogue.
-[**GetAutoRuns**](AutoAPI.md#GetAutoRuns) | **Get** /v1/auto/runs | Returns the caller org&#39;s run history, newest first.
+[**GetAutoRuns**](AutoAPI.md#GetAutoRuns) | **Get** /v1/auto/runs | Returns your run history, newest first: the runs of the flows you hold.
 [**GetAutoRunsById**](AutoAPI.md#GetAutoRunsById) | **Get** /v1/auto/runs/{id} | Returns one run.
 [**GetAutoTemplates**](AutoAPI.md#GetAutoTemplates) | **Get** /v1/auto/templates | Returns the starter automations: a name, what it does, the instructions it runs and the schedule it suggests, in the caller&#39;s own zone.
-[**PatchAutoAutomationsById**](AutoAPI.md#PatchAutoAutomationsById) | **Patch** /v1/auto/automations/{id} | Changes an automation, for the person it runs as or an admin of the org: any field it was created with, and &#x60;enabled&#x60;, which arms or disarms its schedule.
+[**PatchAutoAutomationsById**](AutoAPI.md#PatchAutoAutomationsById) | **Patch** /v1/auto/automations/{id} | Changes an automation, for the person it runs as: any field it was created with, and &#x60;enabled&#x60;, which arms or disarms its schedule.
 [**PatchAutoFlowsById**](AutoAPI.md#PatchAutoFlowsById) | **Patch** /v1/auto/flows/{id} | Updates one automation&#39;s metadata in place.
 [**PostAutoAutomations**](AutoAPI.md#PostAutoAutomations) | **Post** /v1/auto/automations | Creates an automation and arms its schedule.
 [**PostAutoAutomationsByIdRun**](AutoAPI.md#PostAutoAutomationsByIdRun) | **Post** /v1/auto/automations/{id}/run | Starts one run now, whether or not its schedule is armed.
+[**PostAutoAutomationsByIdRunsByRunReview**](AutoAPI.md#PostAutoAutomationsByIdRunsByRunReview) | **Post** /v1/auto/automations/{id}/runs/{run}/review | Answers a run that holds a post for review, for the person the automation runs as: &#x60;post&#x60; true posts it to the automation&#39;s accounts and answers the run while it posts; false discards it.
+[**PostAutoCron**](AutoAPI.md#PostAutoCron) | **Post** /v1/auto/cron | Reads a schedule said in words — \&quot;every 5 minutes\&quot;, \&quot;weekdays at 8:30\&quot;, \&quot;every monday at 9am\&quot;, \&quot;tomorrow at 7pm\&quot;, \&quot;in 20 minutes\&quot;, or a five-field cron expression — in your time zone, and answers the schedule an automation takes, said back in plain words, with when it would first run.
 [**PostAutoFlows**](AutoAPI.md#PostAutoFlows) | **Post** /v1/auto/flows | Creates an automation and its initial DRAFT version in one call.
 [**PostAutoFlowsByIdDisable**](AutoAPI.md#PostAutoFlowsByIdDisable) | **Post** /v1/auto/flows/{id}/disable | Disarms a flow&#39;s trigger and marks it DISABLED.
 [**PostAutoFlowsByIdEnable**](AutoAPI.md#PostAutoFlowsByIdEnable) | **Post** /v1/auto/flows/{id}/enable | Arms a flow&#39;s trigger and marks it ENABLED.
@@ -170,9 +175,9 @@ Name | Type | Description  | Notes
 
 ## GetAutoAutomations
 
-> AutoAutomationPage GetAutoAutomations(ctx).Q(q).Sort(sort).Execute()
+> AutoAutomationPage GetAutoAutomations(ctx).Q(q).Sort(sort).Source(source).Execute()
 
-Returns the org's automations.
+Returns your automations — another member's are never listed.
 
 
 
@@ -191,10 +196,11 @@ import (
 func main() {
 	q := "q_example" // string | Q keeps the automations whose name or instructions contain it, ignoring case. (optional)
 	sort := "sort_example" // string | Sort is name, next or updated (the default, newest first). (optional)
+	source := "source_example" // string | Source keeps the automations made in one product: chat, dev, studio or workflow. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.GetAutoAutomations(context.Background()).Q(q).Sort(sort).Execute()
+	resp, r, err := apiClient.AutoAPI.GetAutoAutomations(context.Background()).Q(q).Sort(sort).Source(source).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoAutomations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -217,6 +223,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **q** | **string** | Q keeps the automations whose name or instructions contain it, ignoring case. | 
  **sort** | **string** | Sort is name, next or updated (the default, newest first). | 
+ **source** | **string** | Source keeps the automations made in one product: chat, dev, studio or workflow. | 
 
 ### Return type
 
@@ -310,7 +317,7 @@ Name | Type | Description  | Notes
 
 > AutoAutomationRunPage GetAutoAutomationsByIdRuns(ctx, id).Limit(limit).Execute()
 
-Returns one automation's runs, newest first, to the person it runs as or an admin of the org.
+Returns one automation's runs, newest first, to the person it runs as.
 
 
 
@@ -372,6 +379,67 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAutoEvents
+
+> *os.File GetAutoEvents(ctx).Execute()
+
+Stream your jobs and automations as they change, as Server-Sent Events
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.GetAutoEvents(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAutoEvents`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoEvents`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAutoEventsRequest struct via the builder pattern
+
+
+### Return type
+
+[***os.File**](*os.File.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -586,6 +654,146 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetAutoJobs
+
+> AutoJobPage GetAutoJobs(ctx).Product(product).State(state).Limit(limit).Execute()
+
+Lists everything of yours that runs without you watching, across every product: each run of your automations and workflows, and every Studio render, long video or other background run a product recorded for you.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	product := "studio" // string | Product keeps one product's jobs: chat, dev, studio or workflow. (optional)
+	state := "running" // string | State keeps one state: scheduled, running, succeeded, failed or cancelled. (optional)
+	limit := int64(789) // int64 | Limit bounds the page (default 100, at most 500). (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.GetAutoJobs(context.Background()).Product(product).State(state).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoJobs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAutoJobs`: AutoJobPage
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoJobs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAutoJobsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **product** | **string** | Product keeps one product&#39;s jobs: chat, dev, studio or workflow. | 
+ **state** | **string** | State keeps one state: scheduled, running, succeeded, failed or cancelled. | 
+ **limit** | **int64** | Limit bounds the page (default 100, at most 500). | 
+
+### Return type
+
+[**AutoJobPage**](AutoJobPage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAutoJobsById
+
+> AutoJob GetAutoJobsById(ctx, id).Execute()
+
+Reads one of your jobs.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "run_3f7a…" // string | ID is the job, from the path: a run_ or a job_ id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.GetAutoJobsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoJobsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAutoJobsById`: AutoJob
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoJobsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the job, from the path: a run_ or a job_ id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAutoJobsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AutoJob**](AutoJob.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetAutoProvider
 
 > AutoCatalog GetAutoProvider(ctx).Execute()
@@ -651,7 +859,7 @@ Other parameters are passed through a pointer to a apiGetAutoProviderRequest str
 
 > AutoRunPage GetAutoRuns(ctx).FlowId(flowId).Limit(limit).Execute()
 
-Returns the caller org's run history, newest first.
+Returns your run history, newest first: the runs of the flows you hold.
 
 
 
@@ -850,7 +1058,7 @@ Other parameters are passed through a pointer to a apiGetAutoTemplatesRequest st
 
 > AutoAutomation PatchAutoAutomationsById(ctx, id).AutoAutomationPatch(autoAutomationPatch).Execute()
 
-Changes an automation, for the person it runs as or an admin of the org: any field it was created with, and `enabled`, which arms or disarms its schedule.
+Changes an automation, for the person it runs as: any field it was created with, and `enabled`, which arms or disarms its schedule.
 
 
 
@@ -1119,6 +1327,147 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAutoAutomationsByIdRunsByRunReview
+
+> AutoAutomationRun PostAutoAutomationsByIdRunsByRunReview(ctx, id, run).AutoReviewIn(autoReviewIn).Execute()
+
+Answers a run that holds a post for review, for the person the automation runs as: `post` true posts it to the automation's accounts and answers the run while it posts; false discards it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "flow_1" // string | ID is the automation, and Run its run in review, from the path.
+	run := "run_1" // string | 
+	autoReviewIn := *openapiclient.NewAutoReviewIn() // AutoReviewIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.PostAutoAutomationsByIdRunsByRunReview(context.Background(), id, run).AutoReviewIn(autoReviewIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoAutomationsByIdRunsByRunReview``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAutoAutomationsByIdRunsByRunReview`: AutoAutomationRun
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoAutomationsByIdRunsByRunReview`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the automation, and Run its run in review, from the path. | 
+**run** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAutoAutomationsByIdRunsByRunReviewRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **autoReviewIn** | [**AutoReviewIn**](AutoReviewIn.md) |  | 
+
+### Return type
+
+[**AutoAutomationRun**](AutoAutomationRun.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAutoCron
+
+> AutoWhenOut PostAutoCron(ctx).AutoWhenIn(autoWhenIn).Execute()
+
+Reads a schedule said in words — \"every 5 minutes\", \"weekdays at 8:30\", \"every monday at 9am\", \"tomorrow at 7pm\", \"in 20 minutes\", or a five-field cron expression — in your time zone, and answers the schedule an automation takes, said back in plain words, with when it would first run.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	autoWhenIn := *openapiclient.NewAutoWhenIn() // AutoWhenIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.PostAutoCron(context.Background()).AutoWhenIn(autoWhenIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoCron``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAutoCron`: AutoWhenOut
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoCron`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAutoCronRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **autoWhenIn** | [**AutoWhenIn**](AutoWhenIn.md) |  | 
+
+### Return type
+
+[**AutoWhenOut**](AutoWhenOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

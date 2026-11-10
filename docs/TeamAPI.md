@@ -5,35 +5,38 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteTeamAccountCookie**](TeamAPI.md#DeleteTeamAccountCookie) | **Delete** /v1/team/account/cookie | Signs this browser out of team by expiring the HttpOnly account-token cookie the OAuth callback set.
+[**DeleteTeamChannelsByIdMembersByAccount**](TeamAPI.md#DeleteTeamChannelsByIdMembersByAccount) | **Delete** /v1/team/channels/{id}/members/{account} | Takes one person out of a channel — the caller leaving, when the account is their own.
 [**DeleteTeamDocsById**](TeamAPI.md#DeleteTeamDocsById) | **Delete** /v1/team/docs/{id} | Removes a document with everything nested under it and every comment on any of them — the Team client&#39;s own delete, which takes the subtree with it.
 [**DeleteTeamFilesBySpaceByFilename**](TeamAPI.md#DeleteTeamFilesBySpaceByFilename) | **Delete** /v1/team/files/{space}/{filename} | Removes one blob from a space&#39;s file store.
 [**DeleteTeamMessagesById**](TeamAPI.md#DeleteTeamMessagesById) | **Delete** /v1/team/messages/{id} | Removes a message, with its replies, reactions, files and the inbox notifications that point at it.
 [**DeleteTeamMessagesByIdReactionsByEmoji**](TeamAPI.md#DeleteTeamMessagesByIdReactionsByEmoji) | **Delete** /v1/team/messages/{id}/reactions/{emoji} | Takes back the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
-[**DeleteTeamRoomsByIdMembersByAccount**](TeamAPI.md#DeleteTeamRoomsByIdMembersByAccount) | **Delete** /v1/team/rooms/{id}/members/{account} | Takes one person out of a room — the caller leaving, when the account is their own.
 [**GetTeamAccountAuthByProvider**](TeamAPI.md#GetTeamAccountAuthByProvider) | **Get** /v1/team/account/auth/{provider} | Start a sign-in at hanzo.id
 [**GetTeamAccountAuthByProviderCallback**](TeamAPI.md#GetTeamAccountAuthByProviderCallback) | **Get** /v1/team/account/auth/{provider}/callback | Complete a sign-in and hand the browser its session
 [**GetTeamAccountProviders**](TeamAPI.md#GetTeamAccountProviders) | **Get** /v1/team/account/providers | Returns the identity providers this deployment starts a login with.
 [**GetTeamBillingPlan**](TeamAPI.md#GetTeamBillingPlan) | **Get** /v1/team/billing/plan | Returns the plan and seat counts for the caller&#39;s OWN org, resolved from the VERIFIED team session token — never a client header.
 [**GetTeamBillingUi**](TeamAPI.md#GetTeamBillingUi) | **Get** /v1/team/billing/ui | Open the wallet page
+[**GetTeamChannels**](TeamAPI.md#GetTeamChannels) | **Get** /v1/team/channels | Returns the channels the caller may see, with the kind and work facet each carries.
+[**GetTeamChannelsByIdMembers**](TeamAPI.md#GetTeamChannelsByIdMembers) | **Get** /v1/team/channels/{id}/members | Returns the people and agents in one channel, as the roster describes them.
+[**GetTeamChannelsByIdMessages**](TeamAPI.md#GetTeamChannelsByIdMessages) | **Get** /v1/team/channels/{id}/messages | Returns the tail of one channel&#39;s conversation, oldest first, each message with its reactions, files and thread count.
 [**GetTeamCollaborator**](TeamAPI.md#GetTeamCollaborator) | **Get** /v1/team/collaborator | Open the live collaborative-editing socket
 [**GetTeamDocs**](TeamAPI.md#GetTeamDocs) | **Get** /v1/team/docs | Returns the documents of a space the caller may see, with the teamspaces they are grouped in.
 [**GetTeamDocsById**](TeamAPI.md#GetTeamDocsById) | **Get** /v1/team/docs/{id} | Returns one document the caller may see.
-[**GetTeamDocsByIdComments**](TeamAPI.md#GetTeamDocsByIdComments) | **Get** /v1/team/docs/{id}/comments | Returns the comments on a document, oldest first — the same message shape a room&#39;s conversation answers.
+[**GetTeamDocsByIdComments**](TeamAPI.md#GetTeamDocsByIdComments) | **Get** /v1/team/docs/{id}/comments | Returns the comments on a document, oldest first — the same message shape a channel&#39;s conversation answers.
 [**GetTeamEvents**](TeamAPI.md#GetTeamEvents) | **Get** /v1/team/events | Stream live changes to what the caller may see, as Server-Sent Events
 [**GetTeamFilesBySpaceByFilename**](TeamAPI.md#GetTeamFilesBySpaceByFilename) | **Get** /v1/team/files/{space}/{filename} | Download a space file
-[**GetTeamInbox**](TeamAPI.md#GetTeamInbox) | **Get** /v1/team/inbox | Returns the caller&#39;s notifications, newest first, each with the room or document it is about and the message that caused it.
+[**GetTeamInbox**](TeamAPI.md#GetTeamInbox) | **Get** /v1/team/inbox | Returns the caller&#39;s notifications, newest first, each with the channel or document it is about and the message that caused it.
 [**GetTeamMembers**](TeamAPI.md#GetTeamMembers) | **Get** /v1/team/members | Returns the people and agents in a space, with the name, avatar, role and presence a client draws them with.
 [**GetTeamMessagesByIdReplies**](TeamAPI.md#GetTeamMessagesByIdReplies) | **Get** /v1/team/messages/{id}/replies | Returns a message&#39;s thread, oldest first, each reply with its reactions and files.
-[**GetTeamPublic**](TeamAPI.md#GetTeamPublic) | **Get** /v1/team/public | Lists the rooms orgs have published, across every org.
-[**GetTeamRooms**](TeamAPI.md#GetTeamRooms) | **Get** /v1/team/rooms | Returns the rooms the caller may see, with the kind and work facet each carries.
-[**GetTeamRoomsByIdMembers**](TeamAPI.md#GetTeamRoomsByIdMembers) | **Get** /v1/team/rooms/{id}/members | Returns the people and agents in one room, as the roster describes them.
-[**GetTeamRoomsByIdMessages**](TeamAPI.md#GetTeamRoomsByIdMessages) | **Get** /v1/team/rooms/{id}/messages | Returns the tail of one room&#39;s conversation, oldest first, each message with its reactions, files and thread count.
+[**GetTeamPublic**](TeamAPI.md#GetTeamPublic) | **Get** /v1/team/public | Lists the channels orgs have published, across every org.
 [**GetTeamTransactorByToken**](TeamAPI.md#GetTeamTransactorByToken) | **Get** /v1/team/transactor/{token} | Open the space data-plane socket
 [**GetTeamTransactorStatistics**](TeamAPI.md#GetTeamTransactorStatistics) | **Get** /v1/team/transactor/statistics | Returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
+[**PatchTeamChannelsById**](TeamAPI.md#PatchTeamChannelsById) | **Patch** /v1/team/channels/{id} | Renames a channel, sets its topic, or archives or reopens it, and answers the channel as it now stands.
 [**PatchTeamDocsById**](TeamAPI.md#PatchTeamDocsById) | **Patch** /v1/team/docs/{id} | Renames a document or moves it — under another document, to the top of its teamspace, or to another teamspace with everything nested under it.
 [**PatchTeamMessagesById**](TeamAPI.md#PatchTeamMessagesById) | **Patch** /v1/team/messages/{id} | Rewrites what a message says.
-[**PatchTeamRoomsById**](TeamAPI.md#PatchTeamRoomsById) | **Patch** /v1/team/rooms/{id} | Renames a channel, sets its topic, or archives or reopens it, and answers the room as it now stands.
 [**PostTeamAccount**](TeamAPI.md#PostTeamAccount) | **Post** /v1/team/account | Read the caller&#39;s account and switch space
+[**PostTeamChannels**](TeamAPI.md#PostTeamChannels) | **Post** /v1/team/channels | Opens a named channel and answers it as the store now holds it.
+[**PostTeamChannelsByIdMembers**](TeamAPI.md#PostTeamChannelsByIdMembers) | **Post** /v1/team/channels/{id}/members | Adds people to a channel and answers the channel as it now stands.
+[**PostTeamChannelsByIdMessages**](TeamAPI.md#PostTeamChannelsByIdMessages) | **Post** /v1/team/channels/{id}/messages | Says one thing in a channel, as the caller.
 [**PostTeamCollaboratorRpcByDocumentid**](TeamAPI.md#PostTeamCollaboratorRpcByDocumentid) | **Post** /v1/team/collaborator/rpc/{documentId} | CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
 [**PostTeamDms**](TeamAPI.md#PostTeamDms) | **Post** /v1/team/dms | Opens the direct message between the caller and the people named, or answers the one that already exists — there is one conversation per set of people, however many times it is asked for.
 [**PostTeamDocs**](TeamAPI.md#PostTeamDocs) | **Post** /v1/team/docs | Creates a document, as the caller, after its siblings.
@@ -43,12 +46,9 @@ Method | HTTP request | Description
 [**PostTeamInboxByIdRead**](TeamAPI.md#PostTeamInboxByIdRead) | **Post** /v1/team/inbox/{id}/read | Marks one of the caller&#39;s notifications read and answers it.
 [**PostTeamInboxRead**](TeamAPI.md#PostTeamInboxRead) | **Post** /v1/team/inbox/read | Marks every live notification of the caller&#39;s read, and says how many it changed.
 [**PostTeamMessagesByIdReplies**](TeamAPI.md#PostTeamMessagesByIdReplies) | **Post** /v1/team/messages/{id}/replies | Answers a message in its thread, as the caller.
-[**PostTeamRooms**](TeamAPI.md#PostTeamRooms) | **Post** /v1/team/rooms | Opens a named room and answers it as the store now holds it.
-[**PostTeamRoomsByIdMembers**](TeamAPI.md#PostTeamRoomsByIdMembers) | **Post** /v1/team/rooms/{id}/members | Adds people to a room and answers the room as it now stands.
-[**PostTeamRoomsByIdMessages**](TeamAPI.md#PostTeamRoomsByIdMessages) | **Post** /v1/team/rooms/{id}/messages | Says one thing in a room, as the caller.
 [**PutTeamAccountCookie**](TeamAPI.md#PutTeamAccountCookie) | **Put** /v1/team/account/cookie | Store the session token as this browser&#39;s cookie
+[**PutTeamChannelsById**](TeamAPI.md#PutTeamChannelsById) | **Put** /v1/team/channels/{id} | States what a channel is for: its lifecycle intent, and what it is about.
 [**PutTeamMessagesByIdReactionsByEmoji**](TeamAPI.md#PutTeamMessagesByIdReactionsByEmoji) | **Put** /v1/team/messages/{id}/reactions/{emoji} | Adds the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
-[**PutTeamRoomsById**](TeamAPI.md#PutTeamRoomsById) | **Put** /v1/team/rooms/{id} | States what a room is for: its lifecycle intent, and what it is about.
 
 
 
@@ -107,6 +107,79 @@ Other parameters are passed through a pointer to a apiDeleteTeamAccountCookieReq
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteTeamChannelsByIdMembersByAccount
+
+> DeleteTeamChannelsByIdMembersByAccount(ctx, id, account).Space(space).Execute()
+
+Takes one person out of a channel — the caller leaving, when the account is their own.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the channel, from the path.
+	account := "account_example" // string | Account is the account uuid to remove, from the path. Your own is leaving.
+	space := "0e3c…" // string | Space is the space uuid holding the channel. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.TeamAPI.DeleteTeamChannelsByIdMembersByAccount(context.Background(), id, account).Space(space).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.DeleteTeamChannelsByIdMembersByAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the channel, from the path. | 
+**account** | **string** | Account is the account uuid to remove, from the path. Your own is leaving. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTeamChannelsByIdMembersByAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **space** | **string** | Space is the space uuid holding the channel. | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -395,79 +468,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteTeamRoomsByIdMembersByAccount
-
-> DeleteTeamRoomsByIdMembersByAccount(ctx, id, account).Space(space).Execute()
-
-Takes one person out of a room — the caller leaving, when the account is their own.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the room, from the path.
-	account := "account_example" // string | Account is the account uuid to remove, from the path. Your own is leaving.
-	space := "0e3c…" // string | Space is the space uuid holding the room. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.DeleteTeamRoomsByIdMembersByAccount(context.Background(), id, account).Space(space).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.DeleteTeamRoomsByIdMembersByAccount``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the room, from the path. | 
-**account** | **string** | Account is the account uuid to remove, from the path. Your own is leaving. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteTeamRoomsByIdMembersByAccountRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **space** | **string** | Space is the space uuid holding the room. | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -793,6 +793,211 @@ Other parameters are passed through a pointer to a apiGetTeamBillingUiRequest st
 [[Back to README]](../README.md)
 
 
+## GetTeamChannels
+
+> TeamTeamChannels GetTeamChannels(ctx).Execute()
+
+Returns the channels the caller may see, with the kind and work facet each carries.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.GetTeamChannels(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamChannels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTeamChannels`: TeamTeamChannels
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamChannels`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTeamChannelsRequest struct via the builder pattern
+
+
+### Return type
+
+[**TeamTeamChannels**](TeamTeamChannels.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTeamChannelsByIdMembers
+
+> TeamTeamChannelMembers GetTeamChannelsByIdMembers(ctx, id).Space(space).Execute()
+
+Returns the people and agents in one channel, as the roster describes them.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the channel, from the path. The URL is the authority.
+	space := "space_example" // string | Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.GetTeamChannelsByIdMembers(context.Background(), id).Space(space).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamChannelsByIdMembers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTeamChannelsByIdMembers`: TeamTeamChannelMembers
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamChannelsByIdMembers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the channel, from the path. The URL is the authority. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTeamChannelsByIdMembersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **space** | **string** | Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. | 
+
+### Return type
+
+[**TeamTeamChannelMembers**](TeamTeamChannelMembers.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTeamChannelsByIdMessages
+
+> TeamTeamMessages GetTeamChannelsByIdMessages(ctx, id).Space(space).Execute()
+
+Returns the tail of one channel's conversation, oldest first, each message with its reactions, files and thread count.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the channel, from the path. The URL is the authority.
+	space := "space_example" // string | Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.GetTeamChannelsByIdMessages(context.Background(), id).Space(space).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamChannelsByIdMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTeamChannelsByIdMessages`: TeamTeamMessages
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamChannelsByIdMessages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the channel, from the path. The URL is the authority. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTeamChannelsByIdMessagesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **space** | **string** | Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. | 
+
+### Return type
+
+[**TeamTeamMessages**](TeamTeamMessages.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetTeamCollaborator
 
 > GetTeamCollaborator(ctx).Execute()
@@ -998,7 +1203,7 @@ Name | Type | Description  | Notes
 
 > TeamTeamMessages GetTeamDocsByIdComments(ctx, id).Space(space).Execute()
 
-Returns the comments on a document, oldest first — the same message shape a room's conversation answers.
+Returns the comments on a document, oldest first — the same message shape a channel's conversation answers.
 
 
 
@@ -1204,7 +1409,7 @@ Name | Type | Description  | Notes
 
 > TeamTeamInbox GetTeamInbox(ctx).Space(space).Archived(archived).Execute()
 
-Returns the caller's notifications, newest first, each with the room or document it is about and the message that caused it.
+Returns the caller's notifications, newest first, each with the channel or document it is about and the message that caused it.
 
 
 
@@ -1408,9 +1613,9 @@ Name | Type | Description  | Notes
 
 ## GetTeamPublic
 
-> TeamPublicRooms GetTeamPublic(ctx).Q(q).Org(org).Limit(limit).Execute()
+> TeamPublicChannels GetTeamPublic(ctx).Q(q).Org(org).Limit(limit).Execute()
 
-Lists the rooms orgs have published, across every org.
+Lists the channels orgs have published, across every org.
 
 
 
@@ -1427,8 +1632,8 @@ import (
 )
 
 func main() {
-	q := "q_example" // string | Q matches a room's name or its topic. (optional)
-	org := "org_example" // string | Org narrows to one org's published rooms. (optional)
+	q := "q_example" // string | Q matches a channel's name or its topic. (optional)
+	org := "org_example" // string | Org narrows to one org's published channels. (optional)
 	limit := int64(789) // int64 | Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1438,7 +1643,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamPublic``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTeamPublic`: TeamPublicRooms
+	// response from `GetTeamPublic`: TeamPublicChannels
 	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamPublic`: %v\n", resp)
 }
 ```
@@ -1454,218 +1659,13 @@ Other parameters are passed through a pointer to a apiGetTeamPublicRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **q** | **string** | Q matches a room&#39;s name or its topic. | 
- **org** | **string** | Org narrows to one org&#39;s published rooms. | 
+ **q** | **string** | Q matches a channel&#39;s name or its topic. | 
+ **org** | **string** | Org narrows to one org&#39;s published channels. | 
  **limit** | **int64** | Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. | 
 
 ### Return type
 
-[**TeamPublicRooms**](TeamPublicRooms.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetTeamRooms
-
-> TeamTeamRooms GetTeamRooms(ctx).Execute()
-
-Returns the rooms the caller may see, with the kind and work facet each carries.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.GetTeamRooms(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamRooms``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetTeamRooms`: TeamTeamRooms
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamRooms`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetTeamRoomsRequest struct via the builder pattern
-
-
-### Return type
-
-[**TeamTeamRooms**](TeamTeamRooms.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetTeamRoomsByIdMembers
-
-> TeamTeamRoomMembers GetTeamRoomsByIdMembers(ctx, id).Space(space).Execute()
-
-Returns the people and agents in one room, as the roster describes them.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the room, from the path. The URL is the authority.
-	space := "space_example" // string | Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.GetTeamRoomsByIdMembers(context.Background(), id).Space(space).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamRoomsByIdMembers``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetTeamRoomsByIdMembers`: TeamTeamRoomMembers
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamRoomsByIdMembers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the room, from the path. The URL is the authority. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetTeamRoomsByIdMembersRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **space** | **string** | Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. | 
-
-### Return type
-
-[**TeamTeamRoomMembers**](TeamTeamRoomMembers.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetTeamRoomsByIdMessages
-
-> TeamTeamMessages GetTeamRoomsByIdMessages(ctx, id).Space(space).Execute()
-
-Returns the tail of one room's conversation, oldest first, each message with its reactions, files and thread count.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the room, from the path. The URL is the authority.
-	space := "space_example" // string | Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.GetTeamRoomsByIdMessages(context.Background(), id).Space(space).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamRoomsByIdMessages``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetTeamRoomsByIdMessages`: TeamTeamMessages
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamRoomsByIdMessages`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the room, from the path. The URL is the authority. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetTeamRoomsByIdMessagesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **space** | **string** | Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. | 
-
-### Return type
-
-[**TeamTeamMessages**](TeamTeamMessages.md)
+[**TeamPublicChannels**](TeamPublicChannels.md)
 
 ### Authorization
 
@@ -1808,6 +1808,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchTeamChannelsById
+
+> TeamTeamChannelOne PatchTeamChannelsById(ctx, id).TeamTeamChannelEdit(teamTeamChannelEdit).Execute()
+
+Renames a channel, sets its topic, or archives or reopens it, and answers the channel as it now stands.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the channel, from the path.
+	teamTeamChannelEdit := *openapiclient.NewTeamTeamChannelEdit() // TeamTeamChannelEdit | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.PatchTeamChannelsById(context.Background(), id).TeamTeamChannelEdit(teamTeamChannelEdit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PatchTeamChannelsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchTeamChannelsById`: TeamTeamChannelOne
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PatchTeamChannelsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the channel, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchTeamChannelsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **teamTeamChannelEdit** | [**TeamTeamChannelEdit**](TeamTeamChannelEdit.md) |  | 
+
+### Return type
+
+[**TeamTeamChannelOne**](TeamTeamChannelOne.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1959,78 +2031,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchTeamRoomsById
-
-> TeamTeamRoom PatchTeamRoomsById(ctx, id).TeamTeamRoomEdit(teamTeamRoomEdit).Execute()
-
-Renames a channel, sets its topic, or archives or reopens it, and answers the room as it now stands.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the room, from the path.
-	teamTeamRoomEdit := *openapiclient.NewTeamTeamRoomEdit() // TeamTeamRoomEdit | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.PatchTeamRoomsById(context.Background(), id).TeamTeamRoomEdit(teamTeamRoomEdit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PatchTeamRoomsById``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PatchTeamRoomsById`: TeamTeamRoom
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PatchTeamRoomsById`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the room, from the path. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPatchTeamRoomsByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **teamTeamRoomEdit** | [**TeamTeamRoomEdit**](TeamTeamRoomEdit.md) |  | 
-
-### Return type
-
-[**TeamTeamRoom**](TeamTeamRoom.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostTeamAccount
 
 > PostTeamAccount(ctx).Execute()
@@ -2084,6 +2084,216 @@ Other parameters are passed through a pointer to a apiPostTeamAccountRequest str
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostTeamChannels
+
+> TeamTeamChannelOne PostTeamChannels(ctx).TeamTeamChannelNew(teamTeamChannelNew).Execute()
+
+Opens a named channel and answers it as the store now holds it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	teamTeamChannelNew := *openapiclient.NewTeamTeamChannelNew() // TeamTeamChannelNew | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.PostTeamChannels(context.Background()).TeamTeamChannelNew(teamTeamChannelNew).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamChannels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostTeamChannels`: TeamTeamChannelOne
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamChannels`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostTeamChannelsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamTeamChannelNew** | [**TeamTeamChannelNew**](TeamTeamChannelNew.md) |  | 
+
+### Return type
+
+[**TeamTeamChannelOne**](TeamTeamChannelOne.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostTeamChannelsByIdMembers
+
+> TeamTeamChannelOne PostTeamChannelsByIdMembers(ctx, id).TeamTeamChannelJoin(teamTeamChannelJoin).Execute()
+
+Adds people to a channel and answers the channel as it now stands.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the channel, from the path.
+	teamTeamChannelJoin := *openapiclient.NewTeamTeamChannelJoin() // TeamTeamChannelJoin | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.PostTeamChannelsByIdMembers(context.Background(), id).TeamTeamChannelJoin(teamTeamChannelJoin).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamChannelsByIdMembers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostTeamChannelsByIdMembers`: TeamTeamChannelOne
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamChannelsByIdMembers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the channel, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostTeamChannelsByIdMembersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **teamTeamChannelJoin** | [**TeamTeamChannelJoin**](TeamTeamChannelJoin.md) |  | 
+
+### Return type
+
+[**TeamTeamChannelOne**](TeamTeamChannelOne.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostTeamChannelsByIdMessages
+
+> TeamTeamMessage PostTeamChannelsByIdMessages(ctx, id).TeamTeamMessageWrite(teamTeamMessageWrite).Execute()
+
+Says one thing in a channel, as the caller.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the channel to say it in, from the path.
+	teamTeamMessageWrite := *openapiclient.NewTeamTeamMessageWrite() // TeamTeamMessageWrite | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.PostTeamChannelsByIdMessages(context.Background(), id).TeamTeamMessageWrite(teamTeamMessageWrite).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamChannelsByIdMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostTeamChannelsByIdMessages`: TeamTeamMessage
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamChannelsByIdMessages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the channel to say it in, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostTeamChannelsByIdMessagesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **teamTeamMessageWrite** | [**TeamTeamMessageWrite**](TeamTeamMessageWrite.md) |  | 
+
+### Return type
+
+[**TeamTeamMessage**](TeamTeamMessage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2720,216 +2930,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostTeamRooms
-
-> TeamTeamRoom PostTeamRooms(ctx).TeamTeamRoomNew(teamTeamRoomNew).Execute()
-
-Opens a named room and answers it as the store now holds it.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	teamTeamRoomNew := *openapiclient.NewTeamTeamRoomNew() // TeamTeamRoomNew | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.PostTeamRooms(context.Background()).TeamTeamRoomNew(teamTeamRoomNew).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamRooms``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostTeamRooms`: TeamTeamRoom
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamRooms`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostTeamRoomsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **teamTeamRoomNew** | [**TeamTeamRoomNew**](TeamTeamRoomNew.md) |  | 
-
-### Return type
-
-[**TeamTeamRoom**](TeamTeamRoom.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostTeamRoomsByIdMembers
-
-> TeamTeamRoom PostTeamRoomsByIdMembers(ctx, id).TeamTeamRoomJoin(teamTeamRoomJoin).Execute()
-
-Adds people to a room and answers the room as it now stands.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the room, from the path.
-	teamTeamRoomJoin := *openapiclient.NewTeamTeamRoomJoin() // TeamTeamRoomJoin | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.PostTeamRoomsByIdMembers(context.Background(), id).TeamTeamRoomJoin(teamTeamRoomJoin).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamRoomsByIdMembers``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostTeamRoomsByIdMembers`: TeamTeamRoom
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamRoomsByIdMembers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the room, from the path. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostTeamRoomsByIdMembersRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **teamTeamRoomJoin** | [**TeamTeamRoomJoin**](TeamTeamRoomJoin.md) |  | 
-
-### Return type
-
-[**TeamTeamRoom**](TeamTeamRoom.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostTeamRoomsByIdMessages
-
-> TeamTeamMessage PostTeamRoomsByIdMessages(ctx, id).TeamTeamMessageWrite(teamTeamMessageWrite).Execute()
-
-Says one thing in a room, as the caller.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the room to say it in, from the path.
-	teamTeamMessageWrite := *openapiclient.NewTeamTeamMessageWrite() // TeamTeamMessageWrite | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.PostTeamRoomsByIdMessages(context.Background(), id).TeamTeamMessageWrite(teamTeamMessageWrite).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamRoomsByIdMessages``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostTeamRoomsByIdMessages`: TeamTeamMessage
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamRoomsByIdMessages`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the room to say it in, from the path. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostTeamRoomsByIdMessagesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **teamTeamMessageWrite** | [**TeamTeamMessageWrite**](TeamTeamMessageWrite.md) |  | 
-
-### Return type
-
-[**TeamTeamMessage**](TeamTeamMessage.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PutTeamAccountCookie
 
 > CookieAck PutTeamAccountCookie(ctx).Execute()
@@ -2985,6 +2985,78 @@ Other parameters are passed through a pointer to a apiPutTeamAccountCookieReques
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutTeamChannelsById
+
+> TeamTeamChannelOne PutTeamChannelsById(ctx, id).TeamTeamChannelBind(teamTeamChannelBind).Execute()
+
+States what a channel is for: its lifecycle intent, and what it is about.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the channel to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
+	teamTeamChannelBind := *openapiclient.NewTeamTeamChannelBind() // TeamTeamChannelBind | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.PutTeamChannelsById(context.Background(), id).TeamTeamChannelBind(teamTeamChannelBind).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PutTeamChannelsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutTeamChannelsById`: TeamTeamChannelOne
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PutTeamChannelsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the channel to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutTeamChannelsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **teamTeamChannelBind** | [**TeamTeamChannelBind**](TeamTeamChannelBind.md) |  | 
+
+### Return type
+
+[**TeamTeamChannelOne**](TeamTeamChannelOne.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3051,78 +3123,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TeamTeamMessage**](TeamTeamMessage.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PutTeamRoomsById
-
-> TeamTeamRoom PutTeamRoomsById(ctx, id).TeamTeamRoomBind(teamTeamRoomBind).Execute()
-
-States what a room is for: its lifecycle intent, and what it is about.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
-	teamTeamRoomBind := *openapiclient.NewTeamTeamRoomBind() // TeamTeamRoomBind | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.PutTeamRoomsById(context.Background(), id).TeamTeamRoomBind(teamTeamRoomBind).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PutTeamRoomsById``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PutTeamRoomsById`: TeamTeamRoom
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PutTeamRoomsById`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPutTeamRoomsByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **teamTeamRoomBind** | [**TeamTeamRoomBind**](TeamTeamRoomBind.md) |  | 
-
-### Return type
-
-[**TeamTeamRoom**](TeamTeamRoom.md)
 
 ### Authorization
 

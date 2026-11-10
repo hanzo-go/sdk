@@ -964,6 +964,8 @@ Tokens are sealed into the org's KMS namespace BEFORE the connection row is writ
 
 One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code's place so the App model needs no second address.
 
+A GitHub connect that returns from GitHub's authorization page, rather than its install page, answers a short page instead of a redirect when the person already controls installations no organization holds: they choose which one to connect, or go on to install the app on another account. Nothing is bound until they choose.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param provider
 	@return ProviderAPIGetProviderByProviderCallbackRequest
@@ -2260,6 +2262,206 @@ func (a *ProviderAPIService) GetProviderGitlabProjectsExecute(r ProviderAPIGetPr
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ProviderAPIGetProviderGoogleUserRequest struct {
+	ctx        context.Context
+	ApiService *ProviderAPIService
+}
+
+func (r ProviderAPIGetProviderGoogleUserRequest) Execute() (*ProviderGoogleUserOut, *http.Response, error) {
+	return r.ApiService.GetProviderGoogleUserExecute(r)
+}
+
+/*
+GetProviderGoogleUser Reports whether the caller has connected their own Google account in the org they act in, and as whom.
+
+Reports whether the caller has connected their own Google
+account in the org they act in, and as whom.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ProviderAPIGetProviderGoogleUserRequest
+*/
+func (a *ProviderAPIService) GetProviderGoogleUser(ctx context.Context) ProviderAPIGetProviderGoogleUserRequest {
+	return ProviderAPIGetProviderGoogleUserRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProviderGoogleUserOut
+func (a *ProviderAPIService) GetProviderGoogleUserExecute(r ProviderAPIGetProviderGoogleUserRequest) (*ProviderGoogleUserOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProviderGoogleUserOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderAPIService.GetProviderGoogleUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/provider/google/user"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ProviderAPIGetProviderGoogleUserCallbackRequest struct {
+	ctx        context.Context
+	ApiService *ProviderAPIService
+}
+
+func (r ProviderAPIGetProviderGoogleUserCallbackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetProviderGoogleUserCallbackExecute(r)
+}
+
+/*
+GetProviderGoogleUserCallback Is where Google returns the person.
+
+Is where Google returns the person. It verifies the state,
+burns its nonce, and parks the code for the return page to complete; it
+exchanges nothing. PUBLIC and state-authed, like every OAuth return, and raw
+because it answers a browser with a redirect.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ProviderAPIGetProviderGoogleUserCallbackRequest
+*/
+func (a *ProviderAPIService) GetProviderGoogleUserCallback(ctx context.Context) ProviderAPIGetProviderGoogleUserCallbackRequest {
+	return ProviderAPIGetProviderGoogleUserCallbackRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *ProviderAPIService) GetProviderGoogleUserCallbackExecute(r ProviderAPIGetProviderGoogleUserCallbackRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderAPIService.GetProviderGoogleUserCallback")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/provider/google/user/callback"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ProviderAPIGetProviderSlackChannelsRequest struct {
@@ -3567,6 +3769,218 @@ func (a *ProviderAPIService) GetProviderTelegramLinkCallbackExecute(r ProviderAP
 	return localVarHTTPResponse, nil
 }
 
+type ProviderAPIGetProviderTwitterCallbackRequest struct {
+	ctx        context.Context
+	ApiService *ProviderAPIService
+}
+
+func (r ProviderAPIGetProviderTwitterCallbackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetProviderTwitterCallbackExecute(r)
+}
+
+/*
+GetProviderTwitterCallback Completes an X consent that arrived on the twitter spelling of the callback.
+
+Completes an X consent that arrived on the twitter spelling of the callback.
+The consent URL this process sends is /v1/provider/x/callback. The X app is
+also registered at this address, so a browser sent there still finishes the
+same flow. State is signed for provider x, and the answer is a redirect.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ProviderAPIGetProviderTwitterCallbackRequest
+*/
+func (a *ProviderAPIService) GetProviderTwitterCallback(ctx context.Context) ProviderAPIGetProviderTwitterCallbackRequest {
+	return ProviderAPIGetProviderTwitterCallbackRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *ProviderAPIService) GetProviderTwitterCallbackExecute(r ProviderAPIGetProviderTwitterCallbackRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderAPIService.GetProviderTwitterCallback")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/provider/twitter/callback"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ProviderAPIGetProviderWhatsappGroupsRequest struct {
+	ctx        context.Context
+	ApiService *ProviderAPIService
+	group      *string
+}
+
+// Group is the group id returned when the group was created.
+func (r ProviderAPIGetProviderWhatsappGroupsRequest) Group(group string) ProviderAPIGetProviderWhatsappGroupsRequest {
+	r.group = &group
+	return r
+}
+
+func (r ProviderAPIGetProviderWhatsappGroupsRequest) Execute() (*ProviderWhatsappGroupOut, *http.Response, error) {
+	return r.ApiService.GetProviderWhatsappGroupsExecute(r)
+}
+
+/*
+GetProviderWhatsappGroups Reads the invite link of a group this org's number owns.
+
+Reads the invite link of a group this org's number owns.
+
+Org admin, for the same reason creating one is: the link admits anyone who
+holds it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ProviderAPIGetProviderWhatsappGroupsRequest
+*/
+func (a *ProviderAPIService) GetProviderWhatsappGroups(ctx context.Context) ProviderAPIGetProviderWhatsappGroupsRequest {
+	return ProviderAPIGetProviderWhatsappGroupsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProviderWhatsappGroupOut
+func (a *ProviderAPIService) GetProviderWhatsappGroupsExecute(r ProviderAPIGetProviderWhatsappGroupsRequest) (*ProviderWhatsappGroupOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProviderWhatsappGroupOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderAPIService.GetProviderWhatsappGroups")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/provider/whatsapp/groups"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.group != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "group", r.group, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ProviderAPIGetProviderWhatsappWebhookRequest struct {
 	ctx        context.Context
 	ApiService *ProviderAPIService
@@ -4141,6 +4555,100 @@ func (a *ProviderAPIService) PostConnectionByProviderDeviceByFlowPollExecute(r P
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ProviderAPIPostProviderByProviderChooseRequest struct {
+	ctx        context.Context
+	ApiService *ProviderAPIService
+	provider   string
+}
+
+func (r ProviderAPIPostProviderByProviderChooseRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostProviderByProviderChooseExecute(r)
+}
+
+/*
+PostProviderByProviderChoose Answer the connect's account chooser
+
+The form the chooser page posts: `state` (the token the page was given), and either `account` (one of the accounts it offered) or `install` (go on to the provider's install page). It binds the chosen account to the organization that started the connect and redirects back to the page that asked, as the callback does.
+
+It is public and carries no principal. Its authority is the token alone: signed like the callback's state, carrying the offered accounts under its signature, and single-use, so a page answers once and only with an account it offered.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider
+	@return ProviderAPIPostProviderByProviderChooseRequest
+*/
+func (a *ProviderAPIService) PostProviderByProviderChoose(ctx context.Context, provider string) ProviderAPIPostProviderByProviderChooseRequest {
+	return ProviderAPIPostProviderByProviderChooseRequest{
+		ApiService: a,
+		ctx:        ctx,
+		provider:   provider,
+	}
+}
+
+// Execute executes the request
+func (a *ProviderAPIService) PostProviderByProviderChooseExecute(r ProviderAPIPostProviderByProviderChooseRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderAPIService.PostProviderByProviderChoose")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/provider/{provider}/choose"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ProviderAPIPostProviderByProviderConnectRequest struct {
 	ctx               context.Context
 	ApiService        *ProviderAPIService
@@ -4274,9 +4782,15 @@ func (a *ProviderAPIService) PostProviderByProviderConnectExecute(r ProviderAPIP
 }
 
 type ProviderAPIPostProviderByProviderDisconnectRequest struct {
-	ctx        context.Context
-	ApiService *ProviderAPIService
-	provider   string
+	ctx                  context.Context
+	ApiService           *ProviderAPIService
+	provider             string
+	providerDisconnectIn *ProviderDisconnectIn
+}
+
+func (r ProviderAPIPostProviderByProviderDisconnectRequest) ProviderDisconnectIn(providerDisconnectIn ProviderDisconnectIn) ProviderAPIPostProviderByProviderDisconnectRequest {
+	r.providerDisconnectIn = &providerDisconnectIn
+	return r
 }
 
 func (r ProviderAPIPostProviderByProviderDisconnectRequest) Execute() (*ProviderDisconnectOut, *http.Response, error) {
@@ -4291,8 +4805,14 @@ every custodied KMS secret and the connection row. Idempotent — disconnecting 
 provider that was never connected still returns {disconnected:true}. Symmetric
 with connect: an AdminOnly connector needs the caller's own-org admin bit.
 
+An `account` disconnects that one account and leaves the org's others; without
+it every account goes. A provider with an App installation (GitHub) also removes
+the installation at the provider for each account no other org still holds, so
+connecting that account again is a fresh install rather than GitHub's Configure
+page, which returns nothing the connect can bind.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connection) providers, which this surface never resolves.
+	@param provider Provider is the connector's registry id, from the :provider path segment.
 	@return ProviderAPIPostProviderByProviderDisconnectRequest
 */
 func (a *ProviderAPIService) PostProviderByProviderDisconnect(ctx context.Context, provider string) ProviderAPIPostProviderByProviderDisconnectRequest {
@@ -4325,9 +4845,12 @@ func (a *ProviderAPIService) PostProviderByProviderDisconnectExecute(r ProviderA
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.providerDisconnectIn == nil {
+		return localVarReturnValue, nil, reportError("providerDisconnectIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -4343,6 +4866,8 @@ func (a *ProviderAPIService) PostProviderByProviderDisconnectExecute(r ProviderA
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.providerDisconnectIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -5716,7 +6241,9 @@ PostProviderGithubUserConnect Begins connecting the caller's own GitHub account:
 Begins connecting the caller's own GitHub account: it answers
 the App's authorization page, carrying a state signed for this org and this
 person. Every member may connect their own; it grants nothing the person does
-not already hold on GitHub.
+not already hold on GitHub. The page shows GitHub's account picker (githubPick),
+so a connect after a Disconnect can choose another account: GitHub otherwise
+skips the page for anyone who authorized the App before.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ProviderAPIPostProviderGithubUserConnectRequest
@@ -6022,6 +6549,363 @@ func (a *ProviderAPIService) PostProviderGithubWebhookExecute(r ProviderAPIPostP
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type ProviderAPIPostProviderGoogleUserCompleteRequest struct {
+	ctx                          context.Context
+	ApiService                   *ProviderAPIService
+	providerGoogleUserCompleteIn *ProviderGoogleUserCompleteIn
+}
+
+func (r ProviderAPIPostProviderGoogleUserCompleteRequest) ProviderGoogleUserCompleteIn(providerGoogleUserCompleteIn ProviderGoogleUserCompleteIn) ProviderAPIPostProviderGoogleUserCompleteRequest {
+	r.providerGoogleUserCompleteIn = &providerGoogleUserCompleteIn
+	return r
+}
+
+func (r ProviderAPIPostProviderGoogleUserCompleteRequest) Execute() (*ProviderGoogleUserOut, *http.Response, error) {
+	return r.ApiService.PostProviderGoogleUserCompleteExecute(r)
+}
+
+/*
+PostProviderGoogleUserComplete Finishes connecting the caller's Google account: it takes the authorization the callback parked, trades it for the person's tokens, and seals them.
+
+Finishes connecting the caller's Google account: it takes
+the authorization the callback parked, trades it for the person's tokens, and
+seals them. Only the person who started the flow can complete it — another
+person's grant id is simply not found — and a grant completes once. A grant
+that leaves out sending mail, or offline access, is refused and nothing is
+kept: a connection that cannot send is not one this surface offers.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ProviderAPIPostProviderGoogleUserCompleteRequest
+*/
+func (a *ProviderAPIService) PostProviderGoogleUserComplete(ctx context.Context) ProviderAPIPostProviderGoogleUserCompleteRequest {
+	return ProviderAPIPostProviderGoogleUserCompleteRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProviderGoogleUserOut
+func (a *ProviderAPIService) PostProviderGoogleUserCompleteExecute(r ProviderAPIPostProviderGoogleUserCompleteRequest) (*ProviderGoogleUserOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProviderGoogleUserOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderAPIService.PostProviderGoogleUserComplete")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/provider/google/user/complete"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.providerGoogleUserCompleteIn == nil {
+		return localVarReturnValue, nil, reportError("providerGoogleUserCompleteIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.providerGoogleUserCompleteIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ProviderAPIPostProviderGoogleUserConnectRequest struct {
+	ctx                         context.Context
+	ApiService                  *ProviderAPIService
+	providerGoogleUserConnectIn *ProviderGoogleUserConnectIn
+}
+
+func (r ProviderAPIPostProviderGoogleUserConnectRequest) ProviderGoogleUserConnectIn(providerGoogleUserConnectIn ProviderGoogleUserConnectIn) ProviderAPIPostProviderGoogleUserConnectRequest {
+	r.providerGoogleUserConnectIn = &providerGoogleUserConnectIn
+	return r
+}
+
+func (r ProviderAPIPostProviderGoogleUserConnectRequest) Execute() (*ProviderGoogleUserConnectOut, *http.Response, error) {
+	return r.ApiService.PostProviderGoogleUserConnectExecute(r)
+}
+
+/*
+PostProviderGoogleUserConnect Begins connecting the caller's own Google account: it answers Google's consent page, asking offline access to send mail as them, carrying a state signed for this org and this person.
+
+Begins connecting the caller's own Google account: it answers
+Google's consent page, asking offline access to send mail as them, carrying a
+state signed for this org and this person. Every member may connect their own;
+it grants nothing the person does not already hold at Google.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ProviderAPIPostProviderGoogleUserConnectRequest
+*/
+func (a *ProviderAPIService) PostProviderGoogleUserConnect(ctx context.Context) ProviderAPIPostProviderGoogleUserConnectRequest {
+	return ProviderAPIPostProviderGoogleUserConnectRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProviderGoogleUserConnectOut
+func (a *ProviderAPIService) PostProviderGoogleUserConnectExecute(r ProviderAPIPostProviderGoogleUserConnectRequest) (*ProviderGoogleUserConnectOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProviderGoogleUserConnectOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderAPIService.PostProviderGoogleUserConnect")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/provider/google/user/connect"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.providerGoogleUserConnectIn == nil {
+		return localVarReturnValue, nil, reportError("providerGoogleUserConnectIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.providerGoogleUserConnectIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ProviderAPIPostProviderGoogleUserDisconnectRequest struct {
+	ctx        context.Context
+	ApiService *ProviderAPIService
+}
+
+func (r ProviderAPIPostProviderGoogleUserDisconnectRequest) Execute() (*ProviderGoogleUserDisconnectOut, *http.Response, error) {
+	return r.ApiService.PostProviderGoogleUserDisconnectExecute(r)
+}
+
+/*
+PostProviderGoogleUserDisconnect Forgets the caller's Google connection in this org: the grant is revoked at Google, and the sealed secrets and the row go.
+
+Forgets the caller's Google connection in this org: the
+grant is revoked at Google, and the sealed secrets and the row go. It says
+whether Google confirmed the revocation rather than reporting a success it did
+not see. Disconnecting what is not connected succeeds.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ProviderAPIPostProviderGoogleUserDisconnectRequest
+*/
+func (a *ProviderAPIService) PostProviderGoogleUserDisconnect(ctx context.Context) ProviderAPIPostProviderGoogleUserDisconnectRequest {
+	return ProviderAPIPostProviderGoogleUserDisconnectRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProviderGoogleUserDisconnectOut
+func (a *ProviderAPIService) PostProviderGoogleUserDisconnectExecute(r ProviderAPIPostProviderGoogleUserDisconnectRequest) (*ProviderGoogleUserDisconnectOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProviderGoogleUserDisconnectOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderAPIService.PostProviderGoogleUserDisconnect")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/provider/google/user/disconnect"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ProviderAPIPostProviderLinearClaimRequest struct {
@@ -7557,6 +8441,129 @@ func (a *ProviderAPIService) PostProviderTelegramWebhookExecute(r ProviderAPIPos
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type ProviderAPIPostProviderWhatsappGroupsRequest struct {
+	ctx                     context.Context
+	ApiService              *ProviderAPIService
+	providerWhatsappGroupIn *ProviderWhatsappGroupIn
+}
+
+func (r ProviderAPIPostProviderWhatsappGroupsRequest) ProviderWhatsappGroupIn(providerWhatsappGroupIn ProviderWhatsappGroupIn) ProviderAPIPostProviderWhatsappGroupsRequest {
+	r.providerWhatsappGroupIn = &providerWhatsappGroupIn
+	return r
+}
+
+func (r ProviderAPIPostProviderWhatsappGroupsRequest) Execute() (*ProviderWhatsappGroupOut, *http.Response, error) {
+	return r.ApiService.PostProviderWhatsappGroupsExecute(r)
+}
+
+/*
+PostProviderWhatsappGroups Creates a group on the org's WhatsApp number and returns its invite link.
+
+Creates a group on the org's WhatsApp number and returns
+its invite link.
+
+Org admin, because the group speaks as the org's number and the invite link
+admits anyone who holds it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ProviderAPIPostProviderWhatsappGroupsRequest
+*/
+func (a *ProviderAPIService) PostProviderWhatsappGroups(ctx context.Context) ProviderAPIPostProviderWhatsappGroupsRequest {
+	return ProviderAPIPostProviderWhatsappGroupsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProviderWhatsappGroupOut
+func (a *ProviderAPIService) PostProviderWhatsappGroupsExecute(r ProviderAPIPostProviderWhatsappGroupsRequest) (*ProviderWhatsappGroupOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProviderWhatsappGroupOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderAPIService.PostProviderWhatsappGroups")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/provider/whatsapp/groups"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.providerWhatsappGroupIn == nil {
+		return localVarReturnValue, nil, reportError("providerWhatsappGroupIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.providerWhatsappGroupIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ProviderAPIPostProviderWhatsappWebhookRequest struct {

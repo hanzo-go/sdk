@@ -20,7 +20,7 @@ var _ MappedNullable = &BenchmarkPutClaimsIn{}
 // BenchmarkPutClaimsIn struct for BenchmarkPutClaimsIn
 type BenchmarkPutClaimsIn struct {
 	// Data is the claims to record. One row is a correction; many is an import. There is no separate bulk endpoint because there is no separate operation: importing a leaderboard and fixing one number are the same write.
-	Data []BenchmarkPublishedClaim `json:"data,omitempty"`
+	Data []BenchmarkClaim `json:"data,omitempty"`
 	// Visibility is who may read every row in Data: \"private\", the default, keeps them to the caller's org; \"public\" shows them to anyone. Restating a claim with the other value moves it.
 	Visibility           *string `json:"visibility,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -46,9 +46,9 @@ func NewBenchmarkPutClaimsInWithDefaults() *BenchmarkPutClaimsIn {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *BenchmarkPutClaimsIn) GetData() []BenchmarkPublishedClaim {
+func (o *BenchmarkPutClaimsIn) GetData() []BenchmarkClaim {
 	if o == nil || IsNil(o.Data) {
-		var ret []BenchmarkPublishedClaim
+		var ret []BenchmarkClaim
 		return ret
 	}
 	return o.Data
@@ -56,7 +56,7 @@ func (o *BenchmarkPutClaimsIn) GetData() []BenchmarkPublishedClaim {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BenchmarkPutClaimsIn) GetDataOk() ([]BenchmarkPublishedClaim, bool) {
+func (o *BenchmarkPutClaimsIn) GetDataOk() ([]BenchmarkClaim, bool) {
 	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
@@ -72,8 +72,8 @@ func (o *BenchmarkPutClaimsIn) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given []BenchmarkPublishedClaim and assigns it to the Data field.
-func (o *BenchmarkPutClaimsIn) SetData(v []BenchmarkPublishedClaim) {
+// SetData gets a reference to the given []BenchmarkClaim and assigns it to the Data field.
+func (o *BenchmarkPutClaimsIn) SetData(v []BenchmarkClaim) {
 	o.Data = v
 }
 

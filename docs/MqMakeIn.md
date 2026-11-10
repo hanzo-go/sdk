@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AckPolicy** | Pointer to **string** |  | [optional] 
-**AckWait** | Pointer to **string** |  | [optional] 
-**DeliverPolicy** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**DurableName** | Pointer to **string** |  | [optional] 
-**FilterSubject** | Pointer to **string** |  | [optional] 
-**MaxAckPending** | Pointer to **int64** |  | [optional] 
-**MaxDeliver** | Pointer to **int64** |  | [optional] 
-**OptStartSeq** | Pointer to **int32** |  | [optional] 
-**OptStartTime** | Pointer to **time.Time** |  | [optional] 
-**ReplayPolicy** | Pointer to **string** |  | [optional] 
+**AckPolicy** | Pointer to **string** | Ack is the acknowledgment policy: explicit (default), all, or none. | [optional] 
+**AckWait** | Pointer to **string** | AckWait is how long the broker waits for an ack before redelivering, e.g. \&quot;30s\&quot; (default). | [optional] 
+**DeliverPolicy** | Pointer to **string** | Deliver is where delivery starts: all (default), last, new, by_start_sequence, by_start_time, or last_per_subject. | [optional] 
+**Description** | Pointer to **string** | Description says what this consumer is for. | [optional] 
+**DurableName** | Pointer to **string** | Name is the durable consumer name (alphanumeric, hyphens, underscores). | [optional] 
+**FilterSubject** | Pointer to **string** | Filter delivers only messages on this org-relative subject (wildcards supported). | [optional] 
+**MaxAckPending** | Pointer to **int64** | MaxAckPending caps unacknowledged messages in flight (default 1000). | [optional] 
+**MaxDeliver** | Pointer to **int64** | MaxDeliver caps delivery attempts per message; -1 (default) is unlimited. | [optional] 
+**OptStartSeq** | Pointer to **int32** | StartSeq is the starting sequence for deliver_policy by_start_sequence. | [optional] 
+**OptStartTime** | Pointer to **time.Time** | StartTime is the starting instant for deliver_policy by_start_time. | [optional] 
+**ReplayPolicy** | Pointer to **string** | Replay is the replay pacing: instant (default) or original. | [optional] 
 **Stream** | Pointer to **string** | Stream is the stream name, from the path. | [optional] 
 
 ## Methods

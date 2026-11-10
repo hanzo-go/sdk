@@ -19,10 +19,12 @@ var _ MappedNullable = &WalletWallet{}
 
 // WalletWallet struct for WalletWallet
 type WalletWallet struct {
+	// AccountID names the WalletAccount grouping. Required when creating a wallet and it must be an account of the caller's own org; empty in a lookup means no narrowing by account.
 	AccountId *string `json:"accountId,omitempty"`
 	// Address is the on-chain address. For kms/mpc/treasury it is the EOA a signature from this wallet recovers to; for safe it is the CREATE2 address of the Safe CONTRACT, which holds no key — its approvals recover to the MPC owner instead. Rotating a kms wallet mints a new key and therefore a NEW address, and funds and approvals at the old one do not follow; mpc, treasury and safe addresses are invariant under rotation.
 	Address *string `json:"address,omitempty"`
-	Agent   *string `json:"agent,omitempty"`
+	// Agent narrows within the org to one agent. Empty means the dimension is unused — the wallet belongs to the org (or project) at large.
+	Agent *string `json:"agent,omitempty"`
 	// Chain is the EVM chain the wallet is bound to, CAIP-2 \"eip155:<n>\" or a bare decimal chain id. Empty is chain-agnostic: the ring signs an unbound digest, and a Safe falls back to the Hanzo L1 (36963) because a Safe and its EIP-712 domain must be chain-bound.
 	Chain *string `json:"chain,omitempty"`
 	// CreatedAt is when the wallet was provisioned, Unix seconds. Listings order by it, newest first.
@@ -34,8 +36,10 @@ type WalletWallet struct {
 	// ID is the wallet id, minted by the server as \"wal_\" + 24 hex. It is the last segment of the key ref, and it is the LEDGER SUBJECT an x402 payment into this wallet credits — so it names money as well as key material.
 	Id *string `json:"id,omitempty"`
 	// Name is the display label given at creation. It addresses nothing: the key ref is derived from the scope and the id, so renaming moves no material.
-	Name    *string `json:"name,omitempty"`
-	Org     *string `json:"org,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// Org is the tenant. It is the hard isolation boundary, always present and never crossed, stamped from the validated principal rather than read from a request. It is also the first segment of the key ref, which is what stops another tenant from addressing this material.
+	Org *string `json:"org,omitempty"`
+	// Project narrows within the org to one project. On a wallet it is the caller's ambient X-Project-Id at creation and never a body field, so key material cannot be addressed under a scope no minter validated; the DEFAULT project collapses to empty, which is what keeps an org's default-scope wallet on the un-suffixed ref. Empty means the dimension is unused.
 	Project *string `json:"project,omitempty"`
 	// Tier is the wallet tier the ring keys its TierPolicy on: hot, warm, cold, gas, bridge, contract_admin, validator, quarantine or disaster_recovery. It defaults to hot and is refused at the boundary if it is none of the nine.
 	Tier                 *string `json:"tier,omitempty"`

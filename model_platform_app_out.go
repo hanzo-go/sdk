@@ -29,7 +29,7 @@ type PlatformAppOut struct {
 	Description *string `json:"description,omitempty"`
 	// Dockerfile is the path inside the repo to build from, for buildType `dockerfile`. The build path keys off its presence, and it is validated at create against the same allowlist the privileged build enforces.
 	Dockerfile *string `json:"dockerfile,omitempty"`
-	// Domains are the ingress hosts rendered into the app's CR, its own `<slug>.<org>.<sites host>` first. That one is seeded at create and cannot be removed; a custom host joins only after add-domain and DNS verification.
+	// Domains are the ingress hosts rendered into the app's CR, its own `<slug>.<sites host>` first. That one is seeded at create and cannot be removed; a custom host joins only after add-domain and DNS verification.
 	Domains []string `json:"domains,omitempty"`
 	// Env is the app's environment variables, with every SECRET value masked to \"\" — the plaintext is in KMS and this surface never echoes it. That masking is why an empty secret value means \"keep what is sealed\" when posted back.
 	Env []PlatformEnvVarJSON `json:"env,omitempty"`

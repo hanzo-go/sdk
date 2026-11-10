@@ -46,14 +46,14 @@ func (r X402APIGetX402SettlementsRequest) Execute() (*X402SettlementList, *http.
 }
 
 /*
-GetX402Settlements Lists the caller's x402 receipts, newest first: as payer, what its ledger paid; as payee, what it was paid — each settled payment with what it bought, both parties, the exact amount and when.
+GetX402Settlements Lists the caller's x402 receipts, newest first: as payer, what its wallet paid; as payee, what its org was paid — each settled payment with what it bought, both parties, the exact amount and when.
 
 Lists the caller's x402 receipts, newest first: as payer, what its
-ledger paid; as payee, what it was paid — each settled payment with what it
-bought, both parties, the exact amount and when. A payer is the org whose ledger
-is debited, which for a SuperAdmin inspecting another org is still its own; a
-payee is the caller's own org. An unsettled claim is not a receipt and is never
-listed.
+wallet paid; as payee, what its org was paid — each settled payment with what it
+bought, both parties, the exact amount and when. A payer is the caller's own
+account, which for a SuperAdmin inspecting another org is still its own and for
+a member of the signup org is their own wallet, never the org's; a payee is the
+caller's own org. An unsettled claim is not a receipt and is never listed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return X402APIGetX402SettlementsRequest
@@ -170,10 +170,11 @@ GetX402SettlementsById Reads one x402 payment receipt by id.
 
 Reads one x402 payment receipt by id.
 
-It is scoped to the caller's PAYER org — the ledger that was debited — so one
-tenant can never read another's settlement, and an id that exists but belongs
-to somebody else is a 404 exactly like one that does not exist. A caller with
-no billable identity is refused outright.
+It is scoped to the caller's own account — the wallet that was drawn, in the
+books that hold it — so one tenant can never read another's settlement, nor one
+member of the signup org another's, and an id that exists but belongs to
+somebody else is a 404 exactly like one that does not exist. A caller with no
+billable identity is refused outright.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the `id` field of a Receipt, and the `transaction` of the SettlementResponse on the PAYMENT-RESPONSE header a paid request answers with).

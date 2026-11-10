@@ -20,17 +20,28 @@ var _ MappedNullable = &MqMakeIn{}
 
 // MqMakeIn struct for MqMakeIn
 type MqMakeIn struct {
-	AckPolicy     *string    `json:"ack_policy,omitempty"`
-	AckWait       *string    `json:"ack_wait,omitempty"`
-	DeliverPolicy *string    `json:"deliver_policy,omitempty"`
-	Description   *string    `json:"description,omitempty"`
-	DurableName   *string    `json:"durable_name,omitempty"`
-	FilterSubject *string    `json:"filter_subject,omitempty"`
-	MaxAckPending *int64     `json:"max_ack_pending,omitempty"`
-	MaxDeliver    *int64     `json:"max_deliver,omitempty"`
-	OptStartSeq   *int32     `json:"opt_start_seq,omitempty"`
-	OptStartTime  *time.Time `json:"opt_start_time,omitempty"`
-	ReplayPolicy  *string    `json:"replay_policy,omitempty"`
+	// Ack is the acknowledgment policy: explicit (default), all, or none.
+	AckPolicy *string `json:"ack_policy,omitempty"`
+	// AckWait is how long the broker waits for an ack before redelivering, e.g. \"30s\" (default).
+	AckWait *string `json:"ack_wait,omitempty"`
+	// Deliver is where delivery starts: all (default), last, new, by_start_sequence, by_start_time, or last_per_subject.
+	DeliverPolicy *string `json:"deliver_policy,omitempty"`
+	// Description says what this consumer is for.
+	Description *string `json:"description,omitempty"`
+	// Name is the durable consumer name (alphanumeric, hyphens, underscores).
+	DurableName *string `json:"durable_name,omitempty"`
+	// Filter delivers only messages on this org-relative subject (wildcards supported).
+	FilterSubject *string `json:"filter_subject,omitempty"`
+	// MaxAckPending caps unacknowledged messages in flight (default 1000).
+	MaxAckPending *int64 `json:"max_ack_pending,omitempty"`
+	// MaxDeliver caps delivery attempts per message; -1 (default) is unlimited.
+	MaxDeliver *int64 `json:"max_deliver,omitempty"`
+	// StartSeq is the starting sequence for deliver_policy by_start_sequence.
+	OptStartSeq *int32 `json:"opt_start_seq,omitempty"`
+	// StartTime is the starting instant for deliver_policy by_start_time.
+	OptStartTime *time.Time `json:"opt_start_time,omitempty"`
+	// Replay is the replay pacing: instant (default) or original.
+	ReplayPolicy *string `json:"replay_policy,omitempty"`
 	// Stream is the stream name, from the path.
 	Stream               *string `json:"stream,omitempty"`
 	AdditionalProperties map[string]interface{}

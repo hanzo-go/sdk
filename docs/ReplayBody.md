@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Consent** | Pointer to **interface{}** |  | [optional] 
 **DistinctId** | Pointer to **string** |  | [optional] 
 **Events** | Pointer to **[]interface{}** |  | [optional] 
 **SessionId** | Pointer to **string** |  | [optional] 
@@ -28,6 +29,41 @@ NewReplayBodyWithDefaults instantiates a new ReplayBody object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetConsent
+
+`func (o *ReplayBody) GetConsent() interface{}`
+
+GetConsent returns the Consent field if non-nil, zero value otherwise.
+
+### GetConsentOk
+
+`func (o *ReplayBody) GetConsentOk() (*interface{}, bool)`
+
+GetConsentOk returns a tuple with the Consent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConsent
+
+`func (o *ReplayBody) SetConsent(v interface{})`
+
+SetConsent sets Consent field to given value.
+
+### HasConsent
+
+`func (o *ReplayBody) HasConsent() bool`
+
+HasConsent returns a boolean if a field has been set.
+
+### SetConsentNil
+
+`func (o *ReplayBody) SetConsentNil(b bool)`
+
+ SetConsentNil sets the value for Consent to be an explicit nil
+
+### UnsetConsent
+`func (o *ReplayBody) UnsetConsent()`
+
+UnsetConsent ensures that no value is present for Consent, not even an explicit nil
 ### GetDistinctId
 
 `func (o *ReplayBody) GetDistinctId() string`

@@ -25,6 +25,8 @@ type BillingTopupIn struct {
 	Currency *string `json:"currency,omitempty"`
 	// MethodID names a card the subject already saved, for the saved-card endpoint.
 	PaymentMethodId *string `json:"paymentMethodId,omitempty"`
+	// Provider names the explicit payment processor (\"square\" or \"paypal\") when SourceID is a provider-specific order/token (e.g. a PayPal v2 Order ID).
+	Provider *string `json:"provider,omitempty"`
 	// SourceID is a single-use card token from the payment form, for the token endpoint. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one.
 	SourceId             *string `json:"sourceId,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -145,6 +147,38 @@ func (o *BillingTopupIn) SetPaymentMethodId(v string) {
 	o.PaymentMethodId = &v
 }
 
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *BillingTopupIn) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingTopupIn) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *BillingTopupIn) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *BillingTopupIn) SetProvider(v string) {
+	o.Provider = &v
+}
+
 // GetSourceId returns the SourceId field value if set, zero value otherwise.
 func (o *BillingTopupIn) GetSourceId() string {
 	if o == nil || IsNil(o.SourceId) {
@@ -196,6 +230,9 @@ func (o BillingTopupIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentMethodId) {
 		toSerialize["paymentMethodId"] = o.PaymentMethodId
 	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
 	if !IsNil(o.SourceId) {
 		toSerialize["sourceId"] = o.SourceId
 	}
@@ -224,6 +261,7 @@ func (o *BillingTopupIn) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "amountCents")
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "paymentMethodId")
+		delete(additionalProperties, "provider")
 		delete(additionalProperties, "sourceId")
 		o.AdditionalProperties = additionalProperties
 	}

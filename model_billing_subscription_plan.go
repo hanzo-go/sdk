@@ -28,7 +28,9 @@ type BillingSubscriptionPlan struct {
 	// Name is the plan's display name, e.g. \"Max 20x\".
 	Name *string `json:"name,omitempty"`
 	// Price is what one period costs per seat, in cents, as the subscription snapshotted it: a later catalog price change does not move it.
-	Price                *int64 `json:"price,omitempty"`
+	Price *int64 `json:"price,omitempty"`
+	// Slug is the catalog plan it was opened on, e.g. \"max-20x\": what a reader matches against GET /v1/billing/plans. Empty on a row that predates it.
+	Slug                 *string `json:"slug,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -211,6 +213,38 @@ func (o *BillingSubscriptionPlan) SetPrice(v int64) {
 	o.Price = &v
 }
 
+// GetSlug returns the Slug field value if set, zero value otherwise.
+func (o *BillingSubscriptionPlan) GetSlug() string {
+	if o == nil || IsNil(o.Slug) {
+		var ret string
+		return ret
+	}
+	return *o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingSubscriptionPlan) GetSlugOk() (*string, bool) {
+	if o == nil || IsNil(o.Slug) {
+		return nil, false
+	}
+	return o.Slug, true
+}
+
+// HasSlug returns a boolean if a field has been set.
+func (o *BillingSubscriptionPlan) HasSlug() bool {
+	if o != nil && !IsNil(o.Slug) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlug gets a reference to the given string and assigns it to the Slug field.
+func (o *BillingSubscriptionPlan) SetSlug(v string) {
+	o.Slug = &v
+}
+
 func (o BillingSubscriptionPlan) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -235,6 +269,9 @@ func (o BillingSubscriptionPlan) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Price) {
 		toSerialize["price"] = o.Price
+	}
+	if !IsNil(o.Slug) {
+		toSerialize["slug"] = o.Slug
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -263,6 +300,7 @@ func (o *BillingSubscriptionPlan) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "interval")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "price")
+		delete(additionalProperties, "slug")
 		o.AdditionalProperties = additionalProperties
 	}
 

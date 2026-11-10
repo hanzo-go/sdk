@@ -23,6 +23,8 @@ type EventOverview struct {
 	Commerce *EventCommerceOverview `json:"commerce,omitempty"`
 	// End is the window's exclusive upper bound, RFC3339 UTC.
 	End *string `json:"end,omitempty"`
+	// Impersonated is which events web and commerce counted against the mark a platform operator leaves acting as someone else: exclude (the tenant's own traffic), include, or only. LLM reads the usage ledger, which carries no mark.
+	Impersonated *string `json:"impersonated,omitempty"`
 	// Interval is the bucket width the window implies: hour or day.
 	Interval *string `json:"interval,omitempty"`
 	// LLM is the LLM usage lens — real per-org data.
@@ -119,6 +121,38 @@ func (o *EventOverview) HasEnd() bool {
 // SetEnd gets a reference to the given string and assigns it to the End field.
 func (o *EventOverview) SetEnd(v string) {
 	o.End = &v
+}
+
+// GetImpersonated returns the Impersonated field value if set, zero value otherwise.
+func (o *EventOverview) GetImpersonated() string {
+	if o == nil || IsNil(o.Impersonated) {
+		var ret string
+		return ret
+	}
+	return *o.Impersonated
+}
+
+// GetImpersonatedOk returns a tuple with the Impersonated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EventOverview) GetImpersonatedOk() (*string, bool) {
+	if o == nil || IsNil(o.Impersonated) {
+		return nil, false
+	}
+	return o.Impersonated, true
+}
+
+// HasImpersonated returns a boolean if a field has been set.
+func (o *EventOverview) HasImpersonated() bool {
+	if o != nil && !IsNil(o.Impersonated) {
+		return true
+	}
+
+	return false
+}
+
+// SetImpersonated gets a reference to the given string and assigns it to the Impersonated field.
+func (o *EventOverview) SetImpersonated(v string) {
+	o.Impersonated = &v
 }
 
 // GetInterval returns the Interval field value if set, zero value otherwise.
@@ -329,6 +363,9 @@ func (o EventOverview) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.End) {
 		toSerialize["end"] = o.End
 	}
+	if !IsNil(o.Impersonated) {
+		toSerialize["impersonated"] = o.Impersonated
+	}
 	if !IsNil(o.Interval) {
 		toSerialize["interval"] = o.Interval
 	}
@@ -371,6 +408,7 @@ func (o *EventOverview) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "commerce")
 		delete(additionalProperties, "end")
+		delete(additionalProperties, "impersonated")
 		delete(additionalProperties, "interval")
 		delete(additionalProperties, "llm")
 		delete(additionalProperties, "range")

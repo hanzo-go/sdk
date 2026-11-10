@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
 **Founder** | Pointer to **string** | Founder carries the deleted org&#39;s founder, so an org counted against its founder&#39;s cap stays counted after it is deleted. | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **Name** | Pointer to **string** | the organization&#39;s name | [optional] 
 **Owner** | Pointer to **string** | the admin registry, as for organizations | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 

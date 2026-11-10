@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | Pointer to **string** | End is the window&#39;s exclusive upper bound, RFC3339 UTC. | [optional] 
+**Impersonated** | Pointer to **string** | Impersonated is which events products, topPages, topReferrers and topSources counted against the mark a platform operator leaves acting as someone else: exclude (the tenant&#39;s own traffic), include, or only. Models reads the usage ledger, which carries no mark. | [optional] 
 **Models** | Pointer to [**EventTopModels**](EventTopModels.md) | Models ranks the window&#39;s LLM models by spend — real per-org data. | [optional] 
 **Products** | Pointer to [**EventTopProducts**](EventTopProducts.md) | Products ranks the window&#39;s products by revenue. | [optional] 
 **Range** | Pointer to **string** | Range is the window that was actually applied: 24h, 7d, 30d or custom. | [optional] 
@@ -57,6 +58,31 @@ SetEnd sets End field to given value.
 `func (o *EventTop) HasEnd() bool`
 
 HasEnd returns a boolean if a field has been set.
+
+### GetImpersonated
+
+`func (o *EventTop) GetImpersonated() string`
+
+GetImpersonated returns the Impersonated field if non-nil, zero value otherwise.
+
+### GetImpersonatedOk
+
+`func (o *EventTop) GetImpersonatedOk() (*string, bool)`
+
+GetImpersonatedOk returns a tuple with the Impersonated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImpersonated
+
+`func (o *EventTop) SetImpersonated(v string)`
+
+SetImpersonated sets Impersonated field to given value.
+
+### HasImpersonated
+
+`func (o *EventTop) HasImpersonated() bool`
+
+HasImpersonated returns a boolean if a field has been set.
 
 ### GetModels
 

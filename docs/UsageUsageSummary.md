@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Accounts** | Pointer to [**UsageAccounts**](UsageAccounts.md) | Accounts is the caller&#39;s own linked provider accounts beside the org&#39;s Hanzo-routed usage, labelled row by row and never summed together. | [optional] 
 **End** | Pointer to **string** | End is the window&#39;s exclusive end, RFC3339 UTC. | [optional] 
 **Interval** | Pointer to **string** | Interval is the bucket width the spend series is gap-filled at. | [optional] 
+**Kai** | Pointer to [**UsageKai**](UsageKai.md) | Kai is the org&#39;s Kai decisions: count, input tokens and cost. Also counted in LLM. | [optional] 
 **Llm** | Pointer to [**UsageLLM**](UsageLLM.md) | LLM is the org&#39;s Hanzo-routed inference totals from the warehouse. | [optional] 
 **Range** | Pointer to **string** | Range is the window label that was served. | [optional] 
 **Scope** | Pointer to [**UsageUsageScope**](UsageUsageScope.md) | Scope is the tenant and subject the roll-up was answered for. | [optional] 
@@ -107,6 +108,31 @@ SetInterval sets Interval field to given value.
 `func (o *UsageUsageSummary) HasInterval() bool`
 
 HasInterval returns a boolean if a field has been set.
+
+### GetKai
+
+`func (o *UsageUsageSummary) GetKai() UsageKai`
+
+GetKai returns the Kai field if non-nil, zero value otherwise.
+
+### GetKaiOk
+
+`func (o *UsageUsageSummary) GetKaiOk() (*UsageKai, bool)`
+
+GetKaiOk returns a tuple with the Kai field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKai
+
+`func (o *UsageUsageSummary) SetKai(v UsageKai)`
+
+SetKai sets Kai field to given value.
+
+### HasKai
+
+`func (o *UsageUsageSummary) HasKai() bool`
+
+HasKai returns a boolean if a field has been set.
 
 ### GetLlm
 

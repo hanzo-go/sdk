@@ -19,16 +19,37 @@ var _ MappedNullable = &AccountApiKey{}
 
 // AccountApiKey struct for AccountApiKey
 type AccountApiKey struct {
-	// CreatedAt is when the key last changed, as IAM records it.
-	CreatedAt *string `json:"createdAt,omitempty"`
-	// Key is the FULL value, and is present for a publishable key only: it is public by construction and useless to its holder if it cannot be read back.
+	// Budget is what the key may spend on models, in cents. Absent means no cap.
+	Budget *AccountKeyBudget `json:"budget,omitempty"`
+	// Created is when the key was minted (RFC 3339).
+	Created *string `json:"created,omitempty"`
+	// Creator is the person the key speaks for, `<org>/<user>`: who created it.
+	Creator *string `json:"creator,omitempty"`
+	// Expires is when the key stops working (RFC 3339). Absent means never.
+	Expires *string `json:"expires,omitempty"`
+	// ID addresses this key in PATCH and DELETE /v1/account/keys/{id}.
+	Id *string `json:"id,omitempty"`
+	// Key is the full credential. A publishable key always carries it; a secret key carries it once, in the answer to the POST that created it.
 	Key *string `json:"key,omitempty"`
-	// Limit is what this key may reach, as `kind:name` entries — `model:zen5`, `project:acme`, `product:commerce`. Absent means the key reaches whatever its holder does, which is what every key minted before limits existed does and must keep doing.
+	// Limit is what this key may reach, as `kind:name` entries — `model:zen5`, `project:acme`, `product:train` (read and write), `read:billing` (read only), `read:*` (a read-only key). Absent means the key reaches whatever its holder does.
 	Limit []string `json:"limit,omitempty"`
-	// Prefix is the recognizable, non-secret head of the key — enough to tell two keys apart, never enough to use one.
+	// Name is the key's label, chosen by the person who made it.
+	Name *string `json:"name,omitempty"`
+	// Prefix is the head of the credential this key's holder presents — the sk- of a secret key — enough to tell which string a row is, never enough to use. Absent on a key minted before prefixes were recorded.
 	Prefix *string `json:"prefix,omitempty"`
+	// Rate is how many requests a minute the key may make. Absent means no limit of its own.
+	Rate    *int64  `json:"rate,omitempty"`
+	Revoked *string `json:"revoked,omitempty"`
+	// Revoker is who revoked the key, `<org>/<user>`, and Revoked when.
+	Revoker *string `json:"revoker,omitempty"`
+	// Spend is what the key has spent on models, in cents rounded up. Absent when it could not be read just now.
+	Spend *AccountKeyBudget `json:"spend,omitempty"`
+	// Status is active, expired, revoked, or disabled (switched off in IAM).
+	Status *string `json:"status,omitempty"`
 	// Type is the key class: secret (sk-) or publishable (pk-).
-	Type                 *string `json:"type,omitempty"`
+	Type *string `json:"type,omitempty"`
+	// Used is when the key was last used (RFC 3339). Absent means never.
+	Used                 *string `json:"used,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -51,36 +72,164 @@ func NewAccountApiKeyWithDefaults() *AccountApiKey {
 	return &this
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *AccountApiKey) GetCreatedAt() string {
-	if o == nil || IsNil(o.CreatedAt) {
-		var ret string
+// GetBudget returns the Budget field value if set, zero value otherwise.
+func (o *AccountApiKey) GetBudget() AccountKeyBudget {
+	if o == nil || IsNil(o.Budget) {
+		var ret AccountKeyBudget
 		return ret
 	}
-	return *o.CreatedAt
+	return *o.Budget
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetBudgetOk returns a tuple with the Budget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountApiKey) GetCreatedAtOk() (*string, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
+func (o *AccountApiKey) GetBudgetOk() (*AccountKeyBudget, bool) {
+	if o == nil || IsNil(o.Budget) {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return o.Budget, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *AccountApiKey) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
+// HasBudget returns a boolean if a field has been set.
+func (o *AccountApiKey) HasBudget() bool {
+	if o != nil && !IsNil(o.Budget) {
 		return true
 	}
 
 	return false
 }
 
-// SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
-func (o *AccountApiKey) SetCreatedAt(v string) {
-	o.CreatedAt = &v
+// SetBudget gets a reference to the given AccountKeyBudget and assigns it to the Budget field.
+func (o *AccountApiKey) SetBudget(v AccountKeyBudget) {
+	o.Budget = &v
+}
+
+// GetCreated returns the Created field value if set, zero value otherwise.
+func (o *AccountApiKey) GetCreated() string {
+	if o == nil || IsNil(o.Created) {
+		var ret string
+		return ret
+	}
+	return *o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetCreatedOk() (*string, bool) {
+	if o == nil || IsNil(o.Created) {
+		return nil, false
+	}
+	return o.Created, true
+}
+
+// HasCreated returns a boolean if a field has been set.
+func (o *AccountApiKey) HasCreated() bool {
+	if o != nil && !IsNil(o.Created) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *AccountApiKey) SetCreated(v string) {
+	o.Created = &v
+}
+
+// GetCreator returns the Creator field value if set, zero value otherwise.
+func (o *AccountApiKey) GetCreator() string {
+	if o == nil || IsNil(o.Creator) {
+		var ret string
+		return ret
+	}
+	return *o.Creator
+}
+
+// GetCreatorOk returns a tuple with the Creator field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetCreatorOk() (*string, bool) {
+	if o == nil || IsNil(o.Creator) {
+		return nil, false
+	}
+	return o.Creator, true
+}
+
+// HasCreator returns a boolean if a field has been set.
+func (o *AccountApiKey) HasCreator() bool {
+	if o != nil && !IsNil(o.Creator) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreator gets a reference to the given string and assigns it to the Creator field.
+func (o *AccountApiKey) SetCreator(v string) {
+	o.Creator = &v
+}
+
+// GetExpires returns the Expires field value if set, zero value otherwise.
+func (o *AccountApiKey) GetExpires() string {
+	if o == nil || IsNil(o.Expires) {
+		var ret string
+		return ret
+	}
+	return *o.Expires
+}
+
+// GetExpiresOk returns a tuple with the Expires field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetExpiresOk() (*string, bool) {
+	if o == nil || IsNil(o.Expires) {
+		return nil, false
+	}
+	return o.Expires, true
+}
+
+// HasExpires returns a boolean if a field has been set.
+func (o *AccountApiKey) HasExpires() bool {
+	if o != nil && !IsNil(o.Expires) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpires gets a reference to the given string and assigns it to the Expires field.
+func (o *AccountApiKey) SetExpires(v string) {
+	o.Expires = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *AccountApiKey) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *AccountApiKey) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *AccountApiKey) SetId(v string) {
+	o.Id = &v
 }
 
 // GetKey returns the Key field value if set, zero value otherwise.
@@ -147,6 +296,38 @@ func (o *AccountApiKey) SetLimit(v []string) {
 	o.Limit = v
 }
 
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *AccountApiKey) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *AccountApiKey) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *AccountApiKey) SetName(v string) {
+	o.Name = &v
+}
+
 // GetPrefix returns the Prefix field value if set, zero value otherwise.
 func (o *AccountApiKey) GetPrefix() string {
 	if o == nil || IsNil(o.Prefix) {
@@ -177,6 +358,166 @@ func (o *AccountApiKey) HasPrefix() bool {
 // SetPrefix gets a reference to the given string and assigns it to the Prefix field.
 func (o *AccountApiKey) SetPrefix(v string) {
 	o.Prefix = &v
+}
+
+// GetRate returns the Rate field value if set, zero value otherwise.
+func (o *AccountApiKey) GetRate() int64 {
+	if o == nil || IsNil(o.Rate) {
+		var ret int64
+		return ret
+	}
+	return *o.Rate
+}
+
+// GetRateOk returns a tuple with the Rate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetRateOk() (*int64, bool) {
+	if o == nil || IsNil(o.Rate) {
+		return nil, false
+	}
+	return o.Rate, true
+}
+
+// HasRate returns a boolean if a field has been set.
+func (o *AccountApiKey) HasRate() bool {
+	if o != nil && !IsNil(o.Rate) {
+		return true
+	}
+
+	return false
+}
+
+// SetRate gets a reference to the given int64 and assigns it to the Rate field.
+func (o *AccountApiKey) SetRate(v int64) {
+	o.Rate = &v
+}
+
+// GetRevoked returns the Revoked field value if set, zero value otherwise.
+func (o *AccountApiKey) GetRevoked() string {
+	if o == nil || IsNil(o.Revoked) {
+		var ret string
+		return ret
+	}
+	return *o.Revoked
+}
+
+// GetRevokedOk returns a tuple with the Revoked field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetRevokedOk() (*string, bool) {
+	if o == nil || IsNil(o.Revoked) {
+		return nil, false
+	}
+	return o.Revoked, true
+}
+
+// HasRevoked returns a boolean if a field has been set.
+func (o *AccountApiKey) HasRevoked() bool {
+	if o != nil && !IsNil(o.Revoked) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevoked gets a reference to the given string and assigns it to the Revoked field.
+func (o *AccountApiKey) SetRevoked(v string) {
+	o.Revoked = &v
+}
+
+// GetRevoker returns the Revoker field value if set, zero value otherwise.
+func (o *AccountApiKey) GetRevoker() string {
+	if o == nil || IsNil(o.Revoker) {
+		var ret string
+		return ret
+	}
+	return *o.Revoker
+}
+
+// GetRevokerOk returns a tuple with the Revoker field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetRevokerOk() (*string, bool) {
+	if o == nil || IsNil(o.Revoker) {
+		return nil, false
+	}
+	return o.Revoker, true
+}
+
+// HasRevoker returns a boolean if a field has been set.
+func (o *AccountApiKey) HasRevoker() bool {
+	if o != nil && !IsNil(o.Revoker) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevoker gets a reference to the given string and assigns it to the Revoker field.
+func (o *AccountApiKey) SetRevoker(v string) {
+	o.Revoker = &v
+}
+
+// GetSpend returns the Spend field value if set, zero value otherwise.
+func (o *AccountApiKey) GetSpend() AccountKeyBudget {
+	if o == nil || IsNil(o.Spend) {
+		var ret AccountKeyBudget
+		return ret
+	}
+	return *o.Spend
+}
+
+// GetSpendOk returns a tuple with the Spend field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetSpendOk() (*AccountKeyBudget, bool) {
+	if o == nil || IsNil(o.Spend) {
+		return nil, false
+	}
+	return o.Spend, true
+}
+
+// HasSpend returns a boolean if a field has been set.
+func (o *AccountApiKey) HasSpend() bool {
+	if o != nil && !IsNil(o.Spend) {
+		return true
+	}
+
+	return false
+}
+
+// SetSpend gets a reference to the given AccountKeyBudget and assigns it to the Spend field.
+func (o *AccountApiKey) SetSpend(v AccountKeyBudget) {
+	o.Spend = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *AccountApiKey) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *AccountApiKey) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *AccountApiKey) SetStatus(v string) {
+	o.Status = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -211,6 +552,38 @@ func (o *AccountApiKey) SetType(v string) {
 	o.Type = &v
 }
 
+// GetUsed returns the Used field value if set, zero value otherwise.
+func (o *AccountApiKey) GetUsed() string {
+	if o == nil || IsNil(o.Used) {
+		var ret string
+		return ret
+	}
+	return *o.Used
+}
+
+// GetUsedOk returns a tuple with the Used field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountApiKey) GetUsedOk() (*string, bool) {
+	if o == nil || IsNil(o.Used) {
+		return nil, false
+	}
+	return o.Used, true
+}
+
+// HasUsed returns a boolean if a field has been set.
+func (o *AccountApiKey) HasUsed() bool {
+	if o != nil && !IsNil(o.Used) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsed gets a reference to the given string and assigns it to the Used field.
+func (o *AccountApiKey) SetUsed(v string) {
+	o.Used = &v
+}
+
 func (o AccountApiKey) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -221,8 +594,20 @@ func (o AccountApiKey) MarshalJSON() ([]byte, error) {
 
 func (o AccountApiKey) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
+	if !IsNil(o.Budget) {
+		toSerialize["budget"] = o.Budget
+	}
+	if !IsNil(o.Created) {
+		toSerialize["created"] = o.Created
+	}
+	if !IsNil(o.Creator) {
+		toSerialize["creator"] = o.Creator
+	}
+	if !IsNil(o.Expires) {
+		toSerialize["expires"] = o.Expires
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
 	}
 	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
@@ -230,11 +615,32 @@ func (o AccountApiKey) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Limit) {
 		toSerialize["limit"] = o.Limit
 	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
 	if !IsNil(o.Prefix) {
 		toSerialize["prefix"] = o.Prefix
 	}
+	if !IsNil(o.Rate) {
+		toSerialize["rate"] = o.Rate
+	}
+	if !IsNil(o.Revoked) {
+		toSerialize["revoked"] = o.Revoked
+	}
+	if !IsNil(o.Revoker) {
+		toSerialize["revoker"] = o.Revoker
+	}
+	if !IsNil(o.Spend) {
+		toSerialize["spend"] = o.Spend
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Used) {
+		toSerialize["used"] = o.Used
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -258,11 +664,22 @@ func (o *AccountApiKey) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "budget")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "creator")
+		delete(additionalProperties, "expires")
+		delete(additionalProperties, "id")
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "limit")
+		delete(additionalProperties, "name")
 		delete(additionalProperties, "prefix")
+		delete(additionalProperties, "rate")
+		delete(additionalProperties, "revoked")
+		delete(additionalProperties, "revoker")
+		delete(additionalProperties, "spend")
+		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "used")
 		o.AdditionalProperties = additionalProperties
 	}
 

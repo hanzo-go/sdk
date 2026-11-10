@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Targets** | Pointer to [**[]AgentTargetView**](AgentTargetView.md) | Targets is every target registered to the caller&#39;s org. | [optional] 
+**Targets** | Pointer to [**[]AgentTargetView**](AgentTargetView.md) | Targets is every target registered to the caller&#39;s org; in a held org, the caller&#39;s own. | [optional] 
 
 ## Methods
 

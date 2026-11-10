@@ -20,10 +20,10 @@ var _ MappedNullable = &AiDecisionsNoul{}
 
 // AiDecisionsNoul struct for AiDecisionsNoul
 type AiDecisionsNoul struct {
-	Criteria             *AiDecisionSides      `json:"criteria,omitempty"`
-	Instructions         *AiDecisionSidesFalse `json:"instructions,omitempty"`
-	Labels               map[string]string     `json:"labels,omitempty"`
-	Type                 string                `json:"type"`
+	Criteria             *AiDecisionSides  `json:"criteria,omitempty"`
+	Instructions         interface{}       `json:"instructions,omitempty"`
+	Labels               map[string]string `json:"labels,omitempty"`
+	Type                 string            `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -79,22 +79,23 @@ func (o *AiDecisionsNoul) SetCriteria(v AiDecisionSides) {
 	o.Criteria = &v
 }
 
-// GetInstructions returns the Instructions field value if set, zero value otherwise.
-func (o *AiDecisionsNoul) GetInstructions() AiDecisionSidesFalse {
-	if o == nil || IsNil(o.Instructions) {
-		var ret AiDecisionSidesFalse
+// GetInstructions returns the Instructions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AiDecisionsNoul) GetInstructions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
-	return *o.Instructions
+	return o.Instructions
 }
 
 // GetInstructionsOk returns a tuple with the Instructions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiDecisionsNoul) GetInstructionsOk() (*AiDecisionSidesFalse, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiDecisionsNoul) GetInstructionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Instructions) {
 		return nil, false
 	}
-	return o.Instructions, true
+	return &o.Instructions, true
 }
 
 // HasInstructions returns a boolean if a field has been set.
@@ -106,9 +107,9 @@ func (o *AiDecisionsNoul) HasInstructions() bool {
 	return false
 }
 
-// SetInstructions gets a reference to the given AiDecisionSidesFalse and assigns it to the Instructions field.
-func (o *AiDecisionsNoul) SetInstructions(v AiDecisionSidesFalse) {
-	o.Instructions = &v
+// SetInstructions gets a reference to the given interface{} and assigns it to the Instructions field.
+func (o *AiDecisionsNoul) SetInstructions(v interface{}) {
+	o.Instructions = v
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
@@ -180,7 +181,7 @@ func (o AiDecisionsNoul) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Criteria) {
 		toSerialize["criteria"] = o.Criteria
 	}
-	if !IsNil(o.Instructions) {
+	if o.Instructions != nil {
 		toSerialize["instructions"] = o.Instructions
 	}
 	if !IsNil(o.Labels) {

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Head** | Pointer to **string** | Head is the run&#39;s own branch. Empty for a plan or a setup, which write none. | [optional] 
 **MoreCommits** | Pointer to **bool** | MoreCommits says the branch carries more commits than the newest 250 that Commits lists. | [optional] 
 **MoreFiles** | Pointer to **bool** | MoreFiles says the change is larger than one read answers — past 8 MiB of diff or 3000 files — so Files lists the files before that, and the last of them is marked truncated with the counts of the part read. | [optional] 
-**Pull** | Pointer to [**AgentCodingPull**](AgentCodingPull.md) | Pull is the run&#39;s pull request on the forge, or null while it has none — and for a run proposed somewhere else, a repository the forge only mirrors from GitHub. | [optional] 
+**Pull** | Pointer to [**AgentCodingPull**](AgentCodingPull.md) | Pull is the run&#39;s pull request, or null while it has none. The forge&#39;s own is read whole; one proposed somewhere else — a repository the forge only mirrors from GitHub — is the address and number the run recorded, with its state, title and reviews empty. | [optional] 
 **Repo** | Pointer to **string** | Repo is the run&#39;s repository on the forge, owner/name. | [optional] 
 
 ## Methods

@@ -31,14 +31,16 @@ func (r AllowanceAPIGetAllowanceRequest) Execute() (*AllowanceAllowance, *http.R
 }
 
 /*
-GetAllowance Answers what the CALLER has left of their plan's free-call allowance this period, and the instant the count starts again.
+GetAllowance Answers what the CALLER has left of their plan's free-call allowance in the window that holds them, and the instant that window reopens.
 
-Answers what the CALLER has left of their plan's free-call allowance this period,
-and the instant the count starts again.
+Answers what the CALLER has left of their plan's free-call allowance in the window
+that holds them, and the instant that window reopens.
 
-This is the number a product shows beside the composer — "17 of 20 left today" —
+This is the number a product shows beside the composer — "2 of 3 left" —
 and the moment to offer a plan is when it reaches zero. It READS: asking does not
-spend, so a page that polls it costs the caller nothing.
+spend, so a page that polls it costs the caller nothing. A Free person's window is
+a session that opens at their first call after the last one ended and runs five
+hours; while none runs, resets is 0 and the next call opens one.
 
 A bounded caller is POOLED: the Free plan is limited usage from one pool every
 free user shares — the platform's vendor accounts for free models — so the answer

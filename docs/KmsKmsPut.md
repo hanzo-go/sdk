@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Env** | Pointer to **string** | Env is the environment to write under. REQUIRED, with no default: it is part of the storage key, so a silently defaulted write lands in a bucket the readers that resolve project, environment and path never look in, and the stale value keeps being served. | [optional] 
 **Name** | Pointer to **string** | Name is the secret&#39;s name. Required. | [optional] 
-**Path** | Pointer to **string** | Path is an optional subpath beneath the org root, e.g. \&quot;/ci\&quot;. | [optional] 
+**Path** | Pointer to **string** | Path is an optional subpath beneath the org root, e.g. \&quot;/ci\&quot;. It never names an org: the root is already &#x60;/orgs/&lt;org&gt;&#x60;, taken from the credential, so a path that starts with &#x60;/orgs/&#x60; is refused rather than stored at &#x60;/orgs/&lt;org&gt;/orgs/…&#x60;. | [optional] 
 **Value** | Pointer to **string** | Value is the secret itself. It is sealed under a fresh per-secret data key before storage, so plaintext never reaches disk, and it is never echoed back, logged, or carried in an error. | [optional] 
 
 ## Methods

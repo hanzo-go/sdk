@@ -19,8 +19,12 @@ var _ MappedNullable = &MarketingLead{}
 
 // MarketingLead struct for MarketingLead
 type MarketingLead struct {
-	// Lead is the lead's reference, \"lead_\" and 24 hex characters. It is random, not the lead's internal name, so it says nothing about how many leads the team has.
+	// Lead is the reference of what was filed: \"lead_\" and 24 hex characters for a lead, \"cand_\" and 24 for a job application. It is random, not a record's id, so it says nothing about how many the team has.
 	Lead *string `json:"lead,omitempty"`
+	// Offer says what an application's code did: \"mailed\", a new code went to the address; \"held\", the address already holds one. Absent when no code was given. The code itself is never answered here.
+	Offer *string `json:"offer,omitempty"`
+	// Sent says whether an investor's SAFE went out for signature from Hanzo eSign: false when the deployment sends none yet, or eSign did not take it, and the investor is filed either way. Absent on every other form.
+	Sent *bool `json:"sent,omitempty"`
 	// Stage is where the lead stands. Always \"new\" on a fresh lead.
 	Stage                *string `json:"stage,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -77,6 +81,70 @@ func (o *MarketingLead) SetLead(v string) {
 	o.Lead = &v
 }
 
+// GetOffer returns the Offer field value if set, zero value otherwise.
+func (o *MarketingLead) GetOffer() string {
+	if o == nil || IsNil(o.Offer) {
+		var ret string
+		return ret
+	}
+	return *o.Offer
+}
+
+// GetOfferOk returns a tuple with the Offer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLead) GetOfferOk() (*string, bool) {
+	if o == nil || IsNil(o.Offer) {
+		return nil, false
+	}
+	return o.Offer, true
+}
+
+// HasOffer returns a boolean if a field has been set.
+func (o *MarketingLead) HasOffer() bool {
+	if o != nil && !IsNil(o.Offer) {
+		return true
+	}
+
+	return false
+}
+
+// SetOffer gets a reference to the given string and assigns it to the Offer field.
+func (o *MarketingLead) SetOffer(v string) {
+	o.Offer = &v
+}
+
+// GetSent returns the Sent field value if set, zero value otherwise.
+func (o *MarketingLead) GetSent() bool {
+	if o == nil || IsNil(o.Sent) {
+		var ret bool
+		return ret
+	}
+	return *o.Sent
+}
+
+// GetSentOk returns a tuple with the Sent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLead) GetSentOk() (*bool, bool) {
+	if o == nil || IsNil(o.Sent) {
+		return nil, false
+	}
+	return o.Sent, true
+}
+
+// HasSent returns a boolean if a field has been set.
+func (o *MarketingLead) HasSent() bool {
+	if o != nil && !IsNil(o.Sent) {
+		return true
+	}
+
+	return false
+}
+
+// SetSent gets a reference to the given bool and assigns it to the Sent field.
+func (o *MarketingLead) SetSent(v bool) {
+	o.Sent = &v
+}
+
 // GetStage returns the Stage field value if set, zero value otherwise.
 func (o *MarketingLead) GetStage() string {
 	if o == nil || IsNil(o.Stage) {
@@ -122,6 +190,12 @@ func (o MarketingLead) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Lead) {
 		toSerialize["lead"] = o.Lead
 	}
+	if !IsNil(o.Offer) {
+		toSerialize["offer"] = o.Offer
+	}
+	if !IsNil(o.Sent) {
+		toSerialize["sent"] = o.Sent
+	}
 	if !IsNil(o.Stage) {
 		toSerialize["stage"] = o.Stage
 	}
@@ -148,6 +222,8 @@ func (o *MarketingLead) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lead")
+		delete(additionalProperties, "offer")
+		delete(additionalProperties, "sent")
 		delete(additionalProperties, "stage")
 		o.AdditionalProperties = additionalProperties
 	}

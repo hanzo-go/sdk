@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Criteria** | Pointer to [**AiDecisionSides**](AiDecisionSides.md) |  | [optional] 
-**Instructions** | Pointer to [**AiDecisionSidesFalse**](AiDecisionSidesFalse.md) |  | [optional] 
+**Instructions** | Pointer to **interface{}** |  | [optional] 
 **Labels** | Pointer to **map[string]string** |  | [optional] 
 **Type** | **string** |  | 
 
@@ -55,20 +55,20 @@ HasCriteria returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *AiDecisionsNoul) GetInstructions() AiDecisionSidesFalse`
+`func (o *AiDecisionsNoul) GetInstructions() interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *AiDecisionsNoul) GetInstructionsOk() (*AiDecisionSidesFalse, bool)`
+`func (o *AiDecisionsNoul) GetInstructionsOk() (*interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *AiDecisionsNoul) SetInstructions(v AiDecisionSidesFalse)`
+`func (o *AiDecisionsNoul) SetInstructions(v interface{})`
 
 SetInstructions sets Instructions field to given value.
 
@@ -78,6 +78,16 @@ SetInstructions sets Instructions field to given value.
 
 HasInstructions returns a boolean if a field has been set.
 
+### SetInstructionsNil
+
+`func (o *AiDecisionsNoul) SetInstructionsNil(b bool)`
+
+ SetInstructionsNil sets the value for Instructions to be an explicit nil
+
+### UnsetInstructions
+`func (o *AiDecisionsNoul) UnsetInstructions()`
+
+UnsetInstructions ensures that no value is present for Instructions, not even an explicit nil
 ### GetLabels
 
 `func (o *AiDecisionsNoul) GetLabels() map[string]string`

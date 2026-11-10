@@ -31,12 +31,15 @@ type O11yHTTPClientConfig struct {
 	// FollowRedirects specifies whether the client should follow HTTP 3xx redirects. The omitempty flag is not set, because it would be hidden from the marshalled configuration when set to false.
 	FollowRedirects *bool       `json:"follow_redirects,omitempty"`
 	HttpHeaders     interface{} `json:"http_headers,omitempty"`
-	NoProxy         *string     `json:"no_proxy,omitempty"`
+	// NoProxy contains addresses that should not use a proxy.
+	NoProxy *string `json:"no_proxy,omitempty"`
 	// The OAuth2 client credentials used to fetch a token for the targets.
-	Oauth2               *O11yOAuth2              `json:"oauth2,omitempty"`
-	ProxyConnectHeader   map[string][]interface{} `json:"proxy_connect_header,omitempty"`
-	ProxyFromEnvironment *bool                    `json:"proxy_from_environment,omitempty"`
-	ProxyUrl             interface{}              `json:"proxy_url,omitempty"`
+	Oauth2 *O11yOAuth2 `json:"oauth2,omitempty"`
+	// ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. Assume that at least _some_ of these headers are going to contain secrets and use Secret as the value type instead of string.
+	ProxyConnectHeader map[string][]interface{} `json:"proxy_connect_header,omitempty"`
+	// ProxyFromEnvironment makes use of net/http ProxyFromEnvironment function to determine proxies.
+	ProxyFromEnvironment *bool       `json:"proxy_from_environment,omitempty"`
+	ProxyUrl             interface{} `json:"proxy_url,omitempty"`
 	// TLSConfig to use to connect to the targets.
 	TlsConfig            *O11yTLSConfig `json:"tls_config,omitempty"`
 	AdditionalProperties map[string]interface{}

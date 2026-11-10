@@ -6,6 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Address** | Pointer to **string** | Address is the recipient now opted out, normalized (lower-cased, trimmed) to the form the send gate matches on — so it can differ in case from the address the link carried. | [optional] 
 **Channel** | Pointer to **string** | Channel is the ONE surface opted out of: email, sms, social, meta, google or tiktok. The other channels are untouched, and so is this address in every other org. | [optional] 
+**Company** | Pointer to **string** | Company is the domain opted out whole, when the link asked for it. | [optional] 
+**List** | Pointer to **string** | List is the marketing list the address left, when the link was a list&#39;s. | [optional] 
+**Offer** | Pointer to **string** | Offer is the domain the reader may opt out whole by asking again with company&#x3D;true: the company&#39;s own domain, never a free mail provider&#39;s. Absent when the company is already out, or for free mail. | [optional] 
 **Unsubscribed** | Pointer to **bool** | Unsubscribed is always true here: the opt-out is idempotent, so a second click on the same link confirms the same thing rather than reporting nothing changed. A refused token never reaches this shape — it is a 403. | [optional] 
 
 ## Methods
@@ -76,6 +79,81 @@ SetChannel sets Channel field to given value.
 `func (o *MarketingUnsubscribed) HasChannel() bool`
 
 HasChannel returns a boolean if a field has been set.
+
+### GetCompany
+
+`func (o *MarketingUnsubscribed) GetCompany() string`
+
+GetCompany returns the Company field if non-nil, zero value otherwise.
+
+### GetCompanyOk
+
+`func (o *MarketingUnsubscribed) GetCompanyOk() (*string, bool)`
+
+GetCompanyOk returns a tuple with the Company field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCompany
+
+`func (o *MarketingUnsubscribed) SetCompany(v string)`
+
+SetCompany sets Company field to given value.
+
+### HasCompany
+
+`func (o *MarketingUnsubscribed) HasCompany() bool`
+
+HasCompany returns a boolean if a field has been set.
+
+### GetList
+
+`func (o *MarketingUnsubscribed) GetList() string`
+
+GetList returns the List field if non-nil, zero value otherwise.
+
+### GetListOk
+
+`func (o *MarketingUnsubscribed) GetListOk() (*string, bool)`
+
+GetListOk returns a tuple with the List field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetList
+
+`func (o *MarketingUnsubscribed) SetList(v string)`
+
+SetList sets List field to given value.
+
+### HasList
+
+`func (o *MarketingUnsubscribed) HasList() bool`
+
+HasList returns a boolean if a field has been set.
+
+### GetOffer
+
+`func (o *MarketingUnsubscribed) GetOffer() string`
+
+GetOffer returns the Offer field if non-nil, zero value otherwise.
+
+### GetOfferOk
+
+`func (o *MarketingUnsubscribed) GetOfferOk() (*string, bool)`
+
+GetOfferOk returns a tuple with the Offer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOffer
+
+`func (o *MarketingUnsubscribed) SetOffer(v string)`
+
+SetOffer sets Offer field to given value.
+
+### HasOffer
+
+`func (o *MarketingUnsubscribed) HasOffer() bool`
+
+HasOffer returns a boolean if a field has been set.
 
 ### GetUnsubscribed
 

@@ -19,7 +19,7 @@ var _ MappedNullable = &UsageCategorySpend{}
 
 // UsageCategorySpend struct for UsageCategorySpend
 type UsageCategorySpend struct {
-	// Category is the bucket the ledger's own tag mapped to. An untagged or unrecognised line gets its own honest bucket rather than being folded away.
+	// Category is what the lines metered, as it reads on a bill: \"Desktop sandbox\", \"Agent sessions\", or an AI model's own id. It is the same name /v1/billing/usage gives each row. A line that recorded nothing is \"Uncategorized\".
 	Category *string `json:"category,omitempty"`
 	// Cents is what the org spent in that bucket over the window, in US cents.
 	Cents *int64 `json:"cents,omitempty"`

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ChainId** | Pointer to **int64** |  | [optional] 
+**ChainId** | Pointer to **int64** | ChainID is the EIP-155 id, so a caller can check it matches the wallet they are about to sign with. | [optional] 
 **Height** | Pointer to **int64** | Height is the latest block, omitted when the chain did not answer rather than reported as zero — a zero height is a real value on a fresh chain. | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | ID is the URL name: the value of :chain. | [optional] 
 **Live** | Pointer to **bool** | Live is whether the upstream answered eth_blockNumber. | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Name is for humans. | [optional] 
 
 ## Methods
 

@@ -4434,14 +4434,15 @@ func (r IamAPIGetIamKeysRequest) Execute() (*IamKeysListResponse, *http.Response
 }
 
 /*
-GetIamKeys Returns an organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
+GetIamKeys Returns the API keys of an organization that you may see, newest first — what each is called, what it may reach, its publishable half, and when it was last used.
 
-Returns an organization's API keys, newest first — what each is called,
-what it may reach, and its publishable half. Secret halves are never listed.
+Returns the API keys of an organization that you may see, newest first —
+what each is called, what it may reach, its publishable half, and when it was
+last used. Secret halves are never listed.
 
-Which organization comes from your credentials, not from the request: you read
-your own and no one else's. The capability that admits a confidential client to
-this collection does not itself name a tenant, so the tenant is decided here.
+Which keys come from your credentials, not from the request. You may name an
+organization you belong to: its admin sees every key it holds, and a member sees
+the keys they hold there. Naming any other organization is refused.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIGetIamKeysRequest
@@ -4791,6 +4792,100 @@ func (a *IamAPIService) GetIamKeysPrincipalExecute(r IamAPIGetIamKeysPrincipalRe
 	}
 
 	localVarPath := localBasePath + "/v1/iam/keys/principal"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type IamAPIGetIamLinkRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+}
+
+func (r IamAPIGetIamLinkRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIamLinkExecute(r)
+}
+
+/*
+GetIamLink Continues a link in the browser of the person it is for: the browser opens the address POST /v1/iam/link answered, as a top-level navigation, signed in here as that person, and is sent on to the provider.
+
+Continues a link in the browser of the person it is for: the browser
+opens the address POST /v1/iam/link answered, as a top-level navigation, signed
+in here as that person, and is sent on to the provider.
+
+The address works once. The provider leg runs on a fresh transaction, bound to
+this browser by a cookie set on this navigation, so that transaction and its
+binding exist only here.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIGetIamLinkRequest
+*/
+func (a *IamAPIService) GetIamLink(ctx context.Context) IamAPIGetIamLinkRequest {
+	return IamAPIGetIamLinkRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *IamAPIService) GetIamLinkExecute(r IamAPIGetIamLinkRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetIamLink")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/link"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5199,7 +5294,10 @@ Completes the round-trip: it resolves and burns the
 single-use transaction (checking expiry + browser binding), exchanges and
 verifies the IdP response, links or provisions the local user, and mints the
 iam authorization code the relying party expects — then redirects to the
-original redirect_uri with code + state.
+original redirect_uri with code + state. A redirect provider's reply is read
+from the query of its GET. A form_post provider's POST is answered with a 303
+to a GET of this address naming a single-use handoff that holds the reply, and
+that GET finishes the sign-in.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIGetIamOauthCallbackRequest
@@ -5225,6 +5323,102 @@ func (a *IamAPIService) GetIamOauthCallbackExecute(r IamAPIGetIamOauthCallbackRe
 	}
 
 	localVarPath := localBasePath + "/v1/iam/oauth/callback"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type IamAPIGetIamOauthDelegationKeysRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+}
+
+func (r IamAPIGetIamOauthDelegationKeysRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIamOauthDelegationKeysExecute(r)
+}
+
+/*
+GetIamOauthDelegationKeys Serves the public half of every delegation key, as a JWKS, to a confidential client allowed to delegate — the one resource server that verifies what it is handed, reading with the credential it delegates with.
+
+Serves the public half of every delegation key, as a
+JWKS, to a confidential client allowed to delegate — the one resource server
+that verifies what it is handed, reading with the credential it delegates with.
+To anyone else it answers as the token endpoint does: who are you, or not you.
+
+The key is not a secret; publishing it is the hazard. A verifier that fetches
+the public JWKS and trusts what verifies would admit a delegated token as the
+person. So it is not in that document, and this one is not an address a relying
+party is ever pointed at.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIGetIamOauthDelegationKeysRequest
+*/
+func (a *IamAPIService) GetIamOauthDelegationKeys(ctx context.Context) IamAPIGetIamOauthDelegationKeysRequest {
+	return IamAPIGetIamOauthDelegationKeysRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *IamAPIService) GetIamOauthDelegationKeysExecute(r IamAPIGetIamOauthDelegationKeysRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetIamOauthDelegationKeys")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/oauth/delegation/keys"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -7820,7 +8014,10 @@ GetIamWeb3Nonce Starts a wallet sign-in: it returns a one-time challenge for the
 
 Starts a wallet sign-in: it returns a one-time challenge for the wallet
 to sign. The challenge is good once and is tied to the site that asked for it,
-so a signature collected elsewhere cannot be replayed here.
+so a signature collected elsewhere cannot be replayed here. Pass your
+application's clientId and, from a page at one of its registered redirect
+origins, the challenge names that page's site, which is what the wallet shows
+the person.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIGetIamWeb3NonceRequest
@@ -10196,11 +10393,11 @@ func (r IamAPIPostIamAdminProvisionRequest) Execute() (*http.Response, error) {
 }
 
 /*
-PostIamAdminProvision Sets up an account on someone's behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
+PostIamAdminProvision Founds an org on someone's behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
 
-Sets up an account on someone's behalf — the same
-onboarding a person gets themselves, driven by one of your own services
-instead of by them.
+Founds an org on someone's behalf — the same onboarding
+a person gets themselves, driven by one of your own services instead of by
+them. The person keeps their account and owns the org by membership.
 
 It authenticates as your service rather than as a person, which is why the
 person to provision is named in the request. The setup it performs is
@@ -10302,7 +10499,9 @@ PostIamApplications Registers an application in your organization — one produc
 Registers an application in your organization — one product or site
 your people sign in to, with its own client credentials, sign-in methods and
 allowed redirect URIs. A name already used in the organization is refused
-rather than overwritten.
+rather than overwritten. An application that serves other organizations —
+isShared, or any orgChoiceMode but "" and "None" — is created by a SuperAdmin
+only.
 
 Exported so the legacy add-application alias reuses this exact path — one
 create, two spellings.
@@ -11041,6 +11240,8 @@ type IamAPIPostIamInvitationsAcceptRequest struct {
 	cookie        *string
 	authorization *string
 	secFetchSite  *string
+	origin        *string
+	host          *string
 	contentType   *string
 }
 
@@ -11061,6 +11262,16 @@ func (r IamAPIPostIamInvitationsAcceptRequest) Authorization(authorization strin
 
 func (r IamAPIPostIamInvitationsAcceptRequest) SecFetchSite(secFetchSite string) IamAPIPostIamInvitationsAcceptRequest {
 	r.secFetchSite = &secFetchSite
+	return r
+}
+
+func (r IamAPIPostIamInvitationsAcceptRequest) Origin(origin string) IamAPIPostIamInvitationsAcceptRequest {
+	r.origin = &origin
+	return r
+}
+
+func (r IamAPIPostIamInvitationsAcceptRequest) Host(host string) IamAPIPostIamInvitationsAcceptRequest {
+	r.host = &host
 	return r
 }
 
@@ -11149,6 +11360,12 @@ func (a *IamAPIService) PostIamInvitationsAcceptExecute(r IamAPIPostIamInvitatio
 	}
 	if r.secFetchSite != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Sec-Fetch-Site", r.secFetchSite, "simple", "")
+	}
+	if r.origin != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Origin", r.origin, "simple", "")
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Host", r.host, "simple", "")
 	}
 	if r.contentType != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Content-Type", r.contentType, "simple", "")
@@ -11528,8 +11745,10 @@ func (r IamAPIPostIamLinkRequest) Execute() (*http.Response, error) {
 PostIamLink Starts connecting another sign-in identity to the account you are already signed in as.
 
 Starts connecting another sign-in identity to the account you are already
-signed in as. It answers with the provider's URL for the browser to follow; when
-the provider returns, that identity is attached and you come back to returnUri.
+signed in as. It answers with an address for your browser to open; from there
+you go to the provider, and when it returns, that identity is attached and you
+come back to returnUri. Only the browser where you are signed in here can carry
+a link through.
 
 Your account is fixed here, from the credential you are already holding, and is
 carried server-side for the rest of the round-trip — so nothing that happens at
@@ -12140,6 +12359,101 @@ func (a *IamAPIService) PostIamOauthAuthorizeExecute(r IamAPIPostIamOauthAuthori
 	}
 
 	localVarPath := localBasePath + "/v1/iam/oauth/authorize"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type IamAPIPostIamOauthCallbackRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+}
+
+func (r IamAPIPostIamOauthCallbackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIamOauthCallbackExecute(r)
+}
+
+/*
+PostIamOauthCallback Completes the round-trip: it resolves and burns the single-use transaction (checking expiry + browser binding), exchanges and verifies the IdP response, links or provisions the local user, and mints the iam authorization code the relying party expects — then redirects to the original redirect_uri with code + state.
+
+Completes the round-trip: it resolves and burns the
+single-use transaction (checking expiry + browser binding), exchanges and
+verifies the IdP response, links or provisions the local user, and mints the
+iam authorization code the relying party expects — then redirects to the
+original redirect_uri with code + state. A redirect provider's reply is read
+from the query of its GET. A form_post provider's POST is answered with a 303
+to a GET of this address naming a single-use handoff that holds the reply, and
+that GET finishes the sign-in.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIPostIamOauthCallbackRequest
+*/
+func (a *IamAPIService) PostIamOauthCallback(ctx context.Context) IamAPIPostIamOauthCallbackRequest {
+	return IamAPIPostIamOauthCallbackRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *IamAPIService) PostIamOauthCallbackExecute(r IamAPIPostIamOauthCallbackRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PostIamOauthCallback")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/oauth/callback"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -14755,6 +15069,11 @@ ignores them (the captcha/forget/MFA flows those drive are not ported), and
 CAPTCHA verification is likewise not enforced — iam models no captcha provider —
 so the code is issued once the destination and application validate.
 
+An email is the designed sign-in mail, a link beside the code and from the
+application's org as its reader knows it (otp.IssueLink), when the request's
+Origin is the origin of one of the application's redirect URIs ([Landing]);
+otherwise it is the code alone.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIPostIamVerificationCodesRequest
 */
@@ -14846,6 +15165,12 @@ holds, signs the wallet's owner in.
 
 This IS the login — it answers exactly as a password sign-in does, so the rest
 of your flow does not branch on how somebody arrived.
+
+A wallet no account holds yet creates one, and one address or one network
+creates only so many in a window, a day by default. Past that the answer is
+429 with Retry-After and code wallet_signup_capped; data names the bound ("ip"
+or "subnet"), its limit, and its window in seconds. A wallet already on file
+is never counted.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIPostIamWeb3VerifyRequest
@@ -15026,6 +15351,8 @@ PostIamWebauthnSignupFinish Verifies the newly created passkey and stores it, so
 
 Verifies the newly created passkey and stores it, so the person
 can sign in with their device from then on.
+
+Only this site's own pages may finish an enrollment, and only as JSON.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIPostIamWebauthnSignupFinishRequest
@@ -15228,6 +15555,10 @@ type IamAPIPutIamAccountRequest struct {
 	iamAccountBody *IamAccountBody
 	cookie         *string
 	authorization  *string
+	secFetchSite   *string
+	origin         *string
+	host           *string
+	contentType    *string
 }
 
 func (r IamAPIPutIamAccountRequest) IamAccountBody(iamAccountBody IamAccountBody) IamAPIPutIamAccountRequest {
@@ -15242,6 +15573,26 @@ func (r IamAPIPutIamAccountRequest) Cookie(cookie string) IamAPIPutIamAccountReq
 
 func (r IamAPIPutIamAccountRequest) Authorization(authorization string) IamAPIPutIamAccountRequest {
 	r.authorization = &authorization
+	return r
+}
+
+func (r IamAPIPutIamAccountRequest) SecFetchSite(secFetchSite string) IamAPIPutIamAccountRequest {
+	r.secFetchSite = &secFetchSite
+	return r
+}
+
+func (r IamAPIPutIamAccountRequest) Origin(origin string) IamAPIPutIamAccountRequest {
+	r.origin = &origin
+	return r
+}
+
+func (r IamAPIPutIamAccountRequest) Host(host string) IamAPIPutIamAccountRequest {
+	r.host = &host
+	return r
+}
+
+func (r IamAPIPutIamAccountRequest) ContentType(contentType string) IamAPIPutIamAccountRequest {
+	r.contentType = &contentType
 	return r
 }
 
@@ -15321,6 +15672,18 @@ func (a *IamAPIService) PutIamAccountExecute(r IamAPIPutIamAccountRequest) (*Iam
 	if r.authorization != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
+	if r.secFetchSite != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Sec-Fetch-Site", r.secFetchSite, "simple", "")
+	}
+	if r.origin != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Origin", r.origin, "simple", "")
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Host", r.host, "simple", "")
+	}
+	if r.contentType != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Content-Type", r.contentType, "simple", "")
+	}
 	// body params
 	localVarPostBody = r.iamAccountBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -15346,6 +15709,235 @@ func (a *IamAPIService) PutIamAccountExecute(r IamAPIPutIamAccountRequest) (*Iam
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IamAPIPutIamAddressRequest struct {
+	ctx            context.Context
+	ApiService     *IamAPIService
+	iamAddressBody *IamAddressBody
+	cookie         *string
+	authorization  *string
+	secFetchSite   *string
+	origin         *string
+	host           *string
+	contentType    *string
+}
+
+func (r IamAPIPutIamAddressRequest) IamAddressBody(iamAddressBody IamAddressBody) IamAPIPutIamAddressRequest {
+	r.iamAddressBody = &iamAddressBody
+	return r
+}
+
+func (r IamAPIPutIamAddressRequest) Cookie(cookie string) IamAPIPutIamAddressRequest {
+	r.cookie = &cookie
+	return r
+}
+
+func (r IamAPIPutIamAddressRequest) Authorization(authorization string) IamAPIPutIamAddressRequest {
+	r.authorization = &authorization
+	return r
+}
+
+func (r IamAPIPutIamAddressRequest) SecFetchSite(secFetchSite string) IamAPIPutIamAddressRequest {
+	r.secFetchSite = &secFetchSite
+	return r
+}
+
+func (r IamAPIPutIamAddressRequest) Origin(origin string) IamAPIPutIamAddressRequest {
+	r.origin = &origin
+	return r
+}
+
+func (r IamAPIPutIamAddressRequest) Host(host string) IamAPIPutIamAddressRequest {
+	r.host = &host
+	return r
+}
+
+func (r IamAPIPutIamAddressRequest) ContentType(contentType string) IamAPIPutIamAddressRequest {
+	r.contentType = &contentType
+	return r
+}
+
+func (r IamAPIPutIamAddressRequest) Execute() (*IamAnswer, *http.Response, error) {
+	return r.ApiService.PutIamAddressExecute(r)
+}
+
+/*
+PutIamAddress Adds an email address or a phone number to the calling person's own account, so they can sign in with it — by a code sent there, or to recover a password.
+
+Adds an email address or a phone number to the calling
+person's own account, so they can sign in with it — by a code sent there, or
+to recover a password.
+
+First ask POST /v1/iam/verification-codes to send a code to the new address,
+with the applicationId of the application you sign in at, then send that
+application's clientId, the address and the code here. Only the caller's own
+account is written; the request names nobody.
+
+It adds and never replaces: an account that already has an email keeps it, and
+asking again with the same address answers ok. An address another account at
+that application already signs in with is refused with the same words a wrong
+code gets.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIPutIamAddressRequest
+*/
+func (a *IamAPIService) PutIamAddress(ctx context.Context) IamAPIPutIamAddressRequest {
+	return IamAPIPutIamAddressRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamAnswer
+func (a *IamAPIService) PutIamAddressExecute(r IamAPIPutIamAddressRequest) (*IamAnswer, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamAnswer
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PutIamAddress")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/address"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.iamAddressBody == nil {
+		return localVarReturnValue, nil, reportError("iamAddressBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.cookie != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Cookie", r.cookie, "simple", "")
+	}
+	if r.authorization != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
+	}
+	if r.secFetchSite != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Sec-Fetch-Site", r.secFetchSite, "simple", "")
+	}
+	if r.origin != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Origin", r.origin, "simple", "")
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Host", r.host, "simple", "")
+	}
+	if r.contentType != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Content-Type", r.contentType, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.iamAddressBody
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v IamAnswer
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -15402,7 +15994,9 @@ PutIamApplicationsByOwnerByName Changes an application's display, its sign-in me
 Changes an application's display, its sign-in methods and the redirect
 URIs it may return to — the call that makes login work from a new host. Which
 organization it belongs to and what it is named are fixed when it is created
-and are not editable here.
+and are not editable here. An application that serves other organizations —
+isShared, or any orgChoiceMode but "" and "None" — is written by a SuperAdmin
+only, before and after the change.
 
 Exported so the legacy update-application alias reuses this exact path — one
 update, two spellings.
@@ -16031,10 +16625,17 @@ func (r IamAPIPutIamKeysByOwnerByNameRequest) Execute() (*IamKey, *http.Response
 }
 
 /*
-PutIamKeysByOwnerByName Changes what a key is called or what it may reach.
+PutIamKeysByOwnerByName Changes what a key is called, what it may reach, when it expires, or revokes it.
 
-Changes what a key is called or what it may reach. The credential
-itself is not reissued — the key in your deployment keeps working.
+Changes what a key is called, what it may reach, when it expires, or
+revokes it. The credential itself is not reissued — the key in your deployment
+keeps working until it expires or is revoked.
+
+An update writes the whole set of editable fields, so send the key as you read
+it with your changes made. The class in its scope (publishable or secret) is
+fixed at creation and an update naming the other is refused. Setting state to
+"Revoked" revokes the key: the row stays, records who revoked it and when, and
+is never updated again.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param owner Owner is the tenant that holds the key; Name is unique within Owner.
@@ -16147,6 +16748,10 @@ type IamAPIPutIamPasswordRequest struct {
 	iamPasswordBody *IamPasswordBody
 	cookie          *string
 	authorization   *string
+	secFetchSite    *string
+	origin          *string
+	host            *string
+	contentType     *string
 }
 
 func (r IamAPIPutIamPasswordRequest) IamPasswordBody(iamPasswordBody IamPasswordBody) IamAPIPutIamPasswordRequest {
@@ -16161,6 +16766,26 @@ func (r IamAPIPutIamPasswordRequest) Cookie(cookie string) IamAPIPutIamPasswordR
 
 func (r IamAPIPutIamPasswordRequest) Authorization(authorization string) IamAPIPutIamPasswordRequest {
 	r.authorization = &authorization
+	return r
+}
+
+func (r IamAPIPutIamPasswordRequest) SecFetchSite(secFetchSite string) IamAPIPutIamPasswordRequest {
+	r.secFetchSite = &secFetchSite
+	return r
+}
+
+func (r IamAPIPutIamPasswordRequest) Origin(origin string) IamAPIPutIamPasswordRequest {
+	r.origin = &origin
+	return r
+}
+
+func (r IamAPIPutIamPasswordRequest) Host(host string) IamAPIPutIamPasswordRequest {
+	r.host = &host
+	return r
+}
+
+func (r IamAPIPutIamPasswordRequest) ContentType(contentType string) IamAPIPutIamPasswordRequest {
+	r.contentType = &contentType
 	return r
 }
 
@@ -16242,6 +16867,18 @@ func (a *IamAPIService) PutIamPasswordExecute(r IamAPIPutIamPasswordRequest) (*I
 	if r.authorization != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
+	if r.secFetchSite != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Sec-Fetch-Site", r.secFetchSite, "simple", "")
+	}
+	if r.origin != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Origin", r.origin, "simple", "")
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Host", r.host, "simple", "")
+	}
+	if r.contentType != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Content-Type", r.contentType, "simple", "")
+	}
 	// body params
 	localVarPostBody = r.iamPasswordBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -16267,6 +16904,17 @@ func (a *IamAPIService) PutIamPasswordExecute(r IamAPIPutIamPasswordRequest) (*I
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v IamAnswer
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -16919,6 +17567,10 @@ type IamAPIPutIamTermsRequest struct {
 	iamTermsBody  *IamTermsBody
 	cookie        *string
 	authorization *string
+	secFetchSite  *string
+	origin        *string
+	host          *string
+	contentType   *string
 	xForwardedFor *string
 }
 
@@ -16934,6 +17586,26 @@ func (r IamAPIPutIamTermsRequest) Cookie(cookie string) IamAPIPutIamTermsRequest
 
 func (r IamAPIPutIamTermsRequest) Authorization(authorization string) IamAPIPutIamTermsRequest {
 	r.authorization = &authorization
+	return r
+}
+
+func (r IamAPIPutIamTermsRequest) SecFetchSite(secFetchSite string) IamAPIPutIamTermsRequest {
+	r.secFetchSite = &secFetchSite
+	return r
+}
+
+func (r IamAPIPutIamTermsRequest) Origin(origin string) IamAPIPutIamTermsRequest {
+	r.origin = &origin
+	return r
+}
+
+func (r IamAPIPutIamTermsRequest) Host(host string) IamAPIPutIamTermsRequest {
+	r.host = &host
+	return r
+}
+
+func (r IamAPIPutIamTermsRequest) ContentType(contentType string) IamAPIPutIamTermsRequest {
+	r.contentType = &contentType
 	return r
 }
 
@@ -17013,6 +17685,18 @@ func (a *IamAPIService) PutIamTermsExecute(r IamAPIPutIamTermsRequest) (*IamAnsw
 	if r.authorization != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
+	if r.secFetchSite != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Sec-Fetch-Site", r.secFetchSite, "simple", "")
+	}
+	if r.origin != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Origin", r.origin, "simple", "")
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Host", r.host, "simple", "")
+	}
+	if r.contentType != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Content-Type", r.contentType, "simple", "")
+	}
 	if r.xForwardedFor != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Forwarded-For", r.xForwardedFor, "simple", "")
 	}
@@ -17041,6 +17725,17 @@ func (a *IamAPIService) PutIamTermsExecute(r IamAPIPutIamTermsRequest) (*IamAnsw
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v IamAnswer
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

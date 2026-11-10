@@ -27,7 +27,9 @@ type MarketplacePublishReq struct {
 	Description *string `json:"description,omitempty"`
 	// Docs is where the listing's documentation lives: an https URL or a path on docs.hanzo.ai.
 	Docs *string `json:"docs,omitempty"`
-	// Kind is what is sold: agent, persona, app, skill, mcp or tool (the default). A tool is a platform tool, sold per call by the platform alone.
+	// Expert is the person behind a listing of kind expert — their hourly rate, areas, languages, time zone and weekly hours. Required for kind expert and refused for any other. The price is then the fixed engagement price; an expert sets a rate, a price or both.
+	Expert *MarketplaceExpertIn `json:"expert,omitempty"`
+	// Kind is what is sold: agent, persona, app, skill, mcp, tool (the default) or expert. A tool is a platform tool, sold per call by the platform alone; an expert is the caller, a person making their time available.
 	Kind *string `json:"kind,omitempty"`
 	// Price is the price as a decimal USD string, exact to 18 places — per call for a tool, what a job is offered at otherwise. \"0.0025\" is a quarter of a cent and stays one. Empty or \"0\" publishes it free; a positive price requires Recipient.
 	Price *string `json:"price,omitempty"`
@@ -37,7 +39,7 @@ type MarketplacePublishReq struct {
 	Recipient *string `json:"recipient,omitempty"`
 	// Title is the shop-window name, 1-200 characters. Required.
 	Title *string `json:"title,omitempty"`
-	// Tool names the thing sold, in the seller's own org: an agent's name or id, an app's project slug or id, a skill's name or id, an MCP server's name or id registered by hand, or a platform tool's registry name. It must be the seller's — there are no phantom listings.
+	// Tool names the thing sold, in the seller's own org: an agent's name or id, an app's project slug or id, a skill's name or id, an MCP server's name or id registered by hand, or a platform tool's registry name. It must be the seller's — there are no phantom listings. An expert's is the caller's own IAM identity, and is left out.
 	Tool                 *string `json:"tool,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -187,6 +189,38 @@ func (o *MarketplacePublishReq) HasDocs() bool {
 // SetDocs gets a reference to the given string and assigns it to the Docs field.
 func (o *MarketplacePublishReq) SetDocs(v string) {
 	o.Docs = &v
+}
+
+// GetExpert returns the Expert field value if set, zero value otherwise.
+func (o *MarketplacePublishReq) GetExpert() MarketplaceExpertIn {
+	if o == nil || IsNil(o.Expert) {
+		var ret MarketplaceExpertIn
+		return ret
+	}
+	return *o.Expert
+}
+
+// GetExpertOk returns a tuple with the Expert field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketplacePublishReq) GetExpertOk() (*MarketplaceExpertIn, bool) {
+	if o == nil || IsNil(o.Expert) {
+		return nil, false
+	}
+	return o.Expert, true
+}
+
+// HasExpert returns a boolean if a field has been set.
+func (o *MarketplacePublishReq) HasExpert() bool {
+	if o != nil && !IsNil(o.Expert) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpert gets a reference to the given MarketplaceExpertIn and assigns it to the Expert field.
+func (o *MarketplacePublishReq) SetExpert(v MarketplaceExpertIn) {
+	o.Expert = &v
 }
 
 // GetKind returns the Kind field value if set, zero value otherwise.
@@ -403,6 +437,9 @@ func (o MarketplacePublishReq) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Docs) {
 		toSerialize["docs"] = o.Docs
 	}
+	if !IsNil(o.Expert) {
+		toSerialize["expert"] = o.Expert
+	}
 	if !IsNil(o.Kind) {
 		toSerialize["kind"] = o.Kind
 	}
@@ -447,6 +484,7 @@ func (o *MarketplacePublishReq) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "docs")
+		delete(additionalProperties, "expert")
 		delete(additionalProperties, "kind")
 		delete(additionalProperties, "price")
 		delete(additionalProperties, "public")

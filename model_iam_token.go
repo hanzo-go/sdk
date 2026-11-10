@@ -20,8 +20,10 @@ var _ MappedNullable = &IamToken{}
 
 // IamToken struct for IamToken
 type IamToken struct {
-	AccessToken         *string    `json:"accessToken,omitempty"`
-	AccessTokenHash     *string    `json:"accessTokenHash,omitempty"`
+	AccessToken     *string `json:"accessToken,omitempty"`
+	AccessTokenHash *string `json:"accessTokenHash,omitempty"`
+	// Actor is the SuperAdmin (\"owner/name\") who opened this grant AS its User — impersonation, /v1/iam/impersonate — and Reason is why they said they did. Both empty on every grant a person established themselves. A grant with an Actor mints a short access token that names the actor in `act` and carries `imp`, and never a refresh token (issueTokens), and /v1/iam/signin refuses its code, so it cannot become a session at the issuer.
+	Actor               *string    `json:"actor,omitempty"`
 	Application         *string    `json:"application,omitempty"`
 	Code                *string    `json:"code,omitempty"`
 	CodeChallenge       *string    `json:"codeChallenge,omitempty"`
@@ -32,14 +34,16 @@ type IamToken struct {
 	CreatedTime         *string    `json:"createdTime,omitempty"`
 	Deleted             *bool      `json:"deleted,omitempty"`
 	ExpiresIn           *int64     `json:"expiresIn,omitempty"`
-	Id                  *string    `json:"id,omitempty"`
-	Name                *string    `json:"name,omitempty"`
+	// Persisted fields
+	Id   *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
 	// Nonce is the OIDC authorize nonce, stored on the code and echoed into the id_token minted at the exchange (OIDC Core §3.1.3.6) so a relying party binds the id_token to its own request and detects replay.
 	Nonce        *string `json:"nonce,omitempty"`
 	Organization *string `json:"organization,omitempty"`
 	Owner        *string `json:"owner,omitempty"`
 	// PublicGrant records that this grant was established WITHOUT client authentication — a PKCE code exchange from a client that presented no secret. Whether a client is confidential is a property of the GRANT, not only of the registration: `hanzo-cli` and every @hanzo/iam SPA keep a registered secret for a BACKEND path while the surface that actually signs in is a public PKCE client that cannot hold one. authorizationCodeGrant already makes exactly that bounded relaxation; this is the same fact, recorded so refreshTokenGrant can honour it instead of demanding a secret the client never had (which 401s invalid_client and kills the session at the access token's expiry). Carried across rotation, so the second refresh behaves like the first.
-	PublicGrant *bool `json:"publicGrant,omitempty"`
+	PublicGrant *bool   `json:"publicGrant,omitempty"`
+	Reason      *string `json:"reason,omitempty"`
 	// RedirectUri binds the authorization code to the exact redirect URI of the authorize request (RFC 6749 §4.1.3): the token endpoint refuses a code redeemed with a different redirect_uri, closing code-injection across a client's registered URIs.
 	RedirectUri     *string `json:"redirectUri,omitempty"`
 	RefreshConsumed *bool   `json:"refreshConsumed,omitempty"`
@@ -139,6 +143,38 @@ func (o *IamToken) HasAccessTokenHash() bool {
 // SetAccessTokenHash gets a reference to the given string and assigns it to the AccessTokenHash field.
 func (o *IamToken) SetAccessTokenHash(v string) {
 	o.AccessTokenHash = &v
+}
+
+// GetActor returns the Actor field value if set, zero value otherwise.
+func (o *IamToken) GetActor() string {
+	if o == nil || IsNil(o.Actor) {
+		var ret string
+		return ret
+	}
+	return *o.Actor
+}
+
+// GetActorOk returns a tuple with the Actor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamToken) GetActorOk() (*string, bool) {
+	if o == nil || IsNil(o.Actor) {
+		return nil, false
+	}
+	return o.Actor, true
+}
+
+// HasActor returns a boolean if a field has been set.
+func (o *IamToken) HasActor() bool {
+	if o != nil && !IsNil(o.Actor) {
+		return true
+	}
+
+	return false
+}
+
+// SetActor gets a reference to the given string and assigns it to the Actor field.
+func (o *IamToken) SetActor(v string) {
+	o.Actor = &v
 }
 
 // GetApplication returns the Application field value if set, zero value otherwise.
@@ -653,6 +689,38 @@ func (o *IamToken) SetPublicGrant(v bool) {
 	o.PublicGrant = &v
 }
 
+// GetReason returns the Reason field value if set, zero value otherwise.
+func (o *IamToken) GetReason() string {
+	if o == nil || IsNil(o.Reason) {
+		var ret string
+		return ret
+	}
+	return *o.Reason
+}
+
+// GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamToken) GetReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.Reason) {
+		return nil, false
+	}
+	return o.Reason, true
+}
+
+// HasReason returns a boolean if a field has been set.
+func (o *IamToken) HasReason() bool {
+	if o != nil && !IsNil(o.Reason) {
+		return true
+	}
+
+	return false
+}
+
+// SetReason gets a reference to the given string and assigns it to the Reason field.
+func (o *IamToken) SetReason(v string) {
+	o.Reason = &v
+}
+
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *IamToken) GetRedirectUri() string {
 	if o == nil || IsNil(o.RedirectUri) {
@@ -1053,6 +1121,9 @@ func (o IamToken) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccessTokenHash) {
 		toSerialize["accessTokenHash"] = o.AccessTokenHash
 	}
+	if !IsNil(o.Actor) {
+		toSerialize["actor"] = o.Actor
+	}
 	if !IsNil(o.Application) {
 		toSerialize["application"] = o.Application
 	}
@@ -1100,6 +1171,9 @@ func (o IamToken) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.PublicGrant) {
 		toSerialize["publicGrant"] = o.PublicGrant
+	}
+	if !IsNil(o.Reason) {
+		toSerialize["reason"] = o.Reason
 	}
 	if !IsNil(o.RedirectUri) {
 		toSerialize["redirectUri"] = o.RedirectUri
@@ -1161,6 +1235,7 @@ func (o *IamToken) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessToken")
 		delete(additionalProperties, "accessTokenHash")
+		delete(additionalProperties, "actor")
 		delete(additionalProperties, "application")
 		delete(additionalProperties, "code")
 		delete(additionalProperties, "codeChallenge")
@@ -1177,6 +1252,7 @@ func (o *IamToken) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "organization")
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "publicGrant")
+		delete(additionalProperties, "reason")
 		delete(additionalProperties, "redirectUri")
 		delete(additionalProperties, "refreshConsumed")
 		delete(additionalProperties, "refreshExpireIn")

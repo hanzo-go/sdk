@@ -21,6 +21,7 @@ var _ MappedNullable = &RoutingVersion{}
 type RoutingVersion struct {
 	Actor                *string `json:"actor,omitempty"`
 	Base                 *int32  `json:"base,omitempty"`
+	Boot                 *string `json:"boot,omitempty"`
 	Catalog              *string `json:"catalog,omitempty"`
 	CreatedTime          *string `json:"createdTime,omitempty"`
 	Diff                 *string `json:"diff,omitempty"`
@@ -112,6 +113,38 @@ func (o *RoutingVersion) HasBase() bool {
 // SetBase gets a reference to the given int32 and assigns it to the Base field.
 func (o *RoutingVersion) SetBase(v int32) {
 	o.Base = &v
+}
+
+// GetBoot returns the Boot field value if set, zero value otherwise.
+func (o *RoutingVersion) GetBoot() string {
+	if o == nil || IsNil(o.Boot) {
+		var ret string
+		return ret
+	}
+	return *o.Boot
+}
+
+// GetBootOk returns a tuple with the Boot field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RoutingVersion) GetBootOk() (*string, bool) {
+	if o == nil || IsNil(o.Boot) {
+		return nil, false
+	}
+	return o.Boot, true
+}
+
+// HasBoot returns a boolean if a field has been set.
+func (o *RoutingVersion) HasBoot() bool {
+	if o != nil && !IsNil(o.Boot) {
+		return true
+	}
+
+	return false
+}
+
+// SetBoot gets a reference to the given string and assigns it to the Boot field.
+func (o *RoutingVersion) SetBoot(v string) {
+	o.Boot = &v
 }
 
 // GetCatalog returns the Catalog field value if set, zero value otherwise.
@@ -354,6 +387,9 @@ func (o RoutingVersion) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Base) {
 		toSerialize["base"] = o.Base
 	}
+	if !IsNil(o.Boot) {
+		toSerialize["boot"] = o.Boot
+	}
 	if !IsNil(o.Catalog) {
 		toSerialize["catalog"] = o.Catalog
 	}
@@ -399,6 +435,7 @@ func (o *RoutingVersion) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actor")
 		delete(additionalProperties, "base")
+		delete(additionalProperties, "boot")
 		delete(additionalProperties, "catalog")
 		delete(additionalProperties, "createdTime")
 		delete(additionalProperties, "diff")

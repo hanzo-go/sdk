@@ -19,12 +19,13 @@ var _ MappedNullable = &O11yIntegrationsListItem{}
 
 // O11yIntegrationsListItem struct for O11yIntegrationsListItem
 type O11yIntegrationsListItem struct {
-	Author               *O11yIntegrationAuthor `json:"author,omitempty"`
-	Description          *string                `json:"description,omitempty"`
-	Icon                 *string                `json:"icon,omitempty"`
-	Id                   *string                `json:"id,omitempty"`
-	IsInstalled          *bool                  `json:"is_installed,omitempty"`
-	Title                *string                `json:"title,omitempty"`
+	Author *O11yIntegrationAuthor `json:"author,omitempty"`
+	// A short description
+	Description          *string `json:"description,omitempty"`
+	Icon                 *string `json:"icon,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	IsInstalled          *bool   `json:"is_installed,omitempty"`
+	Title                *string `json:"title,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

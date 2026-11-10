@@ -9,8 +9,9 @@ Name | Type | Description | Notes
 **CorsOrigins** | Pointer to **[]string** | CORSOrigins is the PLATFORM-scope CORS allowlist EdgeCORS admits: an exact origin, a bare host, or a \&quot;*.host\&quot; wildcard. Writable only by a SuperAdmin — CORS is evaluated before identity, so it has no tenant to scope to. | [optional] 
 **Methods** | Pointer to **[]string** | Methods is the allowlist of HTTP methods the edge accepts for this org. Empty means all are accepted. | [optional] 
 **Mode** | Pointer to **string** | Mode is the abuse gate&#39;s posture for THIS scope: \&quot;shadow\&quot; scores traffic and records the verdict without acting on it, \&quot;live\&quot; enforces it. Unset means shadow.  It is the one per-org field that does NOT inherit. Every other field here layers a platform default under the org&#39;s own value, which is right for a default: a tenant that sets no rate ceiling should get the platform&#39;s. Mode is not a default, it is an ARMING DECISION — it is what makes a statistical judgement start refusing real traffic — and inheriting it means arming one scope arms every tenant that never asked for it, without a write to their row and without anything in their config changing. So a tenant is live only if that tenant&#39;s OWN row says live, and the platform row&#39;s mode governs exactly one scope: the anonymous lane, which has no tenant of its own.  It is also not self-service. Writing it requires SuperAdmin (see the /v1/gateway config op): the subject of an abuse control does not get to switch the control off. | [optional] 
-**OrgRpm** | Pointer to **int64** | OrgRPM is the org&#39;s OWN authenticated rate ceiling, requests per minute, as ScopeRateLimit enforces it. Unset inherits the platform default, then the static boot default. | [optional] 
-**PerIpRpm** | Pointer to **int64** | PerIPRPM is the PLATFORM-scope pre-auth flood cap: requests EdgeRateLimit admits per WindowSec from one client IP. SuperAdmin-only, same reason. | [optional] 
+**OrgCap** | Pointer to **int64** | OrgCap is the most this organization&#39;s ceiling may be, requests per minute. Unset, it is the platform&#39;s org_rpm, else 60,000. Only a SuperAdmin sets it: it is how the platform raises one organization above the default, and the organization a limit governs does not get to remove it. It does not inherit from the platform row. Read back, it is the cap in force. | [optional] 
+**OrgRpm** | Pointer to **int64** | OrgRPM is the org&#39;s OWN authenticated rate ceiling, requests per minute, as ScopeRateLimit enforces it across the deployment. An organization may lower it but never raise it past its cap (org_cap); unset, the org is held to its cap. On the platform row it is every organization&#39;s default cap, and it does not inherit into any organization&#39;s own row. Read back, it is the ceiling in force: the org&#39;s own, clipped to its cap. | [optional] 
+**PerIpRpm** | Pointer to **int64** | PerIPRPM is the PLATFORM-scope flood cap: requests admitted per WindowSec from one client IP that presents no credential, or a credential that resolves to nobody. A request presenting a credential is held to ten times this from its address until the credential is checked; a validated caller is then held by its key and org ceilings instead. SuperAdmin-only, same reason. | [optional] 
 **UpdatedAt** | Pointer to **int64** | UpdatedAt is the unix second this policy row was last written. Server-stamped; a client-supplied value is ignored. | [optional] 
 **UpdatedBy** | Pointer to **string** | UpdatedBy is the validated user id that wrote this policy row. Server-stamped; a client-supplied value is ignored. | [optional] 
 **WindowSec** | Pointer to **int64** | WindowSec is the window PerIPRPM is counted over, in seconds. SuperAdmin-only. | [optional] 
@@ -158,6 +159,31 @@ SetMode sets Mode field to given value.
 `func (o *GatewayPolicy) HasMode() bool`
 
 HasMode returns a boolean if a field has been set.
+
+### GetOrgCap
+
+`func (o *GatewayPolicy) GetOrgCap() int64`
+
+GetOrgCap returns the OrgCap field if non-nil, zero value otherwise.
+
+### GetOrgCapOk
+
+`func (o *GatewayPolicy) GetOrgCapOk() (*int64, bool)`
+
+GetOrgCapOk returns a tuple with the OrgCap field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrgCap
+
+`func (o *GatewayPolicy) SetOrgCap(v int64)`
+
+SetOrgCap sets OrgCap field to given value.
+
+### HasOrgCap
+
+`func (o *GatewayPolicy) HasOrgCap() bool`
+
+HasOrgCap returns a boolean if a field has been set.
 
 ### GetOrgRpm
 

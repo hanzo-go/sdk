@@ -19,6 +19,7 @@ var _ MappedNullable = &IamAnswer{}
 
 // IamAnswer struct for IamAnswer
 type IamAnswer struct {
+	// Code is a STABLE machine-readable reason, where the human `msg` is deliberately generic. `msg` is prose for a person and several distinct causes legitimately share one sentence; a caller that must BRANCH on the cause — or tell its own user which of them happened — cannot parse prose. Optional, so every existing envelope is byte-identical and no SDK changes.
 	Code                 *string     `json:"code,omitempty"`
 	Data                 interface{} `json:"data,omitempty"`
 	Data2                interface{} `json:"data2,omitempty"`

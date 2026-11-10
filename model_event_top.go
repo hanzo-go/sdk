@@ -21,6 +21,8 @@ var _ MappedNullable = &EventTop{}
 type EventTop struct {
 	// End is the window's exclusive upper bound, RFC3339 UTC.
 	End *string `json:"end,omitempty"`
+	// Impersonated is which events products, topPages, topReferrers and topSources counted against the mark a platform operator leaves acting as someone else: exclude (the tenant's own traffic), include, or only. Models reads the usage ledger, which carries no mark.
+	Impersonated *string `json:"impersonated,omitempty"`
 	// Models ranks the window's LLM models by spend — real per-org data.
 	Models *EventTopModels `json:"models,omitempty"`
 	// Products ranks the window's products by revenue.
@@ -89,6 +91,38 @@ func (o *EventTop) HasEnd() bool {
 // SetEnd gets a reference to the given string and assigns it to the End field.
 func (o *EventTop) SetEnd(v string) {
 	o.End = &v
+}
+
+// GetImpersonated returns the Impersonated field value if set, zero value otherwise.
+func (o *EventTop) GetImpersonated() string {
+	if o == nil || IsNil(o.Impersonated) {
+		var ret string
+		return ret
+	}
+	return *o.Impersonated
+}
+
+// GetImpersonatedOk returns a tuple with the Impersonated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EventTop) GetImpersonatedOk() (*string, bool) {
+	if o == nil || IsNil(o.Impersonated) {
+		return nil, false
+	}
+	return o.Impersonated, true
+}
+
+// HasImpersonated returns a boolean if a field has been set.
+func (o *EventTop) HasImpersonated() bool {
+	if o != nil && !IsNil(o.Impersonated) {
+		return true
+	}
+
+	return false
+}
+
+// SetImpersonated gets a reference to the given string and assigns it to the Impersonated field.
+func (o *EventTop) SetImpersonated(v string) {
+	o.Impersonated = &v
 }
 
 // GetModels returns the Models field value if set, zero value otherwise.
@@ -360,6 +394,9 @@ func (o EventTop) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.End) {
 		toSerialize["end"] = o.End
 	}
+	if !IsNil(o.Impersonated) {
+		toSerialize["impersonated"] = o.Impersonated
+	}
 	if !IsNil(o.Models) {
 		toSerialize["models"] = o.Models
 	}
@@ -407,6 +444,7 @@ func (o *EventTop) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "end")
+		delete(additionalProperties, "impersonated")
 		delete(additionalProperties, "models")
 		delete(additionalProperties, "products")
 		delete(additionalProperties, "range")

@@ -4,7 +4,7 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAllowance**](AllowanceAPI.md#GetAllowance) | **Get** /v1/allowance | Answers what the CALLER has left of their plan&#39;s free-call allowance this period, and the instant the count starts again.
+[**GetAllowance**](AllowanceAPI.md#GetAllowance) | **Get** /v1/allowance | Answers what the CALLER has left of their plan&#39;s free-call allowance in the window that holds them, and the instant that window reopens.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > AllowanceAllowance GetAllowance(ctx).Execute()
 
-Answers what the CALLER has left of their plan's free-call allowance this period, and the instant the count starts again.
+Answers what the CALLER has left of their plan's free-call allowance in the window that holds them, and the instant that window reopens.
 
 
 

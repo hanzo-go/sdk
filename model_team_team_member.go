@@ -25,7 +25,7 @@ type TeamTeamMember struct {
 	Avatar *string `json:"avatar,omitempty"`
 	// Bot reports that this member is one of the org's agents rather than a person. An agent answers when it is @-mentioned or messaged directly.
 	Bot *bool `json:"bot,omitempty"`
-	// ID is the account uuid — the value every message's author, every room's members list and every `<@id>` mention token names.
+	// ID is the account uuid — the value every message's author, every channel's members list and every `<@id>` mention token names.
 	Id *string `json:"id,omitempty"`
 	// Name is what to call them: the name IAM holds for a person, the agent's own name for an agent. Falls back to the id when neither has one.
 	Name *string `json:"name,omitempty"`

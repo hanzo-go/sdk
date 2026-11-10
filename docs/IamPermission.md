@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Domains** | Pointer to **[]string** |  | [optional] 
 **Effect** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **IsEnabled** | Pointer to **bool** |  | [optional] 
 **Model** | Pointer to **string** | Authorization model, targets, and decision. AuthzModel carries the v1 &#x60;model&#x60; column (the named authz model); it is not the Go identifier &#x60;Model&#x60; because that name is taken by the embedded orm.Model[Permission] mixin. The HTTP contract is unchanged — json:\&quot;model\&quot;. | [optional] 
 **Name** | Pointer to **string** |  | [optional] 

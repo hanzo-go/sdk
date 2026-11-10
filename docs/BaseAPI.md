@@ -6,7 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetBaseBases**](BaseAPI.md#GetBaseBases) | **Get** /v1/base/bases | Lists every Base the caller can reach, one per org their token carries.
 [**GetBaseBasesByOrg**](BaseAPI.md#GetBaseBasesByOrg) | **Get** /v1/base/bases/{org} | Describes ONE org&#39;s Base — whether its store exists, and what it occupies.
+[**GetBaseGraphql**](BaseAPI.md#GetBaseGraphql) | **Get** /v1/base/graphql | Read your org Base&#39;s GraphQL schema
 [**GetBaseHealth**](BaseAPI.md#GetBaseHealth) | **Get** /v1/base/health | Reports that the base subsystem is serving.
+[**PostBaseGraphql**](BaseAPI.md#PostBaseGraphql) | **Post** /v1/base/graphql | Query or write your org Base with GraphQL
 
 
 
@@ -141,6 +143,65 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetBaseGraphql
+
+> GetBaseGraphql(ctx).Execute()
+
+Read your org Base's GraphQL schema
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BaseAPI.GetBaseGraphql(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BaseAPI.GetBaseGraphql``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBaseGraphqlRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetBaseHealth
 
 > BaseBaseHealth GetBaseHealth(ctx).Execute()
@@ -196,6 +257,65 @@ Other parameters are passed through a pointer to a apiGetBaseHealthRequest struc
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostBaseGraphql
+
+> PostBaseGraphql(ctx).Execute()
+
+Query or write your org Base with GraphQL
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BaseAPI.PostBaseGraphql(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BaseAPI.PostBaseGraphql``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostBaseGraphqlRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

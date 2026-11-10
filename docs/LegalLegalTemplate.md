@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Body** | Pointer to **string** |  | [optional] 
-**Category** | Pointer to **string** |  | [optional] 
-**CounselReview** | Pointer to **bool** |  | [optional] 
-**Fields** | Pointer to [**[]LegalField**](LegalField.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Origin** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **int64** |  | [optional] 
+**Body** | Pointer to **string** | Body is the text/template source, markdown, referencing each declared field as {{.key}}. Rendering is pure — no clock, no I/O — so a template version and a data map always produce identical bytes. Only the single-template read carries it; the catalog listing does not. | [optional] 
+**Category** | Pointer to **string** | Category is the corporate need the template serves: formation, equity, ops or sales. Formation and equity are the securities-class categories, which is what forces CounselReview. | [optional] 
+**CounselReview** | Pointer to **bool** | CounselReview marks a template whose rendered documents open with CounselNotice. It can be raised but never lowered, and the engine also raises it for any formation or equity template whatever the flag says — so no org can render a securities-class document without the notice. | [optional] 
+**Fields** | Pointer to [**[]LegalField**](LegalField.md) | Fields declares the merge fields Body consumes, each with its human label. Every one is REQUIRED at generation: a missing or blank value is refused rather than rendered as a silent blank into a contract. | [optional] 
+**Id** | Pointer to **string** | ID is the template&#39;s stable id and the path segment that addresses it — \&quot;nda\&quot;, \&quot;msa\&quot;, \&quot;safe\&quot;. An override keeps the built-in&#39;s id, so the id names the DOCUMENT KIND rather than a particular version of it. | [optional] 
+**Origin** | Pointer to **string** | Origin is \&quot;builtin\&quot; for a template the platform ships or \&quot;org\&quot; for one this org saved. It separates the catalog every tenant sees from this tenant&#39;s own. | [optional] 
+**Title** | Pointer to **string** | Title is the display name, e.g. \&quot;Mutual Non-Disclosure Agreement\&quot;. A generated document inherits it. | [optional] 
+**Version** | Pointer to **int64** | Version is which version of this template the caller resolved to, and what a generated document records so it stays reproducible. A built-in is version 1; an org&#39;s first override is 2 and each save increments, so an override version never collides with the built-in&#39;s. | [optional] 
 
 ## Methods
 

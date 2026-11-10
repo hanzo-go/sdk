@@ -29,13 +29,14 @@ type IamInvitation struct {
 	DisplayName *string    `json:"displayName,omitempty"`
 	Email       *string    `json:"email,omitempty"`
 	// Generated reports that IAM minted Code itself, from crypto/rand, when the invitation was created. Only such a code is compared without limit; any code a caller wrote is compared only while the org is not being guessed at, however it looks, because a code that looks random need not be.
-	Generated *bool   `json:"generated,omitempty"`
-	Id        *string `json:"id,omitempty"`
-	IsRegexp  *bool   `json:"isRegexp,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	Owner     *string `json:"owner,omitempty"`
-	Phone     *string `json:"phone,omitempty"`
-	Quota     *int64  `json:"quota,omitempty"`
+	Generated *bool `json:"generated,omitempty"`
+	// Persisted fields
+	Id       *string `json:"id,omitempty"`
+	IsRegexp *bool   `json:"isRegexp,omitempty"`
+	Name     *string `json:"name,omitempty"`
+	Owner    *string `json:"owner,omitempty"`
+	Phone    *string `json:"phone,omitempty"`
+	Quota    *int64  `json:"quota,omitempty"`
 	// SentTime is when an email about this invitation last went to its pinned address (RFC 3339), \"\" when none has. It paces resends, so the send endpoint cannot be used to mail one address over and over.
 	SentTime             *string    `json:"sentTime,omitempty"`
 	SignupGroup          *string    `json:"signupGroup,omitempty"`

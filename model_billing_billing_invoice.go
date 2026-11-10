@@ -27,8 +27,10 @@ type BillingBillingInvoice struct {
 	Currency      *string `json:"currency,omitempty"`
 	CustomerEmail *string `json:"customerEmail,omitempty"`
 	Discount      *int64  `json:"discount,omitempty"`
-	DueDate       *string `json:"dueDate,omitempty"`
-	Id            *string `json:"id,omitempty"`
+	// DiscountName names what Discount took off (\"Customer price: $195.00/month\", a promo, a coupon's month). Last, for the ZAP wire.
+	DiscountName *string `json:"discountName,omitempty"`
+	DueDate      *string `json:"dueDate,omitempty"`
+	Id           *string `json:"id,omitempty"`
 	// LineItems carries no omitempty and is never allocated empty, because the wire it reproduces sends `null` for an invoice with no lines. An empty array there would be a different answer to \"were there lines\".
 	LineItems            []BillingInvoiceLineItem `json:"lineItems,omitempty"`
 	Number               *int64                   `json:"number,omitempty"`
@@ -321,6 +323,38 @@ func (o *BillingBillingInvoice) HasDiscount() bool {
 // SetDiscount gets a reference to the given int64 and assigns it to the Discount field.
 func (o *BillingBillingInvoice) SetDiscount(v int64) {
 	o.Discount = &v
+}
+
+// GetDiscountName returns the DiscountName field value if set, zero value otherwise.
+func (o *BillingBillingInvoice) GetDiscountName() string {
+	if o == nil || IsNil(o.DiscountName) {
+		var ret string
+		return ret
+	}
+	return *o.DiscountName
+}
+
+// GetDiscountNameOk returns a tuple with the DiscountName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingBillingInvoice) GetDiscountNameOk() (*string, bool) {
+	if o == nil || IsNil(o.DiscountName) {
+		return nil, false
+	}
+	return o.DiscountName, true
+}
+
+// HasDiscountName returns a boolean if a field has been set.
+func (o *BillingBillingInvoice) HasDiscountName() bool {
+	if o != nil && !IsNil(o.DiscountName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDiscountName gets a reference to the given string and assigns it to the DiscountName field.
+func (o *BillingBillingInvoice) SetDiscountName(v string) {
+	o.DiscountName = &v
 }
 
 // GetDueDate returns the DueDate field value if set, zero value otherwise.
@@ -901,6 +935,9 @@ func (o BillingBillingInvoice) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Discount) {
 		toSerialize["discount"] = o.Discount
 	}
+	if !IsNil(o.DiscountName) {
+		toSerialize["discountName"] = o.DiscountName
+	}
 	if !IsNil(o.DueDate) {
 		toSerialize["dueDate"] = o.DueDate
 	}
@@ -982,6 +1019,7 @@ func (o *BillingBillingInvoice) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "customerEmail")
 		delete(additionalProperties, "discount")
+		delete(additionalProperties, "discountName")
 		delete(additionalProperties, "dueDate")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lineItems")

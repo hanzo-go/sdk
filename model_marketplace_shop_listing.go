@@ -29,9 +29,11 @@ type MarketplaceShopListing struct {
 	Description *string `json:"description,omitempty"`
 	// Docs is where its documentation lives, when the seller said.
 	Docs *string `json:"docs,omitempty"`
+	// Expert is the person behind an expert listing — rate, areas, languages, time zone, hours and whether staff verified them; absent on any other kind.
+	Expert *MarketplaceExpert `json:"expert,omitempty"`
 	// ID is the listing.
 	Id *string `json:"id,omitempty"`
-	// Kind is what it sells: agent, persona, app, skill, mcp or tool.
+	// Kind is what it sells: agent, persona, app, skill, mcp, tool or expert.
 	Kind *string `json:"kind,omitempty"`
 	// Links are the ways to act on it.
 	Links *MarketplaceLinks `json:"links,omitempty"`
@@ -46,7 +48,7 @@ type MarketplaceShopListing struct {
 	Seller *MarketplaceSeller `json:"seller,omitempty"`
 	// Title is the shop-window name.
 	Title *string `json:"title,omitempty"`
-	// Tool names the thing sold, as the seller named it.
+	// Tool names the thing sold, as the seller named it; empty for an expert, who is a person and not a thing.
 	Tool *string `json:"tool,omitempty"`
 	// UpdatedAt is when it was last edited, unix seconds.
 	UpdatedAt            *int64 `json:"updatedAt,omitempty"`
@@ -230,6 +232,38 @@ func (o *MarketplaceShopListing) HasDocs() bool {
 // SetDocs gets a reference to the given string and assigns it to the Docs field.
 func (o *MarketplaceShopListing) SetDocs(v string) {
 	o.Docs = &v
+}
+
+// GetExpert returns the Expert field value if set, zero value otherwise.
+func (o *MarketplaceShopListing) GetExpert() MarketplaceExpert {
+	if o == nil || IsNil(o.Expert) {
+		var ret MarketplaceExpert
+		return ret
+	}
+	return *o.Expert
+}
+
+// GetExpertOk returns a tuple with the Expert field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketplaceShopListing) GetExpertOk() (*MarketplaceExpert, bool) {
+	if o == nil || IsNil(o.Expert) {
+		return nil, false
+	}
+	return o.Expert, true
+}
+
+// HasExpert returns a boolean if a field has been set.
+func (o *MarketplaceShopListing) HasExpert() bool {
+	if o != nil && !IsNil(o.Expert) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpert gets a reference to the given MarketplaceExpert and assigns it to the Expert field.
+func (o *MarketplaceShopListing) SetExpert(v MarketplaceExpert) {
+	o.Expert = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -610,6 +644,9 @@ func (o MarketplaceShopListing) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Docs) {
 		toSerialize["docs"] = o.Docs
 	}
+	if !IsNil(o.Expert) {
+		toSerialize["expert"] = o.Expert
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -670,6 +707,7 @@ func (o *MarketplaceShopListing) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "docs")
+		delete(additionalProperties, "expert")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "kind")
 		delete(additionalProperties, "links")

@@ -19,11 +19,13 @@ var _ MappedNullable = &BillingPaymentConfig{}
 
 // BillingPaymentConfig struct for BillingPaymentConfig
 type BillingPaymentConfig struct {
-	ApplicationId        *string `json:"applicationId,omitempty"`
-	Environment          *string `json:"environment,omitempty"`
-	Live                 *bool   `json:"live,omitempty"`
-	LocationId           *string `json:"locationId,omitempty"`
-	Provider             *string `json:"provider,omitempty"`
+	ApplicationId *string `json:"applicationId,omitempty"`
+	Environment   *string `json:"environment,omitempty"`
+	Live          *bool   `json:"live,omitempty"`
+	LocationId    *string `json:"locationId,omitempty"`
+	// PayPal is the public PayPal REST v2 posture alongside Square (or in place of Square in countries Square does not serve). Appended last for ZAP wire.
+	Paypal               *BillingPayPalPublicConfig `json:"paypal,omitempty"`
+	Provider             *string                    `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -174,6 +176,38 @@ func (o *BillingPaymentConfig) SetLocationId(v string) {
 	o.LocationId = &v
 }
 
+// GetPaypal returns the Paypal field value if set, zero value otherwise.
+func (o *BillingPaymentConfig) GetPaypal() BillingPayPalPublicConfig {
+	if o == nil || IsNil(o.Paypal) {
+		var ret BillingPayPalPublicConfig
+		return ret
+	}
+	return *o.Paypal
+}
+
+// GetPaypalOk returns a tuple with the Paypal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingPaymentConfig) GetPaypalOk() (*BillingPayPalPublicConfig, bool) {
+	if o == nil || IsNil(o.Paypal) {
+		return nil, false
+	}
+	return o.Paypal, true
+}
+
+// HasPaypal returns a boolean if a field has been set.
+func (o *BillingPaymentConfig) HasPaypal() bool {
+	if o != nil && !IsNil(o.Paypal) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaypal gets a reference to the given BillingPayPalPublicConfig and assigns it to the Paypal field.
+func (o *BillingPaymentConfig) SetPaypal(v BillingPayPalPublicConfig) {
+	o.Paypal = &v
+}
+
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *BillingPaymentConfig) GetProvider() string {
 	if o == nil || IsNil(o.Provider) {
@@ -228,6 +262,9 @@ func (o BillingPaymentConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LocationId) {
 		toSerialize["locationId"] = o.LocationId
 	}
+	if !IsNil(o.Paypal) {
+		toSerialize["paypal"] = o.Paypal
+	}
 	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
@@ -257,6 +294,7 @@ func (o *BillingPaymentConfig) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "environment")
 		delete(additionalProperties, "live")
 		delete(additionalProperties, "locationId")
+		delete(additionalProperties, "paypal")
 		delete(additionalProperties, "provider")
 		o.AdditionalProperties = additionalProperties
 	}

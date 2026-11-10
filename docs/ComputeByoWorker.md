@@ -17,9 +17,11 @@ Name | Type | Description | Notes
 **Hostname** | Pointer to **string** | Hostname is what the host calls itself. It equals ID for any hostname already in the [a-z0-9-] alphabet, and differs when sanitizing had to change it. | [optional] 
 **Id** | Pointer to **string** | ID is the node&#39;s id in the fleet — the sanitized hostname it registered under, which is also the &#x60;unit&#x60; its samples and its gpu-jobs lane key on. This is the id to use everywhere else on the compute surface. | [optional] 
 **JobQueue** | Pointer to **string** | JobQueue is the tasks NAMESPACE this worker claims render jobs out of — \&quot;gpu-jobs\&quot; unless &#x60;hanzo link&#x60; was pointed at another. Within it, a job aimed at this node alone rides the task-queue value \&quot;gpu:&lt;id&gt;\&quot;. | [optional] 
+**Lanes** | Pointer to **[]string** | Lanes are the Studio render lanes the node&#39;s engine can run now (image.zen, edit.qwen, video.wan, mesh, ...): advertised only when every weight file a lane loads is on the node, so a page offers a GPU card only where it renders. | [optional] 
 **LastHeartbeat** | Pointer to **string** | LastHeartbeat is the most recent beat this node sent, RFC 3339. It is what Status is computed from, so a reader can check the judgement. | [optional] 
 **Location** | Pointer to **string** | Location is always \&quot;on-prem\&quot; — a machine that dialed in has no cloud region, and inventing one would put it somewhere it is not. | [optional] 
 **Memory** | Pointer to **int64** | Memory is the host&#39;s total RAM in BYTES. | [optional] 
+**Models** | Pointer to [**[]ComputeLaneModel**](ComputeLaneModel.md) | Models are the weights behind those lanes, each with its SPDX licence. | [optional] 
 **Os** | Pointer to **string** | Os is the host&#39;s operating system: linux, darwin or windows. | [optional] 
 **Provider** | Pointer to **string** | Provider is always \&quot;byo\&quot;: this machine is the operator&#39;s, not one Hanzo provisioned. It exists so a fold into the machines/GPUs pages says which rows are rented and which are the customer&#39;s own. | [optional] 
 **Rocm** | Pointer to **string** | Rocm is the host&#39;s ROCm version. AMD hosts report it; empty otherwise. | [optional] 
@@ -370,6 +372,31 @@ SetJobQueue sets JobQueue field to given value.
 
 HasJobQueue returns a boolean if a field has been set.
 
+### GetLanes
+
+`func (o *ComputeByoWorker) GetLanes() []string`
+
+GetLanes returns the Lanes field if non-nil, zero value otherwise.
+
+### GetLanesOk
+
+`func (o *ComputeByoWorker) GetLanesOk() (*[]string, bool)`
+
+GetLanesOk returns a tuple with the Lanes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLanes
+
+`func (o *ComputeByoWorker) SetLanes(v []string)`
+
+SetLanes sets Lanes field to given value.
+
+### HasLanes
+
+`func (o *ComputeByoWorker) HasLanes() bool`
+
+HasLanes returns a boolean if a field has been set.
+
 ### GetLastHeartbeat
 
 `func (o *ComputeByoWorker) GetLastHeartbeat() string`
@@ -444,6 +471,31 @@ SetMemory sets Memory field to given value.
 `func (o *ComputeByoWorker) HasMemory() bool`
 
 HasMemory returns a boolean if a field has been set.
+
+### GetModels
+
+`func (o *ComputeByoWorker) GetModels() []ComputeLaneModel`
+
+GetModels returns the Models field if non-nil, zero value otherwise.
+
+### GetModelsOk
+
+`func (o *ComputeByoWorker) GetModelsOk() (*[]ComputeLaneModel, bool)`
+
+GetModelsOk returns a tuple with the Models field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModels
+
+`func (o *ComputeByoWorker) SetModels(v []ComputeLaneModel)`
+
+SetModels sets Models field to given value.
+
+### HasModels
+
+`func (o *ComputeByoWorker) HasModels() bool`
+
+HasModels returns a boolean if a field has been set.
 
 ### GetOs
 

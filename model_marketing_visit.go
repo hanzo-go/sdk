@@ -23,7 +23,7 @@ type MarketingVisit struct {
 	Cid *string `json:"cid,omitempty"`
 	// Clicked is when the page captured the click, in unix seconds.
 	Clicked *int64 `json:"clicked,omitempty"`
-	// Consent is the Cookie Preferences the visitor granted, comma separated: any of analytics, marketing and ads. Empty is a visitor who refused them all, which is a choice; absent is one who stated none.
+	// Consent is the Cookie Preferences the visitor granted, comma separated: any of analytics, marketing and ads. Empty is a visitor who refused them all, which is a choice; absent is one who stated none. It counts only from a browser, and a browser that sends GPC or DNT has allowed nothing.
 	Consent *string `json:"consent,omitempty"`
 	// Fbc is Meta's click cookie, fb.1.<ms>.<fbclid>.
 	Fbc *string `json:"fbc,omitempty"`

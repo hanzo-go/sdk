@@ -19,18 +19,20 @@ var _ MappedNullable = &AgentCodingStartIn{}
 
 // AgentCodingStartIn struct for AgentCodingStartIn
 type AgentCodingStartIn struct {
-	// After names a previous run's session, and starts this one from where that one stopped instead of from the repository's default. It is how a follow-up instruction — \"now add tests for it\" — builds on work already done rather than beginning again on a fresh clone: the follow-up resumes the earlier run's sandbox and works in its tree, files, installs and all, while that sandbox is kept; one reaped by then is cloned again from the earlier branch.  It sets the base and nothing else, so this run still writes its OWN branch. One run, one branch: a run that wrote back onto an earlier run's branch would break the rule the forge's ref policy is built on, and would leave two turns of work with one name to review.  A caller who already knows the branch may pass Base directly; this exists because the branch is derived from a session id and nobody should have to know how. Base wins if both are given.
+	// After names a previous run's session, and starts this one from where that one stopped instead of from the repository's default. It is how a follow-up instruction — \"now add tests for it\" — builds on work already done rather than beginning again on a fresh clone: the follow-up resumes the earlier run's sandbox and works in its tree, files, installs and all, while that sandbox is kept; one reaped by then is cloned again from the earlier branch.  The follow-up writes the SAME branch the earlier run did, on top of its commits, so one piece of work is one branch and one pull request however many instructions it takes. It pushes without force, so it only ever adds to that branch. When the earlier run was on another repository, or kept its work local, there is no branch to carry on and the follow-up writes a new one. Branch names the branch instead.  A caller who already knows the branch may pass Base directly. Base wins if both are given.
 	After *string `json:"after,omitempty"`
 	// AgentRef names a configured agent to run as, which is how an org pins a harness, a model and a prompt to a name. Empty runs the default agent.
 	AgentRef *string `json:"agentRef,omitempty"`
 	// Base is the branch to start from. Empty takes the repository's default. The run never writes here — it writes the agent branch it answers with.
 	Base *string `json:"base,omitempty"`
+	// Branch names the branch the run writes, as `agent/<name>`: pass the name alone, or with the prefix. Runs write only under `agent/`, never to Base or to the default branch, so the name is letters, digits, `.`, `_` and `-`. Empty takes `agent/` and the first part of the run's session id, or the earlier run's branch when After names one.  A branch that already exists on the repository is carried on, not replaced: the run starts from it and adds commits, and its pull request is the one it already has.
+	Branch *string `json:"branch,omitempty"`
 	// Desktop asks for a run with a SCREEN — an image carrying an X server — for a task that has to drive a browser or another windowed program. False, the default, is a headless checkout, which is what writing code needs.
 	Desktop *bool `json:"desktop,omitempty"`
 	// Effort is how hard that model reasons: low, medium or high. Empty takes the model's own default. Taken by the dev and codex harnesses, like Model.
 	Effort *string `json:"effort,omitempty"`
-	// Issue is the number of the issue on Repo this run resolves. Its pull request says `Closes #<n>`, so merging the work closes the issue. Zero is a run no issue asked for.
-	Issue *int64 `json:"issue,omitempty"`
+	// Issue is the issue this run resolves: its number on Repo (`464` or `#464`), or `owner/name#464` for an issue in another repository. Its pull request says `Closes <issue>`, so merging the work closes the issue. Empty, or 0, is a run no issue asked for.
+	Issue *string `json:"issue,omitempty"`
 	// Mode is what the run may do to the repository: `build` edits, commits and pushes its branch; `plan` reads the repository and answers with a plan, writing nothing — its sandbox is handed a credential that can only read and no push step runs, and the plan arrives as the run's final status. `setup` is a plan put to one question: its agent explores the checkout, installs and checks what it finds, and ends with the codebase's environment, which is kept as the proposal at /v1/environment/{repo} until someone saves it. Empty is `build`. A plan or a setup runs in our sandbox only: a claimed machine clones and pushes with its own credential, so one routed to a machine is refused.
 	Mode *string `json:"mode,omitempty"`
 	// Model is the model the run's agent thinks with, by the id GET /v1/models lists. Empty takes the platform's coding model. The dev and codex harnesses take it; the others do not think with a model we name, so naming one for them is refused.
@@ -39,7 +41,9 @@ type AgentCodingStartIn struct {
 	Project *string `json:"project,omitempty"`
 	// Prompt is the task, in the words you would use with a colleague who has the checkout open. It is the whole instruction: there is no second field for context, and a prompt that names files and the outcome it wants gets a run that does not have to guess either.
 	Prompt *string `json:"prompt,omitempty"`
-	// Reply is WHERE THE RUN NARRATES ITSELF, when the surface that started it has somewhere for it to talk. Empty means nobody is listening and the run simply does not narrate — which is the app surface's case, because /v1/agent/coding hands back a session id and the session stream is a better progress feed than any message could be.  IT IS NOT A FIELD A MODEL FILLS IN. A run asked for in a conversation is dispatched with the address that conversation is happening at, written over whatever arrived here (apps/agents/replyto.go). A model naming a channel is a model naming a room it was not spoken to in, so the value it chose is discarded rather than argued with — which is the same rule that left the org and the subject off this type entirely.
+	// Pull is whether the run opens a pull request for what it pushed. Unset, it pushes the branch and opens none: a pull request is the step after the work, taken when it is ready, and a run resumed with `after` adds to the same branch. True opens one when the run changed something.
+	Pull *bool `json:"pull,omitempty"`
+	// Reply is WHERE THE RUN NARRATES ITSELF, when the surface that started it has somewhere for it to talk. Empty means nobody is listening and the run simply does not narrate — which is the app surface's case, because /v1/agent/coding hands back a session id and the session stream is a better progress feed than any message could be.  IT IS NOT A FIELD A MODEL FILLS IN. A run asked for in a conversation is dispatched with the address that conversation is happening at, written over whatever arrived here (apps/agents/replyto.go). A model naming a channel is a model naming a channel it was not spoken to in, so the value it chose is discarded rather than argued with — which is the same rule that left the org and the subject off this type entirely.
 	Reply *AgentReply `json:"reply,omitempty"`
 	// Repo is what to work on: a repository's name, `owner/name` in the caller's own org, or the site a repository serves (`hanzo.ai`), as the person said it. The engine resolves it against the org's own repositories — a name that matches none is refused with the nearest ones — and finds the clone URL and the push credential from the org itself, so this says WHICH repository and never how to reach it.  A repository on GitHub is named by GitHub's address, `github.com/owner/name` — or `owner/name` when the owner is not the org's own — and runs there directly: it is admitted when the caller's own connected GitHub may push to it, or when the caller administers the org and the org's installation holds it, and refused otherwise.  A repository the caller can read and not push to — a public repository, or one their GitHub reads — is cloned read-only: the run works, commits in its workspace, and pushes nothing; its change is kept as the run's artifacts.  Empty runs in an empty workspace: a fresh git repository in the sandbox, with nothing cloned and nothing pushed.
 	Repo *string `json:"repo,omitempty"`
@@ -169,6 +173,38 @@ func (o *AgentCodingStartIn) SetBase(v string) {
 	o.Base = &v
 }
 
+// GetBranch returns the Branch field value if set, zero value otherwise.
+func (o *AgentCodingStartIn) GetBranch() string {
+	if o == nil || IsNil(o.Branch) {
+		var ret string
+		return ret
+	}
+	return *o.Branch
+}
+
+// GetBranchOk returns a tuple with the Branch field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentCodingStartIn) GetBranchOk() (*string, bool) {
+	if o == nil || IsNil(o.Branch) {
+		return nil, false
+	}
+	return o.Branch, true
+}
+
+// HasBranch returns a boolean if a field has been set.
+func (o *AgentCodingStartIn) HasBranch() bool {
+	if o != nil && !IsNil(o.Branch) {
+		return true
+	}
+
+	return false
+}
+
+// SetBranch gets a reference to the given string and assigns it to the Branch field.
+func (o *AgentCodingStartIn) SetBranch(v string) {
+	o.Branch = &v
+}
+
 // GetDesktop returns the Desktop field value if set, zero value otherwise.
 func (o *AgentCodingStartIn) GetDesktop() bool {
 	if o == nil || IsNil(o.Desktop) {
@@ -234,9 +270,9 @@ func (o *AgentCodingStartIn) SetEffort(v string) {
 }
 
 // GetIssue returns the Issue field value if set, zero value otherwise.
-func (o *AgentCodingStartIn) GetIssue() int64 {
+func (o *AgentCodingStartIn) GetIssue() string {
 	if o == nil || IsNil(o.Issue) {
-		var ret int64
+		var ret string
 		return ret
 	}
 	return *o.Issue
@@ -244,7 +280,7 @@ func (o *AgentCodingStartIn) GetIssue() int64 {
 
 // GetIssueOk returns a tuple with the Issue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentCodingStartIn) GetIssueOk() (*int64, bool) {
+func (o *AgentCodingStartIn) GetIssueOk() (*string, bool) {
 	if o == nil || IsNil(o.Issue) {
 		return nil, false
 	}
@@ -260,8 +296,8 @@ func (o *AgentCodingStartIn) HasIssue() bool {
 	return false
 }
 
-// SetIssue gets a reference to the given int64 and assigns it to the Issue field.
-func (o *AgentCodingStartIn) SetIssue(v int64) {
+// SetIssue gets a reference to the given string and assigns it to the Issue field.
+func (o *AgentCodingStartIn) SetIssue(v string) {
 	o.Issue = &v
 }
 
@@ -391,6 +427,38 @@ func (o *AgentCodingStartIn) HasPrompt() bool {
 // SetPrompt gets a reference to the given string and assigns it to the Prompt field.
 func (o *AgentCodingStartIn) SetPrompt(v string) {
 	o.Prompt = &v
+}
+
+// GetPull returns the Pull field value if set, zero value otherwise.
+func (o *AgentCodingStartIn) GetPull() bool {
+	if o == nil || IsNil(o.Pull) {
+		var ret bool
+		return ret
+	}
+	return *o.Pull
+}
+
+// GetPullOk returns a tuple with the Pull field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentCodingStartIn) GetPullOk() (*bool, bool) {
+	if o == nil || IsNil(o.Pull) {
+		return nil, false
+	}
+	return o.Pull, true
+}
+
+// HasPull returns a boolean if a field has been set.
+func (o *AgentCodingStartIn) HasPull() bool {
+	if o != nil && !IsNil(o.Pull) {
+		return true
+	}
+
+	return false
+}
+
+// SetPull gets a reference to the given bool and assigns it to the Pull field.
+func (o *AgentCodingStartIn) SetPull(v bool) {
+	o.Pull = &v
 }
 
 // GetReply returns the Reply field value if set, zero value otherwise.
@@ -604,6 +672,9 @@ func (o AgentCodingStartIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Base) {
 		toSerialize["base"] = o.Base
 	}
+	if !IsNil(o.Branch) {
+		toSerialize["branch"] = o.Branch
+	}
 	if !IsNil(o.Desktop) {
 		toSerialize["desktop"] = o.Desktop
 	}
@@ -624,6 +695,9 @@ func (o AgentCodingStartIn) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Prompt) {
 		toSerialize["prompt"] = o.Prompt
+	}
+	if !IsNil(o.Pull) {
+		toSerialize["pull"] = o.Pull
 	}
 	if !IsNil(o.Reply) {
 		toSerialize["reply"] = o.Reply
@@ -668,6 +742,7 @@ func (o *AgentCodingStartIn) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "after")
 		delete(additionalProperties, "agentRef")
 		delete(additionalProperties, "base")
+		delete(additionalProperties, "branch")
 		delete(additionalProperties, "desktop")
 		delete(additionalProperties, "effort")
 		delete(additionalProperties, "issue")
@@ -675,6 +750,7 @@ func (o *AgentCodingStartIn) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "model")
 		delete(additionalProperties, "project")
 		delete(additionalProperties, "prompt")
+		delete(additionalProperties, "pull")
 		delete(additionalProperties, "reply")
 		delete(additionalProperties, "repo")
 		delete(additionalProperties, "targetId")

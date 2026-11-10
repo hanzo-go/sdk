@@ -25,7 +25,8 @@ type IamTombstone struct {
 	Deleted     *bool      `json:"deleted,omitempty"`
 	// Founder carries the deleted org's founder, so an org counted against its founder's cap stays counted after it is deleted.
 	Founder *string `json:"founder,omitempty"`
-	Id      *string `json:"id,omitempty"`
+	// Persisted fields
+	Id *string `json:"id,omitempty"`
 	// the organization's name
 	Name *string `json:"name,omitempty"`
 	// the admin registry, as for organizations

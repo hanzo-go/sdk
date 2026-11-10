@@ -19,10 +19,12 @@ var _ MappedNullable = &BillingAutoRecharge{}
 
 // BillingAutoRecharge struct for BillingAutoRecharge
 type BillingAutoRecharge struct {
-	AmountCents          *int64  `json:"amountCents,omitempty"`
-	Currency             *string `json:"currency,omitempty"`
-	Enabled              *bool   `json:"enabled,omitempty"`
-	LastRechargedAt      *string `json:"lastRechargedAt,omitempty"`
+	AmountCents     *int64  `json:"amountCents,omitempty"`
+	Currency        *string `json:"currency,omitempty"`
+	Enabled         *bool   `json:"enabled,omitempty"`
+	LastRechargedAt *string `json:"lastRechargedAt,omitempty"`
+	// PerDay is the most times the sweep reloads the balance in one UTC day.
+	PerDay               *int64  `json:"perDay,omitempty"`
 	Stored               *bool   `json:"stored,omitempty"`
 	Subject              *string `json:"subject,omitempty"`
 	ThresholdCents       *int64  `json:"thresholdCents,omitempty"`
@@ -176,6 +178,38 @@ func (o *BillingAutoRecharge) SetLastRechargedAt(v string) {
 	o.LastRechargedAt = &v
 }
 
+// GetPerDay returns the PerDay field value if set, zero value otherwise.
+func (o *BillingAutoRecharge) GetPerDay() int64 {
+	if o == nil || IsNil(o.PerDay) {
+		var ret int64
+		return ret
+	}
+	return *o.PerDay
+}
+
+// GetPerDayOk returns a tuple with the PerDay field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingAutoRecharge) GetPerDayOk() (*int64, bool) {
+	if o == nil || IsNil(o.PerDay) {
+		return nil, false
+	}
+	return o.PerDay, true
+}
+
+// HasPerDay returns a boolean if a field has been set.
+func (o *BillingAutoRecharge) HasPerDay() bool {
+	if o != nil && !IsNil(o.PerDay) {
+		return true
+	}
+
+	return false
+}
+
+// SetPerDay gets a reference to the given int64 and assigns it to the PerDay field.
+func (o *BillingAutoRecharge) SetPerDay(v int64) {
+	o.PerDay = &v
+}
+
 // GetStored returns the Stored field value if set, zero value otherwise.
 func (o *BillingAutoRecharge) GetStored() bool {
 	if o == nil || IsNil(o.Stored) {
@@ -294,6 +328,9 @@ func (o BillingAutoRecharge) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastRechargedAt) {
 		toSerialize["lastRechargedAt"] = o.LastRechargedAt
 	}
+	if !IsNil(o.PerDay) {
+		toSerialize["perDay"] = o.PerDay
+	}
 	if !IsNil(o.Stored) {
 		toSerialize["stored"] = o.Stored
 	}
@@ -329,6 +366,7 @@ func (o *BillingAutoRecharge) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "lastRechargedAt")
+		delete(additionalProperties, "perDay")
 		delete(additionalProperties, "stored")
 		delete(additionalProperties, "subject")
 		delete(additionalProperties, "thresholdCents")

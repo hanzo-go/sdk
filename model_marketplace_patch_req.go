@@ -27,6 +27,8 @@ type MarketplacePatchReq struct {
 	Description *string `json:"description,omitempty"`
 	// Docs is where the listing's documentation lives; empty clears it.
 	Docs *string `json:"docs,omitempty"`
+	// Expert replaces an expert listing's whole profile — rate, areas, languages, time zone and weekly hours; absent keeps it. Refused on any other kind.
+	Expert *MarketplaceExpertIn `json:"expert,omitempty"`
 	// ID is the listing to edit, from the path.
 	Id *string `json:"id,omitempty"`
 	// Price is the decimal USD price, exact to 18 places; \"0\" makes it free.
@@ -185,6 +187,38 @@ func (o *MarketplacePatchReq) HasDocs() bool {
 // SetDocs gets a reference to the given string and assigns it to the Docs field.
 func (o *MarketplacePatchReq) SetDocs(v string) {
 	o.Docs = &v
+}
+
+// GetExpert returns the Expert field value if set, zero value otherwise.
+func (o *MarketplacePatchReq) GetExpert() MarketplaceExpertIn {
+	if o == nil || IsNil(o.Expert) {
+		var ret MarketplaceExpertIn
+		return ret
+	}
+	return *o.Expert
+}
+
+// GetExpertOk returns a tuple with the Expert field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketplacePatchReq) GetExpertOk() (*MarketplaceExpertIn, bool) {
+	if o == nil || IsNil(o.Expert) {
+		return nil, false
+	}
+	return o.Expert, true
+}
+
+// HasExpert returns a boolean if a field has been set.
+func (o *MarketplacePatchReq) HasExpert() bool {
+	if o != nil && !IsNil(o.Expert) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpert gets a reference to the given MarketplaceExpertIn and assigns it to the Expert field.
+func (o *MarketplacePatchReq) SetExpert(v MarketplaceExpertIn) {
+	o.Expert = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -369,6 +403,9 @@ func (o MarketplacePatchReq) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Docs) {
 		toSerialize["docs"] = o.Docs
 	}
+	if !IsNil(o.Expert) {
+		toSerialize["expert"] = o.Expert
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -410,6 +447,7 @@ func (o *MarketplacePatchReq) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "docs")
+		delete(additionalProperties, "expert")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "price")
 		delete(additionalProperties, "public")

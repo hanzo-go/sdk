@@ -31,10 +31,11 @@ func (r ShareAPIGetShareRequest) Execute() (*ShareSharesOut, *http.Response, err
 }
 
 /*
-GetShare Returns the tunnel shares the caller's org currently has open, across every environment that org has enabled.
+GetShare Returns the tunnel shares the caller's account currently has open — their org's, or in a held org their own — across every environment it has enabled.
 
-Returns the tunnel shares the caller's org currently has open, across
-every environment that org has enabled. It is a READ and it degrades honestly: an
+Returns the tunnel shares the caller's account currently has open —
+their org's, or in a held org their own — across every environment it has
+enabled. It is a READ and it degrades honestly: an
 unconfigured deployment, an org that has not provisioned yet, and an unreachable
 controller all answer an EMPTY list at 200 rather than an error, so the console
 never error-toasts on load.
@@ -143,14 +144,16 @@ func (r ShareAPIPostShareEnableRequest) Execute() (*ShareEnableResp, *http.Respo
 }
 
 /*
-PostShareEnable Provisions the caller org's tunnel account and returns the credential the `hanzo share` CLI needs to run a tunnel.
+PostShareEnable Provisions the caller's tunnel account — their org's, or in a held org, where every self-serve signup lands, their own — and returns the credential the `hanzo share` CLI needs to run a tunnel.
 
-Provisions the caller org's tunnel account and returns the credential the
+Provisions the caller's tunnel account — their org's, or in a held org,
+where every self-serve signup lands, their own — and returns the credential the
 `hanzo share` CLI needs to run a tunnel. It is idempotent: the account is keyed
-deterministically off the VALIDATED org, so a repeat call hands back the same
-account rather than creating a second one, and a caller can only ever provision
-their OWN org's account. 503 when the deployment has no share controller
-configured; 502 when that controller is unreachable.
+deterministically off the VALIDATED org and, in a held org, the caller's
+attested subject, so a repeat call hands back the same account rather than
+creating a second one, and a caller can only ever provision their OWN. 503 when
+the deployment has no share controller configured; 502 when that controller is
+unreachable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ShareAPIPostShareEnableRequest
@@ -179,6 +182,131 @@ func (a *ShareAPIService) PostShareEnableExecute(r ShareAPIPostShareEnableReques
 	}
 
 	localVarPath := localBasePath + "/v1/share/enable"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ShareAPIPostShareRotateRequest struct {
+	ctx        context.Context
+	ApiService *ShareAPIService
+}
+
+func (r ShareAPIPostShareRotateRequest) Execute() (*ShareRotated, *http.Response, error) {
+	return r.ApiService.PostShareRotateExecute(r)
+}
+
+/*
+PostShareRotate Replaces the credential of a tunnel account and ends every environment enabled with it, shares and all, so a credential handed out before — to a member who has left, or to anyone who read it — opens nothing from now on.
+
+Replaces the credential of a tunnel account and ends every
+environment enabled with it, shares and all, so a credential handed out before
+— to a member who has left, or to anyone who read it — opens nothing from now
+on. The account is kept: enable hands its holder the new credential.
+
+In a customer's org the account is the org's, which its members share, and an
+admin of the org or a SuperAdmin rotates it. In a held org each person's
+account is their own, and they rotate it — every account they hold, the one
+an API key of theirs was handed before included, so none stays live. An admin
+of the org or a SuperAdmin then rotates the org's own account, which no call
+there hands out, whether or not they hold an account of their own; when that
+one cannot be rotated, `pending` says so and their own are rotated still.
+
+An account never provisioned has nothing to rotate and counts 0. 503 when the
+deployment has no share controller configured; 502 when that controller is
+unreachable, or holds the caller's account under a credential this deployment
+does not derive — out of a rotation's reach, so it is refused rather than
+reported done.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ShareAPIPostShareRotateRequest
+*/
+func (a *ShareAPIService) PostShareRotate(ctx context.Context) ShareAPIPostShareRotateRequest {
+	return ShareAPIPostShareRotateRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ShareRotated
+func (a *ShareAPIService) PostShareRotateExecute(r ShareAPIPostShareRotateRequest) (*ShareRotated, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ShareRotated
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ShareAPIService.PostShareRotate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/share/rotate"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

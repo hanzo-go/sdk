@@ -5,7 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actor** | Pointer to **string** | Actor is the validated user id that last wrote this entry by hand. Empty on an entry an engine produced, and on one written before attribution existed. | [optional] 
+**Format** | Pointer to **string** | Format is the markup the source carried: text, html or markdown. Part of the identity. | [optional] 
 **GlossaryVersion** | Pointer to **string** | Glossary is the glossary VERSION the entry was translated under — the digest version() derives from the terms, so changing a term changes the key and the stale rendering can never be served. | [optional] 
+**Lang** | Pointer to **string** | Lang is the source language the translate call declared, empty when the engine detected it. Part of the identity; an entry with none also serves a call that declares one. | [optional] 
+**Model** | Pointer to **string** | Model is the quality-tier model the translate call named, empty for the default. Part of the identity: one model&#39;s rendering never answers for another&#39;s. | [optional] 
+**RequestId** | Pointer to **string** | RequestID is the X-Request-Id of the translate call whose engine produced the entry. Empty on an entry a human wrote, and on one older than the field. | [optional] 
 **Source** | Pointer to **string** | Source is the ORIGINAL string this entry translates. Part of the identity. | [optional] 
 **State** | Pointer to **string** | State is the entry&#39;s position on the review ladder: machine, suggested, approved or published. | [optional] 
 **Target** | Pointer to **string** | Target is the target language tag (BCP-47, e.g. \&quot;es\&quot; or \&quot;pt-BR\&quot;). Part of the identity. | [optional] 
@@ -57,6 +61,31 @@ SetActor sets Actor field to given value.
 
 HasActor returns a boolean if a field has been set.
 
+### GetFormat
+
+`func (o *TranslateMemoryEntry) GetFormat() string`
+
+GetFormat returns the Format field if non-nil, zero value otherwise.
+
+### GetFormatOk
+
+`func (o *TranslateMemoryEntry) GetFormatOk() (*string, bool)`
+
+GetFormatOk returns a tuple with the Format field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFormat
+
+`func (o *TranslateMemoryEntry) SetFormat(v string)`
+
+SetFormat sets Format field to given value.
+
+### HasFormat
+
+`func (o *TranslateMemoryEntry) HasFormat() bool`
+
+HasFormat returns a boolean if a field has been set.
+
 ### GetGlossaryVersion
 
 `func (o *TranslateMemoryEntry) GetGlossaryVersion() string`
@@ -81,6 +110,81 @@ SetGlossaryVersion sets GlossaryVersion field to given value.
 `func (o *TranslateMemoryEntry) HasGlossaryVersion() bool`
 
 HasGlossaryVersion returns a boolean if a field has been set.
+
+### GetLang
+
+`func (o *TranslateMemoryEntry) GetLang() string`
+
+GetLang returns the Lang field if non-nil, zero value otherwise.
+
+### GetLangOk
+
+`func (o *TranslateMemoryEntry) GetLangOk() (*string, bool)`
+
+GetLangOk returns a tuple with the Lang field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLang
+
+`func (o *TranslateMemoryEntry) SetLang(v string)`
+
+SetLang sets Lang field to given value.
+
+### HasLang
+
+`func (o *TranslateMemoryEntry) HasLang() bool`
+
+HasLang returns a boolean if a field has been set.
+
+### GetModel
+
+`func (o *TranslateMemoryEntry) GetModel() string`
+
+GetModel returns the Model field if non-nil, zero value otherwise.
+
+### GetModelOk
+
+`func (o *TranslateMemoryEntry) GetModelOk() (*string, bool)`
+
+GetModelOk returns a tuple with the Model field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModel
+
+`func (o *TranslateMemoryEntry) SetModel(v string)`
+
+SetModel sets Model field to given value.
+
+### HasModel
+
+`func (o *TranslateMemoryEntry) HasModel() bool`
+
+HasModel returns a boolean if a field has been set.
+
+### GetRequestId
+
+`func (o *TranslateMemoryEntry) GetRequestId() string`
+
+GetRequestId returns the RequestId field if non-nil, zero value otherwise.
+
+### GetRequestIdOk
+
+`func (o *TranslateMemoryEntry) GetRequestIdOk() (*string, bool)`
+
+GetRequestIdOk returns a tuple with the RequestId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequestId
+
+`func (o *TranslateMemoryEntry) SetRequestId(v string)`
+
+SetRequestId sets RequestId field to given value.
+
+### HasRequestId
+
+`func (o *TranslateMemoryEntry) HasRequestId() bool`
+
+HasRequestId returns a boolean if a field has been set.
 
 ### GetSource
 

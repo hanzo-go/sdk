@@ -22,73 +22,62 @@ import (
 // AccountAPIService AccountAPI service
 type AccountAPIService service
 
-type AccountAPIDeleteAccountKeysRequest struct {
+type AccountAPIDeleteAccountKeysByIdRequest struct {
 	ctx        context.Context
 	ApiService *AccountAPIService
-	type_      *string
+	id         string
 }
 
-// Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means.
-func (r AccountAPIDeleteAccountKeysRequest) Type_(type_ string) AccountAPIDeleteAccountKeysRequest {
-	r.type_ = &type_
-	return r
-}
-
-func (r AccountAPIDeleteAccountKeysRequest) Execute() (*AccountRevokedKey, *http.Response, error) {
-	return r.ApiService.DeleteAccountKeysExecute(r)
+func (r AccountAPIDeleteAccountKeysByIdRequest) Execute() (*AccountApiKey, *http.Response, error) {
+	return r.ApiService.DeleteAccountKeysByIdExecute(r)
 }
 
 /*
-DeleteAccountKeys Revokes the caller's own API key of the requested class.
+DeleteAccountKeysById Revokes exactly one API key, by id.
 
-Revokes the caller's own API key of the requested class. The class is
-the same field mint takes — `?type=publishable`, defaulting to secret — so
-revoking the key that ships in a browser bundle does not sign its holder out of
-their own API: the other key keeps working.
+Revokes exactly one API key, by id. Every other key keeps working.
+The key stays listed as revoked, with who revoked it and when, and can never be
+used again. IAM refuses it at once; cloud caches a resolved key for up to 60
+seconds, so a request inside that window may still be served.
 
-Revoking is how a key is replaced when it does not need replacing; minting the
-same class again rotates it in one step. IAM drops the credential immediately,
-but cloud caches a home key's principal for up to 60s, so a request inside that
-window may still be served. A member's key is never cached.
-
-For callers written against the older shape, the class is also accepted in a JSON
-request body, read only when `?type=` is absent.
+A member revokes their own keys; an org admin revokes any of the org's, and
+revoking someone else's is recorded on the audit trail.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AccountAPIDeleteAccountKeysRequest
+	@param id ID is the key to act on, from the path.
+	@return AccountAPIDeleteAccountKeysByIdRequest
 */
-func (a *AccountAPIService) DeleteAccountKeys(ctx context.Context) AccountAPIDeleteAccountKeysRequest {
-	return AccountAPIDeleteAccountKeysRequest{
+func (a *AccountAPIService) DeleteAccountKeysById(ctx context.Context, id string) AccountAPIDeleteAccountKeysByIdRequest {
+	return AccountAPIDeleteAccountKeysByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
 //
-//	@return AccountRevokedKey
-func (a *AccountAPIService) DeleteAccountKeysExecute(r AccountAPIDeleteAccountKeysRequest) (*AccountRevokedKey, *http.Response, error) {
+//	@return AccountApiKey
+func (a *AccountAPIService) DeleteAccountKeysByIdExecute(r AccountAPIDeleteAccountKeysByIdRequest) (*AccountApiKey, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountRevokedKey
+		localVarReturnValue *AccountApiKey
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.DeleteAccountKeys")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.DeleteAccountKeysById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/account/keys"
+	localVarPath := localBasePath + "/v1/account/keys/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.type_ != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -621,16 +610,13 @@ func (r AccountAPIGetAccountKeysRequest) Execute() (*AccountApiKeyList, *http.Re
 }
 
 /*
-GetAccountKeys Returns the caller's own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
+GetAccountKeys Returns the API keys the caller may see, newest first: their own, or every key the org holds when the caller administers it.
 
-Returns the caller's own API keys — every type they hold, read
-AUTHORITATIVELY from IAM rather than from the session claim, which lags a key
-minted moments ago. No secret material comes back: a secret key is represented
-by its prefix, and only a publishable key (public by construction) carries its
-full value.
-
-A transient IAM read failure reports an empty set rather than a 5xx, so the
-page shows the honest empty state and never a fabricated key.
+Returns the API keys the caller may see, newest first: their own, or
+every key the org holds when the caller administers it. Each is its own
+credential with its own name, prefix, status, expiry and limit. Revoked keys
+stay listed. No secret material comes back; a publishable key, which is public
+by construction, carries its full value.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AccountAPIGetAccountKeysRequest
@@ -681,6 +667,132 @@ func (a *AccountAPIService) GetAccountKeysExecute(r AccountAPIGetAccountKeysRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AccountAPIPatchAccountKeysByIdRequest struct {
+	ctx            context.Context
+	ApiService     *AccountAPIService
+	id             string
+	accountKeyEdit *AccountKeyEdit
+}
+
+func (r AccountAPIPatchAccountKeysByIdRequest) AccountKeyEdit(accountKeyEdit AccountKeyEdit) AccountAPIPatchAccountKeysByIdRequest {
+	r.accountKeyEdit = &accountKeyEdit
+	return r
+}
+
+func (r AccountAPIPatchAccountKeysByIdRequest) Execute() (*AccountApiKey, *http.Response, error) {
+	return r.ApiService.PatchAccountKeysByIdExecute(r)
+}
+
+/*
+PatchAccountKeysById Changes one key's name, permissions, budget, rate or expiry.
+
+Changes one key's name, permissions, budget, rate or expiry. The secret
+is not reissued: the key in your deployment keeps working, under its new
+policy. Only the person the key belongs to may edit it, and a revoked key
+cannot be edited.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the key to edit, from the path.
+	@return AccountAPIPatchAccountKeysByIdRequest
+*/
+func (a *AccountAPIService) PatchAccountKeysById(ctx context.Context, id string) AccountAPIPatchAccountKeysByIdRequest {
+	return AccountAPIPatchAccountKeysByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AccountApiKey
+func (a *AccountAPIService) PatchAccountKeysByIdExecute(r AccountAPIPatchAccountKeysByIdRequest) (*AccountApiKey, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountApiKey
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.PatchAccountKeysById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/account/keys/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.accountKeyEdit == nil {
+		return localVarReturnValue, nil, reportError("accountKeyEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.accountKeyEdit
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -941,29 +1053,29 @@ func (a *AccountAPIService) PostAccountAvatarExecute(r AccountAPIPostAccountAvat
 }
 
 type AccountAPIPostAccountKeysRequest struct {
-	ctx              context.Context
-	ApiService       *AccountAPIService
-	accountKeyTypeIn *AccountKeyTypeIn
+	ctx          context.Context
+	ApiService   *AccountAPIService
+	accountKeyIn *AccountKeyIn
 }
 
-func (r AccountAPIPostAccountKeysRequest) AccountKeyTypeIn(accountKeyTypeIn AccountKeyTypeIn) AccountAPIPostAccountKeysRequest {
-	r.accountKeyTypeIn = &accountKeyTypeIn
+func (r AccountAPIPostAccountKeysRequest) AccountKeyIn(accountKeyIn AccountKeyIn) AccountAPIPostAccountKeysRequest {
+	r.accountKeyIn = &accountKeyIn
 	return r
 }
 
-func (r AccountAPIPostAccountKeysRequest) Execute() (*AccountMintedKey, *http.Response, error) {
+func (r AccountAPIPostAccountKeysRequest) Execute() (*AccountApiKey, *http.Response, error) {
 	return r.ApiService.PostAccountKeysExecute(r)
 }
 
 /*
-PostAccountKeys Creates — or rotates — the caller's API key of the requested type and returns it ONCE.
+PostAccountKeys Creates a NEW API key and returns its secret ONCE.
 
-Creates — or rotates — the caller's API key of the requested type and
-returns it ONCE. A real IAM failure surfaces as 502, never a fabricated key.
+Creates a NEW API key and returns its secret ONCE. It never revokes
+or changes any other key: every key the caller already holds keeps working.
+The key is filed in the org the caller acts in and names them as its creator.
 
-Rotating is what creating means here: a user holds one key per type, so the
-endpoint is idempotent by (caller, type) and the superseded credential stops
-working. Two live secrets for one user would make "revoke my key" a lie.
+An org holds at most 1,000 live keys; past that the create is refused until one
+is revoked.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AccountAPIPostAccountKeysRequest
@@ -977,13 +1089,13 @@ func (a *AccountAPIService) PostAccountKeys(ctx context.Context) AccountAPIPostA
 
 // Execute executes the request
 //
-//	@return AccountMintedKey
-func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRequest) (*AccountMintedKey, *http.Response, error) {
+//	@return AccountApiKey
+func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRequest) (*AccountApiKey, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountMintedKey
+		localVarReturnValue *AccountApiKey
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.PostAccountKeys")
@@ -996,8 +1108,8 @@ func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.accountKeyTypeIn == nil {
-		return localVarReturnValue, nil, reportError("accountKeyTypeIn is required and must be specified")
+	if r.accountKeyIn == nil {
+		return localVarReturnValue, nil, reportError("accountKeyIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1018,7 +1130,7 @@ func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.accountKeyTypeIn
+	localVarPostBody = r.accountKeyIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1080,23 +1192,24 @@ func (r AccountAPIPostAccountOrgsRequest) Execute() (*AccountOnboardResp, *http.
 }
 
 /*
-PostAccountOrgs Creates the caller's organization.
+PostAccountOrgs Creates an organization and makes the caller its owner.
 
-Creates the caller's organization. Two flows, keyed on whether the caller
-already has a home org (mirrors app/onboard/route.ts):
+Creates an organization and makes the caller its owner.
 
-  - FIRST-RUN (no home org): create + MOVE the user in as admin, so their next
-    JWT carries the new owner and the cloud scopes everything to it. This is the
-    path a fresh OAuth sign-up takes, from the sign-up application's org.
+The caller's own account is not touched: who they are, the org their account
+lives in and how they sign in are the same before and after. The new org is a
+separate organization they belong to by membership, carried in the signed
+`orgs` claim of their next token, and reached by selecting it (X-Org-Id, the
+org switcher). Teammates join it the same way. The org starts at a zero
+balance, and its default API key is minted for the creator and returned once.
 
-  - ADDITIONAL (owner set): create the org but do NOT move the user — a move
-    changes their IAM owner (stripping a SuperAdmin's status + orphaning their
-    current org). They reach the new org via the OrgSwitcher, which re-scopes
-    X-Org-Id without touching IAM membership. A personal-org request from someone
-    who already has an org is meaningless → 409.
+Moving the creator into the org instead re-keyed their identity to
+"<org>/<name>", and sign-in, which resolves an address in the signup org,
+then found nobody: the person was offered a second account for their own
+address.
 
-    @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-    @return AccountAPIPostAccountOrgsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AccountAPIPostAccountOrgsRequest
 */
 func (a *AccountAPIService) PostAccountOrgs(ctx context.Context) AccountAPIPostAccountOrgsRequest {
 	return AccountAPIPostAccountOrgsRequest{

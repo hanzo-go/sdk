@@ -6,12 +6,13 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteTaskProjectsByKey**](TaskAPI.md#DeleteTaskProjectsByKey) | **Delete** /v1/task/projects/{key} | Refused — a board is a repository on the forge
 [**GetTaskBoard**](TaskAPI.md#GetTaskBoard) | **Get** /v1/task/board | Returns a board&#39;s issues — work items with their column, priority, assignee, labels and schedule.
+[**GetTaskChannelsByChannel**](TaskAPI.md#GetTaskChannelsByChannel) | **Get** /v1/task/channels/{channel} | Summarises one channel&#39;s work.
 [**GetTaskIssues**](TaskAPI.md#GetTaskIssues) | **Get** /v1/task/issues | Answers across every project in the org.
 [**GetTaskProjects**](TaskAPI.md#GetTaskProjects) | **Get** /v1/task/projects | Returns the boards of your org — the places your work actually is.
 [**GetTaskProjectsByKey**](TaskAPI.md#GetTaskProjectsByKey) | **Get** /v1/task/projects/{key} | Returns one board of your org by its key — the repository name.
 [**GetTaskProjectsByKeyIssues**](TaskAPI.md#GetTaskProjectsByKeyIssues) | **Get** /v1/task/projects/{key}/issues | Returns a board&#39;s issues — work items with their column, priority, assignee, labels and schedule.
 [**GetTaskProjectsByKeyIssuesByNum**](TaskAPI.md#GetTaskProjectsByKeyIssuesByNum) | **Get** /v1/task/projects/{key}/issues/{num} | Returns ONE work item in full — its description included.
-[**GetTaskRoomsByRoom**](TaskAPI.md#GetTaskRoomsByRoom) | **Get** /v1/task/rooms/{room} | Summarises one room&#39;s work.
+[**GetTaskProjectsByKeyIssuesByNumComments**](TaskAPI.md#GetTaskProjectsByKeyIssuesByNumComments) | **Get** /v1/task/projects/{key}/issues/{num}/comments | Is one issue&#39;s conversation, oldest first, read as the caller.
 [**PatchTaskProjectsByKey**](TaskAPI.md#PatchTaskProjectsByKey) | **Patch** /v1/task/projects/{key} | Refused — a board is a repository on the forge
 [**PatchTaskProjectsByKeyIssuesByNum**](TaskAPI.md#PatchTaskProjectsByKeyIssuesByNum) | **Patch** /v1/task/projects/{key}/issues/{num} | Edits a work item — rename it, rewrite it, move it to another column, re-prioritise it, hand it to somebody, or comment on it.
 [**PostTaskProjects**](TaskAPI.md#PostTaskProjects) | **Post** /v1/task/projects | Refused — a board is a repository on the forge
@@ -166,9 +167,79 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetTaskChannelsByChannel
+
+> TaskChannelWork GetTaskChannelsByChannel(ctx, channel).Execute()
+
+Summarises one channel's work.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	channel := "channel_example" // string | Channel is the channel, spelled \"<space>_<channel>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the channel identically. From the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TaskAPI.GetTaskChannelsByChannel(context.Background(), channel).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TaskAPI.GetTaskChannelsByChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTaskChannelsByChannel`: TaskChannelWork
+	fmt.Fprintf(os.Stdout, "Response from `TaskAPI.GetTaskChannelsByChannel`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**channel** | **string** | Channel is the channel, spelled \&quot;&lt;space&gt;_&lt;channel&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the channel identically. From the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTaskChannelsByChannelRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**TaskChannelWork**](TaskChannelWork.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetTaskIssues
 
-> TaskIssueHits GetTaskIssues(ctx).Q(q).Project(project).Status(status).Kind(kind).Repo(repo).Room(room).Source(source).Assignee(assignee).Limit(limit).Execute()
+> TaskIssueHits GetTaskIssues(ctx).Q(q).Project(project).Status(status).Kind(kind).Repo(repo).Channel(channel).Source(source).Assignee(assignee).Limit(limit).Execute()
 
 Answers across every project in the org.
 
@@ -192,14 +263,14 @@ func main() {
 	status := "status_example" // string | Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
 	kind := "kind_example" // string | Kind keeps one shape: issue, pr, epic. (optional)
 	repo := "repo_example" // string | Repo keeps issues bound to one git repository. (optional)
-	room := "room_example" // string | Room keeps issues bound to one collaboration room, spelled \"<space>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its task list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
+	channel := "channel_example" // string | Channel keeps issues bound to one collaboration channel, spelled \"<space>_<channel>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its task list name the channel the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
 	source := "source_example" // string | Source keeps one origin: team, git, crm, helpdesk, cms, agent. \"git\" is how you ask for the mirrored GitHub issues specifically. (optional)
 	assignee := "assignee_example" // string | Assignee keeps issues held by one person. Pass \"me\" for yourself. (optional)
 	limit := int64(789) // int64 | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TaskAPI.GetTaskIssues(context.Background()).Q(q).Project(project).Status(status).Kind(kind).Repo(repo).Room(room).Source(source).Assignee(assignee).Limit(limit).Execute()
+	resp, r, err := apiClient.TaskAPI.GetTaskIssues(context.Background()).Q(q).Project(project).Status(status).Kind(kind).Repo(repo).Channel(channel).Source(source).Assignee(assignee).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TaskAPI.GetTaskIssues``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -225,7 +296,7 @@ Name | Type | Description  | Notes
  **status** | **string** | Status keeps one board column: backlog, todo, in_progress, done, canceled. | 
  **kind** | **string** | Kind keeps one shape: issue, pr, epic. | 
  **repo** | **string** | Repo keeps issues bound to one git repository. | 
- **room** | **string** | Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its task list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. | 
+ **channel** | **string** | Channel keeps issues bound to one collaboration channel, spelled \&quot;&lt;space&gt;_&lt;channel&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its task list name the channel the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. | 
  **source** | **string** | Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. | 
  **assignee** | **string** | Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. | 
  **limit** | **int64** | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. | 
@@ -534,11 +605,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetTaskRoomsByRoom
+## GetTaskProjectsByKeyIssuesByNumComments
 
-> TaskRoomWork GetTaskRoomsByRoom(ctx, room).Execute()
+> TaskCommentList GetTaskProjectsByKeyIssuesByNumComments(ctx, key, num).Execute()
 
-Summarises one room's work.
+Is one issue's conversation, oldest first, read as the caller.
 
 
 
@@ -555,17 +626,18 @@ import (
 )
 
 func main() {
-	room := "room_example" // string | Room is the room, spelled \"<space>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
+	key := "site" // string | Key is the board — the repository name, or an index board's key.
+	num := int64(1) // int64 | Num is the issue's number on that board.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TaskAPI.GetTaskRoomsByRoom(context.Background(), room).Execute()
+	resp, r, err := apiClient.TaskAPI.GetTaskProjectsByKeyIssuesByNumComments(context.Background(), key, num).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TaskAPI.GetTaskRoomsByRoom``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TaskAPI.GetTaskProjectsByKeyIssuesByNumComments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTaskRoomsByRoom`: TaskRoomWork
-	fmt.Fprintf(os.Stdout, "Response from `TaskAPI.GetTaskRoomsByRoom`: %v\n", resp)
+	// response from `GetTaskProjectsByKeyIssuesByNumComments`: TaskCommentList
+	fmt.Fprintf(os.Stdout, "Response from `TaskAPI.GetTaskProjectsByKeyIssuesByNumComments`: %v\n", resp)
 }
 ```
 
@@ -575,20 +647,22 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**room** | **string** | Room is the room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. | 
+**key** | **string** | Key is the board — the repository name, or an index board&#39;s key. | 
+**num** | **int64** | Num is the issue&#39;s number on that board. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetTaskRoomsByRoomRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTaskProjectsByKeyIssuesByNumCommentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+
 ### Return type
 
-[**TaskRoomWork**](TaskRoomWork.md)
+[**TaskCommentList**](TaskCommentList.md)
 
 ### Authorization
 

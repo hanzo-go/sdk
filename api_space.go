@@ -135,6 +135,124 @@ func (a *SpaceAPIService) DeleteSpaceBySpaceDrivesByDriveExecute(r SpaceAPIDelet
 	return localVarHTTPResponse, nil
 }
 
+type SpaceAPIDeleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request struct {
+	ctx        context.Context
+	ApiService *SpaceAPIService
+	space      string
+	drive      string
+	wildcard1  string
+}
+
+func (r SpaceAPIDeleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1Execute(r)
+}
+
+/*
+DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1 Removes one file and answers 204.
+
+Removes one file and answers 204.
+
+It removes ONE file and never a folder: a name that looks like a folder is
+refused, because a folder is emergent from the names beneath it and deleting
+one would have to mean deleting them. The name is path-cleaned first, so the
+delete cannot reach outside the drive it names, and a space the caller's org
+does not own is the same 404 an unknown name gives.
+
+Billed per call: the balance is checked BEFORE anything is touched, so an
+unfunded org is refused with nothing deleted, and the debit lands only once the
+file is gone.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param space Space is the space's name, from the path.
+	@param drive Drive is the drive's name, from the path.
+	@param wildcard1 File is the file's name within the drive — everything after that drive's /files/. It MAY contain \"/\", because a folder is emergent from the name and this segment is captured whole: \"2019/summer/a.jpg\" is one file in two folders, not three names. It is path-cleaned before use, so \"../\" reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400.
+	@return SpaceAPIDeleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request
+*/
+func (a *SpaceAPIService) DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1(ctx context.Context, space string, drive string, wildcard1 string) SpaceAPIDeleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request {
+	return SpaceAPIDeleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request{
+		ApiService: a,
+		ctx:        ctx,
+		space:      space,
+		drive:      drive,
+		wildcard1:  wildcard1,
+	}
+}
+
+// Execute executes the request
+func (a *SpaceAPIService) DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1Execute(r SpaceAPIDeleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SpaceAPIService.DeleteSpaceBySpaceDrivesByDriveFilesByWildcard1")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/space/{space}/drives/{drive}/files/{wildcard1}"
+	localVarPath = strings.Replace(localVarPath, "{"+"space"+"}", url.PathEscape(parameterValueToString(r.space, "space")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"drive"+"}", url.PathEscape(parameterValueToString(r.drive, "drive")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type SpaceAPIGetSpaceBySpaceDrivesRequest struct {
 	ctx        context.Context
 	ApiService *SpaceAPIService
@@ -337,6 +455,138 @@ func (a *SpaceAPIService) GetSpaceBySpaceDrivesByDriveFilesExecute(r SpaceAPIGet
 	if r.recursive != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "recursive", r.recursive, "form", "")
 	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type SpaceAPIGetSpaceBySpaceDrivesByDriveFilesByWildcard1Request struct {
+	ctx        context.Context
+	ApiService *SpaceAPIService
+	space      string
+	drive      string
+	wildcard1  string
+}
+
+func (r SpaceAPIGetSpaceBySpaceDrivesByDriveFilesByWildcard1Request) Execute() (*SpaceFileURL, *http.Response, error) {
+	return r.ApiService.GetSpaceBySpaceDrivesByDriveFilesByWildcard1Execute(r)
+}
+
+/*
+GetSpaceBySpaceDrivesByDriveFilesByWildcard1 Mints a URL the caller downloads the file from DIRECTLY.
+
+Mints a URL the caller downloads the file from DIRECTLY.
+
+The bytes never pass through this binary and the store credential never leaves
+the server: the URL is signed against the PUBLIC host, scoped to exactly this
+space, drive and file, and expires. It carries a content disposition of
+attachment naming the file, so a browser following it saves the file rather
+than rendering it in place. A deployment with no public endpoint configured
+cannot mint one and answers 503 rather than a URL that will not work.
+
+Billed per call — for MINTING the URL, which is the work this operation does;
+the download that follows comes straight from the store and is not seen here.
+The balance is checked BEFORE anything is touched, so an unfunded org is
+refused with no URL issued.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param space Space is the space's name, from the path.
+	@param drive Drive is the drive's name, from the path.
+	@param wildcard1 File is the file's name within the drive — everything after that drive's /files/. It MAY contain \"/\", because a folder is emergent from the name and this segment is captured whole: \"2019/summer/a.jpg\" is one file in two folders, not three names. It is path-cleaned before use, so \"../\" reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400.
+	@return SpaceAPIGetSpaceBySpaceDrivesByDriveFilesByWildcard1Request
+*/
+func (a *SpaceAPIService) GetSpaceBySpaceDrivesByDriveFilesByWildcard1(ctx context.Context, space string, drive string, wildcard1 string) SpaceAPIGetSpaceBySpaceDrivesByDriveFilesByWildcard1Request {
+	return SpaceAPIGetSpaceBySpaceDrivesByDriveFilesByWildcard1Request{
+		ApiService: a,
+		ctx:        ctx,
+		space:      space,
+		drive:      drive,
+		wildcard1:  wildcard1,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SpaceFileURL
+func (a *SpaceAPIService) GetSpaceBySpaceDrivesByDriveFilesByWildcard1Execute(r SpaceAPIGetSpaceBySpaceDrivesByDriveFilesByWildcard1Request) (*SpaceFileURL, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SpaceFileURL
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SpaceAPIService.GetSpaceBySpaceDrivesByDriveFilesByWildcard1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/space/{space}/drives/{drive}/files/{wildcard1}"
+	localVarPath = strings.Replace(localVarPath, "{"+"space"+"}", url.PathEscape(parameterValueToString(r.space, "space")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"drive"+"}", url.PathEscape(parameterValueToString(r.drive, "drive")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -854,6 +1104,138 @@ func (a *SpaceAPIService) PostSpaceSpacesExecute(r SpaceAPIPostSpaceSpacesReques
 	}
 	// body params
 	localVarPostBody = r.spaceSpaceIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type SpaceAPIPutSpaceBySpaceDrivesByDriveFilesByWildcard1Request struct {
+	ctx        context.Context
+	ApiService *SpaceAPIService
+	space      string
+	drive      string
+	wildcard1  string
+}
+
+func (r SpaceAPIPutSpaceBySpaceDrivesByDriveFilesByWildcard1Request) Execute() (*SpaceFileURL, *http.Response, error) {
+	return r.ApiService.PutSpaceBySpaceDrivesByDriveFilesByWildcard1Execute(r)
+}
+
+/*
+PutSpaceBySpaceDrivesByDriveFilesByWildcard1 Mints a URL the caller uploads the file to DIRECTLY.
+
+Mints a URL the caller uploads the file to DIRECTLY.
+
+The bytes never pass through this binary and the store credential never leaves
+the server: the URL is signed against the PUBLIC host, scoped to exactly this
+space, drive and file, and expires. Writing into a folder that does not exist
+is fine and creates nothing — a folder is emergent from "/" in the name. A
+deployment with no public endpoint configured cannot mint a URL and answers 503
+rather than one that will not work.
+
+Billed per call — for MINTING the URL, which is the work this operation does;
+the upload that follows goes straight to the store and is not seen here. The
+balance is checked BEFORE anything is touched, so an unfunded org is refused
+with no URL issued.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param space Space is the space's name, from the path.
+	@param drive Drive is the drive's name, from the path.
+	@param wildcard1 File is the file's name within the drive — everything after that drive's /files/. It MAY contain \"/\", because a folder is emergent from the name and this segment is captured whole: \"2019/summer/a.jpg\" is one file in two folders, not three names. It is path-cleaned before use, so \"../\" reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400.
+	@return SpaceAPIPutSpaceBySpaceDrivesByDriveFilesByWildcard1Request
+*/
+func (a *SpaceAPIService) PutSpaceBySpaceDrivesByDriveFilesByWildcard1(ctx context.Context, space string, drive string, wildcard1 string) SpaceAPIPutSpaceBySpaceDrivesByDriveFilesByWildcard1Request {
+	return SpaceAPIPutSpaceBySpaceDrivesByDriveFilesByWildcard1Request{
+		ApiService: a,
+		ctx:        ctx,
+		space:      space,
+		drive:      drive,
+		wildcard1:  wildcard1,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SpaceFileURL
+func (a *SpaceAPIService) PutSpaceBySpaceDrivesByDriveFilesByWildcard1Execute(r SpaceAPIPutSpaceBySpaceDrivesByDriveFilesByWildcard1Request) (*SpaceFileURL, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SpaceFileURL
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SpaceAPIService.PutSpaceBySpaceDrivesByDriveFilesByWildcard1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/space/{space}/drives/{drive}/files/{wildcard1}"
+	localVarPath = strings.Replace(localVarPath, "{"+"space"+"}", url.PathEscape(parameterValueToString(r.space, "space")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"drive"+"}", url.PathEscape(parameterValueToString(r.drive, "drive")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

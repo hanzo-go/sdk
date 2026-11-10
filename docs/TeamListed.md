@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Members** | Pointer to **int64** | Members counts the room, and never names anybody in it. | [optional] 
+**Channel** | Pointer to **string** | Channel addresses it in the owning store — what a join is called with. | [optional] 
+**Members** | Pointer to **int64** | Members counts the channel, and never names anybody in it. | [optional] 
 **Name** | Pointer to **string** | Name is what a person sees, without the sigil a client draws. | [optional] 
-**Org** | Pointer to **string** | Org owns the room. It is also what a caller filters by to browse one org. | [optional] 
-**Room** | Pointer to **string** | Room addresses it in the owning store — what a join is called with. | [optional] 
-**Space** | Pointer to **string** | Space is where the room lives inside that org. | [optional] 
-**Topic** | Pointer to **string** | Topic is the room&#39;s one-line subject, empty when it has none. | [optional] 
+**Org** | Pointer to **string** | Org owns the channel. It is also what a caller filters by to browse one org. | [optional] 
+**Space** | Pointer to **string** | Space is where the channel lives inside that org. | [optional] 
+**Topic** | Pointer to **string** | Topic is the channel&#39;s one-line subject, empty when it has none. | [optional] 
 **Updated** | Pointer to **int64** | Updated is when this row was last written, unix seconds. | [optional] 
 
 ## Methods
@@ -30,6 +30,31 @@ will change when the set of required properties is changed
 NewTeamListedWithDefaults instantiates a new TeamListed object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetChannel
+
+`func (o *TeamListed) GetChannel() string`
+
+GetChannel returns the Channel field if non-nil, zero value otherwise.
+
+### GetChannelOk
+
+`func (o *TeamListed) GetChannelOk() (*string, bool)`
+
+GetChannelOk returns a tuple with the Channel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChannel
+
+`func (o *TeamListed) SetChannel(v string)`
+
+SetChannel sets Channel field to given value.
+
+### HasChannel
+
+`func (o *TeamListed) HasChannel() bool`
+
+HasChannel returns a boolean if a field has been set.
 
 ### GetMembers
 
@@ -105,31 +130,6 @@ SetOrg sets Org field to given value.
 `func (o *TeamListed) HasOrg() bool`
 
 HasOrg returns a boolean if a field has been set.
-
-### GetRoom
-
-`func (o *TeamListed) GetRoom() string`
-
-GetRoom returns the Room field if non-nil, zero value otherwise.
-
-### GetRoomOk
-
-`func (o *TeamListed) GetRoomOk() (*string, bool)`
-
-GetRoomOk returns a tuple with the Room field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoom
-
-`func (o *TeamListed) SetRoom(v string)`
-
-SetRoom sets Room field to given value.
-
-### HasRoom
-
-`func (o *TeamListed) HasRoom() bool`
-
-HasRoom returns a boolean if a field has been set.
 
 ### GetSpace
 

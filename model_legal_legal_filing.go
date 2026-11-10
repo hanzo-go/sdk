@@ -19,15 +19,24 @@ var _ MappedNullable = &LegalLegalFiling{}
 
 // LegalLegalFiling struct for LegalLegalFiling
 type LegalLegalFiling struct {
-	CreatedAt            *int64   `json:"createdAt,omitempty"`
-	DocumentIds          []string `json:"documentIds,omitempty"`
-	Id                   *string  `json:"id,omitempty"`
-	Jurisdiction         *string  `json:"jurisdiction,omitempty"`
-	Note                 *string  `json:"note,omitempty"`
-	Org                  *string  `json:"org,omitempty"`
-	Provider             *string  `json:"provider,omitempty"`
-	Status               *string  `json:"status,omitempty"`
-	UpdatedAt            *int64   `json:"updatedAt,omitempty"`
+	// CreatedAt is when the filing was recorded, in unix seconds.
+	CreatedAt *int64 `json:"createdAt,omitempty"`
+	// DocumentIDs are the generated documents this filing covers. At least one, and each must already belong to Org — a filing can never reach across tenants.
+	DocumentIds []string `json:"documentIds,omitempty"`
+	// ID is the filing's server-minted handle, \"filing_\"-prefixed. It is OURS, not the state's — a state file number arrives only from a real filing partner.
+	Id *string `json:"id,omitempty"`
+	// Jurisdiction is the state or agency the filing is for, as the caller wrote it (\"DE\"). Free text, not validated against a list. Absent when the caller sent none.
+	Jurisdiction *string `json:"jurisdiction,omitempty"`
+	// Note is the provider's explanation of Status, in prose meant for a person. On the manual default it says the documents were generated for signature and the org files them through its registered agent. Absent when the provider offered nothing.
+	Note *string `json:"note,omitempty"`
+	// Org owns the filing. Every query is scoped to it, so another tenant's filing is indistinguishable from a missing one.
+	Org *string `json:"org,omitempty"`
+	// Provider is the filing partner that took the submission, or \"manual\" when no partner is wired on this deployment.
+	Provider *string `json:"provider,omitempty"`
+	// Status is where the filing stands: manual (no partner wired — file through your registered agent), submitted (a partner accepted it), filed (the state accepted it) or rejected.
+	Status *string `json:"status,omitempty"`
+	// UpdatedAt is when it last changed, in unix seconds. Equal to CreatedAt until a provider reports movement.
+	UpdatedAt            *int64 `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

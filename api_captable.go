@@ -39,6 +39,9 @@ Removes one of the caller org's convertible notes, taking its
 principal out of the cap table's unconverted-instrument totals. An id this org
 does not hold is not found.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the convertible note to delete.
 	@return CaptableAPIDeleteCaptableConvertiblesByIdRequest
@@ -152,6 +155,9 @@ DeleteCaptableOptionsById Removes one of the caller org's option grants, taking 
 Removes one of the caller org's option grants, taking its shares
 out of the cap table's granted-options and fully-diluted counts. An id this org
 does not hold is not found.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the option grant to delete.
@@ -267,6 +273,9 @@ Removes one of the caller org's SAFEs, taking its capital out of the
 cap table's unconverted-instrument totals. An id this org does not hold is not
 found.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the SAFE to delete.
 	@return CaptableAPIDeleteCaptableSafesByIdRequest
@@ -380,6 +389,9 @@ DeleteCaptableSharesById Removes one of the caller org's share certificates, tak
 Removes one of the caller org's share certificates, taking its
 shares out of the cap table's outstanding and fully-diluted counts. An id this
 org does not hold is not found.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the share certificate to delete.
@@ -496,6 +508,9 @@ orphan issued equity: a holder that still holds share certificates or option
 grants cannot be deleted, and answers 400 saying so — release or transfer the
 holdings first. An id this org does not hold is not found.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the stakeholder to delete.
 	@return CaptableAPIDeleteCaptableStakeholdersByIdRequest
@@ -609,6 +624,9 @@ Returns the caller org's share classes, in creation order. A
 share class is what a certificate is issued in, and every class the company
 has authorized appears. The response is a bare JSON array, not an envelope.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableClassesRequest
 */
@@ -718,6 +736,9 @@ GetCaptableCompany Returns the caller org's cap-table company record.
 Returns the caller org's cap-table company record. The row is
 seeded when the tenant's store first opens, so it always exists; its name and
 incorporation details are set with PUT /v1/captable/company.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableCompanyRequest
@@ -829,6 +850,9 @@ Returns the caller org's convertible notes, newest first. A
 note's principal sits OUTSIDE issued equity until it converts, so it is not
 part of the share counts.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableConvertiblesRequest
 */
@@ -938,6 +962,9 @@ GetCaptableInvestments Returns the caller org's investments, newest first.
 Returns the caller org's investments, newest first. It spans
 every round, so it is the flat ledger of cheques written into the company,
 each naming its investor and the round it went into.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableInvestmentsRequest
@@ -1049,6 +1076,9 @@ Returns the caller org's option grants, newest first. Each row is
 joined to its grantee and its equity plan. Grants that are EXERCISED, EXPIRED
 or CANCELLED are listed here but do not dilute the cap table.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableOptionsRequest
 */
@@ -1159,6 +1189,9 @@ Returns the caller org's equity plans, newest first. An equity
 plan is an option pool: a reserve of shares, drawn from one share class, that
 option grants are written against.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptablePlansRequest
 */
@@ -1268,6 +1301,9 @@ GetCaptableRounds Returns the caller org's fundraising rounds, newest first.
 Returns the caller org's fundraising rounds, newest first. A round
 groups a fundraising event; a PRICED round also carries the share class and
 price per share it issues at.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableRoundsRequest
@@ -1380,6 +1416,9 @@ Returns one of the caller org's fundraising rounds together with every
 investment written into it, oldest first. A round id that does not exist in the
 caller's org is not found — including one that exists in another tenant, since
 the org comes from the caller's principal and is part of the lookup.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the round to read. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
@@ -1494,6 +1533,9 @@ Returns the caller org's SAFEs, newest first. A SAFE is a simple
 agreement for future equity: its capital sits OUTSIDE issued equity until it
 converts, so it is not part of the share counts.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableSafesRequest
 */
@@ -1604,6 +1646,9 @@ Returns the caller org's share certificates, newest first. Each row
 is joined to its holder and its share class, so a certificate names who holds
 it and what class it is in without a second call.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableSharesRequest
 */
@@ -1713,6 +1758,9 @@ GetCaptableStakeholders Returns the caller org's stakeholders, newest first.
 Returns the caller org's stakeholders, newest first. The
 response is a bare JSON array, not an envelope. Each row carries the holder's
 contact and address fields alongside the company's name.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableStakeholdersRequest
@@ -1827,6 +1875,9 @@ and the capital sitting on SAFEs and convertible notes that have not yet
 converted. Only non-terminal option grants dilute — EXERCISED, EXPIRED and
 CANCELLED grants are excluded, so equity issued through an exercised option is
 never counted twice.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIGetCaptableSummaryRequest
@@ -1948,6 +1999,9 @@ as sent, so a field omitted is written empty rather than left alone. Send the
 whole class. The method is PATCH because the resource is addressed by id, not
 because the body is partial — and getting that backwards silently blanks terms
 every later issuance prices against.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims.
@@ -2079,6 +2133,9 @@ The values are stored as sent. Unlike adding a stakeholder, this route does
 not check the email's shape or the type and relationship vocabularies, so it
 can record a value that adding one would have rejected.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the stakeholder to update. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
 	@return CaptableAPIPatchCaptableStakeholdersByIdRequest
@@ -2206,6 +2263,9 @@ every later issuance prices against, so a partially-specified one would silently
 mis-value every share issued into it. `seniority` orders liquidation preference
 with LOWER first.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableClassesRequest
 */
@@ -2324,6 +2384,9 @@ func (r CaptableAPIPostCaptableConvertiblesRequest) Execute() (*CaptableCaptable
 PostCaptableConvertibles Records a convertible note.
 
 Records a convertible note.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableConvertiblesRequest
@@ -2444,6 +2507,9 @@ PostCaptableOptions Grants options to a stakeholder from an equity plan.
 
 Grants options to a stakeholder from an equity plan.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableOptionsRequest
 */
@@ -2562,6 +2628,9 @@ func (r CaptableAPIPostCaptablePlansRequest) Execute() (*CaptableCaptableCreated
 PostCaptablePlans Opens an equity plan that options are granted from.
 
 Opens an equity plan that options are granted from.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptablePlansRequest
@@ -2683,6 +2752,9 @@ PostCaptableRounds Opens a priced round that investments can be added to.
 Opens a priced round that investments can be added to.
 
 The round opens OPEN; investing into a closed one is refused.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableRoundsRequest
@@ -2806,6 +2878,9 @@ Closes one of the caller org's fundraising rounds, recording the
 close date and moving its status to CLOSED. Only an OPEN round can be closed:
 a round that is already closed — like an id this org does not hold — is not
 found. Closing a round does not change what was invested in it.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
@@ -2934,6 +3009,9 @@ The round must be OPEN; investing into a closed one is refused. Where the round
 carries a price per share, the investment also issues the shares it buys and the
 answer names them.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims.
 	@return CaptableAPIPostCaptableRoundsByIdInvestmentsRequest
@@ -3055,6 +3133,9 @@ func (r CaptableAPIPostCaptableSafesRequest) Execute() (*CaptableCaptableCreated
 PostCaptableSafes Records a SAFE — a simple agreement for future equity.
 
 Records a SAFE — a simple agreement for future equity.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableSafesRequest
@@ -3179,6 +3260,9 @@ The certificate id must be UNIQUE within the company — a duplicate is refused
 409, not silently merged — and both the stakeholder and the share class must
 belong to this company, so an id from another tenant is a 400 rather than a
 cross-company issuance.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableSharesRequest
@@ -3309,6 +3393,9 @@ Both outcomes answer 200: a transfer records a movement between holders and
 mints no security of its own, which is why this is not a 201 the way an
 investment is.
 
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableSharesTransferRequest
 */
@@ -3424,7 +3511,7 @@ Records the people and institutions that can hold equity — the rows every shar
 
 The body is ONE stakeholder object or an ARRAY of them, and the array is the point: a whole roster loads in a single call. Email is the identity within the company, so a stakeholder whose email is already on the table is SKIPPED rather than duplicated or rejected — the 201 reports how many rows were actually inserted, which is what makes re-running an import safe. Validation is all-or-nothing across the batch: one bad entry refuses the whole array.
 
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused 401, and one from a member who is neither a SuperAdmin nor an admin of the org is refused 403. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableStakeholdersRequest
@@ -3523,6 +3610,9 @@ The name is required; the three incorporation fields are optional and each is
 stored as empty when omitted, so a call that sends only a name CLEARS them.
 The company row itself is seeded when the tenant's store first opens, so this
 never creates one.
+
+Only a SuperAdmin or an admin of the org may call it; a member who is neither is
+refused 403.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPutCaptableCompanyRequest

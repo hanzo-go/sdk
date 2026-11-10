@@ -19,10 +19,10 @@ var _ MappedNullable = &TeamTeamDirect{}
 
 // TeamTeamDirect struct for TeamTeamDirect
 type TeamTeamDirect struct {
+	// Channel is the direct message, as the channel listing answers it.
+	Channel *TeamTeamChannel `json:"channel,omitempty"`
 	// Created is true when this call opened the conversation (201) and false when it already existed (200).
-	Created *bool `json:"created,omitempty"`
-	// Room is the direct message, as the room listing answers it.
-	Room                 *TeamTeamRoom `json:"room,omitempty"`
+	Created              *bool `json:"created,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,6 +43,38 @@ func NewTeamTeamDirect() *TeamTeamDirect {
 func NewTeamTeamDirectWithDefaults() *TeamTeamDirect {
 	this := TeamTeamDirect{}
 	return &this
+}
+
+// GetChannel returns the Channel field value if set, zero value otherwise.
+func (o *TeamTeamDirect) GetChannel() TeamTeamChannel {
+	if o == nil || IsNil(o.Channel) {
+		var ret TeamTeamChannel
+		return ret
+	}
+	return *o.Channel
+}
+
+// GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TeamTeamDirect) GetChannelOk() (*TeamTeamChannel, bool) {
+	if o == nil || IsNil(o.Channel) {
+		return nil, false
+	}
+	return o.Channel, true
+}
+
+// HasChannel returns a boolean if a field has been set.
+func (o *TeamTeamDirect) HasChannel() bool {
+	if o != nil && !IsNil(o.Channel) {
+		return true
+	}
+
+	return false
+}
+
+// SetChannel gets a reference to the given TeamTeamChannel and assigns it to the Channel field.
+func (o *TeamTeamDirect) SetChannel(v TeamTeamChannel) {
+	o.Channel = &v
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
@@ -77,38 +109,6 @@ func (o *TeamTeamDirect) SetCreated(v bool) {
 	o.Created = &v
 }
 
-// GetRoom returns the Room field value if set, zero value otherwise.
-func (o *TeamTeamDirect) GetRoom() TeamTeamRoom {
-	if o == nil || IsNil(o.Room) {
-		var ret TeamTeamRoom
-		return ret
-	}
-	return *o.Room
-}
-
-// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TeamTeamDirect) GetRoomOk() (*TeamTeamRoom, bool) {
-	if o == nil || IsNil(o.Room) {
-		return nil, false
-	}
-	return o.Room, true
-}
-
-// HasRoom returns a boolean if a field has been set.
-func (o *TeamTeamDirect) HasRoom() bool {
-	if o != nil && !IsNil(o.Room) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoom gets a reference to the given TeamTeamRoom and assigns it to the Room field.
-func (o *TeamTeamDirect) SetRoom(v TeamTeamRoom) {
-	o.Room = &v
-}
-
 func (o TeamTeamDirect) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -119,11 +119,11 @@ func (o TeamTeamDirect) MarshalJSON() ([]byte, error) {
 
 func (o TeamTeamDirect) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Channel) {
+		toSerialize["channel"] = o.Channel
+	}
 	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
-	}
-	if !IsNil(o.Room) {
-		toSerialize["room"] = o.Room
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -147,8 +147,8 @@ func (o *TeamTeamDirect) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "channel")
 		delete(additionalProperties, "created")
-		delete(additionalProperties, "room")
 		o.AdditionalProperties = additionalProperties
 	}
 

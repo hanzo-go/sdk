@@ -19,8 +19,10 @@ var _ MappedNullable = &O11yO11yAgentCheckInIn{}
 
 // O11yO11yAgentCheckInIn struct for O11yO11yAgentCheckInIn
 type O11yO11yAgentCheckInIn struct {
-	AccountId            *string                `json:"account_id,omitempty"`
-	CloudIntegrationId   interface{}            `json:"cloudIntegrationId,omitempty"`
+	// following are backward compatible fields for older running agents, hence snake case JSON keys. Which get mapped to new fields in AgentCheckInRequest
+	AccountId          *string     `json:"account_id,omitempty"`
+	CloudIntegrationId interface{} `json:"cloudIntegrationId,omitempty"`
+	// => ProviderAccountID
 	CloudAccountId       *string                `json:"cloud_account_id,omitempty"`
 	Data                 map[string]interface{} `json:"data,omitempty"`
 	ProviderAccountId    *string                `json:"providerAccountId,omitempty"`

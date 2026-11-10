@@ -21,8 +21,16 @@ var _ MappedNullable = &TranslateMemoryEntry{}
 type TranslateMemoryEntry struct {
 	// Actor is the validated user id that last wrote this entry by hand. Empty on an entry an engine produced, and on one written before attribution existed.
 	Actor *string `json:"actor,omitempty"`
+	// Format is the markup the source carried: text, html or markdown. Part of the identity.
+	Format *string `json:"format,omitempty"`
 	// Glossary is the glossary VERSION the entry was translated under — the digest version() derives from the terms, so changing a term changes the key and the stale rendering can never be served.
 	GlossaryVersion *string `json:"glossary_version,omitempty"`
+	// Lang is the source language the translate call declared, empty when the engine detected it. Part of the identity; an entry with none also serves a call that declares one.
+	Lang *string `json:"lang,omitempty"`
+	// Model is the quality-tier model the translate call named, empty for the default. Part of the identity: one model's rendering never answers for another's.
+	Model *string `json:"model,omitempty"`
+	// RequestID is the X-Request-Id of the translate call whose engine produced the entry. Empty on an entry a human wrote, and on one older than the field.
+	RequestId *string `json:"request_id,omitempty"`
 	// Source is the ORIGINAL string this entry translates. Part of the identity.
 	Source *string `json:"source,omitempty"`
 	// State is the entry's position on the review ladder: machine, suggested, approved or published.
@@ -89,6 +97,38 @@ func (o *TranslateMemoryEntry) SetActor(v string) {
 	o.Actor = &v
 }
 
+// GetFormat returns the Format field value if set, zero value otherwise.
+func (o *TranslateMemoryEntry) GetFormat() string {
+	if o == nil || IsNil(o.Format) {
+		var ret string
+		return ret
+	}
+	return *o.Format
+}
+
+// GetFormatOk returns a tuple with the Format field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TranslateMemoryEntry) GetFormatOk() (*string, bool) {
+	if o == nil || IsNil(o.Format) {
+		return nil, false
+	}
+	return o.Format, true
+}
+
+// HasFormat returns a boolean if a field has been set.
+func (o *TranslateMemoryEntry) HasFormat() bool {
+	if o != nil && !IsNil(o.Format) {
+		return true
+	}
+
+	return false
+}
+
+// SetFormat gets a reference to the given string and assigns it to the Format field.
+func (o *TranslateMemoryEntry) SetFormat(v string) {
+	o.Format = &v
+}
+
 // GetGlossaryVersion returns the GlossaryVersion field value if set, zero value otherwise.
 func (o *TranslateMemoryEntry) GetGlossaryVersion() string {
 	if o == nil || IsNil(o.GlossaryVersion) {
@@ -119,6 +159,102 @@ func (o *TranslateMemoryEntry) HasGlossaryVersion() bool {
 // SetGlossaryVersion gets a reference to the given string and assigns it to the GlossaryVersion field.
 func (o *TranslateMemoryEntry) SetGlossaryVersion(v string) {
 	o.GlossaryVersion = &v
+}
+
+// GetLang returns the Lang field value if set, zero value otherwise.
+func (o *TranslateMemoryEntry) GetLang() string {
+	if o == nil || IsNil(o.Lang) {
+		var ret string
+		return ret
+	}
+	return *o.Lang
+}
+
+// GetLangOk returns a tuple with the Lang field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TranslateMemoryEntry) GetLangOk() (*string, bool) {
+	if o == nil || IsNil(o.Lang) {
+		return nil, false
+	}
+	return o.Lang, true
+}
+
+// HasLang returns a boolean if a field has been set.
+func (o *TranslateMemoryEntry) HasLang() bool {
+	if o != nil && !IsNil(o.Lang) {
+		return true
+	}
+
+	return false
+}
+
+// SetLang gets a reference to the given string and assigns it to the Lang field.
+func (o *TranslateMemoryEntry) SetLang(v string) {
+	o.Lang = &v
+}
+
+// GetModel returns the Model field value if set, zero value otherwise.
+func (o *TranslateMemoryEntry) GetModel() string {
+	if o == nil || IsNil(o.Model) {
+		var ret string
+		return ret
+	}
+	return *o.Model
+}
+
+// GetModelOk returns a tuple with the Model field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TranslateMemoryEntry) GetModelOk() (*string, bool) {
+	if o == nil || IsNil(o.Model) {
+		return nil, false
+	}
+	return o.Model, true
+}
+
+// HasModel returns a boolean if a field has been set.
+func (o *TranslateMemoryEntry) HasModel() bool {
+	if o != nil && !IsNil(o.Model) {
+		return true
+	}
+
+	return false
+}
+
+// SetModel gets a reference to the given string and assigns it to the Model field.
+func (o *TranslateMemoryEntry) SetModel(v string) {
+	o.Model = &v
+}
+
+// GetRequestId returns the RequestId field value if set, zero value otherwise.
+func (o *TranslateMemoryEntry) GetRequestId() string {
+	if o == nil || IsNil(o.RequestId) {
+		var ret string
+		return ret
+	}
+	return *o.RequestId
+}
+
+// GetRequestIdOk returns a tuple with the RequestId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TranslateMemoryEntry) GetRequestIdOk() (*string, bool) {
+	if o == nil || IsNil(o.RequestId) {
+		return nil, false
+	}
+	return o.RequestId, true
+}
+
+// HasRequestId returns a boolean if a field has been set.
+func (o *TranslateMemoryEntry) HasRequestId() bool {
+	if o != nil && !IsNil(o.RequestId) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestId gets a reference to the given string and assigns it to the RequestId field.
+func (o *TranslateMemoryEntry) SetRequestId(v string) {
+	o.RequestId = &v
 }
 
 // GetSource returns the Source field value if set, zero value otherwise.
@@ -326,8 +462,20 @@ func (o TranslateMemoryEntry) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Actor) {
 		toSerialize["actor"] = o.Actor
 	}
+	if !IsNil(o.Format) {
+		toSerialize["format"] = o.Format
+	}
 	if !IsNil(o.GlossaryVersion) {
 		toSerialize["glossary_version"] = o.GlossaryVersion
+	}
+	if !IsNil(o.Lang) {
+		toSerialize["lang"] = o.Lang
+	}
+	if !IsNil(o.Model) {
+		toSerialize["model"] = o.Model
+	}
+	if !IsNil(o.RequestId) {
+		toSerialize["request_id"] = o.RequestId
 	}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
@@ -370,7 +518,11 @@ func (o *TranslateMemoryEntry) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actor")
+		delete(additionalProperties, "format")
 		delete(additionalProperties, "glossary_version")
+		delete(additionalProperties, "lang")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "request_id")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "state")
 		delete(additionalProperties, "target")

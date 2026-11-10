@@ -4,7 +4,7 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetX402Settlements**](X402API.md#GetX402Settlements) | **Get** /v1/x402/settlements | Lists the caller&#39;s x402 receipts, newest first: as payer, what its ledger paid; as payee, what it was paid — each settled payment with what it bought, both parties, the exact amount and when.
+[**GetX402Settlements**](X402API.md#GetX402Settlements) | **Get** /v1/x402/settlements | Lists the caller&#39;s x402 receipts, newest first: as payer, what its wallet paid; as payee, what its org was paid — each settled payment with what it bought, both parties, the exact amount and when.
 [**GetX402SettlementsById**](X402API.md#GetX402SettlementsById) | **Get** /v1/x402/settlements/{id} | Reads one x402 payment receipt by id.
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > X402SettlementList GetX402Settlements(ctx).Role(role).Year(year).Execute()
 
-Lists the caller's x402 receipts, newest first: as payer, what its ledger paid; as payee, what it was paid — each settled payment with what it bought, both parties, the exact amount and when.
+Lists the caller's x402 receipts, newest first: as payer, what its wallet paid; as payee, what its org was paid — each settled payment with what it bought, both parties, the exact amount and when.
 
 
 

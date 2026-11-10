@@ -20,19 +20,29 @@ var _ MappedNullable = &LegalDocumentView{}
 // LegalDocumentView struct for LegalDocumentView
 type LegalDocumentView struct {
 	// Body is the rendered document. It is sealed at rest and returned only to the owning org. When the template is counsel-review it opens with the counsel notice, which the engine prepends and no caller can suppress.
-	Body     *string `json:"body,omitempty"`
+	Body *string `json:"body,omitempty"`
+	// Category is the template's category: formation, equity, ops or sales.
 	Category *string `json:"category,omitempty"`
 	// ContentType is the rendered body's media type — text/markdown.
-	ContentType          *string `json:"contentType,omitempty"`
-	CreatedAt            *int64  `json:"createdAt,omitempty"`
-	EsignProvider        *string `json:"esignProvider,omitempty"`
-	Id                   *string `json:"id,omitempty"`
-	SignedAt             *int64  `json:"signedAt,omitempty"`
-	Status               *string `json:"status,omitempty"`
-	TemplateId           *string `json:"templateId,omitempty"`
-	TemplateVersion      *int64  `json:"templateVersion,omitempty"`
-	Title                *string `json:"title,omitempty"`
-	UpdatedAt            *int64  `json:"updatedAt,omitempty"`
+	ContentType *string `json:"contentType,omitempty"`
+	// CreatedAt is when the document was generated, in unix seconds.
+	CreatedAt *int64 `json:"createdAt,omitempty"`
+	// EsignProvider names the e-signature provider handling it, absent until a signature has been requested.
+	EsignProvider *string `json:"esignProvider,omitempty"`
+	// ID is the document's server-minted handle, \"doc_\"-prefixed.
+	Id *string `json:"id,omitempty"`
+	// SignedAt is when the provider reported completion, in unix seconds. Absent until then.
+	SignedAt *int64 `json:"signedAt,omitempty"`
+	// Status is the lifecycle state: draft, out_for_signature, signed or voided. There is deliberately no \"legally valid\" state — that is counsel's determination, not the platform's.
+	Status *string `json:"status,omitempty"`
+	// TemplateID is the template it was rendered from.
+	TemplateId *string `json:"templateId,omitempty"`
+	// TemplateVersion is WHICH version of that template rendered it, so the document is reproducible and auditable.
+	TemplateVersion *int64 `json:"templateVersion,omitempty"`
+	// Title is the document's title, inherited from the template.
+	Title *string `json:"title,omitempty"`
+	// UpdatedAt is when it last changed, in unix seconds.
+	UpdatedAt            *int64 `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

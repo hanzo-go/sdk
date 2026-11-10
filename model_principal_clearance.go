@@ -19,13 +19,15 @@ var _ MappedNullable = &PrincipalClearance{}
 
 // PrincipalClearance struct for PrincipalClearance
 type PrincipalClearance struct {
+	// Allowed is true when nothing is required first and no fact blocks.
 	Allowed *bool `json:"allowed,omitempty"`
 	// Amount is the gross amount, U.S. dollars.
 	Amount *string `json:"amount,omitempty"`
 	// Category is what is bought: services, attorney, rents, royalties, other or merchandise.
 	Category *string `json:"category,omitempty"`
 	// DecidedAt is when, unix seconds.
-	DecidedAt     *int64          `json:"decidedAt,omitempty"`
+	DecidedAt *int64 `json:"decidedAt,omitempty"`
+	// Facts are what a rule turns on that the platform does not know.
 	FactsRequired []PrincipalFact `json:"facts_required,omitempty"`
 	// ID is the clearance, \"clr_\"-prefixed.
 	Id *string `json:"id,omitempty"`
@@ -40,14 +42,20 @@ type PrincipalClearance struct {
 	// Platform is whether the caller operates the payee's platform, as stated.
 	Platform *bool `json:"platform,omitempty"`
 	// Rail is how it moves.
-	Rail                  *string               `json:"rail,omitempty"`
-	ReportingObligations  []PrincipalObligation `json:"reporting_obligations,omitempty"`
-	RequiredBeforePayment []PrincipalStep       `json:"required_before_payment,omitempty"`
-	Rules                 []PrincipalDecided    `json:"rules,omitempty"`
-	SettlementMethods     []PrincipalMethod     `json:"settlement_methods,omitempty"`
-	Status                *string               `json:"status,omitempty"`
-	Withholding           *PrincipalWithholding `json:"withholding,omitempty"`
-	AdditionalProperties  map[string]interface{}
+	Rail *string `json:"rail,omitempty"`
+	// Reporting are the returns this payment makes someone owe.
+	ReportingObligations []PrincipalObligation `json:"reporting_obligations,omitempty"`
+	// Required are the steps before the payment.
+	RequiredBeforePayment []PrincipalStep `json:"required_before_payment,omitempty"`
+	// Rules names the rule behind each field above.
+	Rules []PrincipalDecided `json:"rules,omitempty"`
+	// Settlement are the ways it may settle, net of what is withheld.
+	SettlementMethods []PrincipalMethod `json:"settlement_methods,omitempty"`
+	// Status is what the payer may treat the payee as: us, foreign or unknown — read off the form the payee granted the payer, and unknown without one.
+	Status *string `json:"status,omitempty"`
+	// Withholding is what must be withheld.
+	Withholding          *PrincipalWithholding `json:"withholding,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PrincipalClearance PrincipalClearance

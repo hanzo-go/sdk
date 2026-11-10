@@ -19,13 +19,13 @@ var _ MappedNullable = &AutoSchedule{}
 
 // AutoSchedule struct for AutoSchedule
 type AutoSchedule struct {
-	// At is the local time, HH:MM on a 24-hour clock, for daily, weekdays and weekly. Hourly takes its minute, and runs on the hour without one.
+	// At is the local time, HH:MM on a 24-hour clock, for daily, weekdays and weekly. Hourly takes its minute, and runs on the hour without one. Once takes a local date and time, YYYY-MM-DDTHH:MM, and runs now without one.
 	At *string `json:"at,omitempty"`
 	// Cron is a five-field cron expression (minute hour day-of-month month day-of-week), for kind cron only, read in TZ.
 	Cron *string `json:"cron,omitempty"`
 	// Day is the weekday a weekly schedule runs on: mon, tue, wed, thu, fri, sat or sun.
 	Day *string `json:"day,omitempty"`
-	// Kind is manual, hourly, daily, weekdays, weekly or cron. Manual runs only when asked.
+	// Kind is manual, hourly, daily, weekdays, weekly, cron or once. Manual runs only when asked; once runs one time and then switches itself off.
 	Kind *string `json:"kind,omitempty"`
 	// TZ is the IANA time zone every time here is read in. Empty is UTC.
 	Tz                   *string `json:"tz,omitempty"`

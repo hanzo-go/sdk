@@ -19,14 +19,20 @@ var _ MappedNullable = &CampaignCampaignUpdate{}
 
 // CampaignCampaignUpdate struct for CampaignCampaignUpdate
 type CampaignCampaignUpdate struct {
-	Audience *string               `json:"audience,omitempty"`
-	Budget   *int64                `json:"budget,omitempty"`
+	// Audience is the segment or audience selector this campaign targets.
+	Audience *string `json:"audience,omitempty"`
+	// Budget is the campaign's total budget in CENTS. Negative reads as 0.
+	Budget *int64 `json:"budget,omitempty"`
+	// Channels are the fan-out targets, at most one per kind (paid, organic, email) and at most 12. A channel's status and provider id are server-owned: whatever the caller sends for them is replaced with \"pending\".
 	Channels []CampaignChannelSpec `json:"channels,omitempty"`
-	Content  []string              `json:"content,omitempty"`
+	// Content is the ordered creative set. Content[0] is the active creative and the rest are A/B variants; at most 32, empty entries dropped.
+	Content []string `json:"content,omitempty"`
 	// ID is the campaign to update, from the path.
-	Id                   *string `json:"id,omitempty"`
-	Name                 *string `json:"name,omitempty"`
-	ScheduleAt           *int64  `json:"scheduleAt,omitempty"`
+	Id *string `json:"id,omitempty"`
+	// Name is the campaign's display name. Required; trimmed and capped at 2048 characters.
+	Name *string `json:"name,omitempty"`
+	// ScheduleAt is when the campaign should run, in unix seconds. Negative reads as 0 (immediately).
+	ScheduleAt           *int64 `json:"scheduleAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

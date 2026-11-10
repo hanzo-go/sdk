@@ -21,6 +21,8 @@ var _ MappedNullable = &AutoAutomationIn{}
 type AutoAutomationIn struct {
 	// Enabled arms its schedule. Absent is true.
 	Enabled *bool `json:"enabled,omitempty"`
+	// Event arms a product-outcome trigger; it is mutually exclusive with a timed schedule.
+	Event *AutoOutcomeTrigger `json:"event,omitempty"`
 	// Instructions are what the agent is asked to do each run. Required.
 	Instructions *string `json:"instructions,omitempty"`
 	// Model is the model id to think with. Optional; absent is the default.
@@ -31,10 +33,16 @@ type AutoAutomationIn struct {
 	Notify *bool `json:"notify,omitempty"`
 	// Permissions is auto (works without stopping) or ask (proposes, changes nothing). Absent is ask.
 	Permissions *string `json:"permissions,omitempty"`
+	// PostTo are the connected accounts each run's answer is posted to: x, linkedin, facebook. Absent posts nothing.
+	PostTo []string `json:"postTo,omitempty"`
 	// Project is a Dev project's slug to work in. Optional.
 	Project *string `json:"project,omitempty"`
 	// Schedule is when it runs. Absent runs it only on demand.
-	Schedule             *AutoSchedule `json:"schedule,omitempty"`
+	Schedule *AutoSchedule `json:"schedule,omitempty"`
+	// Source is the product it is made in: chat, dev, studio or workflow. Absent is dev.
+	Source *string `json:"source,omitempty"`
+	// Target selects a registered execution target for the coding run.
+	Target               *string `json:"target,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,6 +95,38 @@ func (o *AutoAutomationIn) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *AutoAutomationIn) SetEnabled(v bool) {
 	o.Enabled = &v
+}
+
+// GetEvent returns the Event field value if set, zero value otherwise.
+func (o *AutoAutomationIn) GetEvent() AutoOutcomeTrigger {
+	if o == nil || IsNil(o.Event) {
+		var ret AutoOutcomeTrigger
+		return ret
+	}
+	return *o.Event
+}
+
+// GetEventOk returns a tuple with the Event field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationIn) GetEventOk() (*AutoOutcomeTrigger, bool) {
+	if o == nil || IsNil(o.Event) {
+		return nil, false
+	}
+	return o.Event, true
+}
+
+// HasEvent returns a boolean if a field has been set.
+func (o *AutoAutomationIn) HasEvent() bool {
+	if o != nil && !IsNil(o.Event) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvent gets a reference to the given AutoOutcomeTrigger and assigns it to the Event field.
+func (o *AutoAutomationIn) SetEvent(v AutoOutcomeTrigger) {
+	o.Event = &v
 }
 
 // GetInstructions returns the Instructions field value if set, zero value otherwise.
@@ -249,6 +289,38 @@ func (o *AutoAutomationIn) SetPermissions(v string) {
 	o.Permissions = &v
 }
 
+// GetPostTo returns the PostTo field value if set, zero value otherwise.
+func (o *AutoAutomationIn) GetPostTo() []string {
+	if o == nil || IsNil(o.PostTo) {
+		var ret []string
+		return ret
+	}
+	return o.PostTo
+}
+
+// GetPostToOk returns a tuple with the PostTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationIn) GetPostToOk() ([]string, bool) {
+	if o == nil || IsNil(o.PostTo) {
+		return nil, false
+	}
+	return o.PostTo, true
+}
+
+// HasPostTo returns a boolean if a field has been set.
+func (o *AutoAutomationIn) HasPostTo() bool {
+	if o != nil && !IsNil(o.PostTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostTo gets a reference to the given []string and assigns it to the PostTo field.
+func (o *AutoAutomationIn) SetPostTo(v []string) {
+	o.PostTo = v
+}
+
 // GetProject returns the Project field value if set, zero value otherwise.
 func (o *AutoAutomationIn) GetProject() string {
 	if o == nil || IsNil(o.Project) {
@@ -313,6 +385,70 @@ func (o *AutoAutomationIn) SetSchedule(v AutoSchedule) {
 	o.Schedule = &v
 }
 
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *AutoAutomationIn) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationIn) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *AutoAutomationIn) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *AutoAutomationIn) SetSource(v string) {
+	o.Source = &v
+}
+
+// GetTarget returns the Target field value if set, zero value otherwise.
+func (o *AutoAutomationIn) GetTarget() string {
+	if o == nil || IsNil(o.Target) {
+		var ret string
+		return ret
+	}
+	return *o.Target
+}
+
+// GetTargetOk returns a tuple with the Target field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationIn) GetTargetOk() (*string, bool) {
+	if o == nil || IsNil(o.Target) {
+		return nil, false
+	}
+	return o.Target, true
+}
+
+// HasTarget returns a boolean if a field has been set.
+func (o *AutoAutomationIn) HasTarget() bool {
+	if o != nil && !IsNil(o.Target) {
+		return true
+	}
+
+	return false
+}
+
+// SetTarget gets a reference to the given string and assigns it to the Target field.
+func (o *AutoAutomationIn) SetTarget(v string) {
+	o.Target = &v
+}
+
 func (o AutoAutomationIn) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -325,6 +461,9 @@ func (o AutoAutomationIn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.Event) {
+		toSerialize["event"] = o.Event
 	}
 	if !IsNil(o.Instructions) {
 		toSerialize["instructions"] = o.Instructions
@@ -341,11 +480,20 @@ func (o AutoAutomationIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
 	}
+	if !IsNil(o.PostTo) {
+		toSerialize["postTo"] = o.PostTo
+	}
 	if !IsNil(o.Project) {
 		toSerialize["project"] = o.Project
 	}
 	if !IsNil(o.Schedule) {
 		toSerialize["schedule"] = o.Schedule
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.Target) {
+		toSerialize["target"] = o.Target
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -370,13 +518,17 @@ func (o *AutoAutomationIn) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "event")
 		delete(additionalProperties, "instructions")
 		delete(additionalProperties, "model")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "notify")
 		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "postTo")
 		delete(additionalProperties, "project")
 		delete(additionalProperties, "schedule")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "target")
 		o.AdditionalProperties = additionalProperties
 	}
 

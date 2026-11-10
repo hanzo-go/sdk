@@ -158,6 +158,10 @@ search and retrieval. What the index held of it is removed after, a batch at
 a time, so forgetting a file of any size answers at once. The object itself
 stays in its bucket; delete it there. Drive calls this when it deletes a file.
 
+Only the person who registered the file or an admin of the org may forget it;
+anyone else in the org, who can still read it, is refused 403. A file
+registered before uploaders were recorded is forgotten by an admin alone.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the file's id, as POST /v1/knowledge/files answered it.
 	@return KnowledgeAPIDeleteKnowledgeFilesByIdRequest
@@ -1607,6 +1611,10 @@ unpacked and every file inside becomes a workspace file of its own. Poll GET
 /v1/knowledge/files/{id} for status. Registering an object again answers the
 same file, and re-indexes it only when the object changed or its last ingest
 failed.
+
+Registering a changed object again changes its file, which only the person
+who registered it or an admin of the org may do: anyone else is refused 403
+and the file keeps its version. Registering an unchanged object is a read.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KnowledgeAPIPostKnowledgeFilesRequest

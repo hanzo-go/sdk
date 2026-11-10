@@ -5,17 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Body** | Pointer to **string** | Body is the rendered document. It is sealed at rest and returned only to the owning org. When the template is counsel-review it opens with the counsel notice, which the engine prepends and no caller can suppress. | [optional] 
-**Category** | Pointer to **string** |  | [optional] 
+**Category** | Pointer to **string** | Category is the template&#39;s category: formation, equity, ops or sales. | [optional] 
 **ContentType** | Pointer to **string** | ContentType is the rendered body&#39;s media type — text/markdown. | [optional] 
-**CreatedAt** | Pointer to **int64** |  | [optional] 
-**EsignProvider** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**SignedAt** | Pointer to **int64** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**TemplateId** | Pointer to **string** |  | [optional] 
-**TemplateVersion** | Pointer to **int64** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **int64** |  | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the document was generated, in unix seconds. | [optional] 
+**EsignProvider** | Pointer to **string** | EsignProvider names the e-signature provider handling it, absent until a signature has been requested. | [optional] 
+**Id** | Pointer to **string** | ID is the document&#39;s server-minted handle, \&quot;doc_\&quot;-prefixed. | [optional] 
+**SignedAt** | Pointer to **int64** | SignedAt is when the provider reported completion, in unix seconds. Absent until then. | [optional] 
+**Status** | Pointer to **string** | Status is the lifecycle state: draft, out_for_signature, signed or voided. There is deliberately no \&quot;legally valid\&quot; state — that is counsel&#39;s determination, not the platform&#39;s. | [optional] 
+**TemplateId** | Pointer to **string** | TemplateID is the template it was rendered from. | [optional] 
+**TemplateVersion** | Pointer to **int64** | TemplateVersion is WHICH version of that template rendered it, so the document is reproducible and auditable. | [optional] 
+**Title** | Pointer to **string** | Title is the document&#39;s title, inherited from the template. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when it last changed, in unix seconds. | [optional] 
 
 ## Methods
 

@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **Favicon** | Pointer to **string** |  | [optional] 
 **Founder** | Pointer to **string** | Founder is the stable storage id of the identity that provisioned this org (self-service onboarding). It is the resume token that makes provisioning converge on a backend where each write autocommits independently (no transaction rollback): after a partial failure that created the org but did not move the founder in, a retry recognises the org as the founder&#39;s own and completes it, instead of refusing it as \&quot;already taken\&quot;. It also fences the org to ONE tenant — a different identity can never complete or join it. | [optional] 
 **HasPrivilegeConsent** | Pointer to **bool** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **InitScore** | Pointer to **int64** |  | [optional] 
 **IpRestriction** | Pointer to **string** |  | [optional] 
 **IpWhitelist** | Pointer to **string** |  | [optional] 

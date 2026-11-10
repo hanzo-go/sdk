@@ -19,14 +19,22 @@ var _ MappedNullable = &LegalLegalTemplate{}
 
 // LegalLegalTemplate struct for LegalLegalTemplate
 type LegalLegalTemplate struct {
-	Body                 *string      `json:"body,omitempty"`
-	Category             *string      `json:"category,omitempty"`
-	CounselReview        *bool        `json:"counselReview,omitempty"`
-	Fields               []LegalField `json:"fields,omitempty"`
-	Id                   *string      `json:"id,omitempty"`
-	Origin               *string      `json:"origin,omitempty"`
-	Title                *string      `json:"title,omitempty"`
-	Version              *int64       `json:"version,omitempty"`
+	// Body is the text/template source, markdown, referencing each declared field as {{.key}}. Rendering is pure — no clock, no I/O — so a template version and a data map always produce identical bytes. Only the single-template read carries it; the catalog listing does not.
+	Body *string `json:"body,omitempty"`
+	// Category is the corporate need the template serves: formation, equity, ops or sales. Formation and equity are the securities-class categories, which is what forces CounselReview.
+	Category *string `json:"category,omitempty"`
+	// CounselReview marks a template whose rendered documents open with CounselNotice. It can be raised but never lowered, and the engine also raises it for any formation or equity template whatever the flag says — so no org can render a securities-class document without the notice.
+	CounselReview *bool `json:"counselReview,omitempty"`
+	// Fields declares the merge fields Body consumes, each with its human label. Every one is REQUIRED at generation: a missing or blank value is refused rather than rendered as a silent blank into a contract.
+	Fields []LegalField `json:"fields,omitempty"`
+	// ID is the template's stable id and the path segment that addresses it — \"nda\", \"msa\", \"safe\". An override keeps the built-in's id, so the id names the DOCUMENT KIND rather than a particular version of it.
+	Id *string `json:"id,omitempty"`
+	// Origin is \"builtin\" for a template the platform ships or \"org\" for one this org saved. It separates the catalog every tenant sees from this tenant's own.
+	Origin *string `json:"origin,omitempty"`
+	// Title is the display name, e.g. \"Mutual Non-Disclosure Agreement\". A generated document inherits it.
+	Title *string `json:"title,omitempty"`
+	// Version is which version of this template the caller resolved to, and what a generated document records so it stays reproducible. A built-in is version 1; an org's first override is 2 and each save increments, so an override version never collides with the built-in's.
+	Version              *int64 `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

@@ -5,7 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Arms** | Pointer to **[]string** | the blend — model ids from the arena | [optional] 
-**Name** | Pointer to **string** | served as enso-&lt;name&gt; | [optional] 
+**At** | Pointer to **time.Time** | At is when this version was stored. Set by the server; a value sent is not read. Zero on the reference blend. | [optional] 
+**By** | Pointer to **string** | By is the verified user who stored it. Set by the server; a value sent is not read. | [optional] 
+**Name** | Pointer to **string** | the part after enso-: lowercase letters, digits and inner hyphens, at most 64 | [optional] 
 **Note** | Pointer to **string** | why this blend (audit) | [optional] 
 **Owner** | Pointer to **string** | the org the blend belongs to: the writer&#39;s verified org, never a value sent | [optional] 
 **Panel** | Pointer to **int64** | fan-out width (&gt;&#x3D;1) | [optional] 
@@ -54,6 +56,56 @@ SetArms sets Arms field to given value.
 `func (o *BenchmarkPreset) HasArms() bool`
 
 HasArms returns a boolean if a field has been set.
+
+### GetAt
+
+`func (o *BenchmarkPreset) GetAt() time.Time`
+
+GetAt returns the At field if non-nil, zero value otherwise.
+
+### GetAtOk
+
+`func (o *BenchmarkPreset) GetAtOk() (*time.Time, bool)`
+
+GetAtOk returns a tuple with the At field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAt
+
+`func (o *BenchmarkPreset) SetAt(v time.Time)`
+
+SetAt sets At field to given value.
+
+### HasAt
+
+`func (o *BenchmarkPreset) HasAt() bool`
+
+HasAt returns a boolean if a field has been set.
+
+### GetBy
+
+`func (o *BenchmarkPreset) GetBy() string`
+
+GetBy returns the By field if non-nil, zero value otherwise.
+
+### GetByOk
+
+`func (o *BenchmarkPreset) GetByOk() (*string, bool)`
+
+GetByOk returns a tuple with the By field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBy
+
+`func (o *BenchmarkPreset) SetBy(v string)`
+
+SetBy sets By field to given value.
+
+### HasBy
+
+`func (o *BenchmarkPreset) HasBy() bool`
+
+HasBy returns a boolean if a field has been set.
 
 ### GetName
 

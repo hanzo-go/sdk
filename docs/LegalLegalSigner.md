@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Email** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Email** | Pointer to **string** | Email is where the provider sends the request, and the only way the signer is reached — a signer is a COUNTERPARTY, not necessarily a member of the org, so there is no account to fall back on. | [optional] 
+**Name** | Pointer to **string** | Name is the person as they should appear on the signature request. Passed to the provider verbatim; nothing here matches it against a Hanzo user. | [optional] 
 
 ## Methods
 

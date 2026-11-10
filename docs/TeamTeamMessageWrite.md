@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Files** | Pointer to [**[]TeamTeamFileIn**](TeamTeamFileIn.md) | Files attaches blobs already uploaded to the space. A message may be files alone, with no text. | [optional] 
-**Id** | Pointer to **string** | ID is the room to say it in, from the path. | [optional] 
-**Space** | Pointer to **string** | Space names the space holding the room. Body-only: a query string may not redirect a write. | [optional] 
+**Id** | Pointer to **string** | ID is the channel to say it in, from the path. | [optional] 
+**Space** | Pointer to **string** | Space names the space holding the channel. Body-only: a query string may not redirect a write. | [optional] 
 **Text** | Pointer to **string** | Text is what to say, as plain text. It is wrapped in the client&#39;s markup on the way in, so a caller writes words rather than HTML. &#x60;&lt;@account-uuid&gt;&#x60; mentions a member of the space: it is stored as the platform&#39;s mention, so they are notified, and an agent mentioned this way answers. | [optional] 
 
 ## Methods

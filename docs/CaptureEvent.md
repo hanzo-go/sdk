@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **GroupId** | Pointer to **string** |  | [optional] 
 **GroupType** | Pointer to **string** |  | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
+**LastUtm** | Pointer to [**UTM**](UTM.md) |  | [optional] 
 **Level** | Pointer to **string** |  | [optional] 
 **Library** | Pointer to **string** |  | [optional] 
 **LibraryVersion** | Pointer to **string** |  | [optional] 
@@ -337,6 +338,31 @@ SetKind sets Kind field to given value.
 `func (o *CaptureEvent) HasKind() bool`
 
 HasKind returns a boolean if a field has been set.
+
+### GetLastUtm
+
+`func (o *CaptureEvent) GetLastUtm() UTM`
+
+GetLastUtm returns the LastUtm field if non-nil, zero value otherwise.
+
+### GetLastUtmOk
+
+`func (o *CaptureEvent) GetLastUtmOk() (*UTM, bool)`
+
+GetLastUtmOk returns a tuple with the LastUtm field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUtm
+
+`func (o *CaptureEvent) SetLastUtm(v UTM)`
+
+SetLastUtm sets LastUtm field to given value.
+
+### HasLastUtm
+
+`func (o *CaptureEvent) HasLastUtm() bool`
+
+HasLastUtm returns a boolean if a field has been set.
 
 ### GetLevel
 

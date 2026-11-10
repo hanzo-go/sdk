@@ -19,7 +19,7 @@ var _ MappedNullable = &AccountApiKeyList{}
 
 // AccountApiKeyList struct for AccountApiKeyList
 type AccountApiKeyList struct {
-	// Keys is every key the caller holds, at most one per type.
+	// Keys is every key the caller may see, newest first: their own, or every key of the org when the caller administers it. Revoked keys stay listed.
 	Keys                 []AccountApiKey `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

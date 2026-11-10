@@ -4,15 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Assigned** | Pointer to [**[]BillingSubscriptionSeat**](BillingSubscriptionSeat.md) | Assigned is which member holds which seat type, as the org&#39;s admin set it. | [optional] 
 **CancelAtPeriodEnd** | Pointer to **bool** | CancelAtPeriodEnd reports that the plan ends at CurrentPeriodEnd. | [optional] 
 **CanceledAt** | Pointer to **string** | CanceledAt is when it was canceled; absent when it was not. | [optional] 
 **ChargedCents** | Pointer to **int64** | ChargedCents is what the period in hand was actually paid, after any discount and net of refunds. 0 when the period is unpaid. | [optional] 
+**Coupon** | Pointer to **string** | Coupon is the plan coupon code the first period was bought with, as commerce stores it (upper case); absent when none was. | [optional] 
 **CreatedAt** | Pointer to **string** | CreatedAt is when the row was written, RFC 3339. | [optional] 
 **CurrentPeriodEnd** | Pointer to **string** | CurrentPeriodEnd is when it ends, RFC 3339. The plan is paid through it. | [optional] 
 **CurrentPeriodStart** | Pointer to **string** | CurrentPeriodStart is when the period in hand began, RFC 3339. | [optional] 
+**CustomerCents** | Pointer to **int64** | CustomerCents is the price staff agreed this subscriber pays for one seat each period, below the plan&#39;s list price; absent when none was. Every invoice bills the plan at list and the difference as the customer&#39;s discount. After LastPaid, for the ZAP wire. | [optional] 
 **DefaultPaymentMethod** | Pointer to **string** | DefaultPaymentMethod is the saved method a renewal would use. Empty means there is none, so nothing can charge the plan. | [optional] 
 **EndedAt** | Pointer to **string** | EndedAt is when it ended; absent while it runs. | [optional] 
+**Held** | Pointer to **bool** | Held reports that this row is the subject&#39;s one paid plan: while it stands, commerce refuses a second paid sale (409). | [optional] 
 **Id** | Pointer to **string** | ID is the subscription&#39;s own id, the one cancel and reactivate take. | [optional] 
+**LastPaid** | Pointer to **string** | LastPaid is when the latest payment for this subscription arrived, RFC 3339: its latest paid invoice&#39;s paid time, or, for a period recorded as collected outside commerce, which keeps no time of its own record, the start of the latest period recorded — whichever is later. Any period, not only the one in hand: a plan past due still says when it was last paid. Empty when nothing was, or when the invoices did not read. Last, so every field before it keeps its place on the ZAP wire. | [optional] 
+**Lines** | Pointer to [**[]BillingSubscriptionLine**](BillingSubscriptionLine.md) | Lines are a team&#39;s other seat types beside Plan (a team of standard and premium seats is Plan \&quot;team\&quot; and one line of \&quot;team-premium\&quot;), each with the seats of it the period in hand was paid for. Seats above counts them too. After Held, so the fields before them keep their places on the ZAP wire. | [optional] 
 **MrrCents** | Pointer to **int64** | MRRCents is what this subscription contributes per month — commerce&#39;s own figure, interval-normalized and multiplied by its seats, so no reader re-derives it from price and interval. | [optional] 
 **Plan** | Pointer to [**BillingSubscriptionPlan**](BillingSubscriptionPlan.md) | Plan is the plan as this subscription snapshotted it. | [optional] 
 **PlanId** | Pointer to **string** | PlanID is the plan slug, e.g. \&quot;max-20x\&quot;. | [optional] 
@@ -21,6 +27,7 @@ Name | Type | Description | Notes
 **Seats** | Pointer to **int64** | Seats is the seat count the period in hand was paid for — its paid invoice&#39;s quantity, or the quantity recorded with an external period — never the row&#39;s live Quantity, which the holder may change. 0 when the period is unpaid. | [optional] 
 **Settled** | Pointer to **string** | Settled is how the period in hand was paid: \&quot;card\&quot; (a card paid all of it), \&quot;external:&lt;processor&gt;\&quot; (a payment recorded as collected outside commerce), \&quot;balance\&quot;, \&quot;credit\&quot; or \&quot;mixed\&quot; (prepaid money). Empty when unpaid or unknown. | [optional] 
 **Status** | Pointer to **string** | Status is trialing, active, past_due, canceled or unpaid. Only active and trialing confer the plan. | [optional] 
+**Test** | Pointer to **bool** | Test marks a sandbox subscription: sold while its org was in test mode, paid with sandbox money. It is listed and never revenue. | [optional] 
 **TrialEnd** | Pointer to **string** | TrialEnd is when that trial ends; absent when there was none. | [optional] 
 **TrialStart** | Pointer to **string** | TrialStart is when a trial began; absent when there was none. | [optional] 
 **UpdatedAt** | Pointer to **string** | UpdatedAt is when the row last changed, RFC 3339. | [optional] 
@@ -44,6 +51,31 @@ will change when the set of required properties is changed
 NewBillingSubscriptionWithDefaults instantiates a new BillingSubscription object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAssigned
+
+`func (o *BillingSubscription) GetAssigned() []BillingSubscriptionSeat`
+
+GetAssigned returns the Assigned field if non-nil, zero value otherwise.
+
+### GetAssignedOk
+
+`func (o *BillingSubscription) GetAssignedOk() (*[]BillingSubscriptionSeat, bool)`
+
+GetAssignedOk returns a tuple with the Assigned field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssigned
+
+`func (o *BillingSubscription) SetAssigned(v []BillingSubscriptionSeat)`
+
+SetAssigned sets Assigned field to given value.
+
+### HasAssigned
+
+`func (o *BillingSubscription) HasAssigned() bool`
+
+HasAssigned returns a boolean if a field has been set.
 
 ### GetCancelAtPeriodEnd
 
@@ -120,6 +152,31 @@ SetChargedCents sets ChargedCents field to given value.
 
 HasChargedCents returns a boolean if a field has been set.
 
+### GetCoupon
+
+`func (o *BillingSubscription) GetCoupon() string`
+
+GetCoupon returns the Coupon field if non-nil, zero value otherwise.
+
+### GetCouponOk
+
+`func (o *BillingSubscription) GetCouponOk() (*string, bool)`
+
+GetCouponOk returns a tuple with the Coupon field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCoupon
+
+`func (o *BillingSubscription) SetCoupon(v string)`
+
+SetCoupon sets Coupon field to given value.
+
+### HasCoupon
+
+`func (o *BillingSubscription) HasCoupon() bool`
+
+HasCoupon returns a boolean if a field has been set.
+
 ### GetCreatedAt
 
 `func (o *BillingSubscription) GetCreatedAt() string`
@@ -195,6 +252,31 @@ SetCurrentPeriodStart sets CurrentPeriodStart field to given value.
 
 HasCurrentPeriodStart returns a boolean if a field has been set.
 
+### GetCustomerCents
+
+`func (o *BillingSubscription) GetCustomerCents() int64`
+
+GetCustomerCents returns the CustomerCents field if non-nil, zero value otherwise.
+
+### GetCustomerCentsOk
+
+`func (o *BillingSubscription) GetCustomerCentsOk() (*int64, bool)`
+
+GetCustomerCentsOk returns a tuple with the CustomerCents field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomerCents
+
+`func (o *BillingSubscription) SetCustomerCents(v int64)`
+
+SetCustomerCents sets CustomerCents field to given value.
+
+### HasCustomerCents
+
+`func (o *BillingSubscription) HasCustomerCents() bool`
+
+HasCustomerCents returns a boolean if a field has been set.
+
 ### GetDefaultPaymentMethod
 
 `func (o *BillingSubscription) GetDefaultPaymentMethod() string`
@@ -245,6 +327,31 @@ SetEndedAt sets EndedAt field to given value.
 
 HasEndedAt returns a boolean if a field has been set.
 
+### GetHeld
+
+`func (o *BillingSubscription) GetHeld() bool`
+
+GetHeld returns the Held field if non-nil, zero value otherwise.
+
+### GetHeldOk
+
+`func (o *BillingSubscription) GetHeldOk() (*bool, bool)`
+
+GetHeldOk returns a tuple with the Held field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHeld
+
+`func (o *BillingSubscription) SetHeld(v bool)`
+
+SetHeld sets Held field to given value.
+
+### HasHeld
+
+`func (o *BillingSubscription) HasHeld() bool`
+
+HasHeld returns a boolean if a field has been set.
+
 ### GetId
 
 `func (o *BillingSubscription) GetId() string`
@@ -269,6 +376,56 @@ SetId sets Id field to given value.
 `func (o *BillingSubscription) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetLastPaid
+
+`func (o *BillingSubscription) GetLastPaid() string`
+
+GetLastPaid returns the LastPaid field if non-nil, zero value otherwise.
+
+### GetLastPaidOk
+
+`func (o *BillingSubscription) GetLastPaidOk() (*string, bool)`
+
+GetLastPaidOk returns a tuple with the LastPaid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastPaid
+
+`func (o *BillingSubscription) SetLastPaid(v string)`
+
+SetLastPaid sets LastPaid field to given value.
+
+### HasLastPaid
+
+`func (o *BillingSubscription) HasLastPaid() bool`
+
+HasLastPaid returns a boolean if a field has been set.
+
+### GetLines
+
+`func (o *BillingSubscription) GetLines() []BillingSubscriptionLine`
+
+GetLines returns the Lines field if non-nil, zero value otherwise.
+
+### GetLinesOk
+
+`func (o *BillingSubscription) GetLinesOk() (*[]BillingSubscriptionLine, bool)`
+
+GetLinesOk returns a tuple with the Lines field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLines
+
+`func (o *BillingSubscription) SetLines(v []BillingSubscriptionLine)`
+
+SetLines sets Lines field to given value.
+
+### HasLines
+
+`func (o *BillingSubscription) HasLines() bool`
+
+HasLines returns a boolean if a field has been set.
 
 ### GetMrrCents
 
@@ -469,6 +626,31 @@ SetStatus sets Status field to given value.
 `func (o *BillingSubscription) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetTest
+
+`func (o *BillingSubscription) GetTest() bool`
+
+GetTest returns the Test field if non-nil, zero value otherwise.
+
+### GetTestOk
+
+`func (o *BillingSubscription) GetTestOk() (*bool, bool)`
+
+GetTestOk returns a tuple with the Test field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTest
+
+`func (o *BillingSubscription) SetTest(v bool)`
+
+SetTest sets Test field to given value.
+
+### HasTest
+
+`func (o *BillingSubscription) HasTest() bool`
+
+HasTest returns a boolean if a field has been set.
 
 ### GetTrialEnd
 

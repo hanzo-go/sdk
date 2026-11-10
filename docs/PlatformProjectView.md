@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Apps** | Pointer to **int64** |  | [optional] 
+**Apps** | Pointer to **int64** | Apps is how many declarations name the project. | [optional] 
 **CdUnavailable** | Pointer to [**PlatformUnreadable**](PlatformUnreadable.md) | CD says why the reconciliation columns are missing, when they are. | [optional] 
 **ClusterUnavailable** | Pointer to [**PlatformUnreadable**](PlatformUnreadable.md) | Cluster says why the running columns are missing, when they are. | [optional] 
-**Drift** | Pointer to [**PlatformDriftTally**](PlatformDriftTally.md) |  | [optional] 
-**Health** | Pointer to [**PlatformHealthTally**](PlatformHealthTally.md) |  | [optional] 
+**Drift** | Pointer to [**PlatformDriftTally**](PlatformDriftTally.md) | Drift counts its apps by drift severity. | [optional] 
+**Health** | Pointer to [**PlatformHealthTally**](PlatformHealthTally.md) | Health counts its apps by CD&#39;s health verdict. | [optional] 
 **Members** | Pointer to [**[]PlatformProjectApp**](PlatformProjectApp.md) | Members are the project&#39;s apps, sorted by namespace then name. | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Namespaces** | Pointer to **[]string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Sync** | Pointer to [**PlatformSyncTally**](PlatformSyncTally.md) |  | [optional] 
+**Name** | Pointer to **string** | Name is the project, as the values files spell it in &#x60;partOf&#x60;. | [optional] 
+**Namespaces** | Pointer to **[]string** | Namespaces are the namespaces its apps deploy into, sorted. | [optional] 
+**Org** | Pointer to **string** | Org is the organization that owns the project. Absent for the platform&#39;s own projects, whose apps live in the platform&#39;s directories. | [optional] 
+**Sync** | Pointer to [**PlatformSyncTally**](PlatformSyncTally.md) | Sync counts its apps by CD&#39;s sync verdict. | [optional] 
 **Unreadable** | Pointer to [**[]PlatformUnreadableFile**](PlatformUnreadableFile.md) | Unreadable are the values files in the owner&#39;s scope that do not parse, any of which may name this project. Absent when every file parsed. | [optional] 
 
 ## Methods

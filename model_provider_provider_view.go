@@ -19,6 +19,8 @@ var _ MappedNullable = &ProviderProviderView{}
 
 // ProviderProviderView struct for ProviderProviderView
 type ProviderProviderView struct {
+	// Accounts is every account this org has connected for the provider, each with its own platform id. Tokens never appear here.
+	Accounts []ProviderConnectionView `json:"accounts,omitempty"`
 	// Actions are what the connector can be asked to do, by a flow step or an agent (POST /v1/provider/{provider}/run when Runnable).
 	Actions []ProviderOpView `json:"actions,omitempty"`
 	// App names the OAuth app registration its sign-in uses (\"GOOGLE\"), for a connector whose sign-in awaits one.
@@ -31,7 +33,7 @@ type ProviderProviderView struct {
 	Checks *bool `json:"checks,omitempty"`
 	// Connected is whether this org has a live connection to the provider.
 	Connected *bool `json:"connected,omitempty"`
-	// Connection is the connected account's non-secret detail. Absent when the org has no connection; tokens NEVER appear here (they live only in KMS).
+	// Connection is the connected account's non-secret detail. Absent when the org has no connection; tokens NEVER appear here (they live only in KMS). When the org holds several accounts, this is the first and Accounts is every one of them.
 	Connection *ProviderConnectionView `json:"connection,omitempty"`
 	// Description is the one-line pitch the console card shows.
 	Description *string `json:"description,omitempty"`
@@ -75,6 +77,38 @@ func NewProviderProviderView() *ProviderProviderView {
 func NewProviderProviderViewWithDefaults() *ProviderProviderView {
 	this := ProviderProviderView{}
 	return &this
+}
+
+// GetAccounts returns the Accounts field value if set, zero value otherwise.
+func (o *ProviderProviderView) GetAccounts() []ProviderConnectionView {
+	if o == nil || IsNil(o.Accounts) {
+		var ret []ProviderConnectionView
+		return ret
+	}
+	return o.Accounts
+}
+
+// GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProviderProviderView) GetAccountsOk() ([]ProviderConnectionView, bool) {
+	if o == nil || IsNil(o.Accounts) {
+		return nil, false
+	}
+	return o.Accounts, true
+}
+
+// HasAccounts returns a boolean if a field has been set.
+func (o *ProviderProviderView) HasAccounts() bool {
+	if o != nil && !IsNil(o.Accounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccounts gets a reference to the given []ProviderConnectionView and assigns it to the Accounts field.
+func (o *ProviderProviderView) SetAccounts(v []ProviderConnectionView) {
+	o.Accounts = v
 }
 
 // GetActions returns the Actions field value if set, zero value otherwise.
@@ -663,6 +697,9 @@ func (o ProviderProviderView) MarshalJSON() ([]byte, error) {
 
 func (o ProviderProviderView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Accounts) {
+		toSerialize["accounts"] = o.Accounts
+	}
 	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
@@ -739,6 +776,7 @@ func (o *ProviderProviderView) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accounts")
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "available")

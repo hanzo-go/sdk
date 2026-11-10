@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **CredentialId** | Pointer to **string** |  | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
 **PublicKey** | Pointer to **string** |  | [optional] 

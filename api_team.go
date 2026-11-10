@@ -140,6 +140,124 @@ func (a *TeamAPIService) DeleteTeamAccountCookieExecute(r TeamAPIDeleteTeamAccou
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type TeamAPIDeleteTeamChannelsByIdMembersByAccountRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	account    string
+	space      *string
+}
+
+// Space is the space uuid holding the channel.
+func (r TeamAPIDeleteTeamChannelsByIdMembersByAccountRequest) Space(space string) TeamAPIDeleteTeamChannelsByIdMembersByAccountRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIDeleteTeamChannelsByIdMembersByAccountRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteTeamChannelsByIdMembersByAccountExecute(r)
+}
+
+/*
+DeleteTeamChannelsByIdMembersByAccount Takes one person out of a channel — the caller leaving, when the account is their own.
+
+Takes one person out of a channel — the caller leaving, when the
+account is their own. Removing somebody else takes owning the channel or
+administering the space. Leaving a channel you are not in, or removing somebody
+who is not there, changes nothing. A direct message cannot be left: its people
+are what it is. Answers 204.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the channel, from the path.
+	@param account Account is the account uuid to remove, from the path. Your own is leaving.
+	@return TeamAPIDeleteTeamChannelsByIdMembersByAccountRequest
+*/
+func (a *TeamAPIService) DeleteTeamChannelsByIdMembersByAccount(ctx context.Context, id string, account string) TeamAPIDeleteTeamChannelsByIdMembersByAccountRequest {
+	return TeamAPIDeleteTeamChannelsByIdMembersByAccountRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		account:    account,
+	}
+}
+
+// Execute executes the request
+func (a *TeamAPIService) DeleteTeamChannelsByIdMembersByAccountExecute(r TeamAPIDeleteTeamChannelsByIdMembersByAccountRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DeleteTeamChannelsByIdMembersByAccount")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/channels/{id}/members/{account}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account"+"}", url.PathEscape(parameterValueToString(r.account, "account")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type TeamAPIDeleteTeamDocsByIdRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
@@ -620,124 +738,6 @@ func (a *TeamAPIService) DeleteTeamMessagesByIdReactionsByEmojiExecute(r TeamAPI
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest struct {
-	ctx        context.Context
-	ApiService *TeamAPIService
-	id         string
-	account    string
-	space      *string
-}
-
-// Space is the space uuid holding the room.
-func (r TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest) Space(space string) TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest {
-	r.space = &space
-	return r
-}
-
-func (r TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteTeamRoomsByIdMembersByAccountExecute(r)
-}
-
-/*
-DeleteTeamRoomsByIdMembersByAccount Takes one person out of a room — the caller leaving, when the account is their own.
-
-Takes one person out of a room — the caller leaving, when the
-account is their own. Removing somebody else takes owning the room or
-administering the space. Leaving a room you are not in, or removing somebody
-who is not there, changes nothing. A direct message cannot be left: its people
-are what it is. Answers 204.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the room, from the path.
-	@param account Account is the account uuid to remove, from the path. Your own is leaving.
-	@return TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest
-*/
-func (a *TeamAPIService) DeleteTeamRoomsByIdMembersByAccount(ctx context.Context, id string, account string) TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest {
-	return TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		account:    account,
-	}
-}
-
-// Execute executes the request
-func (a *TeamAPIService) DeleteTeamRoomsByIdMembersByAccountExecute(r TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DeleteTeamRoomsByIdMembersByAccount")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/rooms/{id}/members/{account}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"account"+"}", url.PathEscape(parameterValueToString(r.account, "account")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.space != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type TeamAPIGetTeamAccountAuthByProviderRequest struct {
@@ -1265,6 +1265,377 @@ func (a *TeamAPIService) GetTeamBillingUiExecute(r TeamAPIGetTeamBillingUiReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type TeamAPIGetTeamChannelsRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+}
+
+func (r TeamAPIGetTeamChannelsRequest) Execute() (*TeamTeamChannels, *http.Response, error) {
+	return r.ApiService.GetTeamChannelsExecute(r)
+}
+
+/*
+GetTeamChannels Returns the channels the caller may see, with the kind and work facet each carries.
+
+Returns the channels the caller may see, with the kind and work
+facet each carries.
+
+A signed-in TEAM MEMBER reads every channel of every space they are in that is
+open to them: public channels, and the private channels and direct messages
+that name them. An APPLICATION of the org (its own machine credential) reads
+the public channels of the org's spaces and nothing that belongs to
+particular people. Anybody else without a team session is 401.
+
+It reads the SAME channel documents the transactor serves, so a channel opened
+in the Team client appears here with no sync, and a facet written here is read
+by anything holding the document.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIGetTeamChannelsRequest
+*/
+func (a *TeamAPIService) GetTeamChannels(ctx context.Context) TeamAPIGetTeamChannelsRequest {
+	return TeamAPIGetTeamChannelsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamChannels
+func (a *TeamAPIService) GetTeamChannelsExecute(r TeamAPIGetTeamChannelsRequest) (*TeamTeamChannels, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamChannels
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamChannels")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/channels"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIGetTeamChannelsByIdMembersRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	space      *string
+}
+
+// Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order.
+func (r TeamAPIGetTeamChannelsByIdMembersRequest) Space(space string) TeamAPIGetTeamChannelsByIdMembersRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIGetTeamChannelsByIdMembersRequest) Execute() (*TeamTeamChannelMembers, *http.Response, error) {
+	return r.ApiService.GetTeamChannelsByIdMembersExecute(r)
+}
+
+/*
+GetTeamChannelsByIdMembers Returns the people and agents in one channel, as the roster describes them.
+
+Returns the people and agents in one channel, as the roster
+describes them. The caller must be able to see the channel.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the channel, from the path. The URL is the authority.
+	@return TeamAPIGetTeamChannelsByIdMembersRequest
+*/
+func (a *TeamAPIService) GetTeamChannelsByIdMembers(ctx context.Context, id string) TeamAPIGetTeamChannelsByIdMembersRequest {
+	return TeamAPIGetTeamChannelsByIdMembersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamChannelMembers
+func (a *TeamAPIService) GetTeamChannelsByIdMembersExecute(r TeamAPIGetTeamChannelsByIdMembersRequest) (*TeamTeamChannelMembers, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamChannelMembers
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamChannelsByIdMembers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/channels/{id}/members"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIGetTeamChannelsByIdMessagesRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	space      *string
+}
+
+// Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order.
+func (r TeamAPIGetTeamChannelsByIdMessagesRequest) Space(space string) TeamAPIGetTeamChannelsByIdMessagesRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIGetTeamChannelsByIdMessagesRequest) Execute() (*TeamTeamMessages, *http.Response, error) {
+	return r.ApiService.GetTeamChannelsByIdMessagesExecute(r)
+}
+
+/*
+GetTeamChannelsByIdMessages Returns the tail of one channel's conversation, oldest first, each message with its reactions, files and thread count.
+
+Returns the tail of one channel's conversation, oldest first, each
+message with its reactions, files and thread count.
+
+It reads the SAME message documents the transactor serves, so a message typed
+in the Team client is here with no sync. A team member reads any channel they
+may see; an application of the org reads public channels only; anybody else
+without a team session is 401. A channel the caller may not read answers 404
+rather than 403, so a probe learns nothing about what exists.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the channel, from the path. The URL is the authority.
+	@return TeamAPIGetTeamChannelsByIdMessagesRequest
+*/
+func (a *TeamAPIService) GetTeamChannelsByIdMessages(ctx context.Context, id string) TeamAPIGetTeamChannelsByIdMessagesRequest {
+	return TeamAPIGetTeamChannelsByIdMessagesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamMessages
+func (a *TeamAPIService) GetTeamChannelsByIdMessagesExecute(r TeamAPIGetTeamChannelsByIdMessagesRequest) (*TeamTeamMessages, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamMessages
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamChannelsByIdMessages")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/channels/{id}/messages"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type TeamAPIGetTeamCollaboratorRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
@@ -1645,10 +2016,10 @@ func (r TeamAPIGetTeamDocsByIdCommentsRequest) Execute() (*TeamTeamMessages, *ht
 }
 
 /*
-GetTeamDocsByIdComments Returns the comments on a document, oldest first — the same message shape a room's conversation answers.
+GetTeamDocsByIdComments Returns the comments on a document, oldest first — the same message shape a channel's conversation answers.
 
 Returns the comments on a document, oldest first — the same
-message shape a room's conversation answers.
+message shape a channel's conversation answers.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the document, from the path.
@@ -1762,13 +2133,13 @@ func (r TeamAPIGetTeamEventsRequest) Execute() (*os.File, *http.Response, error)
 /*
 GetTeamEvents Stream live changes to what the caller may see, as Server-Sent Events
 
-Holds one text/event-stream open per caller and pushes each change as it is written — by the Team client, a typed op or an agent — filtered to the rooms, documents and inbox the caller may see under the same rule the ops apply. Authenticate with `Authorization: Bearer` (a fetch-based SSE reader; a browser EventSource cannot set it). `?space=` narrows the stream to one space; without it the stream covers every space the caller is a member of at connect.
+Holds one text/event-stream open per caller and pushes each change as it is written — by the Team client, a typed op or an agent — filtered to the channels, documents and inbox the caller may see under the same rule the ops apply. Authenticate with `Authorization: Bearer` (a fetch-based SSE reader; a browser EventSource cannot set it). `?space=` narrows the stream to one space; without it the stream covers every space the caller is a member of at connect.
 
 Each frame is `event: <name>` and a JSON `data:` line carrying `space` and one of:
-- `message.created`, `message.updated` — `message`, the message as the message ops answer it (a room message, a thread reply or a document comment; a count or reaction change is an update);
-- `message.deleted` — `id`, and `room`/`doc`/`thread` where known;
+- `message.created`, `message.updated` — `message`, the message as the message ops answer it (a channel message, a thread reply or a document comment; a count or reaction change is an update);
+- `message.deleted` — `id`, and `channel`/`doc`/`thread` where known;
 - `reaction.changed` — `message`, with its reactions as they now stand;
-- `room.changed` — `room`, as the room listing answers it, sent to those who can see it after the change (somebody removed from a private room is not told; the room list is the truth);
+- `channel.changed` — `channel`, as the channel listing answers it, sent to those who can see it after the change (somebody removed from a private channel is not told; the channel list is the truth);
 - `doc.changed` — `doc`, as the document ops answer it (`removed: true` and `id` when deleted); body edits happen on the collaborator socket and are not streamed here;
 - `inbox.created`, `inbox.updated` — `item`, one of the caller's own notifications.
 
@@ -1998,10 +2369,10 @@ func (r TeamAPIGetTeamInboxRequest) Execute() (*TeamTeamInbox, *http.Response, e
 }
 
 /*
-GetTeamInbox Returns the caller's notifications, newest first, each with the room or document it is about and the message that caused it.
+GetTeamInbox Returns the caller's notifications, newest first, each with the channel or document it is about and the message that caused it.
 
 Returns the caller's notifications, newest first, each with the
-room or document it is about and the message that caused it.
+channel or document it is about and the message that caused it.
 
 These are the rows the Team client's Inbox reads, so a notification cleared
 there is cleared here. Only the caller's own notifications are ever listed.
@@ -2362,13 +2733,13 @@ type TeamAPIGetTeamPublicRequest struct {
 	limit      *int64
 }
 
-// Q matches a room&#39;s name or its topic.
+// Q matches a channel&#39;s name or its topic.
 func (r TeamAPIGetTeamPublicRequest) Q(q string) TeamAPIGetTeamPublicRequest {
 	r.q = &q
 	return r
 }
 
-// Org narrows to one org&#39;s published rooms.
+// Org narrows to one org&#39;s published channels.
 func (r TeamAPIGetTeamPublicRequest) Org(org string) TeamAPIGetTeamPublicRequest {
 	r.org = &org
 	return r
@@ -2380,21 +2751,21 @@ func (r TeamAPIGetTeamPublicRequest) Limit(limit int64) TeamAPIGetTeamPublicRequ
 	return r
 }
 
-func (r TeamAPIGetTeamPublicRequest) Execute() (*TeamPublicRooms, *http.Response, error) {
+func (r TeamAPIGetTeamPublicRequest) Execute() (*TeamPublicChannels, *http.Response, error) {
 	return r.ApiService.GetTeamPublicExecute(r)
 }
 
 /*
-GetTeamPublic Lists the rooms orgs have published, across every org.
+GetTeamPublic Lists the channels orgs have published, across every org.
 
-Lists the rooms orgs have published, across every org.
+Lists the channels orgs have published, across every org.
 
-It is NOT part of GET /rooms, and the separation is the point: that address
-answers the CALLER'S rooms, so folding these in would put strangers' channels
+It is NOT part of GET /channels, and the separation is the point: that address
+answers the CALLER'S channels, so folding these in would put strangers' channels
 in somebody's own sidebar.
 
 It reads the directory and never a tenant's store. Every field it can answer
-with is one an org published by making a room public, so there is nothing here
+with is one an org published by making a channel public, so there is nothing here
 to scope by org — a directory only its own org can read is not a directory.
 An authenticated principal is still required, because an anonymous crawler is
 not who this is for.
@@ -2411,13 +2782,13 @@ func (a *TeamAPIService) GetTeamPublic(ctx context.Context) TeamAPIGetTeamPublic
 
 // Execute executes the request
 //
-//	@return TeamPublicRooms
-func (a *TeamAPIService) GetTeamPublicExecute(r TeamAPIGetTeamPublicRequest) (*TeamPublicRooms, *http.Response, error) {
+//	@return TeamPublicChannels
+func (a *TeamAPIService) GetTeamPublicExecute(r TeamAPIGetTeamPublicRequest) (*TeamPublicChannels, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TeamPublicRooms
+		localVarReturnValue *TeamPublicChannels
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamPublic")
@@ -2439,377 +2810,6 @@ func (a *TeamAPIService) GetTeamPublicExecute(r TeamAPIGetTeamPublicRequest) (*T
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type TeamAPIGetTeamRoomsRequest struct {
-	ctx        context.Context
-	ApiService *TeamAPIService
-}
-
-func (r TeamAPIGetTeamRoomsRequest) Execute() (*TeamTeamRooms, *http.Response, error) {
-	return r.ApiService.GetTeamRoomsExecute(r)
-}
-
-/*
-GetTeamRooms Returns the rooms the caller may see, with the kind and work facet each carries.
-
-Returns the rooms the caller may see, with the kind and work
-facet each carries.
-
-A signed-in TEAM MEMBER reads every room of every space they are in that is
-open to them: public channels, and the private channels and direct messages
-that name them. An APPLICATION of the org (its own machine credential) reads
-the public channels of the org's spaces and nothing that belongs to
-particular people. Anybody else without a team session is 401.
-
-It reads the SAME Chunter documents the transactor serves, so a room opened
-in the Team client appears here with no sync, and a facet written here is read
-by anything holding the document.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return TeamAPIGetTeamRoomsRequest
-*/
-func (a *TeamAPIService) GetTeamRooms(ctx context.Context) TeamAPIGetTeamRoomsRequest {
-	return TeamAPIGetTeamRoomsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return TeamTeamRooms
-func (a *TeamAPIService) GetTeamRoomsExecute(r TeamAPIGetTeamRoomsRequest) (*TeamTeamRooms, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *TeamTeamRooms
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamRooms")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/rooms"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type TeamAPIGetTeamRoomsByIdMembersRequest struct {
-	ctx        context.Context
-	ApiService *TeamAPIService
-	id         string
-	space      *string
-}
-
-// Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order.
-func (r TeamAPIGetTeamRoomsByIdMembersRequest) Space(space string) TeamAPIGetTeamRoomsByIdMembersRequest {
-	r.space = &space
-	return r
-}
-
-func (r TeamAPIGetTeamRoomsByIdMembersRequest) Execute() (*TeamTeamRoomMembers, *http.Response, error) {
-	return r.ApiService.GetTeamRoomsByIdMembersExecute(r)
-}
-
-/*
-GetTeamRoomsByIdMembers Returns the people and agents in one room, as the roster describes them.
-
-Returns the people and agents in one room, as the roster
-describes them. The caller must be able to see the room.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the room, from the path. The URL is the authority.
-	@return TeamAPIGetTeamRoomsByIdMembersRequest
-*/
-func (a *TeamAPIService) GetTeamRoomsByIdMembers(ctx context.Context, id string) TeamAPIGetTeamRoomsByIdMembersRequest {
-	return TeamAPIGetTeamRoomsByIdMembersRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return TeamTeamRoomMembers
-func (a *TeamAPIService) GetTeamRoomsByIdMembersExecute(r TeamAPIGetTeamRoomsByIdMembersRequest) (*TeamTeamRoomMembers, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *TeamTeamRoomMembers
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamRoomsByIdMembers")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/rooms/{id}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.space != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type TeamAPIGetTeamRoomsByIdMessagesRequest struct {
-	ctx        context.Context
-	ApiService *TeamAPIService
-	id         string
-	space      *string
-}
-
-// Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order.
-func (r TeamAPIGetTeamRoomsByIdMessagesRequest) Space(space string) TeamAPIGetTeamRoomsByIdMessagesRequest {
-	r.space = &space
-	return r
-}
-
-func (r TeamAPIGetTeamRoomsByIdMessagesRequest) Execute() (*TeamTeamMessages, *http.Response, error) {
-	return r.ApiService.GetTeamRoomsByIdMessagesExecute(r)
-}
-
-/*
-GetTeamRoomsByIdMessages Returns the tail of one room's conversation, oldest first, each message with its reactions, files and thread count.
-
-Returns the tail of one room's conversation, oldest first, each
-message with its reactions, files and thread count.
-
-It reads the SAME Chunter documents the transactor serves, so a message typed
-in the Team client is here with no sync. A team member reads any room they
-may see; an application of the org reads public channels only; anybody else
-without a team session is 401. A room the caller may not read answers 404
-rather than 403, so a probe learns nothing about what exists.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the room, from the path. The URL is the authority.
-	@return TeamAPIGetTeamRoomsByIdMessagesRequest
-*/
-func (a *TeamAPIService) GetTeamRoomsByIdMessages(ctx context.Context, id string) TeamAPIGetTeamRoomsByIdMessagesRequest {
-	return TeamAPIGetTeamRoomsByIdMessagesRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return TeamTeamMessages
-func (a *TeamAPIService) GetTeamRoomsByIdMessagesExecute(r TeamAPIGetTeamRoomsByIdMessagesRequest) (*TeamTeamMessages, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *TeamTeamMessages
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamRoomsByIdMessages")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/rooms/{id}/messages"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.space != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3050,6 +3050,135 @@ func (a *TeamAPIService) GetTeamTransactorStatisticsExecute(r TeamAPIGetTeamTran
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPatchTeamChannelsByIdRequest struct {
+	ctx                 context.Context
+	ApiService          *TeamAPIService
+	id                  string
+	teamTeamChannelEdit *TeamTeamChannelEdit
+}
+
+func (r TeamAPIPatchTeamChannelsByIdRequest) TeamTeamChannelEdit(teamTeamChannelEdit TeamTeamChannelEdit) TeamAPIPatchTeamChannelsByIdRequest {
+	r.teamTeamChannelEdit = &teamTeamChannelEdit
+	return r
+}
+
+func (r TeamAPIPatchTeamChannelsByIdRequest) Execute() (*TeamTeamChannelOne, *http.Response, error) {
+	return r.ApiService.PatchTeamChannelsByIdExecute(r)
+}
+
+/*
+PatchTeamChannelsById Renames a channel, sets its topic, or archives or reopens it, and answers the channel as it now stands.
+
+Renames a channel, sets its topic, or archives or reopens it, and
+answers the channel as it now stands.
+
+Its owners and the space's admins may edit a channel; a channel nobody owns — one
+opened by an integration — may be edited by anyone in it, and a direct
+message by either person in it. Archiving withdraws a public channel from the
+cross-org directory in the same write; reopening lists it again.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the channel, from the path.
+	@return TeamAPIPatchTeamChannelsByIdRequest
+*/
+func (a *TeamAPIService) PatchTeamChannelsById(ctx context.Context, id string) TeamAPIPatchTeamChannelsByIdRequest {
+	return TeamAPIPatchTeamChannelsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamChannelOne
+func (a *TeamAPIService) PatchTeamChannelsByIdExecute(r TeamAPIPatchTeamChannelsByIdRequest) (*TeamTeamChannelOne, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamChannelOne
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PatchTeamChannelsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/channels/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamChannelEdit == nil {
+		return localVarReturnValue, nil, reportError("teamTeamChannelEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamChannelEdit
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3351,135 +3480,6 @@ func (a *TeamAPIService) PatchTeamMessagesByIdExecute(r TeamAPIPatchTeamMessages
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type TeamAPIPatchTeamRoomsByIdRequest struct {
-	ctx              context.Context
-	ApiService       *TeamAPIService
-	id               string
-	teamTeamRoomEdit *TeamTeamRoomEdit
-}
-
-func (r TeamAPIPatchTeamRoomsByIdRequest) TeamTeamRoomEdit(teamTeamRoomEdit TeamTeamRoomEdit) TeamAPIPatchTeamRoomsByIdRequest {
-	r.teamTeamRoomEdit = &teamTeamRoomEdit
-	return r
-}
-
-func (r TeamAPIPatchTeamRoomsByIdRequest) Execute() (*TeamTeamRoom, *http.Response, error) {
-	return r.ApiService.PatchTeamRoomsByIdExecute(r)
-}
-
-/*
-PatchTeamRoomsById Renames a channel, sets its topic, or archives or reopens it, and answers the room as it now stands.
-
-Renames a channel, sets its topic, or archives or reopens it, and
-answers the room as it now stands.
-
-Its owners and the space's admins may edit a room; a room nobody owns — one
-opened by an integration — may be edited by anyone in it, and a direct
-message by either person in it. Archiving withdraws a public channel from the
-cross-org directory in the same write; reopening lists it again.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the room, from the path.
-	@return TeamAPIPatchTeamRoomsByIdRequest
-*/
-func (a *TeamAPIService) PatchTeamRoomsById(ctx context.Context, id string) TeamAPIPatchTeamRoomsByIdRequest {
-	return TeamAPIPatchTeamRoomsByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return TeamTeamRoom
-func (a *TeamAPIService) PatchTeamRoomsByIdExecute(r TeamAPIPatchTeamRoomsByIdRequest) (*TeamTeamRoom, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *TeamTeamRoom
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PatchTeamRoomsById")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/rooms/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.teamTeamRoomEdit == nil {
-		return localVarReturnValue, nil, reportError("teamTeamRoomEdit is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.teamTeamRoomEdit
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type TeamAPIPostTeamAccountRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
@@ -3492,7 +3492,7 @@ func (r TeamAPIPostTeamAccountRequest) Execute() (*http.Response, error) {
 /*
 PostTeamAccount Read the caller's account and switch space
 
-The account control plane the Team client speaks: one POST carries a `method` verb and its `params`, and answers {"result": …}. The verbs are the session's own reads and the space switch — getLoginInfoByToken, getUserWorkspaces, selectWorkspace, getWorkspaceInfo, getMemberships, getPerson, getSocialIds, getRegionInfo, isReadOnlyGuest — plus sendInvite, which adds a member to a space and is refused for a caller who is not its owner or admin.
+The account control plane the Team client speaks: one POST carries a `method` verb and its `params`, and answers {"result": …}. The verbs are the session's own reads and the space switch — getLoginInfoByToken, getUserWorkspaces, selectWorkspace, getWorkspaceInfo, getMemberships, getPerson, getRegionInfo, isReadOnlyGuest — plus sendInvite, which adds a member to a space and is refused for a caller who is not its owner or admin.
 
 A REFUSAL IS HTTP 200 carrying {"error": {severity, code, params}} — the platform Status the client translates — not a 4xx. An unreadable body, an unauthorized session and an unknown verb all arrive that way, so a caller that reads only the status code reads every failure here as a success.
 
@@ -3572,6 +3572,406 @@ func (a *TeamAPIService) PostTeamAccountExecute(r TeamAPIPostTeamAccountRequest)
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamChannelsRequest struct {
+	ctx                context.Context
+	ApiService         *TeamAPIService
+	teamTeamChannelNew *TeamTeamChannelNew
+}
+
+func (r TeamAPIPostTeamChannelsRequest) TeamTeamChannelNew(teamTeamChannelNew TeamTeamChannelNew) TeamAPIPostTeamChannelsRequest {
+	r.teamTeamChannelNew = &teamTeamChannelNew
+	return r
+}
+
+func (r TeamAPIPostTeamChannelsRequest) Execute() (*TeamTeamChannelOne, *http.Response, error) {
+	return r.ApiService.PostTeamChannelsExecute(r)
+}
+
+/*
+PostTeamChannels Opens a named channel and answers it as the store now holds it.
+
+Opens a named channel and answers it as the store now holds it.
+
+It writes through the SAME applyTx path the Team client uses, so a channel opened
+here is broadcast to every live client of the space and appears in an open
+sidebar without a reload — the same property listChannels rests on, read from the
+write side.
+
+A SIGNED-IN TEAM MEMBER opens it as themselves: they are its first member and
+its owner, every other member named must be somebody the space knows (a person
+in it, or one of the org's agents), and a guest may not open channels at all. An
+application of the org opens it as the org, with exactly the members it names.
+Anybody else without a team session is 401.
+
+TWO TRANSACTIONS, NOT ONE, when the request states a facet. The document and
+its work update are separate writes in this model (bindChannel writes only the second),
+and composing them here rather than inventing a combined tx keeps one write
+path for each. A create that lands and a facet that does not is visible as a
+channel with default intent, which is the honest partial state.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIPostTeamChannelsRequest
+*/
+func (a *TeamAPIService) PostTeamChannels(ctx context.Context) TeamAPIPostTeamChannelsRequest {
+	return TeamAPIPostTeamChannelsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamChannelOne
+func (a *TeamAPIService) PostTeamChannelsExecute(r TeamAPIPostTeamChannelsRequest) (*TeamTeamChannelOne, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamChannelOne
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamChannels")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/channels"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamChannelNew == nil {
+		return localVarReturnValue, nil, reportError("teamTeamChannelNew is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamChannelNew
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamChannelsByIdMembersRequest struct {
+	ctx                 context.Context
+	ApiService          *TeamAPIService
+	id                  string
+	teamTeamChannelJoin *TeamTeamChannelJoin
+}
+
+func (r TeamAPIPostTeamChannelsByIdMembersRequest) TeamTeamChannelJoin(teamTeamChannelJoin TeamTeamChannelJoin) TeamAPIPostTeamChannelsByIdMembersRequest {
+	r.teamTeamChannelJoin = &teamTeamChannelJoin
+	return r
+}
+
+func (r TeamAPIPostTeamChannelsByIdMembersRequest) Execute() (*TeamTeamChannelOne, *http.Response, error) {
+	return r.ApiService.PostTeamChannelsByIdMembersExecute(r)
+}
+
+/*
+PostTeamChannelsByIdMembers Adds people to a channel and answers the channel as it now stands.
+
+Adds people to a channel and answers the channel as it now stands.
+
+Anyone in the space except a guest may join a public channel by naming
+themselves. Adding somebody else takes being in the channel already (or
+administering the space, for a channel they can see). A direct message's people
+are what it is, so none can be added — open another one. Everyone added must
+be a member of the space or one of the org's agents; an agent added to a channel
+answers when it is @-mentioned there.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the channel, from the path.
+	@return TeamAPIPostTeamChannelsByIdMembersRequest
+*/
+func (a *TeamAPIService) PostTeamChannelsByIdMembers(ctx context.Context, id string) TeamAPIPostTeamChannelsByIdMembersRequest {
+	return TeamAPIPostTeamChannelsByIdMembersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamChannelOne
+func (a *TeamAPIService) PostTeamChannelsByIdMembersExecute(r TeamAPIPostTeamChannelsByIdMembersRequest) (*TeamTeamChannelOne, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamChannelOne
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamChannelsByIdMembers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/channels/{id}/members"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamChannelJoin == nil {
+		return localVarReturnValue, nil, reportError("teamTeamChannelJoin is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamChannelJoin
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamChannelsByIdMessagesRequest struct {
+	ctx                  context.Context
+	ApiService           *TeamAPIService
+	id                   string
+	teamTeamMessageWrite *TeamTeamMessageWrite
+}
+
+func (r TeamAPIPostTeamChannelsByIdMessagesRequest) TeamTeamMessageWrite(teamTeamMessageWrite TeamTeamMessageWrite) TeamAPIPostTeamChannelsByIdMessagesRequest {
+	r.teamTeamMessageWrite = &teamTeamMessageWrite
+	return r
+}
+
+func (r TeamAPIPostTeamChannelsByIdMessagesRequest) Execute() (*TeamTeamMessage, *http.Response, error) {
+	return r.ApiService.PostTeamChannelsByIdMessagesExecute(r)
+}
+
+/*
+PostTeamChannelsByIdMessages Says one thing in a channel, as the caller.
+
+Says one thing in a channel, as the caller.
+
+The write goes through the SAME applyTx path the Team client's own messages
+take and is broadcast to every connected client of the space, so a message
+sent here appears live in an open channel rather than on the next reload. It
+answers the message as the store now HOLDS it.
+
+`<@account-uuid>` in the text is stored as the platform's mention, so the
+person is notified in their inbox. Mentioning one of the org's agents — or
+writing in a direct message with one — wakes it: it runs as itself, on behalf
+of the caller, and posts its answer into the same channel. The caller must be
+able to see the channel, and an archived channel refuses new messages (409).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the channel to say it in, from the path.
+	@return TeamAPIPostTeamChannelsByIdMessagesRequest
+*/
+func (a *TeamAPIService) PostTeamChannelsByIdMessages(ctx context.Context, id string) TeamAPIPostTeamChannelsByIdMessagesRequest {
+	return TeamAPIPostTeamChannelsByIdMessagesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamMessage
+func (a *TeamAPIService) PostTeamChannelsByIdMessagesExecute(r TeamAPIPostTeamChannelsByIdMessagesRequest) (*TeamTeamMessage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamMessage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamChannelsByIdMessages")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/channels/{id}/messages"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamMessageWrite == nil {
+		return localVarReturnValue, nil, reportError("teamTeamMessageWrite is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamMessageWrite
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type TeamAPIPostTeamCollaboratorRpcByDocumentidRequest struct {
@@ -4709,406 +5109,6 @@ func (a *TeamAPIService) PostTeamMessagesByIdRepliesExecute(r TeamAPIPostTeamMes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type TeamAPIPostTeamRoomsRequest struct {
-	ctx             context.Context
-	ApiService      *TeamAPIService
-	teamTeamRoomNew *TeamTeamRoomNew
-}
-
-func (r TeamAPIPostTeamRoomsRequest) TeamTeamRoomNew(teamTeamRoomNew TeamTeamRoomNew) TeamAPIPostTeamRoomsRequest {
-	r.teamTeamRoomNew = &teamTeamRoomNew
-	return r
-}
-
-func (r TeamAPIPostTeamRoomsRequest) Execute() (*TeamTeamRoom, *http.Response, error) {
-	return r.ApiService.PostTeamRoomsExecute(r)
-}
-
-/*
-PostTeamRooms Opens a named room and answers it as the store now holds it.
-
-Opens a named room and answers it as the store now holds it.
-
-It writes through the SAME applyTx path the Team client uses, so a room opened
-here is broadcast to every live client of the space and appears in an open
-sidebar without a reload — the same property listRooms rests on, read from the
-write side.
-
-A SIGNED-IN TEAM MEMBER opens it as themselves: they are its first member and
-its owner, every other member named must be somebody the space knows (a person
-in it, or one of the org's agents), and a guest may not open rooms at all. An
-application of the org opens it as the org, with exactly the members it names.
-Anybody else without a team session is 401.
-
-TWO TRANSACTIONS, NOT ONE, when the request states a facet. The document and
-its mixin are separate writes in this model (bindRoom writes only the second),
-and composing them here rather than inventing a combined tx keeps one write
-path for each. A create that lands and a facet that does not is visible as a
-room with default intent, which is the honest partial state.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return TeamAPIPostTeamRoomsRequest
-*/
-func (a *TeamAPIService) PostTeamRooms(ctx context.Context) TeamAPIPostTeamRoomsRequest {
-	return TeamAPIPostTeamRoomsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return TeamTeamRoom
-func (a *TeamAPIService) PostTeamRoomsExecute(r TeamAPIPostTeamRoomsRequest) (*TeamTeamRoom, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *TeamTeamRoom
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamRooms")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/rooms"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.teamTeamRoomNew == nil {
-		return localVarReturnValue, nil, reportError("teamTeamRoomNew is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.teamTeamRoomNew
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type TeamAPIPostTeamRoomsByIdMembersRequest struct {
-	ctx              context.Context
-	ApiService       *TeamAPIService
-	id               string
-	teamTeamRoomJoin *TeamTeamRoomJoin
-}
-
-func (r TeamAPIPostTeamRoomsByIdMembersRequest) TeamTeamRoomJoin(teamTeamRoomJoin TeamTeamRoomJoin) TeamAPIPostTeamRoomsByIdMembersRequest {
-	r.teamTeamRoomJoin = &teamTeamRoomJoin
-	return r
-}
-
-func (r TeamAPIPostTeamRoomsByIdMembersRequest) Execute() (*TeamTeamRoom, *http.Response, error) {
-	return r.ApiService.PostTeamRoomsByIdMembersExecute(r)
-}
-
-/*
-PostTeamRoomsByIdMembers Adds people to a room and answers the room as it now stands.
-
-Adds people to a room and answers the room as it now stands.
-
-Anyone in the space except a guest may join a public channel by naming
-themselves. Adding somebody else takes being in the room already (or
-administering the space, for a room they can see). A direct message's people
-are what it is, so none can be added — open another one. Everyone added must
-be a member of the space or one of the org's agents; an agent added to a room
-answers when it is @-mentioned there.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the room, from the path.
-	@return TeamAPIPostTeamRoomsByIdMembersRequest
-*/
-func (a *TeamAPIService) PostTeamRoomsByIdMembers(ctx context.Context, id string) TeamAPIPostTeamRoomsByIdMembersRequest {
-	return TeamAPIPostTeamRoomsByIdMembersRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return TeamTeamRoom
-func (a *TeamAPIService) PostTeamRoomsByIdMembersExecute(r TeamAPIPostTeamRoomsByIdMembersRequest) (*TeamTeamRoom, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *TeamTeamRoom
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamRoomsByIdMembers")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/rooms/{id}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.teamTeamRoomJoin == nil {
-		return localVarReturnValue, nil, reportError("teamTeamRoomJoin is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.teamTeamRoomJoin
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type TeamAPIPostTeamRoomsByIdMessagesRequest struct {
-	ctx                  context.Context
-	ApiService           *TeamAPIService
-	id                   string
-	teamTeamMessageWrite *TeamTeamMessageWrite
-}
-
-func (r TeamAPIPostTeamRoomsByIdMessagesRequest) TeamTeamMessageWrite(teamTeamMessageWrite TeamTeamMessageWrite) TeamAPIPostTeamRoomsByIdMessagesRequest {
-	r.teamTeamMessageWrite = &teamTeamMessageWrite
-	return r
-}
-
-func (r TeamAPIPostTeamRoomsByIdMessagesRequest) Execute() (*TeamTeamMessage, *http.Response, error) {
-	return r.ApiService.PostTeamRoomsByIdMessagesExecute(r)
-}
-
-/*
-PostTeamRoomsByIdMessages Says one thing in a room, as the caller.
-
-Says one thing in a room, as the caller.
-
-The write goes through the SAME applyTx path the Team client's own messages
-take and is broadcast to every connected client of the space, so a message
-sent here appears live in an open room rather than on the next reload. It
-answers the message as the store now HOLDS it.
-
-`<@account-uuid>` in the text is stored as the platform's mention, so the
-person is notified in their inbox. Mentioning one of the org's agents — or
-writing in a direct message with one — wakes it: it runs as itself, on behalf
-of the caller, and posts its answer into the same room. The caller must be
-able to see the room, and an archived room refuses new messages (409).
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the room to say it in, from the path.
-	@return TeamAPIPostTeamRoomsByIdMessagesRequest
-*/
-func (a *TeamAPIService) PostTeamRoomsByIdMessages(ctx context.Context, id string) TeamAPIPostTeamRoomsByIdMessagesRequest {
-	return TeamAPIPostTeamRoomsByIdMessagesRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return TeamTeamMessage
-func (a *TeamAPIService) PostTeamRoomsByIdMessagesExecute(r TeamAPIPostTeamRoomsByIdMessagesRequest) (*TeamTeamMessage, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *TeamTeamMessage
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamRoomsByIdMessages")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/rooms/{id}/messages"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.teamTeamMessageWrite == nil {
-		return localVarReturnValue, nil, reportError("teamTeamMessageWrite is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.teamTeamMessageWrite
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type TeamAPIPutTeamAccountCookieRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
@@ -5213,6 +5213,137 @@ func (a *TeamAPIService) PutTeamAccountCookieExecute(r TeamAPIPutTeamAccountCook
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type TeamAPIPutTeamChannelsByIdRequest struct {
+	ctx                 context.Context
+	ApiService          *TeamAPIService
+	id                  string
+	teamTeamChannelBind *TeamTeamChannelBind
+}
+
+func (r TeamAPIPutTeamChannelsByIdRequest) TeamTeamChannelBind(teamTeamChannelBind TeamTeamChannelBind) TeamAPIPutTeamChannelsByIdRequest {
+	r.teamTeamChannelBind = &teamTeamChannelBind
+	return r
+}
+
+func (r TeamAPIPutTeamChannelsByIdRequest) Execute() (*TeamTeamChannelOne, *http.Response, error) {
+	return r.ApiService.PutTeamChannelsByIdExecute(r)
+}
+
+/*
+PutTeamChannelsById States what a channel is for: its lifecycle intent, and what it is about.
+
+States what a channel is for: its lifecycle intent, and what it is
+about. It answers the channel as it now stands.
+
+The write updates the work fields on the channel document, applied through the
+SAME applyTx path the Team client's own writes take and broadcast to every
+connected client — so a channel bound here updates live in an open space
+rather than on the next reload. A team member binds a channel they can see; an
+application of the org binds its public channels only; anybody else without
+a team session is 401.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the channel to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
+	@return TeamAPIPutTeamChannelsByIdRequest
+*/
+func (a *TeamAPIService) PutTeamChannelsById(ctx context.Context, id string) TeamAPIPutTeamChannelsByIdRequest {
+	return TeamAPIPutTeamChannelsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamChannelOne
+func (a *TeamAPIService) PutTeamChannelsByIdExecute(r TeamAPIPutTeamChannelsByIdRequest) (*TeamTeamChannelOne, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamChannelOne
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PutTeamChannelsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/channels/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamChannelBind == nil {
+		return localVarReturnValue, nil, reportError("teamTeamChannelBind is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamChannelBind
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type TeamAPIPutTeamMessagesByIdReactionsByEmojiRequest struct {
 	ctx                   context.Context
 	ApiService            *TeamAPIService
@@ -5300,137 +5431,6 @@ func (a *TeamAPIService) PutTeamMessagesByIdReactionsByEmojiExecute(r TeamAPIPut
 	}
 	// body params
 	localVarPostBody = r.teamTeamReactionWrite
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v ProblemDetails
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type TeamAPIPutTeamRoomsByIdRequest struct {
-	ctx              context.Context
-	ApiService       *TeamAPIService
-	id               string
-	teamTeamRoomBind *TeamTeamRoomBind
-}
-
-func (r TeamAPIPutTeamRoomsByIdRequest) TeamTeamRoomBind(teamTeamRoomBind TeamTeamRoomBind) TeamAPIPutTeamRoomsByIdRequest {
-	r.teamTeamRoomBind = &teamTeamRoomBind
-	return r
-}
-
-func (r TeamAPIPutTeamRoomsByIdRequest) Execute() (*TeamTeamRoom, *http.Response, error) {
-	return r.ApiService.PutTeamRoomsByIdExecute(r)
-}
-
-/*
-PutTeamRoomsById States what a room is for: its lifecycle intent, and what it is about.
-
-States what a room is for: its lifecycle intent, and what it is
-about. It answers the room as it now stands.
-
-The write is a platform MIXIN on the room document, applied through the
-SAME applyTx path the Team client's own writes take and broadcast to every
-connected client — so a room bound here updates live in an open space
-rather than on the next reload. A team member binds a room they can see; an
-application of the org binds its public channels only; anybody else without
-a team session is 401.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
-	@return TeamAPIPutTeamRoomsByIdRequest
-*/
-func (a *TeamAPIService) PutTeamRoomsById(ctx context.Context, id string) TeamAPIPutTeamRoomsByIdRequest {
-	return TeamAPIPutTeamRoomsByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return TeamTeamRoom
-func (a *TeamAPIService) PutTeamRoomsByIdExecute(r TeamAPIPutTeamRoomsByIdRequest) (*TeamTeamRoom, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *TeamTeamRoom
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PutTeamRoomsById")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/rooms/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.teamTeamRoomBind == nil {
-		return localVarReturnValue, nil, reportError("teamTeamRoomBind is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.teamTeamRoomBind
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

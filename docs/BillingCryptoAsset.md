@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AmountCents** | Pointer to **int64** | AmountCents is what the payer intends to send, for the record. Optional — the credit is what actually arrives, never what was announced. | [optional] 
-**Chain** | Pointer to **string** | Chain is the network to receive on. Empty takes the rail&#39;s default. | [optional] 
-**Token** | Pointer to **string** | Token is the asset on that chain. Empty takes the chain&#39;s native one. | [optional] 
+**Chain** | Pointer to **string** | Chain is the network to receive on, one of GET /v1/billing/crypto/options chains. Empty takes the rail&#39;s default. | [optional] 
+**Token** | Pointer to **string** | Token is the asset on that chain, one of the options&#39; tokens. Empty takes the rail&#39;s default. | [optional] 
 
 ## Methods
 

@@ -19,7 +19,7 @@ var _ MappedNullable = &BenchmarkPresetList{}
 
 // BenchmarkPresetList struct for BenchmarkPresetList
 type BenchmarkPresetList struct {
-	// Data is the blends available to compose from.
+	// Data is the reference blend, then the caller's org's stored blends by name.
 	Data                 []BenchmarkPreset `json:"data,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

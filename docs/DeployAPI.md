@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**GetDeployApplicationsByNameSyncwindows**](DeployAPI.md#GetDeployApplicationsByNameSyncwindows) | **Get** /v1/deploy/applications/{name}/syncwindows | Returns one application&#39;s argocd ApplicationSyncWindowState — the answer to \&quot;is anything blocking a sync of this application right now?\&quot;.
 [**GetDeployClusters**](DeployAPI.md#GetDeployClusters) | **Get** /v1/deploy/clusters | Returns the argocd ClusterList of the destinations the caller&#39;s applications reconcile into: one entry per distinct destination server, carrying the count of applications reconciling into it.
 [**GetDeployHealth**](DeployAPI.md#GetDeployHealth) | **Get** /v1/deploy/health | Reports whether this deployment can observe the delivery plane.
+[**GetDeployLive**](DeployAPI.md#GetDeployLive) | **Get** /v1/deploy/live | Lists which image and which commit each service is running: for every Hanzo CD Application the caller may see, the images its live pods run (tag, digest, and the commit each was built from where the registry answers it), the universe commit CD last applied, CD&#39;s sync and health verdicts, and when it last synced.
 [**GetDeployLogin**](DeployAPI.md#GetDeployLogin) | **Get** /v1/deploy/login | Start the sign-in round trip for this console
 [**GetDeployProjects**](DeployAPI.md#GetDeployProjects) | **Get** /v1/deploy/projects | Returns the argocd AppProjectList this console groups and filters applications by.
 [**GetDeploySessionUserinfo**](DeployAPI.md#GetDeploySessionUserinfo) | **Get** /v1/deploy/session/userinfo | Answers \&quot;is this browser signed in, and if not where does it sign in?\&quot; — the dashboard SPA&#39;s bootstrap question, and the only route on this plane that answers for an anonymous caller.
@@ -472,6 +473,67 @@ Other parameters are passed through a pointer to a apiGetDeployHealthRequest str
 ### Return type
 
 [**DeployDeployHealth**](DeployDeployHealth.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetDeployLive
+
+> DeployLive GetDeployLive(ctx).Execute()
+
+Lists which image and which commit each service is running: for every Hanzo CD Application the caller may see, the images its live pods run (tag, digest, and the commit each was built from where the registry answers it), the universe commit CD last applied, CD's sync and health verdicts, and when it last synced.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeployAPI.GetDeployLive(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployLive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDeployLive`: DeployLive
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployLive`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDeployLiveRequest struct via the builder pattern
+
+
+### Return type
+
+[**DeployLive**](DeployLive.md)
 
 ### Authorization
 

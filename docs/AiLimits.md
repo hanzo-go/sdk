@@ -6,13 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actions** | Pointer to [**[]AiAction**](AiAction.md) | Actions are the ways on: upgrade, add prepaid credit. | [optional] 
 **Classes** | Pointer to [**map[string]AiClass**](AiClass.md) | Classes are premium (third-party frontier models) and ours (Hanzo&#39;s), each present when the plan includes it. | [optional] 
-**CreditsAfterAllowance** | Pointer to **bool** | CreditsAfterAllowance is the payer&#39;s choice to keep using a model on credits once the plan&#39;s included usage of it is spent (PUT /v1/ai/limits sets it). | [optional] 
 **Day** | Pointer to [**AiWindow**](AiWindow.md) |  | [optional] 
 **Limited** | Pointer to [**AiLimited**](AiLimited.md) | Limited is present in limited mode. | [optional] 
 **Paused** | Pointer to [**[]AiPaused**](AiPaused.md) | Paused are the models whose share of the plan is used for now: each is answered by its fallback in chat until its share resets. | [optional] 
 **PeriodEnd** | Pointer to **string** |  | [optional] 
-**PeriodStart** | Pointer to **string** | PeriodStart and PeriodEnd bound the billing period (RFC3339). | [optional] 
-**Plan** | Pointer to **string** | Plan is the plan the caller is served as (\&quot;dev\&quot;, \&quot;max-5x\&quot;, \&quot;max-20x\&quot;, \&quot;team\&quot;, \&quot;team-annual\&quot;, \&quot;agency\&quot;, \&quot;advisory\&quot;, \&quot;dedicated\&quot;, ...), \&quot;free\&quot; when none counts. | [optional] 
+**PeriodStart** | Pointer to **string** | PeriodStart and PeriodEnd bound the month the plan&#39;s usage renews over (RFC3339): the billing period, or one month of a yearly one. | [optional] 
+**Plan** | Pointer to **string** | Plan is the plan the caller is served as (\&quot;dev\&quot;, \&quot;max-5x\&quot;, \&quot;max-20x\&quot;, \&quot;team\&quot;, \&quot;agency\&quot;, \&quot;advisory\&quot;, \&quot;dedicated\&quot;, ...), \&quot;free\&quot; when none counts. | [optional] 
 **Session** | Pointer to [**AiWindow**](AiWindow.md) | Session and Day are the request windows over every request the plan covers. | [optional] 
 **State** | Pointer to **string** | State is the worst class&#39;s: ok, near or limited. | [optional] 
 **Upgrade** | Pointer to **string** | Upgrade is the plan that raises these limits, absent at the top. | [optional] 
@@ -85,31 +84,6 @@ SetClasses sets Classes field to given value.
 `func (o *AiLimits) HasClasses() bool`
 
 HasClasses returns a boolean if a field has been set.
-
-### GetCreditsAfterAllowance
-
-`func (o *AiLimits) GetCreditsAfterAllowance() bool`
-
-GetCreditsAfterAllowance returns the CreditsAfterAllowance field if non-nil, zero value otherwise.
-
-### GetCreditsAfterAllowanceOk
-
-`func (o *AiLimits) GetCreditsAfterAllowanceOk() (*bool, bool)`
-
-GetCreditsAfterAllowanceOk returns a tuple with the CreditsAfterAllowance field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreditsAfterAllowance
-
-`func (o *AiLimits) SetCreditsAfterAllowance(v bool)`
-
-SetCreditsAfterAllowance sets CreditsAfterAllowance field to given value.
-
-### HasCreditsAfterAllowance
-
-`func (o *AiLimits) HasCreditsAfterAllowance() bool`
-
-HasCreditsAfterAllowance returns a boolean if a field has been set.
 
 ### GetDay
 

@@ -256,6 +256,94 @@ func (a *BaseAPIService) GetBaseBasesByOrgExecute(r BaseAPIGetBaseBasesByOrgRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type BaseAPIGetBaseGraphqlRequest struct {
+	ctx        context.Context
+	ApiService *BaseAPIService
+}
+
+func (r BaseAPIGetBaseGraphqlRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetBaseGraphqlExecute(r)
+}
+
+/*
+GetBaseGraphql Read your org Base's GraphQL schema
+
+The schema of the caller's org Base as GraphQL SDL: a type per collection with its fields, relations and the records pointing at it, a filter input per collection, orderBy, connections, aggregates and the writes. It is that org's own, so it changes with its collections. /v1/graphql carries the same schema under `base`.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BaseAPIGetBaseGraphqlRequest
+*/
+func (a *BaseAPIService) GetBaseGraphql(ctx context.Context) BaseAPIGetBaseGraphqlRequest {
+	return BaseAPIGetBaseGraphqlRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *BaseAPIService) GetBaseGraphqlExecute(r BaseAPIGetBaseGraphqlRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BaseAPIService.GetBaseGraphql")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/base/graphql"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type BaseAPIGetBaseHealthRequest struct {
 	ctx        context.Context
 	ApiService *BaseAPIService
@@ -368,4 +456,92 @@ func (a *BaseAPIService) GetBaseHealthExecute(r BaseAPIGetBaseHealthRequest) (*B
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type BaseAPIPostBaseGraphqlRequest struct {
+	ctx        context.Context
+	ApiService *BaseAPIService
+}
+
+func (r BaseAPIPostBaseGraphqlRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostBaseGraphqlExecute(r)
+}
+
+/*
+PostBaseGraphql Query or write your org Base with GraphQL
+
+Runs one GraphQL request against the caller's org Base. Every field is answered by the Base's own record, aggregate and history routes as the caller, so what a field reads or writes is what the same request over /v1/base/collections may. No subscriptions: realtime is /v1/base/realtime.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BaseAPIPostBaseGraphqlRequest
+*/
+func (a *BaseAPIService) PostBaseGraphql(ctx context.Context) BaseAPIPostBaseGraphqlRequest {
+	return BaseAPIPostBaseGraphqlRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *BaseAPIService) PostBaseGraphqlExecute(r BaseAPIPostBaseGraphqlRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BaseAPIService.PostBaseGraphql")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/base/graphql"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }

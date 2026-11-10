@@ -19,6 +19,8 @@ var _ MappedNullable = &ProviderGithubRepoItem{}
 
 // ProviderGithubRepoItem struct for ProviderGithubRepoItem
 type ProviderGithubRepoItem struct {
+	// Codebase is the name it has in the org's code workspace once brought in (POST /v1/provider/github/repos/import): listed by GET /v1/git/repos when it is there.
+	Codebase *string `json:"codebase,omitempty"`
 	// DefaultBranch is the branch GitHub opens it on.
 	DefaultBranch *string `json:"default_branch,omitempty"`
 	// FullName is owner/name, the address a coding run, a branch listing and a deploy take.
@@ -53,6 +55,38 @@ func NewProviderGithubRepoItem() *ProviderGithubRepoItem {
 func NewProviderGithubRepoItemWithDefaults() *ProviderGithubRepoItem {
 	this := ProviderGithubRepoItem{}
 	return &this
+}
+
+// GetCodebase returns the Codebase field value if set, zero value otherwise.
+func (o *ProviderGithubRepoItem) GetCodebase() string {
+	if o == nil || IsNil(o.Codebase) {
+		var ret string
+		return ret
+	}
+	return *o.Codebase
+}
+
+// GetCodebaseOk returns a tuple with the Codebase field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProviderGithubRepoItem) GetCodebaseOk() (*string, bool) {
+	if o == nil || IsNil(o.Codebase) {
+		return nil, false
+	}
+	return o.Codebase, true
+}
+
+// HasCodebase returns a boolean if a field has been set.
+func (o *ProviderGithubRepoItem) HasCodebase() bool {
+	if o != nil && !IsNil(o.Codebase) {
+		return true
+	}
+
+	return false
+}
+
+// SetCodebase gets a reference to the given string and assigns it to the Codebase field.
+func (o *ProviderGithubRepoItem) SetCodebase(v string) {
+	o.Codebase = &v
 }
 
 // GetDefaultBranch returns the DefaultBranch field value if set, zero value otherwise.
@@ -289,6 +323,9 @@ func (o ProviderGithubRepoItem) MarshalJSON() ([]byte, error) {
 
 func (o ProviderGithubRepoItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Codebase) {
+		toSerialize["codebase"] = o.Codebase
+	}
 	if !IsNil(o.DefaultBranch) {
 		toSerialize["default_branch"] = o.DefaultBranch
 	}
@@ -332,6 +369,7 @@ func (o *ProviderGithubRepoItem) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "codebase")
 		delete(additionalProperties, "default_branch")
 		delete(additionalProperties, "full_name")
 		delete(additionalProperties, "installation_id")

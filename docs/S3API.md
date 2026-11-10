@@ -5,9 +5,11 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteS3BucketsByBucket**](S3API.md#DeleteS3BucketsByBucket) | **Delete** /v1/s3/buckets/{bucket} | Removes an EMPTY bucket and answers 204.
+[**DeleteS3BucketsByBucketObjectsByWildcard1**](S3API.md#DeleteS3BucketsByBucketObjectsByWildcard1) | **Delete** /v1/s3/buckets/{bucket}/objects/{wildcard1} | Removes one object and answers 204.
 [**DeleteS3BucketsByBucketUploadsByUpload**](S3API.md#DeleteS3BucketsByBucketUploadsByUpload) | **Delete** /v1/s3/buckets/{bucket}/uploads/{upload} | Aborts a multipart upload and deletes the parts it stored.
 [**GetS3Buckets**](S3API.md#GetS3Buckets) | **Get** /v1/s3/buckets | Lists the caller org&#39;s own buckets.
 [**GetS3BucketsByBucketObjects**](S3API.md#GetS3BucketsByBucketObjects) | **Get** /v1/s3/buckets/{bucket}/objects | Lists one folder level of a bucket.
+[**GetS3BucketsByBucketObjectsByWildcard1**](S3API.md#GetS3BucketsByBucketObjectsByWildcard1) | **Get** /v1/s3/buckets/{bucket}/objects/{wildcard1} | Mints a presigned GET URL the caller downloads from DIRECTLY.
 [**GetS3BucketsByBucketUploadsByUpload**](S3API.md#GetS3BucketsByBucketUploadsByUpload) | **Get** /v1/s3/buckets/{bucket}/uploads/{upload} | Answers the parts a multipart upload already holds, in order: what a client resuming after a dropped connection reads to send only the rest.
 [**GetS3Health**](S3API.md#GetS3Health) | **Get** /v1/s3/health | Reports whether this deployment can serve object storage.
 [**PostS3Buckets**](S3API.md#PostS3Buckets) | **Post** /v1/s3/buckets | Makes a new bucket for the caller&#39;s org and answers 201 with it.
@@ -66,6 +68,77 @@ Other parameters are passed through a pointer to a apiDeleteS3BucketsByBucketReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteS3BucketsByBucketObjectsByWildcard1
+
+> DeleteS3BucketsByBucketObjectsByWildcard1(ctx, bucket, wildcard1).Execute()
+
+Removes one object and answers 204.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	bucket := "bucket_example" // string | Bucket is the bucket's friendly name, from the path.
+	wildcard1 := "wildcard1_example" // string | Key is the object's key within the bucket — everything after that bucket's /objects/. It MAY contain \"/\", because a key is a path and this segment is captured whole: \"2019/summer/a.jpg\" is one key, not three. It is path-cleaned before use, so \"../\" reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.S3API.DeleteS3BucketsByBucketObjectsByWildcard1(context.Background(), bucket, wildcard1).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `S3API.DeleteS3BucketsByBucketObjectsByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**bucket** | **string** | Bucket is the bucket&#39;s friendly name, from the path. | 
+**wildcard1** | **string** | Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteS3BucketsByBucketObjectsByWildcard1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -281,6 +354,79 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**S3ObjectList**](S3ObjectList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetS3BucketsByBucketObjectsByWildcard1
+
+> S3PresignResponse GetS3BucketsByBucketObjectsByWildcard1(ctx, bucket, wildcard1).Execute()
+
+Mints a presigned GET URL the caller downloads from DIRECTLY.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	bucket := "bucket_example" // string | Bucket is the bucket's friendly name, from the path.
+	wildcard1 := "wildcard1_example" // string | Key is the object's key within the bucket — everything after that bucket's /objects/. It MAY contain \"/\", because a key is a path and this segment is captured whole: \"2019/summer/a.jpg\" is one key, not three. It is path-cleaned before use, so \"../\" reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.S3API.GetS3BucketsByBucketObjectsByWildcard1(context.Background(), bucket, wildcard1).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `S3API.GetS3BucketsByBucketObjectsByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetS3BucketsByBucketObjectsByWildcard1`: S3PresignResponse
+	fmt.Fprintf(os.Stdout, "Response from `S3API.GetS3BucketsByBucketObjectsByWildcard1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**bucket** | **string** | Bucket is the bucket&#39;s friendly name, from the path. | 
+**wildcard1** | **string** | Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetS3BucketsByBucketObjectsByWildcard1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**S3PresignResponse**](S3PresignResponse.md)
 
 ### Authorization
 

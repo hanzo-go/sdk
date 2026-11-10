@@ -22,6 +22,8 @@ type BillingTier struct {
 	Balance *BillingTierBalance `json:"balance,omitempty"`
 	// Plan is the catalog rung the subject is served as (\"\" with no plan). A tier is a class of rungs; a bound that differs within one class keys on this.
 	Plan *string `json:"plan,omitempty"`
+	// PlanName is the display name of the served plan (\"Unlimited\"), \"\" with no plan. A plan only the plan authority knows has no catalog name, so a reader shows this, not the tier. Last, for the ZAP wire.
+	PlanName *string `json:"planName,omitempty"`
 	// Subscription is the id of the subscription row whose plan is the served rung, \"\" when the tier is not a subscription's.
 	Subscription         *string            `json:"subscription,omitempty"`
 	Tier                 *BillingTierLimits `json:"tier,omitempty"`
@@ -110,6 +112,38 @@ func (o *BillingTier) HasPlan() bool {
 // SetPlan gets a reference to the given string and assigns it to the Plan field.
 func (o *BillingTier) SetPlan(v string) {
 	o.Plan = &v
+}
+
+// GetPlanName returns the PlanName field value if set, zero value otherwise.
+func (o *BillingTier) GetPlanName() string {
+	if o == nil || IsNil(o.PlanName) {
+		var ret string
+		return ret
+	}
+	return *o.PlanName
+}
+
+// GetPlanNameOk returns a tuple with the PlanName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingTier) GetPlanNameOk() (*string, bool) {
+	if o == nil || IsNil(o.PlanName) {
+		return nil, false
+	}
+	return o.PlanName, true
+}
+
+// HasPlanName returns a boolean if a field has been set.
+func (o *BillingTier) HasPlanName() bool {
+	if o != nil && !IsNil(o.PlanName) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlanName gets a reference to the given string and assigns it to the PlanName field.
+func (o *BillingTier) SetPlanName(v string) {
+	o.PlanName = &v
 }
 
 // GetSubscription returns the Subscription field value if set, zero value otherwise.
@@ -224,6 +258,9 @@ func (o BillingTier) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Plan) {
 		toSerialize["plan"] = o.Plan
 	}
+	if !IsNil(o.PlanName) {
+		toSerialize["planName"] = o.PlanName
+	}
 	if !IsNil(o.Subscription) {
 		toSerialize["subscription"] = o.Subscription
 	}
@@ -257,6 +294,7 @@ func (o *BillingTier) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "balance")
 		delete(additionalProperties, "plan")
+		delete(additionalProperties, "planName")
 		delete(additionalProperties, "subscription")
 		delete(additionalProperties, "tier")
 		delete(additionalProperties, "user")

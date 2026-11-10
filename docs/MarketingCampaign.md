@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Audience** | Pointer to **string** | Audience is who the campaign reaches: a saved cohort (aud_…), a mailing list (lst_…) or a saved segment of one (seg_…), as GET /v1/marketing/audiences lists them. Empty is none named; one the org does not have is refused. | [optional] 
 **Budget** | Pointer to **int64** | Budget is what the campaign is allowed to cost, in USD cents. A negative value is clamped to 0; nothing enforces the ceiling here. | [optional] 
 **Channel** | Pointer to **string** | Channel is the delivery surface: email, sms, social, meta, google or tiktok. Empty means email. | [optional] 
 **CreatedAt** | Pointer to **int64** | CreatedAt is unix seconds when the campaign was registered. Server-assigned and never rewritten — an update leaves it as it was. | [optional] 
@@ -33,6 +34,31 @@ will change when the set of required properties is changed
 NewMarketingCampaignWithDefaults instantiates a new MarketingCampaign object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAudience
+
+`func (o *MarketingCampaign) GetAudience() string`
+
+GetAudience returns the Audience field if non-nil, zero value otherwise.
+
+### GetAudienceOk
+
+`func (o *MarketingCampaign) GetAudienceOk() (*string, bool)`
+
+GetAudienceOk returns a tuple with the Audience field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAudience
+
+`func (o *MarketingCampaign) SetAudience(v string)`
+
+SetAudience sets Audience field to given value.
+
+### HasAudience
+
+`func (o *MarketingCampaign) HasAudience() bool`
+
+HasAudience returns a boolean if a field has been set.
 
 ### GetBudget
 

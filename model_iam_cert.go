@@ -20,19 +20,20 @@ var _ MappedNullable = &IamCert{}
 
 // IamCert struct for IamCert
 type IamCert struct {
-	AccessKey            *string    `json:"accessKey,omitempty"`
-	AccessSecret         *string    `json:"accessSecret,omitempty"`
-	Account              *string    `json:"account,omitempty"`
-	BitSize              *int64     `json:"bitSize,omitempty"`
-	Certificate          *string    `json:"certificate,omitempty"`
-	CreatedAt            *time.Time `json:"createdAt,omitempty"`
-	CreatedTime          *string    `json:"createdTime,omitempty"`
-	CryptoAlgorithm      *string    `json:"cryptoAlgorithm,omitempty"`
-	Deleted              *bool      `json:"deleted,omitempty"`
-	DisplayName          *string    `json:"displayName,omitempty"`
-	DomainExpireTime     *string    `json:"domainExpireTime,omitempty"`
-	ExpireInYears        *int64     `json:"expireInYears,omitempty"`
-	ExpireTime           *string    `json:"expireTime,omitempty"`
+	AccessKey        *string    `json:"accessKey,omitempty"`
+	AccessSecret     *string    `json:"accessSecret,omitempty"`
+	Account          *string    `json:"account,omitempty"`
+	BitSize          *int64     `json:"bitSize,omitempty"`
+	Certificate      *string    `json:"certificate,omitempty"`
+	CreatedAt        *time.Time `json:"createdAt,omitempty"`
+	CreatedTime      *string    `json:"createdTime,omitempty"`
+	CryptoAlgorithm  *string    `json:"cryptoAlgorithm,omitempty"`
+	Deleted          *bool      `json:"deleted,omitempty"`
+	DisplayName      *string    `json:"displayName,omitempty"`
+	DomainExpireTime *string    `json:"domainExpireTime,omitempty"`
+	ExpireInYears    *int64     `json:"expireInYears,omitempty"`
+	ExpireTime       *string    `json:"expireTime,omitempty"`
+	// Persisted fields
 	Id                   *string    `json:"id,omitempty"`
 	Name                 *string    `json:"name,omitempty"`
 	Owner                *string    `json:"owner,omitempty"`

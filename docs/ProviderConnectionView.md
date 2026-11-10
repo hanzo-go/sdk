@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **ExpiresAt** | Pointer to **string** | ExpiresAt is when the access token expires, RFC 3339 UTC; empty for a credential that does not expire. Reading the token rotates it inside the window, so a reader never sees an expired one. | [optional] 
 **ExternalId** | Pointer to **string** | ExternalID is the provider&#39;s own id for the account (Slack team.id, GitHub installation_id) — the value inbound webhooks are mapped back to this org by. | [optional] 
 **Id** | Pointer to **string** | ID is provider + \&quot;:\&quot; + label, the address every connection route takes. Empty on the org plane, where a provider&#39;s connection is addressed by the provider alone. | [optional] 
+**Kind** | Pointer to **string** | Kind is personal or page for a social account that has one. Empty for every other connector. | [optional] 
 **Label** | Pointer to **string** | Label is the caller&#39;s own name for this connection (\&quot;default\&quot;, \&quot;work\&quot;). | [optional] 
 **Provider** | Pointer to **string** | Provider is the connected provider&#39;s registry id. Empty where the reader already knows it, which is every org-plane card. | [optional] 
 **Scopes** | Pointer to **[]string** | Scopes are the permissions the provider granted. Never null; [] when none. | [optional] 
@@ -156,6 +157,31 @@ SetId sets Id field to given value.
 `func (o *ProviderConnectionView) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetKind
+
+`func (o *ProviderConnectionView) GetKind() string`
+
+GetKind returns the Kind field if non-nil, zero value otherwise.
+
+### GetKindOk
+
+`func (o *ProviderConnectionView) GetKindOk() (*string, bool)`
+
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKind
+
+`func (o *ProviderConnectionView) SetKind(v string)`
+
+SetKind sets Kind field to given value.
+
+### HasKind
+
+`func (o *ProviderConnectionView) HasKind() bool`
+
+HasKind returns a boolean if a field has been set.
 
 ### GetLabel
 

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Drift** | Pointer to **bool** |  | [optional] 
 **Error** | Pointer to **string** |  | [optional] 
 **Family** | Pointer to **string** |  | [optional] 
+**Redeployed** | Pointer to **bool** |  | [optional] 
 **Stats** | Pointer to **interface{}** |  | [optional] 
 **Version** | Pointer to [**RoutingVersion**](RoutingVersion.md) |  | [optional] 
 **Versions** | Pointer to [**[]RoutingVersion**](RoutingVersion.md) |  | [optional] 
@@ -140,6 +141,31 @@ SetFamily sets Family field to given value.
 `func (o *AiRoutingView) HasFamily() bool`
 
 HasFamily returns a boolean if a field has been set.
+
+### GetRedeployed
+
+`func (o *AiRoutingView) GetRedeployed() bool`
+
+GetRedeployed returns the Redeployed field if non-nil, zero value otherwise.
+
+### GetRedeployedOk
+
+`func (o *AiRoutingView) GetRedeployedOk() (*bool, bool)`
+
+GetRedeployedOk returns a tuple with the Redeployed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRedeployed
+
+`func (o *AiRoutingView) SetRedeployed(v bool)`
+
+SetRedeployed sets Redeployed field to given value.
+
+### HasRedeployed
+
+`func (o *AiRoutingView) HasRedeployed() bool`
+
+HasRedeployed returns a boolean if a field has been set.
 
 ### GetStats
 

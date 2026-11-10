@@ -19,22 +19,55 @@ var _ MappedNullable = &MarketingLeadIn{}
 
 // MarketingLeadIn struct for MarketingLeadIn
 type MarketingLeadIn struct {
+	// Address is where an investor lives, or where the entity they invest through is: street, city and country required, each at most 200 characters.
+	Address *MarketingAddress `json:"address,omitempty"`
+	Amount  interface{}       `json:"amount,omitempty"`
+	// Answers is the application question by question, as the form asked it: at most 40, each question clipped at 200 characters and each answer at 2 KiB. Recorded on the lead as they came; optional.
+	Answers []MarketingAnswer `json:"answers,omitempty"`
+	// Campaign is the utm_* tags of the link the visit arrived on, recorded on the lead. Optional.
+	Campaign *MarketingTags `json:"campaign,omitempty"`
 	// Company is the person's company. Optional; clipped at 200 characters.
 	Company *string `json:"company,omitempty"`
+	// Consent is the applicant ticking \"Keep me posted about roles and news at Hanzo. Unsubscribe any time.\" Unticked, they hear nothing but the reply to their application. Read only with Job.
+	Consent *bool `json:"consent,omitempty"`
 	// Country is where the person is. Optional; clipped at 200 characters.
 	Country *string `json:"country,omitempty"`
+	// Coupon is the offer code the visitor's page held: letters, digits, dash and underscore, at most 32. Any other value is recorded as none. Optional.
+	Coupon *string `json:"coupon,omitempty"`
+	// Department is the opening's department. Read only with Job.
+	Department *string `json:"department,omitempty"`
 	// Email is where sales replies: the person's work email. Required, and it must look like an address. It is not verified.
 	Email *string `json:"email,omitempty"`
-	// Name is the person's name. Optional; clipped at 200 characters.
+	// Entity is the legal name of the entity an investor invests through; empty, they invest in their own name. At most 200 characters. Read only with program investor, as are Title, Amount, Phone and Address.
+	Entity *string `json:"entity,omitempty"`
+	// Job is the opening a careers form applies to, by its id on the careers page (senior-backend-engineer). A body naming one is a job application: it is filed as a candidate, never as a lead, so it is offered no call and no code, no ad platform hears of it, and the brand's careers mailbox is told instead of sales. Name, Email, Role (the opening's title), Country (where the person is), Need (what they wrote about themselves), Source and Answers carry over. Optional; clipped at 200 characters.
+	Job *string `json:"job,omitempty"`
+	// Links are https addresses the applicant gave: a portfolio, a profile, a site. At most five, each at most 500 characters; any other value is dropped. Read only with Job.
+	Links []string `json:"links,omitempty"`
+	// Name is the person's name. Optional, and clipped at 200 characters, except for an investor, who must give it, in at most 200.
 	Name *string `json:"name,omitempty"`
 	// Need is what the person wants from sales, in their own words. Optional; clipped at 4 KiB.
 	Need *string `json:"need,omitempty"`
+	// Payment is how an order the form files would be paid: \"card\" or \"invoice\" (a bank transfer against an invoice sales sends). Empty is none; anything else is 400. An Enterprise inquiry asking to pay by invoice is stated on the event plane as invoice_requested beside its generate_lead.
+	Payment *string `json:"payment,omitempty"`
+	// Phone is an investor's phone number: 3 to 20 digits, an optional leading +, and any spaces, dots, dashes or brackets between them. Optional.
+	Phone *string `json:"phone,omitempty"`
+	// Program is the program the person applies to: beta, research or partner. Any other value is recorded as none. An application is mailed a code for 50% off the first three months, once per address (offer.go). Optional. \"enterprise\" is a sales inquiry about the Enterprise plan: recorded as the lead's program, offered the intro call as every inquiry is, and mailed no code. \"investor\" is an investor's subscription (investor.go): it is mailed no code, it is sent a SAFE, and Name, Amount and Address are required.
+	Program *string `json:"program,omitempty"`
+	// Resume is an https address the applicant gave for their resume. Read only with Job; any other value is recorded as none.
+	Resume *string `json:"resume,omitempty"`
+	// ResumeFile is the key POST /v1/marketing/leads/resume handed out for the resume the applicant uploaded. Any other value is recorded as none. Read only with Job.
+	ResumeFile *string `json:"resume_file,omitempty"`
 	// Role is the person's job title. Optional; clipped at 200 characters.
 	Role *string `json:"role,omitempty"`
 	// Size is the company's headcount band: 1-49, 50-249, 250-999, 1000-4999 or 5000+. Any other value is recorded as unstated rather than refused.
 	Size *string `json:"size,omitempty"`
 	// Source is the page the form was filed from, such as hanzo.ai/contact-sales. Optional; clipped at 200 characters.
 	Source *string `json:"source,omitempty"`
+	// Title is the investor's title at Entity, as the SAFE's signature block names it. At most 200 characters; read only with Entity.
+	Title *string `json:"title,omitempty"`
+	// Upgrade is the handle of the organization an order upgrades. It is filed only for a person signed in, acting in that organization (X-Org-Id) as its owner or an admin, which the identity boundary attests from the token; any other caller naming one is 403. Empty is a new organization, or none.
+	Upgrade *string `json:"upgrade,omitempty"`
 	// Visit is what the visitor's page knows about the ad click that brought them and the consent they gave, so the lead reaches the ad platforms matched to the click and under the visitor's own choice. Optional.
 	Visit                *MarketingVisit `json:"visit,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -57,6 +90,135 @@ func NewMarketingLeadIn() *MarketingLeadIn {
 func NewMarketingLeadInWithDefaults() *MarketingLeadIn {
 	this := MarketingLeadIn{}
 	return &this
+}
+
+// GetAddress returns the Address field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetAddress() MarketingAddress {
+	if o == nil || IsNil(o.Address) {
+		var ret MarketingAddress
+		return ret
+	}
+	return *o.Address
+}
+
+// GetAddressOk returns a tuple with the Address field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetAddressOk() (*MarketingAddress, bool) {
+	if o == nil || IsNil(o.Address) {
+		return nil, false
+	}
+	return o.Address, true
+}
+
+// HasAddress returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasAddress() bool {
+	if o != nil && !IsNil(o.Address) {
+		return true
+	}
+
+	return false
+}
+
+// SetAddress gets a reference to the given MarketingAddress and assigns it to the Address field.
+func (o *MarketingLeadIn) SetAddress(v MarketingAddress) {
+	o.Address = &v
+}
+
+// GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MarketingLeadIn) GetAmount() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Amount
+}
+
+// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MarketingLeadIn) GetAmountOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Amount) {
+		return nil, false
+	}
+	return &o.Amount, true
+}
+
+// HasAmount returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasAmount() bool {
+	if o != nil && !IsNil(o.Amount) {
+		return true
+	}
+
+	return false
+}
+
+// SetAmount gets a reference to the given interface{} and assigns it to the Amount field.
+func (o *MarketingLeadIn) SetAmount(v interface{}) {
+	o.Amount = v
+}
+
+// GetAnswers returns the Answers field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetAnswers() []MarketingAnswer {
+	if o == nil || IsNil(o.Answers) {
+		var ret []MarketingAnswer
+		return ret
+	}
+	return o.Answers
+}
+
+// GetAnswersOk returns a tuple with the Answers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetAnswersOk() ([]MarketingAnswer, bool) {
+	if o == nil || IsNil(o.Answers) {
+		return nil, false
+	}
+	return o.Answers, true
+}
+
+// HasAnswers returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasAnswers() bool {
+	if o != nil && !IsNil(o.Answers) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnswers gets a reference to the given []MarketingAnswer and assigns it to the Answers field.
+func (o *MarketingLeadIn) SetAnswers(v []MarketingAnswer) {
+	o.Answers = v
+}
+
+// GetCampaign returns the Campaign field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetCampaign() MarketingTags {
+	if o == nil || IsNil(o.Campaign) {
+		var ret MarketingTags
+		return ret
+	}
+	return *o.Campaign
+}
+
+// GetCampaignOk returns a tuple with the Campaign field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetCampaignOk() (*MarketingTags, bool) {
+	if o == nil || IsNil(o.Campaign) {
+		return nil, false
+	}
+	return o.Campaign, true
+}
+
+// HasCampaign returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasCampaign() bool {
+	if o != nil && !IsNil(o.Campaign) {
+		return true
+	}
+
+	return false
+}
+
+// SetCampaign gets a reference to the given MarketingTags and assigns it to the Campaign field.
+func (o *MarketingLeadIn) SetCampaign(v MarketingTags) {
+	o.Campaign = &v
 }
 
 // GetCompany returns the Company field value if set, zero value otherwise.
@@ -91,6 +253,38 @@ func (o *MarketingLeadIn) SetCompany(v string) {
 	o.Company = &v
 }
 
+// GetConsent returns the Consent field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetConsent() bool {
+	if o == nil || IsNil(o.Consent) {
+		var ret bool
+		return ret
+	}
+	return *o.Consent
+}
+
+// GetConsentOk returns a tuple with the Consent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetConsentOk() (*bool, bool) {
+	if o == nil || IsNil(o.Consent) {
+		return nil, false
+	}
+	return o.Consent, true
+}
+
+// HasConsent returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasConsent() bool {
+	if o != nil && !IsNil(o.Consent) {
+		return true
+	}
+
+	return false
+}
+
+// SetConsent gets a reference to the given bool and assigns it to the Consent field.
+func (o *MarketingLeadIn) SetConsent(v bool) {
+	o.Consent = &v
+}
+
 // GetCountry returns the Country field value if set, zero value otherwise.
 func (o *MarketingLeadIn) GetCountry() string {
 	if o == nil || IsNil(o.Country) {
@@ -123,6 +317,70 @@ func (o *MarketingLeadIn) SetCountry(v string) {
 	o.Country = &v
 }
 
+// GetCoupon returns the Coupon field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetCoupon() string {
+	if o == nil || IsNil(o.Coupon) {
+		var ret string
+		return ret
+	}
+	return *o.Coupon
+}
+
+// GetCouponOk returns a tuple with the Coupon field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetCouponOk() (*string, bool) {
+	if o == nil || IsNil(o.Coupon) {
+		return nil, false
+	}
+	return o.Coupon, true
+}
+
+// HasCoupon returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasCoupon() bool {
+	if o != nil && !IsNil(o.Coupon) {
+		return true
+	}
+
+	return false
+}
+
+// SetCoupon gets a reference to the given string and assigns it to the Coupon field.
+func (o *MarketingLeadIn) SetCoupon(v string) {
+	o.Coupon = &v
+}
+
+// GetDepartment returns the Department field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetDepartment() string {
+	if o == nil || IsNil(o.Department) {
+		var ret string
+		return ret
+	}
+	return *o.Department
+}
+
+// GetDepartmentOk returns a tuple with the Department field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetDepartmentOk() (*string, bool) {
+	if o == nil || IsNil(o.Department) {
+		return nil, false
+	}
+	return o.Department, true
+}
+
+// HasDepartment returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasDepartment() bool {
+	if o != nil && !IsNil(o.Department) {
+		return true
+	}
+
+	return false
+}
+
+// SetDepartment gets a reference to the given string and assigns it to the Department field.
+func (o *MarketingLeadIn) SetDepartment(v string) {
+	o.Department = &v
+}
+
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *MarketingLeadIn) GetEmail() string {
 	if o == nil || IsNil(o.Email) {
@@ -153,6 +411,102 @@ func (o *MarketingLeadIn) HasEmail() bool {
 // SetEmail gets a reference to the given string and assigns it to the Email field.
 func (o *MarketingLeadIn) SetEmail(v string) {
 	o.Email = &v
+}
+
+// GetEntity returns the Entity field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetEntity() string {
+	if o == nil || IsNil(o.Entity) {
+		var ret string
+		return ret
+	}
+	return *o.Entity
+}
+
+// GetEntityOk returns a tuple with the Entity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetEntityOk() (*string, bool) {
+	if o == nil || IsNil(o.Entity) {
+		return nil, false
+	}
+	return o.Entity, true
+}
+
+// HasEntity returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasEntity() bool {
+	if o != nil && !IsNil(o.Entity) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntity gets a reference to the given string and assigns it to the Entity field.
+func (o *MarketingLeadIn) SetEntity(v string) {
+	o.Entity = &v
+}
+
+// GetJob returns the Job field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetJob() string {
+	if o == nil || IsNil(o.Job) {
+		var ret string
+		return ret
+	}
+	return *o.Job
+}
+
+// GetJobOk returns a tuple with the Job field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetJobOk() (*string, bool) {
+	if o == nil || IsNil(o.Job) {
+		return nil, false
+	}
+	return o.Job, true
+}
+
+// HasJob returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasJob() bool {
+	if o != nil && !IsNil(o.Job) {
+		return true
+	}
+
+	return false
+}
+
+// SetJob gets a reference to the given string and assigns it to the Job field.
+func (o *MarketingLeadIn) SetJob(v string) {
+	o.Job = &v
+}
+
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetLinks() []string {
+	if o == nil || IsNil(o.Links) {
+		var ret []string
+		return ret
+	}
+	return o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetLinksOk() ([]string, bool) {
+	if o == nil || IsNil(o.Links) {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasLinks() bool {
+	if o != nil && !IsNil(o.Links) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given []string and assigns it to the Links field.
+func (o *MarketingLeadIn) SetLinks(v []string) {
+	o.Links = v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -217,6 +571,166 @@ func (o *MarketingLeadIn) HasNeed() bool {
 // SetNeed gets a reference to the given string and assigns it to the Need field.
 func (o *MarketingLeadIn) SetNeed(v string) {
 	o.Need = &v
+}
+
+// GetPayment returns the Payment field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetPayment() string {
+	if o == nil || IsNil(o.Payment) {
+		var ret string
+		return ret
+	}
+	return *o.Payment
+}
+
+// GetPaymentOk returns a tuple with the Payment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetPaymentOk() (*string, bool) {
+	if o == nil || IsNil(o.Payment) {
+		return nil, false
+	}
+	return o.Payment, true
+}
+
+// HasPayment returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasPayment() bool {
+	if o != nil && !IsNil(o.Payment) {
+		return true
+	}
+
+	return false
+}
+
+// SetPayment gets a reference to the given string and assigns it to the Payment field.
+func (o *MarketingLeadIn) SetPayment(v string) {
+	o.Payment = &v
+}
+
+// GetPhone returns the Phone field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetPhone() string {
+	if o == nil || IsNil(o.Phone) {
+		var ret string
+		return ret
+	}
+	return *o.Phone
+}
+
+// GetPhoneOk returns a tuple with the Phone field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetPhoneOk() (*string, bool) {
+	if o == nil || IsNil(o.Phone) {
+		return nil, false
+	}
+	return o.Phone, true
+}
+
+// HasPhone returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasPhone() bool {
+	if o != nil && !IsNil(o.Phone) {
+		return true
+	}
+
+	return false
+}
+
+// SetPhone gets a reference to the given string and assigns it to the Phone field.
+func (o *MarketingLeadIn) SetPhone(v string) {
+	o.Phone = &v
+}
+
+// GetProgram returns the Program field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetProgram() string {
+	if o == nil || IsNil(o.Program) {
+		var ret string
+		return ret
+	}
+	return *o.Program
+}
+
+// GetProgramOk returns a tuple with the Program field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetProgramOk() (*string, bool) {
+	if o == nil || IsNil(o.Program) {
+		return nil, false
+	}
+	return o.Program, true
+}
+
+// HasProgram returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasProgram() bool {
+	if o != nil && !IsNil(o.Program) {
+		return true
+	}
+
+	return false
+}
+
+// SetProgram gets a reference to the given string and assigns it to the Program field.
+func (o *MarketingLeadIn) SetProgram(v string) {
+	o.Program = &v
+}
+
+// GetResume returns the Resume field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetResume() string {
+	if o == nil || IsNil(o.Resume) {
+		var ret string
+		return ret
+	}
+	return *o.Resume
+}
+
+// GetResumeOk returns a tuple with the Resume field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetResumeOk() (*string, bool) {
+	if o == nil || IsNil(o.Resume) {
+		return nil, false
+	}
+	return o.Resume, true
+}
+
+// HasResume returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasResume() bool {
+	if o != nil && !IsNil(o.Resume) {
+		return true
+	}
+
+	return false
+}
+
+// SetResume gets a reference to the given string and assigns it to the Resume field.
+func (o *MarketingLeadIn) SetResume(v string) {
+	o.Resume = &v
+}
+
+// GetResumeFile returns the ResumeFile field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetResumeFile() string {
+	if o == nil || IsNil(o.ResumeFile) {
+		var ret string
+		return ret
+	}
+	return *o.ResumeFile
+}
+
+// GetResumeFileOk returns a tuple with the ResumeFile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetResumeFileOk() (*string, bool) {
+	if o == nil || IsNil(o.ResumeFile) {
+		return nil, false
+	}
+	return o.ResumeFile, true
+}
+
+// HasResumeFile returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasResumeFile() bool {
+	if o != nil && !IsNil(o.ResumeFile) {
+		return true
+	}
+
+	return false
+}
+
+// SetResumeFile gets a reference to the given string and assigns it to the ResumeFile field.
+func (o *MarketingLeadIn) SetResumeFile(v string) {
+	o.ResumeFile = &v
 }
 
 // GetRole returns the Role field value if set, zero value otherwise.
@@ -315,6 +829,70 @@ func (o *MarketingLeadIn) SetSource(v string) {
 	o.Source = &v
 }
 
+// GetTitle returns the Title field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetTitle() string {
+	if o == nil || IsNil(o.Title) {
+		var ret string
+		return ret
+	}
+	return *o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetTitleOk() (*string, bool) {
+	if o == nil || IsNil(o.Title) {
+		return nil, false
+	}
+	return o.Title, true
+}
+
+// HasTitle returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasTitle() bool {
+	if o != nil && !IsNil(o.Title) {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle gets a reference to the given string and assigns it to the Title field.
+func (o *MarketingLeadIn) SetTitle(v string) {
+	o.Title = &v
+}
+
+// GetUpgrade returns the Upgrade field value if set, zero value otherwise.
+func (o *MarketingLeadIn) GetUpgrade() string {
+	if o == nil || IsNil(o.Upgrade) {
+		var ret string
+		return ret
+	}
+	return *o.Upgrade
+}
+
+// GetUpgradeOk returns a tuple with the Upgrade field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingLeadIn) GetUpgradeOk() (*string, bool) {
+	if o == nil || IsNil(o.Upgrade) {
+		return nil, false
+	}
+	return o.Upgrade, true
+}
+
+// HasUpgrade returns a boolean if a field has been set.
+func (o *MarketingLeadIn) HasUpgrade() bool {
+	if o != nil && !IsNil(o.Upgrade) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpgrade gets a reference to the given string and assigns it to the Upgrade field.
+func (o *MarketingLeadIn) SetUpgrade(v string) {
+	o.Upgrade = &v
+}
+
 // GetVisit returns the Visit field value if set, zero value otherwise.
 func (o *MarketingLeadIn) GetVisit() MarketingVisit {
 	if o == nil || IsNil(o.Visit) {
@@ -357,20 +935,65 @@ func (o MarketingLeadIn) MarshalJSON() ([]byte, error) {
 
 func (o MarketingLeadIn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Address) {
+		toSerialize["address"] = o.Address
+	}
+	if o.Amount != nil {
+		toSerialize["amount"] = o.Amount
+	}
+	if !IsNil(o.Answers) {
+		toSerialize["answers"] = o.Answers
+	}
+	if !IsNil(o.Campaign) {
+		toSerialize["campaign"] = o.Campaign
+	}
 	if !IsNil(o.Company) {
 		toSerialize["company"] = o.Company
+	}
+	if !IsNil(o.Consent) {
+		toSerialize["consent"] = o.Consent
 	}
 	if !IsNil(o.Country) {
 		toSerialize["country"] = o.Country
 	}
+	if !IsNil(o.Coupon) {
+		toSerialize["coupon"] = o.Coupon
+	}
+	if !IsNil(o.Department) {
+		toSerialize["department"] = o.Department
+	}
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
+	}
+	if !IsNil(o.Entity) {
+		toSerialize["entity"] = o.Entity
+	}
+	if !IsNil(o.Job) {
+		toSerialize["job"] = o.Job
+	}
+	if !IsNil(o.Links) {
+		toSerialize["links"] = o.Links
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 	if !IsNil(o.Need) {
 		toSerialize["need"] = o.Need
+	}
+	if !IsNil(o.Payment) {
+		toSerialize["payment"] = o.Payment
+	}
+	if !IsNil(o.Phone) {
+		toSerialize["phone"] = o.Phone
+	}
+	if !IsNil(o.Program) {
+		toSerialize["program"] = o.Program
+	}
+	if !IsNil(o.Resume) {
+		toSerialize["resume"] = o.Resume
+	}
+	if !IsNil(o.ResumeFile) {
+		toSerialize["resume_file"] = o.ResumeFile
 	}
 	if !IsNil(o.Role) {
 		toSerialize["role"] = o.Role
@@ -380,6 +1003,12 @@ func (o MarketingLeadIn) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.Title) {
+		toSerialize["title"] = o.Title
+	}
+	if !IsNil(o.Upgrade) {
+		toSerialize["upgrade"] = o.Upgrade
 	}
 	if !IsNil(o.Visit) {
 		toSerialize["visit"] = o.Visit
@@ -406,14 +1035,31 @@ func (o *MarketingLeadIn) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "address")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "answers")
+		delete(additionalProperties, "campaign")
 		delete(additionalProperties, "company")
+		delete(additionalProperties, "consent")
 		delete(additionalProperties, "country")
+		delete(additionalProperties, "coupon")
+		delete(additionalProperties, "department")
 		delete(additionalProperties, "email")
+		delete(additionalProperties, "entity")
+		delete(additionalProperties, "job")
+		delete(additionalProperties, "links")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "need")
+		delete(additionalProperties, "payment")
+		delete(additionalProperties, "phone")
+		delete(additionalProperties, "program")
+		delete(additionalProperties, "resume")
+		delete(additionalProperties, "resume_file")
 		delete(additionalProperties, "role")
 		delete(additionalProperties, "size")
 		delete(additionalProperties, "source")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "upgrade")
 		delete(additionalProperties, "visit")
 		o.AdditionalProperties = additionalProperties
 	}

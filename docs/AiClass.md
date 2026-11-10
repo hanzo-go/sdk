@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Percent** | Pointer to **int64** |  | [optional] 
 **ResetsAt** | Pointer to **string** |  | [optional] 
 **State** | Pointer to **string** | State is ok, near, or limited when the class is used up and nothing else pays. | [optional] 
+**Unbounded** | Pointer to **bool** | Unbounded says the plan includes all of this class&#39;s use: there is no share to use up, and Percent is 0. | [optional] 
 **Window** | Pointer to [**AiWindow**](AiWindow.md) |  | [optional] 
 
 ## Methods
@@ -128,6 +129,31 @@ SetState sets State field to given value.
 `func (o *AiClass) HasState() bool`
 
 HasState returns a boolean if a field has been set.
+
+### GetUnbounded
+
+`func (o *AiClass) GetUnbounded() bool`
+
+GetUnbounded returns the Unbounded field if non-nil, zero value otherwise.
+
+### GetUnboundedOk
+
+`func (o *AiClass) GetUnboundedOk() (*bool, bool)`
+
+GetUnboundedOk returns a tuple with the Unbounded field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnbounded
+
+`func (o *AiClass) SetUnbounded(v bool)`
+
+SetUnbounded sets Unbounded field to given value.
+
+### HasUnbounded
+
+`func (o *AiClass) HasUnbounded() bool`
+
+HasUnbounded returns a boolean if a field has been set.
 
 ### GetWindow
 

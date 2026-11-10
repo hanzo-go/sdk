@@ -464,14 +464,21 @@ func (a *EventAPIService) GetEventHealthExecute(r EventAPIGetEventHealthRequest)
 }
 
 type EventAPIGetEventInsightsEventsRequest struct {
-	ctx        context.Context
-	ApiService *EventAPIService
-	limit      *int64
+	ctx          context.Context
+	ApiService   *EventAPIService
+	limit        *int64
+	impersonated *string
 }
 
 // Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default.
 func (r EventAPIGetEventInsightsEventsRequest) Limit(limit int64) EventAPIGetEventInsightsEventsRequest {
 	r.limit = &limit
+	return r
+}
+
+// Impersonated is which events to return against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400.
+func (r EventAPIGetEventInsightsEventsRequest) Impersonated(impersonated string) EventAPIGetEventInsightsEventsRequest {
+	r.impersonated = &impersonated
 	return r
 }
 
@@ -487,9 +494,12 @@ The console's raw-event view over event.event — the same table the capture end
 fill — one row per stored event, with the row's attributes returned as the
 properties object.
 
+What a platform operator did acting as someone else is left out unless impersonated
+asks for it; such a row carries impersonated and impersonated_by in its properties.
+
 The org is the validated principal's — never a parameter — and a read requires a
 real bearer, never the write-only publishable key. 401 without a validated bearer,
-503 when the warehouse is unreachable.
+400 on an unknown impersonated value, 503 when the warehouse is unreachable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EventAPIGetEventInsightsEventsRequest
@@ -525,6 +535,9 @@ func (a *EventAPIService) GetEventInsightsEventsExecute(r EventAPIGetEventInsigh
 
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.impersonated != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "impersonated", r.impersonated, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -700,11 +713,12 @@ func (a *EventAPIService) GetEventInsightsHealthExecute(r EventAPIGetEventInsigh
 }
 
 type EventAPIGetEventOverviewRequest struct {
-	ctx        context.Context
-	ApiService *EventAPIService
-	range_     *string
-	start      *string
-	end        *string
+	ctx          context.Context
+	ApiService   *EventAPIService
+	range_       *string
+	start        *string
+	end          *string
+	impersonated *string
 }
 
 // Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400.
@@ -725,6 +739,12 @@ func (r EventAPIGetEventOverviewRequest) End(end string) EventAPIGetEventOvervie
 	return r
 }
 
+// Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400.
+func (r EventAPIGetEventOverviewRequest) Impersonated(impersonated string) EventAPIGetEventOverviewRequest {
+	r.impersonated = &impersonated
+	return r
+}
+
 func (r EventAPIGetEventOverviewRequest) Execute() (*EventOverview, *http.Response, error) {
 	return r.ApiService.GetEventOverviewExecute(r)
 }
@@ -738,9 +758,14 @@ spend, models, providers, errors) and is always real; web (pageviews, visitors,
 sessions) and commerce (orders, revenue, AOV) read the product-event table and
 report available=false rather than fabricating zeros when it holds nothing yet.
 
+The web and commerce lenses count the tenant's own traffic: what a platform
+operator did while acting as someone else is left out unless impersonated asks for
+it (include, or only). The LLM lens reads the usage ledger, which carries no such
+mark, and counts every call.
+
 The org is the validated principal's — never a parameter — so a caller can only
-ever read its own tenant. 401 without a validated bearer, 400 on an unknown range,
-503 when the warehouse is unreachable.
+ever read its own tenant. 401 without a validated bearer, 400 on an unknown range
+or impersonated value, 503 when the warehouse is unreachable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EventAPIGetEventOverviewRequest
@@ -782,6 +807,9 @@ func (a *EventAPIService) GetEventOverviewExecute(r EventAPIGetEventOverviewRequ
 	}
 	if r.end != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "end", r.end, "form", "")
+	}
+	if r.impersonated != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "impersonated", r.impersonated, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -862,7 +890,7 @@ Answers a transparent 1x1 GIF and records one page view for the project whose pu
 
 	<img src="https://api.hanzo.ai/v1/event/pixel/pk-….gif" alt="" width="1" height="1">
 
-The page is `?u=` when given, else the Referer. The visitor is stamped from the request like every event, is one visitor for a day, and carries no cookie. Do-not-track and a developer's own machine record nothing. The image is answered whatever happened to the view, with no-store.
+The page is `?u=` when given, else the Referer. The visitor is stamped from the request like every event, is one visitor for a day, and carries no cookie. Every view is recorded: it is the site's own first-party analytics. `?consent=analytics`, the visitor's choice as the embedding page knows it, is what it may be forwarded to Google Analytics under; Do-not-track and Global Privacy Control forward nothing, and a developer's own machine records nothing. The image is answered whatever happened to the view, with no-store.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param key
@@ -972,6 +1000,10 @@ Install is one line, and it is the same line for a Hanzo property and for a cust
 	<script defer src="https://api.hanzo.ai/v1/event/tag.js" data-key="pk-…"></script>
 
 `data-key` is the publishable key the project mints; `data-product` optionally names the emitting surface. The key may also ride the src as `?key=` for a host that strips data attributes.
+
+THE STREAM IS FIRST PARTY; THE THIRD PARTIES FOLLOW THE VISITOR'S REGION. Every page view, event, error and identify goes to the site's own stream for every visitor, under its anonymous id and session, whatever they chose and under Global Privacy Control or Do Not Track alike: it is the site's own analytics, never sold or shared. The rule for Google Analytics, the Meta pixel and the other platforms is the one GET /v1/project/tags serves for the visitor's region. `eu` (the EU, the EEA, the UK, Switzerland, and any visitor no edge placed): Google Analytics runs for everyone under Consent Mode v2 with all four flags denied (cookieless) and is upgraded by Performance and Targeted Advertising; Meta is init'ed after `fbq('consent','revoke')` and sends nothing until Marketing; no other platform loads before a choice. `us_privacy` (a US state with a privacy law, or no attested state) and `global`: everything runs at once under Consent Mode granted, and Targeted Advertising off is exactly `fbq('dataProcessingOptions',['LDU'],0,0)` and ad_storage, ad_user_data and ad_personalization denied. Under GPC or DNT no third party loads in any region, Google Analytics included. The choice is the `__Host-hz_consent` cookie, written by the @hanzo/ui consent banner or this tag's own, beside the version and the rule it was made under: `eu` counts only a choice made under `eu`, and the policy floor voids a choice's grants, never its refusals. Each event states the grants in force when it is sent, and that is what cloud may forward under.
+
+`data-banner` draws Hanzo's consent design by region. In `eu`, for a visitor who has not chosen and whose browser has not refused: a card with Manage preferences, Accept all and a × that keeps essential cookies only, so refusing is as easy as accepting. In `global`, a notice ("We use cookies to improve your experience. By continuing to browse, you agree.") until the visitor closes it with ×. In `us_privacy`, no card: a "Your Privacy Choices" link with the opt-out icon at the foot of the page, unless the page carries its own (an element marked `data-hz-consent-link`). Manage preferences or the link opens the sheet — Strictly Necessary Cookies (always active, the site's own first-party analytics included), Performance (Google Analytics), Marketing (the Meta pixel), and Sell, Share, or Use Your Data for Targeted Advertising, each chosen apart; outside `eu` each is on by default and Targeted Advertising off is the opt-out. Withdrawing a category clears the third-party cookies it allowed, on every domain above the page, and never an essential one. The sheet links only the policies the page names: `data-cookies` its cookie policy, `data-banner`'s value its privacy policy, `data-terms` its terms. `window.hzConsent.open()` opens the sheet again from a page's own link.
 
 WITHOUT A KEY THE TAG SENDS NOTHING. A keyless beacon is accepted 200 into $public, a reserved tenant the owning org cannot read — so silence is the honest failure, and the tag picks it rather than reporting success into a tenant nobody reads.
 
@@ -1206,12 +1238,13 @@ func (a *EventAPIService) GetEventTimeseriesExecute(r EventAPIGetEventTimeseries
 }
 
 type EventAPIGetEventTopRequest struct {
-	ctx        context.Context
-	ApiService *EventAPIService
-	range_     *string
-	start      *string
-	end        *string
-	limit      *int64
+	ctx          context.Context
+	ApiService   *EventAPIService
+	range_       *string
+	start        *string
+	end          *string
+	limit        *int64
+	impersonated *string
 }
 
 // Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400.
@@ -1238,6 +1271,12 @@ func (r EventAPIGetEventTopRequest) Limit(limit int64) EventAPIGetEventTopReques
 	return r
 }
 
+// Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400.
+func (r EventAPIGetEventTopRequest) Impersonated(impersonated string) EventAPIGetEventTopRequest {
+	r.impersonated = &impersonated
+	return r
+}
+
 func (r EventAPIGetEventTopRequest) Execute() (*EventTop, *http.Response, error) {
 	return r.ApiService.GetEventTopExecute(r)
 }
@@ -1253,8 +1292,11 @@ campaigns ("(none)" when absent), each by pageviews. Every lens carries each row
 share of the in-window total, so a top-N honestly shows the long tail.
 
 The four event lenses report available=false rather than fabricating zeros when the
-product-event table holds nothing yet. The org is the validated principal's — never
-a parameter. 401 without a validated bearer, 400 on an unknown range, 503 when the
+product-event table holds nothing yet, and count the tenant's own traffic: what a
+platform operator did acting as someone else is left out unless impersonated asks
+for it (include, or only). Models reads the usage ledger, which carries no such
+mark. The org is the validated principal's — never a parameter. 401 without a
+validated bearer, 400 on an unknown range or impersonated value, 503 when the
 warehouse is unreachable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1300,6 +1342,9 @@ func (a *EventAPIService) GetEventTopExecute(r EventAPIGetEventTopRequest) (*Eve
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.impersonated != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "impersonated", r.impersonated, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1391,9 +1436,11 @@ WHAT THE CALLER PRESENTS DECIDES WHAT IT MAY WRITE, and the endpoint itself gran
 
 NO CREDENTIAL IS REFUSED: a write the server cannot attribute to a project is 401 `ingest_key_required`, and a credential that IS presented but resolves to no project is 403 `ingest_key_unknown`. Nothing is filed under a shared tenant — events nobody can read are worse than events nobody sent, because the caller is told it succeeded. A browser bundle therefore always ships a pk-, which is what /v1/event/tag.js takes.
 
+THE STREAM IS FIRST PARTY. Every visitor's events are kept — page views, events, errors, identifies and the anonymous id — whatever they chose and under Global Privacy Control or Do Not Track alike: it is the org's own analytics, never sold or shared. Consent governs the third parties alone. Each event states the categories its visitor allowed in its `consent` property (`analytics,marketing,ads`), and that is all it may be forwarded under: Google Analytics needs analytics, the Meta pixel marketing, ad personalization ads. GPC or DNT on the request forwards nothing in any region (`consent_mode`: eu, us_privacy or global, from the country and US state the edge attests), whatever the event stated, and is stamped `refused`.
+
 A REDUCED principal — a Hanzo Team space token — writes through the PROJECTION into its own org: narrowed to what the SERVER can name (pageviews and errors, plus the closed autocapture vocabulary $click, $input, $change, $submit, $view), where every one of those names is resolved through a server-owned table and stored as that table's value, so the name on the wire is never the name in the row. Stripped, too, to the fields the projection names, so revenue, personId, groupId and every property but the element annotation cannot reach a row — and an exception is carried only on an error, never on an interaction, so a click cannot ship a stack trace into a row's attributes. It does NOT name the person: the signed account is the identity, so a `distinctId` in the body cannot pin events on a colleague. Everything refused is counted in `dropped`.
 
-The projected lane alone is bounded: 413 over 64 KiB, 400 over 50 events, 429 on the per-client-IP and per-peer caps, and a DNT:1 or Sec-GPC:1 request stores nothing and says so in the receipt. Two stored values carry their own bounds on top, because a request cap does not bound one value: an element annotation over 2 KiB (or a trail over 32 steps) and an exception class over 256 bytes are dropped from the row, which still lands. Authenticated bodies are offered to the observability plane first, which claims LLM-observability ingestion batches and declines everything else.
+The projected lane alone is bounded: 413 over 64 KiB, 400 over 50 events, 429 on the per-client-IP and per-peer caps. Two stored values carry their own bounds on top, because a request cap does not bound one value: an element annotation over 2 KiB (or a trail over 32 steps) and an exception class over 256 bytes are dropped from the row, which still lands. Authenticated bodies are offered to the observability plane first, which claims LLM-observability ingestion batches and declines everything else.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EventAPIPostEventRequest

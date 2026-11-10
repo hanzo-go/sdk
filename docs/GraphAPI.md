@@ -4,15 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetGraphGraphql**](GraphAPI.md#GetGraphGraphql) | **Get** /v1/graph/graphql | Read the graph&#39;s GraphQL schema.
 [**GraphAnswer**](GraphAPI.md#GraphAnswer) | **Post** /v1/graph/answer | Answers a question from the whole graph and cites the assertions it rests on.
+[**GraphApple**](GraphAPI.md#GraphApple) | **Post** /v1/graph/apple | Ingests an Apple Personal Knowledge Graph snapshot — live stable_graph triples, withdrawn expired_stable_graph rows and entityTagging kinship scorecards — into the organization&#39;s assertion plane.
 [**GraphAssert**](GraphAPI.md#GraphAssert) | **Post** /v1/graph | Records a batch of assertions and counts what became of each.
 [**GraphCommunities**](GraphAPI.md#GraphCommunities) | **Post** /v1/graph/communities | Partitions the edge graph into sets of entities more densely connected to each other than to the rest.
+[**GraphConvo**](GraphAPI.md#GraphConvo) | **Post** /v1/graph/convo | Extracts entity state and relationship assertions from conversation turns and updates the graph.
 [**GraphDerive**](GraphAPI.md#GraphDerive) | **Post** /v1/graph/derive | Concludes what the organization&#39;s rules derive from the graph, with a proof for every conclusion: the rule, and each support as the assertion in force it rests on or as the derived atom it is.
 [**GraphDiff**](GraphAPI.md#GraphDiff) | **Post** /v1/graph/diff | Reports what came into force, was superseded and was retracted between two points.
+[**GraphEntity**](GraphAPI.md#GraphEntity) | **Post** /v1/graph/entity | Resolves the complete state of one entity at a point: its type, its holding properties and edges in both directions, its kinship scorecard and the expired statements it no longer holds.
 [**GraphErase**](GraphAPI.md#GraphErase) | **Post** /v1/graph/erase | Removes every assertion that names an entity and returns a receipt.
 [**GraphExtract**](GraphAPI.md#GraphExtract) | **Post** /v1/graph/extract | Reads the relations a source states and returns them, recording nothing.
 [**GraphIngest**](GraphAPI.md#GraphIngest) | **Post** /v1/graph/ingest | Reads a source and records what it states, through the same admission as assert.
 [**GraphNeighbors**](GraphAPI.md#GraphNeighbors) | **Post** /v1/graph/neighbors | Walks the in-force edges from a set of seeds and lists every entity reached, bounded.
+[**GraphOntology**](GraphAPI.md#GraphOntology) | **Get** /v1/graph/ontology | Lists the entity classes, predicates, classifier features and kinship scorecard columns of the personal knowledge graph ontology.
 [**GraphPath**](GraphAPI.md#GraphPath) | **Post** /v1/graph/path | Finds the shortest chain of in-force edges from one entity to another.
 [**GraphRead**](GraphAPI.md#GraphRead) | **Get** /v1/graph | Lists the assertions recorded, every version, oldest first.
 [**GraphResolve**](GraphAPI.md#GraphResolve) | **Post** /v1/graph/resolve | Answers what holds for one entity and relation at a point, winner first, with every weaker account that disagreed.
@@ -20,6 +25,67 @@ Method | HTTP request | Description
 [**GraphVocabulary**](GraphAPI.md#GraphVocabulary) | **Get** /v1/graph/vocabulary | Lists the relations in use, the schema declared for them and the rule that settles a conflict.
 [**PostGraphGraphql**](GraphAPI.md#PostGraphGraphql) | **Post** /v1/graph/graphql | Ask the graph in one request, traversing.
 
+
+
+## GetGraphGraphql
+
+> *os.File GetGraphGraphql(ctx).Execute()
+
+Read the graph's GraphQL schema.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GraphAPI.GetGraphGraphql(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GraphAPI.GetGraphGraphql``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGraphGraphql`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `GraphAPI.GetGraphGraphql`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGraphGraphqlRequest struct via the builder pattern
+
+
+### Return type
+
+[***os.File**](*os.File.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/plain; charset=utf-8
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GraphAnswer
@@ -73,6 +139,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GraphGraphAnswerOut**](GraphGraphAnswerOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GraphApple
+
+> GraphGraphAssertOut GraphApple(ctx).GraphGraphAppleIn(graphGraphAppleIn).Execute()
+
+Ingests an Apple Personal Knowledge Graph snapshot — live stable_graph triples, withdrawn expired_stable_graph rows and entityTagging kinship scorecards — into the organization's assertion plane.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	graphGraphAppleIn := *openapiclient.NewGraphGraphAppleIn("At_example") // GraphGraphAppleIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GraphAPI.GraphApple(context.Background()).GraphGraphAppleIn(graphGraphAppleIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GraphAPI.GraphApple``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GraphApple`: GraphGraphAssertOut
+	fmt.Fprintf(os.Stdout, "Response from `GraphAPI.GraphApple`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGraphAppleRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **graphGraphAppleIn** | [**GraphGraphAppleIn**](GraphGraphAppleIn.md) |  | 
+
+### Return type
+
+[**GraphGraphAssertOut**](GraphGraphAssertOut.md)
 
 ### Authorization
 
@@ -220,6 +352,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GraphConvo
+
+> GraphGraphConvoOut GraphConvo(ctx).GraphGraphConvoIn(graphGraphConvoIn).Execute()
+
+Extracts entity state and relationship assertions from conversation turns and updates the graph.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	graphGraphConvoIn := *openapiclient.NewGraphGraphConvoIn("At_example", "Source_example", []openapiclient.GraphGraphTurn{*openapiclient.NewGraphGraphTurn("Speaker_example", "Text_example")}) // GraphGraphConvoIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GraphAPI.GraphConvo(context.Background()).GraphGraphConvoIn(graphGraphConvoIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GraphAPI.GraphConvo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GraphConvo`: GraphGraphConvoOut
+	fmt.Fprintf(os.Stdout, "Response from `GraphAPI.GraphConvo`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGraphConvoRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **graphGraphConvoIn** | [**GraphGraphConvoIn**](GraphGraphConvoIn.md) |  | 
+
+### Return type
+
+[**GraphGraphConvoOut**](GraphGraphConvoOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GraphDerive
 
 > GraphGraphDeriveOut GraphDerive(ctx).GraphGraphDeriveIn(graphGraphDeriveIn).Execute()
@@ -337,6 +535,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GraphGraphDiffOut**](GraphGraphDiffOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GraphEntity
+
+> GraphGraphEntityOut GraphEntity(ctx).GraphGraphEntityIn(graphGraphEntityIn).Execute()
+
+Resolves the complete state of one entity at a point: its type, its holding properties and edges in both directions, its kinship scorecard and the expired statements it no longer holds.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	graphGraphEntityIn := *openapiclient.NewGraphGraphEntityIn("Entity_example") // GraphGraphEntityIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GraphAPI.GraphEntity(context.Background()).GraphGraphEntityIn(graphGraphEntityIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GraphAPI.GraphEntity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GraphEntity`: GraphGraphEntityOut
+	fmt.Fprintf(os.Stdout, "Response from `GraphAPI.GraphEntity`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGraphEntityRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **graphGraphEntityIn** | [**GraphGraphEntityIn**](GraphGraphEntityIn.md) |  | 
+
+### Return type
+
+[**GraphGraphEntityOut**](GraphGraphEntityOut.md)
 
 ### Authorization
 
@@ -609,6 +873,74 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GraphOntology
+
+> GraphGraphOntologyOut GraphOntology(ctx).Group(group).Q(q).Execute()
+
+Lists the entity classes, predicates, classifier features and kinship scorecard columns of the personal knowledge graph ontology.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	group := "edge" // string | Group narrows classes or features to one group, such as core, person, activity, edge, identity, communication or photos. Absent returns every group. (optional)
+	q := "employment" // string | Q narrows classes, predicates and features to entries whose code, label, canonical relation or source contains this substring, case-insensitively. Absent returns the whole catalog. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GraphAPI.GraphOntology(context.Background()).Group(group).Q(q).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GraphAPI.GraphOntology``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GraphOntology`: GraphGraphOntologyOut
+	fmt.Fprintf(os.Stdout, "Response from `GraphAPI.GraphOntology`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGraphOntologyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **group** | **string** | Group narrows classes or features to one group, such as core, person, activity, edge, identity, communication or photos. Absent returns every group. | 
+ **q** | **string** | Q narrows classes, predicates and features to entries whose code, label, canonical relation or source contains this substring, case-insensitively. Absent returns the whole catalog. | 
+
+### Return type
+
+[**GraphGraphOntologyOut**](GraphGraphOntologyOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

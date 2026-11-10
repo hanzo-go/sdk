@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 )
 
 // LeaderboardAPIService LeaderboardAPI service
@@ -330,6 +331,358 @@ func (a *LeaderboardAPIService) GetLeaderboardActivityExecute(r LeaderboardAPIGe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type LeaderboardAPIGetLeaderboardBetaRequest struct {
+	ctx        context.Context
+	ApiService *LeaderboardAPIService
+	limit      *int64
+}
+
+// Limit caps the rows, clamped to 1..100. Defaults to 25, which is also what a non-positive value takes.
+func (r LeaderboardAPIGetLeaderboardBetaRequest) Limit(limit int64) LeaderboardAPIGetLeaderboardBetaRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r LeaderboardAPIGetLeaderboardBetaRequest) Execute() (*LeaderboardBetaBoard, *http.Response, error) {
+	return r.ApiService.GetLeaderboardBetaExecute(r)
+}
+
+/*
+GetLeaderboardBeta Ranks everyone on the hanzo.ai/beta waitlist by one score: 1 per star on GitHub verified for the record and 1 per founder link followed, plus 1 per org that signed up with its referral code, plus 20 per such org that has made metered spend, plus 1 per 100,000 tokens the person used, all time.
+
+Ranks everyone on the hanzo.ai/beta waitlist by one score: 1 per star
+on GitHub verified for the record and 1 per founder link followed, plus 1 per org
+that signed up with its referral code, plus 20 per such org that has made metered
+spend, plus 1 per 100,000 tokens the person used, all time. Ties go to the earlier
+application. Share clicks count for nothing.
+
+Everyone who ever applied is on it. A form filed before the person had an
+account is a row of its own (no name, score 0, the day it was filed) until their
+account's record claims it, and the record then begins when the form did.
+
+A row is named only for a person who opted into the public board (PUT
+/v1/leaderboard/optin); the caller always sees their own row named. Tokens are a
+range on every row and exact on a named row and the caller's. `tokens` and
+`referrals` say whether the warehouse and the referral service answered; a
+term that did not is left out of every score alike.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return LeaderboardAPIGetLeaderboardBetaRequest
+*/
+func (a *LeaderboardAPIService) GetLeaderboardBeta(ctx context.Context) LeaderboardAPIGetLeaderboardBetaRequest {
+	return LeaderboardAPIGetLeaderboardBetaRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return LeaderboardBetaBoard
+func (a *LeaderboardAPIService) GetLeaderboardBetaExecute(r LeaderboardAPIGetLeaderboardBetaRequest) (*LeaderboardBetaBoard, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LeaderboardBetaBoard
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.GetLeaderboardBeta")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/leaderboard/beta"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type LeaderboardAPIGetLeaderboardBountyRequest struct {
+	ctx        context.Context
+	ApiService *LeaderboardAPIService
+	limit      *int64
+}
+
+// Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25.
+func (r LeaderboardAPIGetLeaderboardBountyRequest) Limit(limit int64) LeaderboardAPIGetLeaderboardBountyRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r LeaderboardAPIGetLeaderboardBountyRequest) Execute() (*LeaderboardBountyBoard, *http.Response, error) {
+	return r.ApiService.GetLeaderboardBountyExecute(r)
+}
+
+/*
+GetLeaderboardBounty Returns the gamified bounty & rewards rules, ranked hunters, and recent bug/bounty awards.
+
+Returns the gamified bounty & rewards rules, ranked hunters, and recent bug/bounty awards.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return LeaderboardAPIGetLeaderboardBountyRequest
+*/
+func (a *LeaderboardAPIService) GetLeaderboardBounty(ctx context.Context) LeaderboardAPIGetLeaderboardBountyRequest {
+	return LeaderboardAPIGetLeaderboardBountyRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return LeaderboardBountyBoard
+func (a *LeaderboardAPIService) GetLeaderboardBountyExecute(r LeaderboardAPIGetLeaderboardBountyRequest) (*LeaderboardBountyBoard, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LeaderboardBountyBoard
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.GetLeaderboardBounty")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/leaderboard/bounty"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type LeaderboardAPIGetLeaderboardFeedRequest struct {
+	ctx        context.Context
+	ApiService *LeaderboardAPIService
+}
+
+func (r LeaderboardAPIGetLeaderboardFeedRequest) Execute() (*os.File, *http.Response, error) {
+	return r.ApiService.GetLeaderboardFeedExecute(r)
+}
+
+/*
+GetLeaderboardFeed Stream the board's live lines to anyone as Server-Sent Events
+
+Holds one text/event-stream open and pushes a `message` frame for each line as it happens, after replaying the last 20. `data` is `{id, kind, at, handle, detail}`, where kind is joined, referred, tried, milestone, hour, bounty, level or expert. `handle` is masked in the middle, whole for an org that listed itself and empty for one that withdrew. At most 30 lines a minute. A `: ping` comment is written every 25 seconds. There is no resume: a reader that reconnects is replayed the last 20. No credential is needed to read it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return LeaderboardAPIGetLeaderboardFeedRequest
+*/
+func (a *LeaderboardAPIService) GetLeaderboardFeed(ctx context.Context) LeaderboardAPIGetLeaderboardFeedRequest {
+	return LeaderboardAPIGetLeaderboardFeedRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return *os.File
+func (a *LeaderboardAPIService) GetLeaderboardFeedExecute(r LeaderboardAPIGetLeaderboardFeedRequest) (*os.File, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *os.File
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.GetLeaderboardFeed")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/leaderboard/feed"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/event-stream"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type LeaderboardAPIGetLeaderboardOptinRequest struct {
 	ctx        context.Context
 	ApiService *LeaderboardAPIService
@@ -373,6 +726,235 @@ func (a *LeaderboardAPIService) GetLeaderboardOptinExecute(r LeaderboardAPIGetLe
 	}
 
 	localVarPath := localBasePath + "/v1/leaderboard/optin"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type LeaderboardAPIGetLeaderboardPulseRequest struct {
+	ctx        context.Context
+	ApiService *LeaderboardAPIService
+}
+
+func (r LeaderboardAPIGetLeaderboardPulseRequest) Execute() (*LeaderboardPulseView, *http.Response, error) {
+	return r.ApiService.GetLeaderboardPulseExecute(r)
+}
+
+/*
+GetLeaderboardPulse Returns how fast the platform is being used and is spreading, as counts by day for thirty days and by hour for the last day: tokens used, orgs active, orgs signed up, orgs that came through a referral link, and orgs using a model for the first time, with the models most tried.
+
+Returns how fast the platform is being used and is spreading, as counts by day for
+thirty days and by hour for the last day: tokens used, orgs active, orgs signed up,
+orgs that came through a referral link, and orgs using a model for the first time,
+with the models most tried. Every series is read from where cloud records it; one
+that cannot be read is left out and named in `missing`, and the ones nothing records
+today (orgs trying a product, shares) are always named there. Counts only: no org,
+no name. No credential is needed to read it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return LeaderboardAPIGetLeaderboardPulseRequest
+*/
+func (a *LeaderboardAPIService) GetLeaderboardPulse(ctx context.Context) LeaderboardAPIGetLeaderboardPulseRequest {
+	return LeaderboardAPIGetLeaderboardPulseRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return LeaderboardPulseView
+func (a *LeaderboardAPIService) GetLeaderboardPulseExecute(r LeaderboardAPIGetLeaderboardPulseRequest) (*LeaderboardPulseView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LeaderboardPulseView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.GetLeaderboardPulse")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/leaderboard/pulse"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type LeaderboardAPIGetLeaderboardStandingRequest struct {
+	ctx        context.Context
+	ApiService *LeaderboardAPIService
+}
+
+func (r LeaderboardAPIGetLeaderboardStandingRequest) Execute() (*LeaderboardStandingView, *http.Response, error) {
+	return r.ApiService.GetLeaderboardStandingExecute(r)
+}
+
+/*
+GetLeaderboardStanding Returns the public board of who has used and built the most on Hanzo, shown as a window around the reader.
+
+Returns the public board of who has used and built the most on Hanzo, shown as a
+window around the reader. Every org IAM holds is ranked, by points: tokens used,
+referrals, verified stars, follows and bounty awards. A signed-in reader sees their own rank, the ranks
+just below it and as many above it as their points have earned; the rest are
+counted in `locked` and never sent. A reader who is not signed in sees the last
+ranks, where a newcomer starts. Names are masked in the middle; the reader's own is
+whole, an org that listed itself is whole, and one that withdrew has none. No
+credential is needed to read it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return LeaderboardAPIGetLeaderboardStandingRequest
+*/
+func (a *LeaderboardAPIService) GetLeaderboardStanding(ctx context.Context) LeaderboardAPIGetLeaderboardStandingRequest {
+	return LeaderboardAPIGetLeaderboardStandingRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return LeaderboardStandingView
+func (a *LeaderboardAPIService) GetLeaderboardStandingExecute(r LeaderboardAPIGetLeaderboardStandingRequest) (*LeaderboardStandingView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LeaderboardStandingView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.GetLeaderboardStanding")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/leaderboard/standing"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

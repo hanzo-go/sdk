@@ -45,12 +45,16 @@ type ComputeByoWorker struct {
 	Id *string `json:"id,omitempty"`
 	// JobQueue is the tasks NAMESPACE this worker claims render jobs out of — \"gpu-jobs\" unless `hanzo link` was pointed at another. Within it, a job aimed at this node alone rides the task-queue value \"gpu:<id>\".
 	JobQueue *string `json:"jobQueue,omitempty"`
+	// Lanes are the Studio render lanes the node's engine can run now (image.zen, edit.qwen, video.wan, mesh, ...): advertised only when every weight file a lane loads is on the node, so a page offers a GPU card only where it renders.
+	Lanes []string `json:"lanes,omitempty"`
 	// LastHeartbeat is the most recent beat this node sent, RFC 3339. It is what Status is computed from, so a reader can check the judgement.
 	LastHeartbeat *string `json:"lastHeartbeat,omitempty"`
 	// Location is always \"on-prem\" — a machine that dialed in has no cloud region, and inventing one would put it somewhere it is not.
 	Location *string `json:"location,omitempty"`
 	// Memory is the host's total RAM in BYTES.
 	Memory *int64 `json:"memory,omitempty"`
+	// Models are the weights behind those lanes, each with its SPDX licence.
+	Models []ComputeLaneModel `json:"models,omitempty"`
 	// Os is the host's operating system: linux, darwin or windows.
 	Os *string `json:"os,omitempty"`
 	// Provider is always \"byo\": this machine is the operator's, not one Hanzo provisioned. It exists so a fold into the machines/GPUs pages says which rows are rented and which are the customer's own.
@@ -499,6 +503,38 @@ func (o *ComputeByoWorker) SetJobQueue(v string) {
 	o.JobQueue = &v
 }
 
+// GetLanes returns the Lanes field value if set, zero value otherwise.
+func (o *ComputeByoWorker) GetLanes() []string {
+	if o == nil || IsNil(o.Lanes) {
+		var ret []string
+		return ret
+	}
+	return o.Lanes
+}
+
+// GetLanesOk returns a tuple with the Lanes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ComputeByoWorker) GetLanesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Lanes) {
+		return nil, false
+	}
+	return o.Lanes, true
+}
+
+// HasLanes returns a boolean if a field has been set.
+func (o *ComputeByoWorker) HasLanes() bool {
+	if o != nil && !IsNil(o.Lanes) {
+		return true
+	}
+
+	return false
+}
+
+// SetLanes gets a reference to the given []string and assigns it to the Lanes field.
+func (o *ComputeByoWorker) SetLanes(v []string) {
+	o.Lanes = v
+}
+
 // GetLastHeartbeat returns the LastHeartbeat field value if set, zero value otherwise.
 func (o *ComputeByoWorker) GetLastHeartbeat() string {
 	if o == nil || IsNil(o.LastHeartbeat) {
@@ -593,6 +629,38 @@ func (o *ComputeByoWorker) HasMemory() bool {
 // SetMemory gets a reference to the given int64 and assigns it to the Memory field.
 func (o *ComputeByoWorker) SetMemory(v int64) {
 	o.Memory = &v
+}
+
+// GetModels returns the Models field value if set, zero value otherwise.
+func (o *ComputeByoWorker) GetModels() []ComputeLaneModel {
+	if o == nil || IsNil(o.Models) {
+		var ret []ComputeLaneModel
+		return ret
+	}
+	return o.Models
+}
+
+// GetModelsOk returns a tuple with the Models field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ComputeByoWorker) GetModelsOk() ([]ComputeLaneModel, bool) {
+	if o == nil || IsNil(o.Models) {
+		return nil, false
+	}
+	return o.Models, true
+}
+
+// HasModels returns a boolean if a field has been set.
+func (o *ComputeByoWorker) HasModels() bool {
+	if o != nil && !IsNil(o.Models) {
+		return true
+	}
+
+	return false
+}
+
+// SetModels gets a reference to the given []ComputeLaneModel and assigns it to the Models field.
+func (o *ComputeByoWorker) SetModels(v []ComputeLaneModel) {
+	o.Models = v
 }
 
 // GetOs returns the Os field value if set, zero value otherwise.
@@ -804,6 +872,9 @@ func (o ComputeByoWorker) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.JobQueue) {
 		toSerialize["jobQueue"] = o.JobQueue
 	}
+	if !IsNil(o.Lanes) {
+		toSerialize["lanes"] = o.Lanes
+	}
 	if !IsNil(o.LastHeartbeat) {
 		toSerialize["lastHeartbeat"] = o.LastHeartbeat
 	}
@@ -812,6 +883,9 @@ func (o ComputeByoWorker) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Memory) {
 		toSerialize["memory"] = o.Memory
+	}
+	if !IsNil(o.Models) {
+		toSerialize["models"] = o.Models
 	}
 	if !IsNil(o.Os) {
 		toSerialize["os"] = o.Os
@@ -863,9 +937,11 @@ func (o *ComputeByoWorker) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "hostname")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "jobQueue")
+		delete(additionalProperties, "lanes")
 		delete(additionalProperties, "lastHeartbeat")
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "memory")
+		delete(additionalProperties, "models")
 		delete(additionalProperties, "os")
 		delete(additionalProperties, "provider")
 		delete(additionalProperties, "rocm")

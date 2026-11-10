@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **AmountCents** | Pointer to **int64** | AmountCents is how much to charge, in cents of Currency. Required. | [optional] 
 **Currency** | Pointer to **string** | Currency is the ISO-4217 code to charge in. Empty takes the deployment&#39;s own default. | [optional] 
 **PaymentMethodId** | Pointer to **string** | MethodID names a card the subject already saved, for the saved-card endpoint. | [optional] 
+**Provider** | Pointer to **string** | Provider names the explicit payment processor (\&quot;square\&quot; or \&quot;paypal\&quot;) when SourceID is a provider-specific order/token (e.g. a PayPal v2 Order ID). | [optional] 
 **SourceId** | Pointer to **string** | SourceID is a single-use card token from the payment form, for the token endpoint. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one. | [optional] 
 
 ## Methods
@@ -102,6 +103,31 @@ SetPaymentMethodId sets PaymentMethodId field to given value.
 `func (o *BillingTopupIn) HasPaymentMethodId() bool`
 
 HasPaymentMethodId returns a boolean if a field has been set.
+
+### GetProvider
+
+`func (o *BillingTopupIn) GetProvider() string`
+
+GetProvider returns the Provider field if non-nil, zero value otherwise.
+
+### GetProviderOk
+
+`func (o *BillingTopupIn) GetProviderOk() (*string, bool)`
+
+GetProviderOk returns a tuple with the Provider field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProvider
+
+`func (o *BillingTopupIn) SetProvider(v string)`
+
+SetProvider sets Provider field to given value.
+
+### HasProvider
+
+`func (o *BillingTopupIn) HasProvider() bool`
+
+HasProvider returns a boolean if a field has been set.
 
 ### GetSourceId
 

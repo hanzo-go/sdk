@@ -9,9 +9,13 @@ Method | HTTP request | Description
 [**GetFlagDefs**](FlagAPI.md#GetFlagDefs) | **Get** /v1/flag/defs | Returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
 [**GetFlagDefsByKey**](FlagAPI.md#GetFlagDefsByKey) | **Get** /v1/flag/defs/{key} | Returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
 [**GetFlagHealth**](FlagAPI.md#GetFlagHealth) | **Get** /v1/flag/health | Reports that the flag engine is serving.
+[**GetFlagOptin**](FlagAPI.md#GetFlagOptin) | **Get** /v1/flag/optin | Answers the signed-in caller&#39;s opt-in to public betas: whether they opted in, whether the org they act in blocked it, and which betas are public.
+[**GetFlagPlatform**](FlagAPI.md#GetFlagPlatform) | **Get** /v1/flag/platform | Answers the platform switches that are decided per caller — &#x60;beta&#x60;, whether the caller sees what is not yet generally available — as they apply to the signed-in caller: its validated org and user, never anything the request states.
 [**PostFlag**](FlagAPI.md#PostFlag) | **Post** /v1/flag | Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
 [**PostFlagDecide**](FlagAPI.md#PostFlagDecide) | **Post** /v1/flag/decide | Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
 [**PutFlagDefsByKey**](FlagAPI.md#PutFlagDefsByKey) | **Put** /v1/flag/defs/{key} | Creates or replaces the flag definition at the path&#39;s key and returns the stored row.
+[**PutFlagOptin**](FlagAPI.md#PutFlagOptin) | **Put** /v1/flag/optin | Sets the signed-in caller&#39;s OWN opt-in to public betas: on, every public beta and each one promoted later is on for them; off, none is.
+[**PutFlagOptinOrg**](FlagAPI.md#PutFlagOptinOrg) | **Put** /v1/flag/optin/org | Blocks or unblocks the opt-in to public betas for every member of the org the caller acts in.
 
 
 
@@ -343,6 +347,128 @@ Other parameters are passed through a pointer to a apiGetFlagHealthRequest struc
 [[Back to README]](../README.md)
 
 
+## GetFlagOptin
+
+> FlagOptinOut GetFlagOptin(ctx).Execute()
+
+Answers the signed-in caller's opt-in to public betas: whether they opted in, whether the org they act in blocked it, and which betas are public.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagAPI.GetFlagOptin(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.GetFlagOptin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagOptin`: FlagOptinOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.GetFlagOptin`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFlagOptinRequest struct via the builder pattern
+
+
+### Return type
+
+[**FlagOptinOut**](FlagOptinOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFlagPlatform
+
+> FlagPlatformOut GetFlagPlatform(ctx).Execute()
+
+Answers the platform switches that are decided per caller — `beta`, whether the caller sees what is not yet generally available — as they apply to the signed-in caller: its validated org and user, never anything the request states.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagAPI.GetFlagPlatform(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.GetFlagPlatform``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagPlatform`: FlagPlatformOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.GetFlagPlatform`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFlagPlatformRequest struct via the builder pattern
+
+
+### Return type
+
+[**FlagPlatformOut**](FlagPlatformOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostFlag
 
 > interface{} PostFlag(ctx).FlagEvaluateIn(flagEvaluateIn).Execute()
@@ -532,6 +658,138 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FlagDefRow**](FlagDefRow.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutFlagOptin
+
+> FlagOptinOut PutFlagOptin(ctx).FlagOptinIn(flagOptinIn).Execute()
+
+Sets the signed-in caller's OWN opt-in to public betas: on, every public beta and each one promoted later is on for them; off, none is.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	flagOptinIn := *openapiclient.NewFlagOptinIn() // FlagOptinIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagAPI.PutFlagOptin(context.Background()).FlagOptinIn(flagOptinIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.PutFlagOptin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutFlagOptin`: FlagOptinOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.PutFlagOptin`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutFlagOptinRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **flagOptinIn** | [**FlagOptinIn**](FlagOptinIn.md) |  | 
+
+### Return type
+
+[**FlagOptinOut**](FlagOptinOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutFlagOptinOrg
+
+> FlagOrgOptinOut PutFlagOptinOrg(ctx).FlagOrgOptinIn(flagOrgOptinIn).Execute()
+
+Blocks or unblocks the opt-in to public betas for every member of the org the caller acts in.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	flagOrgOptinIn := *openapiclient.NewFlagOrgOptinIn() // FlagOrgOptinIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagAPI.PutFlagOptinOrg(context.Background()).FlagOrgOptinIn(flagOrgOptinIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.PutFlagOptinOrg``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutFlagOptinOrg`: FlagOrgOptinOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.PutFlagOptinOrg`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutFlagOptinOrgRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **flagOrgOptinIn** | [**FlagOrgOptinIn**](FlagOrgOptinIn.md) |  | 
+
+### Return type
+
+[**FlagOrgOptinOut**](FlagOrgOptinOut.md)
 
 ### Authorization
 

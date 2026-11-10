@@ -21,20 +21,20 @@ var _ MappedNullable = &TeamTeamInboxItem{}
 type TeamTeamInboxItem struct {
 	// Archived reports that the caller archived it.
 	Archived *bool `json:"archived,omitempty"`
+	// Channel is the channel it is about, when it is about a channel.
+	Channel *string `json:"channel,omitempty"`
 	// CreatedOn is when it was filed, unix milliseconds.
 	CreatedOn *int64 `json:"createdOn,omitempty"`
 	// Doc is the document it is about, when it is about a document.
 	Doc *string `json:"doc,omitempty"`
 	// ID is the notification's own id — what read and archive address.
 	Id *string `json:"id,omitempty"`
-	// Message is the message that caused it, as the message ops answer it. Absent when that message has since been deleted, or is in a room the caller can no longer see.
+	// Message is the message that caused it, as the message ops answer it. Absent when that message has since been deleted, or is in a channel the caller can no longer see.
 	Message *TeamTeamMessage `json:"message,omitempty"`
 	// Read reports that the caller has seen it.
 	Read *bool `json:"read,omitempty"`
 	// Reason is why it was filed: \"mention\", \"dm\" (a direct message), \"reply\" (in a thread the caller is in), \"comment\" (on something the caller follows), \"assigned\", or \"other\".
 	Reason *string `json:"reason,omitempty"`
-	// Room is the room it is about, when it is about a room.
-	Room *string `json:"room,omitempty"`
 	// Space is the space uuid it was filed in.
 	Space *string `json:"space,omitempty"`
 	// Thread is the message whose thread it is about, for a reply.
@@ -91,6 +91,38 @@ func (o *TeamTeamInboxItem) HasArchived() bool {
 // SetArchived gets a reference to the given bool and assigns it to the Archived field.
 func (o *TeamTeamInboxItem) SetArchived(v bool) {
 	o.Archived = &v
+}
+
+// GetChannel returns the Channel field value if set, zero value otherwise.
+func (o *TeamTeamInboxItem) GetChannel() string {
+	if o == nil || IsNil(o.Channel) {
+		var ret string
+		return ret
+	}
+	return *o.Channel
+}
+
+// GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TeamTeamInboxItem) GetChannelOk() (*string, bool) {
+	if o == nil || IsNil(o.Channel) {
+		return nil, false
+	}
+	return o.Channel, true
+}
+
+// HasChannel returns a boolean if a field has been set.
+func (o *TeamTeamInboxItem) HasChannel() bool {
+	if o != nil && !IsNil(o.Channel) {
+		return true
+	}
+
+	return false
+}
+
+// SetChannel gets a reference to the given string and assigns it to the Channel field.
+func (o *TeamTeamInboxItem) SetChannel(v string) {
+	o.Channel = &v
 }
 
 // GetCreatedOn returns the CreatedOn field value if set, zero value otherwise.
@@ -285,38 +317,6 @@ func (o *TeamTeamInboxItem) SetReason(v string) {
 	o.Reason = &v
 }
 
-// GetRoom returns the Room field value if set, zero value otherwise.
-func (o *TeamTeamInboxItem) GetRoom() string {
-	if o == nil || IsNil(o.Room) {
-		var ret string
-		return ret
-	}
-	return *o.Room
-}
-
-// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TeamTeamInboxItem) GetRoomOk() (*string, bool) {
-	if o == nil || IsNil(o.Room) {
-		return nil, false
-	}
-	return o.Room, true
-}
-
-// HasRoom returns a boolean if a field has been set.
-func (o *TeamTeamInboxItem) HasRoom() bool {
-	if o != nil && !IsNil(o.Room) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoom gets a reference to the given string and assigns it to the Room field.
-func (o *TeamTeamInboxItem) SetRoom(v string) {
-	o.Room = &v
-}
-
 // GetSpace returns the Space field value if set, zero value otherwise.
 func (o *TeamTeamInboxItem) GetSpace() string {
 	if o == nil || IsNil(o.Space) {
@@ -394,6 +394,9 @@ func (o TeamTeamInboxItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
 	}
+	if !IsNil(o.Channel) {
+		toSerialize["channel"] = o.Channel
+	}
 	if !IsNil(o.CreatedOn) {
 		toSerialize["createdOn"] = o.CreatedOn
 	}
@@ -411,9 +414,6 @@ func (o TeamTeamInboxItem) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
-	}
-	if !IsNil(o.Room) {
-		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.Space) {
 		toSerialize["space"] = o.Space
@@ -444,13 +444,13 @@ func (o *TeamTeamInboxItem) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "archived")
+		delete(additionalProperties, "channel")
 		delete(additionalProperties, "createdOn")
 		delete(additionalProperties, "doc")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "read")
 		delete(additionalProperties, "reason")
-		delete(additionalProperties, "room")
 		delete(additionalProperties, "space")
 		delete(additionalProperties, "thread")
 		o.AdditionalProperties = additionalProperties

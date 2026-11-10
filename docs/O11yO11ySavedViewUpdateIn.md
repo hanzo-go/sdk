@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **CompositeQuery** | Pointer to [**O11yV3CompositeQuery**](O11yV3CompositeQuery.md) |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **CreatedBy** | Pointer to **string** |  | [optional] 
-**ExtraData** | Pointer to **string** |  | [optional] 
+**ExtraData** | Pointer to **string** | ExtraData is JSON encoded data used by frontend to store additional data | [optional] 
 **Id** | Pointer to **interface{}** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **SourcePage** | Pointer to **string** |  | [optional] 

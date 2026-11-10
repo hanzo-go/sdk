@@ -70,18 +70,19 @@ type IamApplication struct {
 	GrantTypes                   []string              `json:"grantTypes,omitempty"`
 	HeaderHtml                   *string               `json:"headerHtml,omitempty"`
 	HomepageUrl                  *string               `json:"homepageUrl,omitempty"`
-	Id                           *string               `json:"id,omitempty"`
-	IpRestriction                *string               `json:"ipRestriction,omitempty"`
-	IpWhitelist                  *string               `json:"ipWhitelist,omitempty"`
-	IsShared                     *bool                 `json:"isShared,omitempty"`
-	Logo                         *string               `json:"logo,omitempty"`
-	Name                         *string               `json:"name,omitempty"`
-	Order                        *int64                `json:"order,omitempty"`
-	OrgChoiceMode                *string               `json:"orgChoiceMode,omitempty"`
-	Organization                 *string               `json:"organization,omitempty"`
-	OrganizationObj              *IamOrganization      `json:"organizationObj,omitempty"`
-	OtherDomains                 []string              `json:"otherDomains,omitempty"`
-	Owner                        *string               `json:"owner,omitempty"`
+	// Persisted fields
+	Id              *string          `json:"id,omitempty"`
+	IpRestriction   *string          `json:"ipRestriction,omitempty"`
+	IpWhitelist     *string          `json:"ipWhitelist,omitempty"`
+	IsShared        *bool            `json:"isShared,omitempty"`
+	Logo            *string          `json:"logo,omitempty"`
+	Name            *string          `json:"name,omitempty"`
+	Order           *int64           `json:"order,omitempty"`
+	OrgChoiceMode   *string          `json:"orgChoiceMode,omitempty"`
+	Organization    *string          `json:"organization,omitempty"`
+	OrganizationObj *IamOrganization `json:"organizationObj,omitempty"`
+	OtherDomains    []string         `json:"otherDomains,omitempty"`
+	Owner           *string          `json:"owner,omitempty"`
 	// Platform marks an application the platform itself declares (init_data.json): its own consoles and apps, never one a tenant registered. The seed stamps it on every declared application at boot, and only a SuperAdmin may change it over the API. It is what lets a signed-in person act through IAM with a bearer on the platform's behalf — sending an invitation from the platform's own email account, joining an org — which a tenant's application may not do with the tokens its users hand it.
 	Platform             *bool             `json:"platform,omitempty"`
 	Project              *string           `json:"project,omitempty"`

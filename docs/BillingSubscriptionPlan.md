@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Interval** | Pointer to **string** | Interval is the billing period: \&quot;month\&quot; or \&quot;year\&quot;. | [optional] 
 **Name** | Pointer to **string** | Name is the plan&#39;s display name, e.g. \&quot;Max 20x\&quot;. | [optional] 
 **Price** | Pointer to **int64** | Price is what one period costs per seat, in cents, as the subscription snapshotted it: a later catalog price change does not move it. | [optional] 
+**Slug** | Pointer to **string** | Slug is the catalog plan it was opened on, e.g. \&quot;max-20x\&quot;: what a reader matches against GET /v1/billing/plans. Empty on a row that predates it. | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetPrice sets Price field to given value.
 `func (o *BillingSubscriptionPlan) HasPrice() bool`
 
 HasPrice returns a boolean if a field has been set.
+
+### GetSlug
+
+`func (o *BillingSubscriptionPlan) GetSlug() string`
+
+GetSlug returns the Slug field if non-nil, zero value otherwise.
+
+### GetSlugOk
+
+`func (o *BillingSubscriptionPlan) GetSlugOk() (*string, bool)`
+
+GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSlug
+
+`func (o *BillingSubscriptionPlan) SetSlug(v string)`
+
+SetSlug sets Slug field to given value.
+
+### HasSlug
+
+`func (o *BillingSubscriptionPlan) HasSlug() bool`
+
+HasSlug returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

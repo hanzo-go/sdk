@@ -19,24 +19,36 @@ var _ MappedNullable = &BillingSubscription{}
 
 // BillingSubscription struct for BillingSubscription
 type BillingSubscription struct {
+	// Assigned is which member holds which seat type, as the org's admin set it.
+	Assigned []BillingSubscriptionSeat `json:"assigned,omitempty"`
 	// CancelAtPeriodEnd reports that the plan ends at CurrentPeriodEnd.
 	CancelAtPeriodEnd *bool `json:"cancelAtPeriodEnd,omitempty"`
 	// CanceledAt is when it was canceled; absent when it was not.
 	CanceledAt *string `json:"canceledAt,omitempty"`
 	// ChargedCents is what the period in hand was actually paid, after any discount and net of refunds. 0 when the period is unpaid.
 	ChargedCents *int64 `json:"chargedCents,omitempty"`
+	// Coupon is the plan coupon code the first period was bought with, as commerce stores it (upper case); absent when none was.
+	Coupon *string `json:"coupon,omitempty"`
 	// CreatedAt is when the row was written, RFC 3339.
 	CreatedAt *string `json:"createdAt,omitempty"`
 	// CurrentPeriodEnd is when it ends, RFC 3339. The plan is paid through it.
 	CurrentPeriodEnd *string `json:"currentPeriodEnd,omitempty"`
 	// CurrentPeriodStart is when the period in hand began, RFC 3339.
 	CurrentPeriodStart *string `json:"currentPeriodStart,omitempty"`
+	// CustomerCents is the price staff agreed this subscriber pays for one seat each period, below the plan's list price; absent when none was. Every invoice bills the plan at list and the difference as the customer's discount. After LastPaid, for the ZAP wire.
+	CustomerCents *int64 `json:"customerCents,omitempty"`
 	// DefaultPaymentMethod is the saved method a renewal would use. Empty means there is none, so nothing can charge the plan.
 	DefaultPaymentMethod *string `json:"defaultPaymentMethod,omitempty"`
 	// EndedAt is when it ended; absent while it runs.
 	EndedAt *string `json:"endedAt,omitempty"`
+	// Held reports that this row is the subject's one paid plan: while it stands, commerce refuses a second paid sale (409).
+	Held *bool `json:"held,omitempty"`
 	// ID is the subscription's own id, the one cancel and reactivate take.
 	Id *string `json:"id,omitempty"`
+	// LastPaid is when the latest payment for this subscription arrived, RFC 3339: its latest paid invoice's paid time, or, for a period recorded as collected outside commerce, which keeps no time of its own record, the start of the latest period recorded — whichever is later. Any period, not only the one in hand: a plan past due still says when it was last paid. Empty when nothing was, or when the invoices did not read. Last, so every field before it keeps its place on the ZAP wire.
+	LastPaid *string `json:"lastPaid,omitempty"`
+	// Lines are a team's other seat types beside Plan (a team of standard and premium seats is Plan \"team\" and one line of \"team-premium\"), each with the seats of it the period in hand was paid for. Seats above counts them too. After Held, so the fields before them keep their places on the ZAP wire.
+	Lines []BillingSubscriptionLine `json:"lines,omitempty"`
 	// MRRCents is what this subscription contributes per month — commerce's own figure, interval-normalized and multiplied by its seats, so no reader re-derives it from price and interval.
 	MrrCents *int64 `json:"mrrCents,omitempty"`
 	// Plan is the plan as this subscription snapshotted it.
@@ -53,6 +65,8 @@ type BillingSubscription struct {
 	Settled *string `json:"settled,omitempty"`
 	// Status is trialing, active, past_due, canceled or unpaid. Only active and trialing confer the plan.
 	Status *string `json:"status,omitempty"`
+	// Test marks a sandbox subscription: sold while its org was in test mode, paid with sandbox money. It is listed and never revenue.
+	Test *bool `json:"test,omitempty"`
 	// TrialEnd is when that trial ends; absent when there was none.
 	TrialEnd *string `json:"trialEnd,omitempty"`
 	// TrialStart is when a trial began; absent when there was none.
@@ -81,6 +95,38 @@ func NewBillingSubscription() *BillingSubscription {
 func NewBillingSubscriptionWithDefaults() *BillingSubscription {
 	this := BillingSubscription{}
 	return &this
+}
+
+// GetAssigned returns the Assigned field value if set, zero value otherwise.
+func (o *BillingSubscription) GetAssigned() []BillingSubscriptionSeat {
+	if o == nil || IsNil(o.Assigned) {
+		var ret []BillingSubscriptionSeat
+		return ret
+	}
+	return o.Assigned
+}
+
+// GetAssignedOk returns a tuple with the Assigned field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingSubscription) GetAssignedOk() ([]BillingSubscriptionSeat, bool) {
+	if o == nil || IsNil(o.Assigned) {
+		return nil, false
+	}
+	return o.Assigned, true
+}
+
+// HasAssigned returns a boolean if a field has been set.
+func (o *BillingSubscription) HasAssigned() bool {
+	if o != nil && !IsNil(o.Assigned) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssigned gets a reference to the given []BillingSubscriptionSeat and assigns it to the Assigned field.
+func (o *BillingSubscription) SetAssigned(v []BillingSubscriptionSeat) {
+	o.Assigned = v
 }
 
 // GetCancelAtPeriodEnd returns the CancelAtPeriodEnd field value if set, zero value otherwise.
@@ -179,6 +225,38 @@ func (o *BillingSubscription) SetChargedCents(v int64) {
 	o.ChargedCents = &v
 }
 
+// GetCoupon returns the Coupon field value if set, zero value otherwise.
+func (o *BillingSubscription) GetCoupon() string {
+	if o == nil || IsNil(o.Coupon) {
+		var ret string
+		return ret
+	}
+	return *o.Coupon
+}
+
+// GetCouponOk returns a tuple with the Coupon field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingSubscription) GetCouponOk() (*string, bool) {
+	if o == nil || IsNil(o.Coupon) {
+		return nil, false
+	}
+	return o.Coupon, true
+}
+
+// HasCoupon returns a boolean if a field has been set.
+func (o *BillingSubscription) HasCoupon() bool {
+	if o != nil && !IsNil(o.Coupon) {
+		return true
+	}
+
+	return false
+}
+
+// SetCoupon gets a reference to the given string and assigns it to the Coupon field.
+func (o *BillingSubscription) SetCoupon(v string) {
+	o.Coupon = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *BillingSubscription) GetCreatedAt() string {
 	if o == nil || IsNil(o.CreatedAt) {
@@ -275,6 +353,38 @@ func (o *BillingSubscription) SetCurrentPeriodStart(v string) {
 	o.CurrentPeriodStart = &v
 }
 
+// GetCustomerCents returns the CustomerCents field value if set, zero value otherwise.
+func (o *BillingSubscription) GetCustomerCents() int64 {
+	if o == nil || IsNil(o.CustomerCents) {
+		var ret int64
+		return ret
+	}
+	return *o.CustomerCents
+}
+
+// GetCustomerCentsOk returns a tuple with the CustomerCents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingSubscription) GetCustomerCentsOk() (*int64, bool) {
+	if o == nil || IsNil(o.CustomerCents) {
+		return nil, false
+	}
+	return o.CustomerCents, true
+}
+
+// HasCustomerCents returns a boolean if a field has been set.
+func (o *BillingSubscription) HasCustomerCents() bool {
+	if o != nil && !IsNil(o.CustomerCents) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerCents gets a reference to the given int64 and assigns it to the CustomerCents field.
+func (o *BillingSubscription) SetCustomerCents(v int64) {
+	o.CustomerCents = &v
+}
+
 // GetDefaultPaymentMethod returns the DefaultPaymentMethod field value if set, zero value otherwise.
 func (o *BillingSubscription) GetDefaultPaymentMethod() string {
 	if o == nil || IsNil(o.DefaultPaymentMethod) {
@@ -339,6 +449,38 @@ func (o *BillingSubscription) SetEndedAt(v string) {
 	o.EndedAt = &v
 }
 
+// GetHeld returns the Held field value if set, zero value otherwise.
+func (o *BillingSubscription) GetHeld() bool {
+	if o == nil || IsNil(o.Held) {
+		var ret bool
+		return ret
+	}
+	return *o.Held
+}
+
+// GetHeldOk returns a tuple with the Held field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingSubscription) GetHeldOk() (*bool, bool) {
+	if o == nil || IsNil(o.Held) {
+		return nil, false
+	}
+	return o.Held, true
+}
+
+// HasHeld returns a boolean if a field has been set.
+func (o *BillingSubscription) HasHeld() bool {
+	if o != nil && !IsNil(o.Held) {
+		return true
+	}
+
+	return false
+}
+
+// SetHeld gets a reference to the given bool and assigns it to the Held field.
+func (o *BillingSubscription) SetHeld(v bool) {
+	o.Held = &v
+}
+
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *BillingSubscription) GetId() string {
 	if o == nil || IsNil(o.Id) {
@@ -369,6 +511,70 @@ func (o *BillingSubscription) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *BillingSubscription) SetId(v string) {
 	o.Id = &v
+}
+
+// GetLastPaid returns the LastPaid field value if set, zero value otherwise.
+func (o *BillingSubscription) GetLastPaid() string {
+	if o == nil || IsNil(o.LastPaid) {
+		var ret string
+		return ret
+	}
+	return *o.LastPaid
+}
+
+// GetLastPaidOk returns a tuple with the LastPaid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingSubscription) GetLastPaidOk() (*string, bool) {
+	if o == nil || IsNil(o.LastPaid) {
+		return nil, false
+	}
+	return o.LastPaid, true
+}
+
+// HasLastPaid returns a boolean if a field has been set.
+func (o *BillingSubscription) HasLastPaid() bool {
+	if o != nil && !IsNil(o.LastPaid) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastPaid gets a reference to the given string and assigns it to the LastPaid field.
+func (o *BillingSubscription) SetLastPaid(v string) {
+	o.LastPaid = &v
+}
+
+// GetLines returns the Lines field value if set, zero value otherwise.
+func (o *BillingSubscription) GetLines() []BillingSubscriptionLine {
+	if o == nil || IsNil(o.Lines) {
+		var ret []BillingSubscriptionLine
+		return ret
+	}
+	return o.Lines
+}
+
+// GetLinesOk returns a tuple with the Lines field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingSubscription) GetLinesOk() ([]BillingSubscriptionLine, bool) {
+	if o == nil || IsNil(o.Lines) {
+		return nil, false
+	}
+	return o.Lines, true
+}
+
+// HasLines returns a boolean if a field has been set.
+func (o *BillingSubscription) HasLines() bool {
+	if o != nil && !IsNil(o.Lines) {
+		return true
+	}
+
+	return false
+}
+
+// SetLines gets a reference to the given []BillingSubscriptionLine and assigns it to the Lines field.
+func (o *BillingSubscription) SetLines(v []BillingSubscriptionLine) {
+	o.Lines = v
 }
 
 // GetMrrCents returns the MrrCents field value if set, zero value otherwise.
@@ -627,6 +833,38 @@ func (o *BillingSubscription) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetTest returns the Test field value if set, zero value otherwise.
+func (o *BillingSubscription) GetTest() bool {
+	if o == nil || IsNil(o.Test) {
+		var ret bool
+		return ret
+	}
+	return *o.Test
+}
+
+// GetTestOk returns a tuple with the Test field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingSubscription) GetTestOk() (*bool, bool) {
+	if o == nil || IsNil(o.Test) {
+		return nil, false
+	}
+	return o.Test, true
+}
+
+// HasTest returns a boolean if a field has been set.
+func (o *BillingSubscription) HasTest() bool {
+	if o != nil && !IsNil(o.Test) {
+		return true
+	}
+
+	return false
+}
+
+// SetTest gets a reference to the given bool and assigns it to the Test field.
+func (o *BillingSubscription) SetTest(v bool) {
+	o.Test = &v
+}
+
 // GetTrialEnd returns the TrialEnd field value if set, zero value otherwise.
 func (o *BillingSubscription) GetTrialEnd() string {
 	if o == nil || IsNil(o.TrialEnd) {
@@ -765,6 +1003,9 @@ func (o BillingSubscription) MarshalJSON() ([]byte, error) {
 
 func (o BillingSubscription) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Assigned) {
+		toSerialize["assigned"] = o.Assigned
+	}
 	if !IsNil(o.CancelAtPeriodEnd) {
 		toSerialize["cancelAtPeriodEnd"] = o.CancelAtPeriodEnd
 	}
@@ -773,6 +1014,9 @@ func (o BillingSubscription) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ChargedCents) {
 		toSerialize["chargedCents"] = o.ChargedCents
+	}
+	if !IsNil(o.Coupon) {
+		toSerialize["coupon"] = o.Coupon
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -783,14 +1027,26 @@ func (o BillingSubscription) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CurrentPeriodStart) {
 		toSerialize["currentPeriodStart"] = o.CurrentPeriodStart
 	}
+	if !IsNil(o.CustomerCents) {
+		toSerialize["customerCents"] = o.CustomerCents
+	}
 	if !IsNil(o.DefaultPaymentMethod) {
 		toSerialize["defaultPaymentMethod"] = o.DefaultPaymentMethod
 	}
 	if !IsNil(o.EndedAt) {
 		toSerialize["endedAt"] = o.EndedAt
 	}
+	if !IsNil(o.Held) {
+		toSerialize["held"] = o.Held
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.LastPaid) {
+		toSerialize["lastPaid"] = o.LastPaid
+	}
+	if !IsNil(o.Lines) {
+		toSerialize["lines"] = o.Lines
 	}
 	if !IsNil(o.MrrCents) {
 		toSerialize["mrrCents"] = o.MrrCents
@@ -815,6 +1071,9 @@ func (o BillingSubscription) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Test) {
+		toSerialize["test"] = o.Test
 	}
 	if !IsNil(o.TrialEnd) {
 		toSerialize["trialEnd"] = o.TrialEnd
@@ -850,15 +1109,21 @@ func (o *BillingSubscription) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "assigned")
 		delete(additionalProperties, "cancelAtPeriodEnd")
 		delete(additionalProperties, "canceledAt")
 		delete(additionalProperties, "chargedCents")
+		delete(additionalProperties, "coupon")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "currentPeriodEnd")
 		delete(additionalProperties, "currentPeriodStart")
+		delete(additionalProperties, "customerCents")
 		delete(additionalProperties, "defaultPaymentMethod")
 		delete(additionalProperties, "endedAt")
+		delete(additionalProperties, "held")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "lastPaid")
+		delete(additionalProperties, "lines")
 		delete(additionalProperties, "mrrCents")
 		delete(additionalProperties, "plan")
 		delete(additionalProperties, "planId")
@@ -867,6 +1132,7 @@ func (o *BillingSubscription) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "seats")
 		delete(additionalProperties, "settled")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "test")
 		delete(additionalProperties, "trialEnd")
 		delete(additionalProperties, "trialStart")
 		delete(additionalProperties, "updatedAt")

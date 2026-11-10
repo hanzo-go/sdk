@@ -20,10 +20,16 @@ var _ MappedNullable = &AutoAutomationRun{}
 // AutoAutomationRun struct for AutoAutomationRun
 type AutoAutomationRun struct {
 	// At is when it started and Finished when it ended (null while it runs), RFC 3339 UTC.
-	At       *string `json:"at,omitempty"`
+	At *string `json:"at,omitempty"`
+	// Draft is the post the agent wrote, for an automation that posts; empty otherwise.
+	Draft    *string `json:"draft,omitempty"`
 	Finished *string `json:"finished,omitempty"`
 	Id       *string `json:"id,omitempty"`
-	// Status is succeeded, failed, running, queued, skipped for a start that found the previous run still going, or refused for a run whose person is no longer a member of the org.
+	// Outputs are the Library items the run made: its answer, kept as a document. Never null.
+	Outputs []string `json:"outputs,omitempty"`
+	// Posts are where it went: one per account, its link or the platform's reason it did not go. Never null.
+	Posts []AutoPostResult `json:"posts,omitempty"`
+	// Status is succeeded, failed, running, queued, review for a post waiting for its person to post or discard it, skipped for a start that found the previous run still going, or refused for a run whose person is no longer a member of the org.
 	Status *string `json:"status,omitempty"`
 	// Summary is one line on how it went.
 	Summary *string `json:"summary,omitempty"`
@@ -81,6 +87,38 @@ func (o *AutoAutomationRun) HasAt() bool {
 // SetAt gets a reference to the given string and assigns it to the At field.
 func (o *AutoAutomationRun) SetAt(v string) {
 	o.At = &v
+}
+
+// GetDraft returns the Draft field value if set, zero value otherwise.
+func (o *AutoAutomationRun) GetDraft() string {
+	if o == nil || IsNil(o.Draft) {
+		var ret string
+		return ret
+	}
+	return *o.Draft
+}
+
+// GetDraftOk returns a tuple with the Draft field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationRun) GetDraftOk() (*string, bool) {
+	if o == nil || IsNil(o.Draft) {
+		return nil, false
+	}
+	return o.Draft, true
+}
+
+// HasDraft returns a boolean if a field has been set.
+func (o *AutoAutomationRun) HasDraft() bool {
+	if o != nil && !IsNil(o.Draft) {
+		return true
+	}
+
+	return false
+}
+
+// SetDraft gets a reference to the given string and assigns it to the Draft field.
+func (o *AutoAutomationRun) SetDraft(v string) {
+	o.Draft = &v
 }
 
 // GetFinished returns the Finished field value if set, zero value otherwise.
@@ -145,6 +183,70 @@ func (o *AutoAutomationRun) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *AutoAutomationRun) SetId(v string) {
 	o.Id = &v
+}
+
+// GetOutputs returns the Outputs field value if set, zero value otherwise.
+func (o *AutoAutomationRun) GetOutputs() []string {
+	if o == nil || IsNil(o.Outputs) {
+		var ret []string
+		return ret
+	}
+	return o.Outputs
+}
+
+// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationRun) GetOutputsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Outputs) {
+		return nil, false
+	}
+	return o.Outputs, true
+}
+
+// HasOutputs returns a boolean if a field has been set.
+func (o *AutoAutomationRun) HasOutputs() bool {
+	if o != nil && !IsNil(o.Outputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputs gets a reference to the given []string and assigns it to the Outputs field.
+func (o *AutoAutomationRun) SetOutputs(v []string) {
+	o.Outputs = v
+}
+
+// GetPosts returns the Posts field value if set, zero value otherwise.
+func (o *AutoAutomationRun) GetPosts() []AutoPostResult {
+	if o == nil || IsNil(o.Posts) {
+		var ret []AutoPostResult
+		return ret
+	}
+	return o.Posts
+}
+
+// GetPostsOk returns a tuple with the Posts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AutoAutomationRun) GetPostsOk() ([]AutoPostResult, bool) {
+	if o == nil || IsNil(o.Posts) {
+		return nil, false
+	}
+	return o.Posts, true
+}
+
+// HasPosts returns a boolean if a field has been set.
+func (o *AutoAutomationRun) HasPosts() bool {
+	if o != nil && !IsNil(o.Posts) {
+		return true
+	}
+
+	return false
+}
+
+// SetPosts gets a reference to the given []AutoPostResult and assigns it to the Posts field.
+func (o *AutoAutomationRun) SetPosts(v []AutoPostResult) {
+	o.Posts = v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -256,11 +358,20 @@ func (o AutoAutomationRun) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.At) {
 		toSerialize["at"] = o.At
 	}
+	if !IsNil(o.Draft) {
+		toSerialize["draft"] = o.Draft
+	}
 	if !IsNil(o.Finished) {
 		toSerialize["finished"] = o.Finished
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Outputs) {
+		toSerialize["outputs"] = o.Outputs
+	}
+	if !IsNil(o.Posts) {
+		toSerialize["posts"] = o.Posts
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
@@ -294,8 +405,11 @@ func (o *AutoAutomationRun) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "at")
+		delete(additionalProperties, "draft")
 		delete(additionalProperties, "finished")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "posts")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "summary")
 		delete(additionalProperties, "transcript")

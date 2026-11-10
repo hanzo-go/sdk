@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Cid** | Pointer to **string** | Cid is the Google Analytics client id, the last two fields of _ga. | [optional] 
 **Clicked** | Pointer to **int64** | Clicked is when the page captured the click, in unix seconds. | [optional] 
-**Consent** | Pointer to **string** | Consent is the Cookie Preferences the visitor granted, comma separated: any of analytics, marketing and ads. Empty is a visitor who refused them all, which is a choice; absent is one who stated none. | [optional] 
+**Consent** | Pointer to **string** | Consent is the Cookie Preferences the visitor granted, comma separated: any of analytics, marketing and ads. Empty is a visitor who refused them all, which is a choice; absent is one who stated none. It counts only from a browser, and a browser that sends GPC or DNT has allowed nothing. | [optional] 
 **Fbc** | Pointer to **string** | Fbc is Meta&#39;s click cookie, fb.1.&lt;ms&gt;.&lt;fbclid&gt;. | [optional] 
 **Fbclid** | Pointer to **string** | Fbclid is the Meta click id the visitor arrived with. | [optional] 
 **Fbp** | Pointer to **string** | Fbp is Meta&#39;s browser cookie, fb.1.&lt;ms&gt;.&lt;random&gt;. | [optional] 

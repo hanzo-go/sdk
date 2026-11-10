@@ -19,11 +19,13 @@ var _ MappedNullable = &AiModelPricingInfo{}
 
 // AiModelPricingInfo struct for AiModelPricingInfo
 type AiModelPricingInfo struct {
-	Completion           *string  `json:"completion,omitempty"`
-	InputPerMillion      *float32 `json:"input_per_million,omitempty"`
-	OutputPerMillion     *float32 `json:"output_per_million,omitempty"`
-	Prompt               *string  `json:"prompt,omitempty"`
-	Variable             *bool    `json:"variable,omitempty"`
+	Completion           *string                  `json:"completion,omitempty"`
+	InputPerMillion      *float32                 `json:"input_per_million,omitempty"`
+	OutputPerMillion     *float32                 `json:"output_per_million,omitempty"`
+	Overrides            []map[string]interface{} `json:"overrides,omitempty"`
+	Prompt               *string                  `json:"prompt,omitempty"`
+	Rates                map[string]string        `json:"rates,omitempty"`
+	Variable             *bool                    `json:"variable,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -142,6 +144,38 @@ func (o *AiModelPricingInfo) SetOutputPerMillion(v float32) {
 	o.OutputPerMillion = &v
 }
 
+// GetOverrides returns the Overrides field value if set, zero value otherwise.
+func (o *AiModelPricingInfo) GetOverrides() []map[string]interface{} {
+	if o == nil || IsNil(o.Overrides) {
+		var ret []map[string]interface{}
+		return ret
+	}
+	return o.Overrides
+}
+
+// GetOverridesOk returns a tuple with the Overrides field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelPricingInfo) GetOverridesOk() ([]map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Overrides) {
+		return nil, false
+	}
+	return o.Overrides, true
+}
+
+// HasOverrides returns a boolean if a field has been set.
+func (o *AiModelPricingInfo) HasOverrides() bool {
+	if o != nil && !IsNil(o.Overrides) {
+		return true
+	}
+
+	return false
+}
+
+// SetOverrides gets a reference to the given []map[string]interface{} and assigns it to the Overrides field.
+func (o *AiModelPricingInfo) SetOverrides(v []map[string]interface{}) {
+	o.Overrides = v
+}
+
 // GetPrompt returns the Prompt field value if set, zero value otherwise.
 func (o *AiModelPricingInfo) GetPrompt() string {
 	if o == nil || IsNil(o.Prompt) {
@@ -172,6 +206,38 @@ func (o *AiModelPricingInfo) HasPrompt() bool {
 // SetPrompt gets a reference to the given string and assigns it to the Prompt field.
 func (o *AiModelPricingInfo) SetPrompt(v string) {
 	o.Prompt = &v
+}
+
+// GetRates returns the Rates field value if set, zero value otherwise.
+func (o *AiModelPricingInfo) GetRates() map[string]string {
+	if o == nil || IsNil(o.Rates) {
+		var ret map[string]string
+		return ret
+	}
+	return o.Rates
+}
+
+// GetRatesOk returns a tuple with the Rates field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelPricingInfo) GetRatesOk() (map[string]string, bool) {
+	if o == nil || IsNil(o.Rates) {
+		return map[string]string{}, false
+	}
+	return o.Rates, true
+}
+
+// HasRates returns a boolean if a field has been set.
+func (o *AiModelPricingInfo) HasRates() bool {
+	if o != nil && !IsNil(o.Rates) {
+		return true
+	}
+
+	return false
+}
+
+// SetRates gets a reference to the given map[string]string and assigns it to the Rates field.
+func (o *AiModelPricingInfo) SetRates(v map[string]string) {
+	o.Rates = v
 }
 
 // GetVariable returns the Variable field value if set, zero value otherwise.
@@ -225,8 +291,14 @@ func (o AiModelPricingInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OutputPerMillion) {
 		toSerialize["output_per_million"] = o.OutputPerMillion
 	}
+	if !IsNil(o.Overrides) {
+		toSerialize["overrides"] = o.Overrides
+	}
 	if !IsNil(o.Prompt) {
 		toSerialize["prompt"] = o.Prompt
+	}
+	if !IsNil(o.Rates) {
+		toSerialize["rates"] = o.Rates
 	}
 	if !IsNil(o.Variable) {
 		toSerialize["variable"] = o.Variable
@@ -256,7 +328,9 @@ func (o *AiModelPricingInfo) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "completion")
 		delete(additionalProperties, "input_per_million")
 		delete(additionalProperties, "output_per_million")
+		delete(additionalProperties, "overrides")
 		delete(additionalProperties, "prompt")
+		delete(additionalProperties, "rates")
 		delete(additionalProperties, "variable")
 		o.AdditionalProperties = additionalProperties
 	}

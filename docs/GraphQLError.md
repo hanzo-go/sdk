@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Message** | Pointer to **string** |  | [optional] 
-**Path** | Pointer to **[]string** |  | [optional] 
+**Path** | Pointer to **[]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasMessage returns a boolean if a field has been set.
 
 ### GetPath
 
-`func (o *GraphQLError) GetPath() []string`
+`func (o *GraphQLError) GetPath() []interface{}`
 
 GetPath returns the Path field if non-nil, zero value otherwise.
 
 ### GetPathOk
 
-`func (o *GraphQLError) GetPathOk() (*[]string, bool)`
+`func (o *GraphQLError) GetPathOk() (*[]interface{}, bool)`
 
 GetPathOk returns a tuple with the Path field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPath
 
-`func (o *GraphQLError) SetPath(v []string)`
+`func (o *GraphQLError) SetPath(v []interface{})`
 
 SetPath sets Path field to given value.
 

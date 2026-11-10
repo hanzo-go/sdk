@@ -23,6 +23,7 @@ type AiRoutingView struct {
 	Drift                *bool            `json:"drift,omitempty"`
 	Error                *string          `json:"error,omitempty"`
 	Family               *string          `json:"family,omitempty"`
+	Redeployed           *bool            `json:"redeployed,omitempty"`
 	Stats                interface{}      `json:"stats,omitempty"`
 	Version              *RoutingVersion  `json:"version,omitempty"`
 	Versions             []RoutingVersion `json:"versions,omitempty"`
@@ -177,6 +178,38 @@ func (o *AiRoutingView) SetFamily(v string) {
 	o.Family = &v
 }
 
+// GetRedeployed returns the Redeployed field value if set, zero value otherwise.
+func (o *AiRoutingView) GetRedeployed() bool {
+	if o == nil || IsNil(o.Redeployed) {
+		var ret bool
+		return ret
+	}
+	return *o.Redeployed
+}
+
+// GetRedeployedOk returns a tuple with the Redeployed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiRoutingView) GetRedeployedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Redeployed) {
+		return nil, false
+	}
+	return o.Redeployed, true
+}
+
+// HasRedeployed returns a boolean if a field has been set.
+func (o *AiRoutingView) HasRedeployed() bool {
+	if o != nil && !IsNil(o.Redeployed) {
+		return true
+	}
+
+	return false
+}
+
+// SetRedeployed gets a reference to the given bool and assigns it to the Redeployed field.
+func (o *AiRoutingView) SetRedeployed(v bool) {
+	o.Redeployed = &v
+}
+
 // GetStats returns the Stats field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AiRoutingView) GetStats() interface{} {
 	if o == nil {
@@ -296,6 +329,9 @@ func (o AiRoutingView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Family) {
 		toSerialize["family"] = o.Family
 	}
+	if !IsNil(o.Redeployed) {
+		toSerialize["redeployed"] = o.Redeployed
+	}
 	if o.Stats != nil {
 		toSerialize["stats"] = o.Stats
 	}
@@ -331,6 +367,7 @@ func (o *AiRoutingView) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "drift")
 		delete(additionalProperties, "error")
 		delete(additionalProperties, "family")
+		delete(additionalProperties, "redeployed")
 		delete(additionalProperties, "stats")
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "versions")

@@ -21,9 +21,11 @@ var _ MappedNullable = &TeamTeamMessage{}
 type TeamTeamMessage struct {
 	// Author is the team account uuid that wrote it. It is an ACCOUNT and not a display name: what to call somebody is the roster's answer (GET /v1/team/members), and copying it onto every message is how the two come to disagree. An agent's messages carry the account derived from its id, so the same field answers for both.
 	Author *string `json:"author,omitempty"`
+	// Channel is the channel it was said in — the same id the channel listing answers with, so a caller holding a message can name its channel without a second read. A reply names the channel its thread is in; a comment on a document has none.
+	Channel *string `json:"channel,omitempty"`
 	// CreatedOn is unix MILLIseconds, which is what the platform stamps.
 	CreatedOn *int64 `json:"createdOn,omitempty"`
-	// Doc is the document this message is a comment on. Empty for a message in a room.
+	// Doc is the document this message is a comment on. Empty for a message in a channel.
 	Doc *string `json:"doc,omitempty"`
 	// EditedOn is when the author last edited the message, unix milliseconds. Absent for a message never edited.
 	EditedOn *int64 `json:"editedOn,omitempty"`
@@ -33,14 +35,12 @@ type TeamTeamMessage struct {
 	Id *string `json:"id,omitempty"`
 	// LastReply is when the thread was last answered, unix milliseconds. Absent for a message with no replies.
 	LastReply *int64 `json:"lastReply,omitempty"`
-	// Mentions are the account uuids the message @-mentions — exactly the people notify.go told they were mentioned.
+	// Mentions are the account uuids the message @-mentions — exactly the people inbox.go told they were mentioned.
 	Mentions []string `json:"mentions,omitempty"`
 	// Reactions are the emoji people reacted with, one entry per emoji, in the order each emoji was first used.
 	Reactions []TeamTeamReaction `json:"reactions,omitempty"`
 	// Replies is how many replies the message's thread holds.
 	Replies *int64 `json:"replies,omitempty"`
-	// Room is the room it was said in — the same id the room listing answers with, so a caller holding a message can name its room without a second read. A reply names the room its thread is in; a comment on a document has none.
-	Room *string `json:"room,omitempty"`
 	// Text is the message as PLAIN TEXT. The document stores markup; this is the same `plainText` reduction the agent responder reads a prompt with, so a caller never has to parse the client's markup to know what was said. A mention reads as \"@Name\" here and is listed by id in Mentions.
 	Text *string `json:"text,omitempty"`
 	// Thread is the message this one replies to. Empty for a message that starts a conversation rather than answering one.
@@ -97,6 +97,38 @@ func (o *TeamTeamMessage) HasAuthor() bool {
 // SetAuthor gets a reference to the given string and assigns it to the Author field.
 func (o *TeamTeamMessage) SetAuthor(v string) {
 	o.Author = &v
+}
+
+// GetChannel returns the Channel field value if set, zero value otherwise.
+func (o *TeamTeamMessage) GetChannel() string {
+	if o == nil || IsNil(o.Channel) {
+		var ret string
+		return ret
+	}
+	return *o.Channel
+}
+
+// GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TeamTeamMessage) GetChannelOk() (*string, bool) {
+	if o == nil || IsNil(o.Channel) {
+		return nil, false
+	}
+	return o.Channel, true
+}
+
+// HasChannel returns a boolean if a field has been set.
+func (o *TeamTeamMessage) HasChannel() bool {
+	if o != nil && !IsNil(o.Channel) {
+		return true
+	}
+
+	return false
+}
+
+// SetChannel gets a reference to the given string and assigns it to the Channel field.
+func (o *TeamTeamMessage) SetChannel(v string) {
+	o.Channel = &v
 }
 
 // GetCreatedOn returns the CreatedOn field value if set, zero value otherwise.
@@ -387,38 +419,6 @@ func (o *TeamTeamMessage) SetReplies(v int64) {
 	o.Replies = &v
 }
 
-// GetRoom returns the Room field value if set, zero value otherwise.
-func (o *TeamTeamMessage) GetRoom() string {
-	if o == nil || IsNil(o.Room) {
-		var ret string
-		return ret
-	}
-	return *o.Room
-}
-
-// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TeamTeamMessage) GetRoomOk() (*string, bool) {
-	if o == nil || IsNil(o.Room) {
-		return nil, false
-	}
-	return o.Room, true
-}
-
-// HasRoom returns a boolean if a field has been set.
-func (o *TeamTeamMessage) HasRoom() bool {
-	if o != nil && !IsNil(o.Room) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoom gets a reference to the given string and assigns it to the Room field.
-func (o *TeamTeamMessage) SetRoom(v string) {
-	o.Room = &v
-}
-
 // GetText returns the Text field value if set, zero value otherwise.
 func (o *TeamTeamMessage) GetText() string {
 	if o == nil || IsNil(o.Text) {
@@ -496,6 +496,9 @@ func (o TeamTeamMessage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Author) {
 		toSerialize["author"] = o.Author
 	}
+	if !IsNil(o.Channel) {
+		toSerialize["channel"] = o.Channel
+	}
 	if !IsNil(o.CreatedOn) {
 		toSerialize["createdOn"] = o.CreatedOn
 	}
@@ -522,9 +525,6 @@ func (o TeamTeamMessage) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Replies) {
 		toSerialize["replies"] = o.Replies
-	}
-	if !IsNil(o.Room) {
-		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.Text) {
 		toSerialize["text"] = o.Text
@@ -555,6 +555,7 @@ func (o *TeamTeamMessage) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "author")
+		delete(additionalProperties, "channel")
 		delete(additionalProperties, "createdOn")
 		delete(additionalProperties, "doc")
 		delete(additionalProperties, "editedOn")
@@ -564,7 +565,6 @@ func (o *TeamTeamMessage) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "mentions")
 		delete(additionalProperties, "reactions")
 		delete(additionalProperties, "replies")
-		delete(additionalProperties, "room")
 		delete(additionalProperties, "text")
 		delete(additionalProperties, "thread")
 		o.AdditionalProperties = additionalProperties

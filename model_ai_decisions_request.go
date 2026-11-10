@@ -26,7 +26,7 @@ type AiDecisionsRequest struct {
 	Provider             interface{}                    `json:"provider,omitempty"`
 	Questions            map[string]AiDecisionsQuestion `json:"questions,omitempty"`
 	SessionId            *string                        `json:"session_id,omitempty"`
-	State                *AiDecisionSidesFalse          `json:"state,omitempty"`
+	State                interface{}                    `json:"state,omitempty"`
 	Trace                interface{}                    `json:"trace,omitempty"`
 	User                 *string                        `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -237,22 +237,23 @@ func (o *AiDecisionsRequest) SetSessionId(v string) {
 	o.SessionId = &v
 }
 
-// GetState returns the State field value if set, zero value otherwise.
-func (o *AiDecisionsRequest) GetState() AiDecisionSidesFalse {
-	if o == nil || IsNil(o.State) {
-		var ret AiDecisionSidesFalse
+// GetState returns the State field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AiDecisionsRequest) GetState() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
-	return *o.State
+	return o.State
 }
 
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiDecisionsRequest) GetStateOk() (*AiDecisionSidesFalse, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiDecisionsRequest) GetStateOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
-	return o.State, true
+	return &o.State, true
 }
 
 // HasState returns a boolean if a field has been set.
@@ -264,9 +265,9 @@ func (o *AiDecisionsRequest) HasState() bool {
 	return false
 }
 
-// SetState gets a reference to the given AiDecisionSidesFalse and assigns it to the State field.
-func (o *AiDecisionsRequest) SetState(v AiDecisionSidesFalse) {
-	o.State = &v
+// SetState gets a reference to the given interface{} and assigns it to the State field.
+func (o *AiDecisionsRequest) SetState(v interface{}) {
+	o.State = v
 }
 
 // GetTrace returns the Trace field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -360,7 +361,7 @@ func (o AiDecisionsRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SessionId) {
 		toSerialize["session_id"] = o.SessionId
 	}
-	if !IsNil(o.State) {
+	if o.State != nil {
 		toSerialize["state"] = o.State
 	}
 	if o.Trace != nil {

@@ -10,7 +10,9 @@ Name | Type | Description | Notes
 **ContextWindow** | Pointer to **int32** |  | [optional] 
 **Created** | Pointer to **int32** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
+**Expires** | Pointer to **string** |  | [optional] 
 **Family** | Pointer to **string** |  | [optional] 
+**Free** | Pointer to **bool** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Inputs** | Pointer to **[]string** |  | [optional] 
 **MaxOutputTokens** | Pointer to **int32** |  | [optional] 
@@ -24,6 +26,8 @@ Name | Type | Description | Notes
 **SupportsReasoning** | Pointer to **bool** |  | [optional] 
 **SupportsTools** | Pointer to **bool** |  | [optional] 
 **SupportsVision** | Pointer to **bool** |  | [optional] 
+**Video** | Pointer to [**AiVideoSpec**](AiVideoSpec.md) |  | [optional] 
+**Voice** | Pointer to [**AiVoiceSpec**](AiVoiceSpec.md) |  | [optional] 
 
 ## Methods
 
@@ -194,6 +198,31 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
+### GetExpires
+
+`func (o *AiModelInfo) GetExpires() string`
+
+GetExpires returns the Expires field if non-nil, zero value otherwise.
+
+### GetExpiresOk
+
+`func (o *AiModelInfo) GetExpiresOk() (*string, bool)`
+
+GetExpiresOk returns a tuple with the Expires field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpires
+
+`func (o *AiModelInfo) SetExpires(v string)`
+
+SetExpires sets Expires field to given value.
+
+### HasExpires
+
+`func (o *AiModelInfo) HasExpires() bool`
+
+HasExpires returns a boolean if a field has been set.
+
 ### GetFamily
 
 `func (o *AiModelInfo) GetFamily() string`
@@ -218,6 +247,31 @@ SetFamily sets Family field to given value.
 `func (o *AiModelInfo) HasFamily() bool`
 
 HasFamily returns a boolean if a field has been set.
+
+### GetFree
+
+`func (o *AiModelInfo) GetFree() bool`
+
+GetFree returns the Free field if non-nil, zero value otherwise.
+
+### GetFreeOk
+
+`func (o *AiModelInfo) GetFreeOk() (*bool, bool)`
+
+GetFreeOk returns a tuple with the Free field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFree
+
+`func (o *AiModelInfo) SetFree(v bool)`
+
+SetFree sets Free field to given value.
+
+### HasFree
+
+`func (o *AiModelInfo) HasFree() bool`
+
+HasFree returns a boolean if a field has been set.
 
 ### GetId
 
@@ -543,6 +597,56 @@ SetSupportsVision sets SupportsVision field to given value.
 `func (o *AiModelInfo) HasSupportsVision() bool`
 
 HasSupportsVision returns a boolean if a field has been set.
+
+### GetVideo
+
+`func (o *AiModelInfo) GetVideo() AiVideoSpec`
+
+GetVideo returns the Video field if non-nil, zero value otherwise.
+
+### GetVideoOk
+
+`func (o *AiModelInfo) GetVideoOk() (*AiVideoSpec, bool)`
+
+GetVideoOk returns a tuple with the Video field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVideo
+
+`func (o *AiModelInfo) SetVideo(v AiVideoSpec)`
+
+SetVideo sets Video field to given value.
+
+### HasVideo
+
+`func (o *AiModelInfo) HasVideo() bool`
+
+HasVideo returns a boolean if a field has been set.
+
+### GetVoice
+
+`func (o *AiModelInfo) GetVoice() AiVoiceSpec`
+
+GetVoice returns the Voice field if non-nil, zero value otherwise.
+
+### GetVoiceOk
+
+`func (o *AiModelInfo) GetVoiceOk() (*AiVoiceSpec, bool)`
+
+GetVoiceOk returns a tuple with the Voice field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVoice
+
+`func (o *AiModelInfo) SetVoice(v AiVoiceSpec)`
+
+SetVoice sets Voice field to given value.
+
+### HasVoice
+
+`func (o *AiModelInfo) HasVoice() bool`
+
+HasVoice returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

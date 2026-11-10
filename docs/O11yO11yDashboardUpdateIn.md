@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | ID is the dashboard id from the path. | [optional] 
-**Image** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**SchemaVersion** | Pointer to **string** |  | [optional] 
+**Image** | Pointer to **string** | Image is an optional cover image reference. | [optional] 
+**Name** | Pointer to **string** | Name must equal the dashboard&#39;s existing name — it is immutable. | [optional] 
+**SchemaVersion** | Pointer to **string** | SchemaVersion is the dashboard schema version; must be the current v6. | [optional] 
 **Spec** | Pointer to **interface{}** |  | [optional] 
-**Tags** | Pointer to [**[]O11yO11yDashboardPostableTag**](O11yO11yDashboardPostableTag.md) |  | [optional] 
+**Tags** | Pointer to [**[]O11yO11yDashboardPostableTag**](O11yO11yDashboardPostableTag.md) | Tags replace the dashboard&#39;s tags; at most ten. | [optional] 
 
 ## Methods
 

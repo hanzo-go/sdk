@@ -21,9 +21,9 @@ var _ MappedNullable = &BillingCryptoAsset{}
 type BillingCryptoAsset struct {
 	// AmountCents is what the payer intends to send, for the record. Optional — the credit is what actually arrives, never what was announced.
 	AmountCents *int64 `json:"amountCents,omitempty"`
-	// Chain is the network to receive on. Empty takes the rail's default.
+	// Chain is the network to receive on, one of GET /v1/billing/crypto/options chains. Empty takes the rail's default.
 	Chain *string `json:"chain,omitempty"`
-	// Token is the asset on that chain. Empty takes the chain's native one.
+	// Token is the asset on that chain, one of the options' tokens. Empty takes the rail's default.
 	Token                *string `json:"token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

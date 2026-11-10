@@ -19,12 +19,15 @@ var _ MappedNullable = &Web3ChainStatus{}
 
 // Web3ChainStatus struct for Web3ChainStatus
 type Web3ChainStatus struct {
+	// ChainID is the EIP-155 id, so a caller can check it matches the wallet they are about to sign with.
 	ChainId *int64 `json:"chainId,omitempty"`
 	// Height is the latest block, omitted when the chain did not answer rather than reported as zero — a zero height is a real value on a fresh chain.
-	Height *int64  `json:"height,omitempty"`
-	Id     *string `json:"id,omitempty"`
+	Height *int64 `json:"height,omitempty"`
+	// ID is the URL name: the value of :chain.
+	Id *string `json:"id,omitempty"`
 	// Live is whether the upstream answered eth_blockNumber.
-	Live                 *bool   `json:"live,omitempty"`
+	Live *bool `json:"live,omitempty"`
+	// Name is for humans.
 	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

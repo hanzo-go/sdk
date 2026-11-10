@@ -223,7 +223,7 @@ Other parameters are passed through a pointer to a apiGetEventHealthRequest stru
 
 ## GetEventInsightsEvents
 
-> EventEventList GetEventInsightsEvents(ctx).Limit(limit).Execute()
+> EventEventList GetEventInsightsEvents(ctx).Limit(limit).Impersonated(impersonated).Execute()
 
 Returns the caller org's most recent product events, newest first.
 
@@ -243,10 +243,11 @@ import (
 
 func main() {
 	limit := int64(100) // int64 | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
+	impersonated := "impersonated_example" // string | Impersonated is which events to return against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant's own traffic), include, or only. Anything else is a 400. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.GetEventInsightsEvents(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.EventAPI.GetEventInsightsEvents(context.Background()).Limit(limit).Impersonated(impersonated).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventInsightsEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -268,6 +269,7 @@ Other parameters are passed through a pointer to a apiGetEventInsightsEventsRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int64** | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. | 
+ **impersonated** | **string** | Impersonated is which events to return against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. | 
 
 ### Return type
 
@@ -350,7 +352,7 @@ Other parameters are passed through a pointer to a apiGetEventInsightsHealthRequ
 
 ## GetEventOverview
 
-> EventOverview GetEventOverview(ctx).Range_(range_).Start(start).End(end).Execute()
+> EventOverview GetEventOverview(ctx).Range_(range_).Start(start).End(end).Impersonated(impersonated).Execute()
 
 Returns the caller org's analytics KPIs for one time window.
 
@@ -372,10 +374,11 @@ func main() {
 	range_ := "7d" // string | Range is a relative window: a count and a unit — 24h, 7d, 90d, any <N>h or <N>d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
 	start := "start_example" // string | Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
 	end := "end_example" // string | End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
+	impersonated := "impersonated_example" // string | Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant's own traffic), include, or only. Anything else is a 400. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.GetEventOverview(context.Background()).Range_(range_).Start(start).End(end).Execute()
+	resp, r, err := apiClient.EventAPI.GetEventOverview(context.Background()).Range_(range_).Start(start).End(end).Impersonated(impersonated).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventOverview``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -399,6 +402,7 @@ Name | Type | Description  | Notes
  **range_** | **string** | Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. | 
  **start** | **string** | Start is the inclusive lower bound of a custom window, RFC3339. Requires end. | 
  **end** | **string** | End is the exclusive upper bound of a custom window, RFC3339. Requires start. | 
+ **impersonated** | **string** | Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. | 
 
 ### Return type
 
@@ -621,7 +625,7 @@ Name | Type | Description  | Notes
 
 ## GetEventTop
 
-> EventTop GetEventTop(ctx).Range_(range_).Start(start).End(end).Limit(limit).Execute()
+> EventTop GetEventTop(ctx).Range_(range_).Start(start).End(end).Limit(limit).Impersonated(impersonated).Execute()
 
 Returns the caller org's ranked lenses for one window, five of them at once.
 
@@ -644,10 +648,11 @@ func main() {
 	start := "start_example" // string | Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
 	end := "end_example" // string | End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
 	limit := int64(25) // int64 | Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. (optional)
+	impersonated := "impersonated_example" // string | Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant's own traffic), include, or only. Anything else is a 400. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.GetEventTop(context.Background()).Range_(range_).Start(start).End(end).Limit(limit).Execute()
+	resp, r, err := apiClient.EventAPI.GetEventTop(context.Background()).Range_(range_).Start(start).End(end).Limit(limit).Impersonated(impersonated).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventTop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -672,6 +677,7 @@ Name | Type | Description  | Notes
  **start** | **string** | Start is the inclusive lower bound of a custom window, RFC3339. Requires end. | 
  **end** | **string** | End is the exclusive upper bound of a custom window, RFC3339. Requires start. | 
  **limit** | **int64** | Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. | 
+ **impersonated** | **string** | Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. | 
 
 ### Return type
 

@@ -19,7 +19,7 @@ var _ MappedNullable = &AllowanceAllowance{}
 
 // AllowanceAllowance struct for AllowanceAllowance
 type AllowanceAllowance struct {
-	// calls the plan allows per period; 0 = unbounded
+	// calls the plan allows in Window; 0 = unbounded
 	Limit *int64 `json:"limit,omitempty"`
 	// the tier the limit came from
 	Plan *string `json:"plan,omitempty"`
@@ -27,13 +27,15 @@ type AllowanceAllowance struct {
 	Pool *AllowancePool `json:"pool,omitempty"`
 	// Pooled says the calls counted here are served from the pool every free user shares — the platform's vendor accounts for free models — rather than from the subject's own plan. True exactly where a window bounds the subject.
 	Pooled *bool `json:"pooled,omitempty"`
-	// unix seconds; when THAT window starts again
+	// Resets is the instant THAT window reopens, unix seconds: the next UTC hour or midnight, or a session's start plus its length — exact, to the second, from the call that opened it. 0 for a session that is not running: it opens at the next call.
 	Resets *int64 `json:"resets,omitempty"`
 	// Spent says the ceiling refuses: on a take, that THIS call was refused and nothing was counted; on a read, that the next call would be.
 	Spent *bool `json:"spent,omitempty"`
-	// Used is how many free calls this subject has been admitted in the period ending at Resets — the UTC calendar day. A call counts when it is admitted, whatever its upstream then does; a refused call counts nothing. It stops AT Limit rather than climbing past it, so Limit-Used is what remains and never goes negative.
+	// Start is when the session this answer counts in opened, unix seconds: on a take, the session the call was counted in, which a give names back (AllowanceIn.Start); on a read, the session running. 0 where no session bounds the subject or none runs.
+	Start *int64 `json:"start,omitempty"`
+	// Used is how many free calls this subject has been admitted in the window ending at Resets. A call counts when it is admitted, whatever its upstream then does; a refused call counts nothing. It stops AT Limit rather than climbing past it, so Limit-Used is what remains and never goes negative.
 	Used *int64 `json:"used,omitempty"`
-	// Window is which ceiling these numbers describe — \"hour\" or \"day\" — because a caller is held to both and only one of them is the answer. It is the window that REFUSED where one did, and otherwise the one with least left, so Limit-Used is always the number that will actually stop them next. Empty where no window bounds the subject at all.
+	// Window is which ceiling these numbers describe — \"hour\", \"session\" or \"day\" — because a caller can be held to more than one and only one of them is the answer. A session is the Free plan's: it opens at the subject's first call after the last one ended and runs five hours (ai_plan_session_hours). It is the window that REFUSED where one did, and otherwise the one with least left, so Limit-Used is always the number that will actually stop them next. Empty where no window bounds the subject at all.
 	Window               *string `json:"window,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -249,6 +251,38 @@ func (o *AllowanceAllowance) SetSpent(v bool) {
 	o.Spent = &v
 }
 
+// GetStart returns the Start field value if set, zero value otherwise.
+func (o *AllowanceAllowance) GetStart() int64 {
+	if o == nil || IsNil(o.Start) {
+		var ret int64
+		return ret
+	}
+	return *o.Start
+}
+
+// GetStartOk returns a tuple with the Start field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AllowanceAllowance) GetStartOk() (*int64, bool) {
+	if o == nil || IsNil(o.Start) {
+		return nil, false
+	}
+	return o.Start, true
+}
+
+// HasStart returns a boolean if a field has been set.
+func (o *AllowanceAllowance) HasStart() bool {
+	if o != nil && !IsNil(o.Start) {
+		return true
+	}
+
+	return false
+}
+
+// SetStart gets a reference to the given int64 and assigns it to the Start field.
+func (o *AllowanceAllowance) SetStart(v int64) {
+	o.Start = &v
+}
+
 // GetUsed returns the Used field value if set, zero value otherwise.
 func (o *AllowanceAllowance) GetUsed() int64 {
 	if o == nil || IsNil(o.Used) {
@@ -341,6 +375,9 @@ func (o AllowanceAllowance) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Spent) {
 		toSerialize["spent"] = o.Spent
 	}
+	if !IsNil(o.Start) {
+		toSerialize["start"] = o.Start
+	}
 	if !IsNil(o.Used) {
 		toSerialize["used"] = o.Used
 	}
@@ -375,6 +412,7 @@ func (o *AllowanceAllowance) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "pooled")
 		delete(additionalProperties, "resets")
 		delete(additionalProperties, "spent")
+		delete(additionalProperties, "start")
 		delete(additionalProperties, "used")
 		delete(additionalProperties, "window")
 		o.AdditionalProperties = additionalProperties

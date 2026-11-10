@@ -32,8 +32,9 @@ type IamPermission struct {
 	DisplayName *string  `json:"displayName,omitempty"`
 	Domains     []string `json:"domains,omitempty"`
 	Effect      *string  `json:"effect,omitempty"`
-	Id          *string  `json:"id,omitempty"`
-	IsEnabled   *bool    `json:"isEnabled,omitempty"`
+	// Persisted fields
+	Id        *string `json:"id,omitempty"`
+	IsEnabled *bool   `json:"isEnabled,omitempty"`
 	// Authorization model, targets, and decision. AuthzModel carries the v1 `model` column (the named authz model); it is not the Go identifier `Model` because that name is taken by the embedded orm.Model[Permission] mixin. The HTTP contract is unchanged — json:\"model\".
 	Model *string `json:"model,omitempty"`
 	Name  *string `json:"name,omitempty"`

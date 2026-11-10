@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Axis** | Pointer to **string** | what capability it measures | [optional] 
+**Direction** | Pointer to **string** | Direction is \&quot;higher\&quot; when a higher score is better and \&quot;lower\&quot; when a lower one is: a false-alarm rate, a share of answers that moved. The leaderboard orders its rows by it. | [optional] 
 **Id** | Pointer to **string** | the id every other op on this surface takes | [optional] 
 **Items** | Pointer to **int64** | how many items it holds, when the set is fixed | [optional] 
 **Native** | Pointer to **bool** | whether the standardized harness runs it today | [optional] 
@@ -54,6 +55,31 @@ SetAxis sets Axis field to given value.
 `func (o *BenchmarkBenchmark) HasAxis() bool`
 
 HasAxis returns a boolean if a field has been set.
+
+### GetDirection
+
+`func (o *BenchmarkBenchmark) GetDirection() string`
+
+GetDirection returns the Direction field if non-nil, zero value otherwise.
+
+### GetDirectionOk
+
+`func (o *BenchmarkBenchmark) GetDirectionOk() (*string, bool)`
+
+GetDirectionOk returns a tuple with the Direction field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDirection
+
+`func (o *BenchmarkBenchmark) SetDirection(v string)`
+
+SetDirection sets Direction field to given value.
+
+### HasDirection
+
+`func (o *BenchmarkBenchmark) HasDirection() bool`
+
+HasDirection returns a boolean if a field has been set.
 
 ### GetId
 

@@ -42,14 +42,16 @@ Method | HTTP request | Description
 [**GetIamConsent**](IamAPI.md#GetIamConsent) | **Get** /v1/iam/consent | Returns the calling person&#39;s own privacy and communication choices.
 [**GetIamInvitations**](IamAPI.md#GetIamInvitations) | **Get** /v1/iam/invitations | Returns your organization&#39;s invitations, newest first — who has been asked to join, on what terms, and how many seats each invitation still has left.
 [**GetIamInvitationsByOwnerByName**](IamAPI.md#GetIamInvitationsByOwnerByName) | **Get** /v1/iam/invitations/{owner}/{name} | Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
-[**GetIamKeys**](IamAPI.md#GetIamKeys) | **Get** /v1/iam/keys | Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+[**GetIamKeys**](IamAPI.md#GetIamKeys) | **Get** /v1/iam/keys | Returns the API keys of an organization that you may see, newest first — what each is called, what it may reach, its publishable half, and when it was last used.
 [**GetIamKeysByOwnerByName**](IamAPI.md#GetIamKeysByOwnerByName) | **Get** /v1/iam/keys/{owner}/{name} | Returns one API key: what it is called, what it may reach, and when it was issued.
 [**GetIamKeysOrg**](IamAPI.md#GetIamKeysOrg) | **Get** /v1/iam/keys/org | Resolve a PUBLISHABLE key to the organization that owns it
 [**GetIamKeysPrincipal**](IamAPI.md#GetIamKeysPrincipal) | **Get** /v1/iam/keys/principal | Resolve a SECRET key to the principal it authenticates
+[**GetIamLink**](IamAPI.md#GetIamLink) | **Get** /v1/iam/link | Continues a link in the browser of the person it is for: the browser opens the address POST /v1/iam/link answered, as a top-level navigation, signed in here as that person, and is sent on to the provider.
 [**GetIamLinkedAccounts**](IamAPI.md#GetIamLinkedAccounts) | **Get** /v1/iam/linked-accounts | Returns the sign-in identities linked to the calling person&#39;s account — every provider they can currently sign in with.
 [**GetIamMemberships**](IamAPI.md#GetIamMemberships) | **Get** /v1/iam/memberships | Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.
 [**GetIamOauthAuthorize**](IamAPI.md#GetIamOauthAuthorize) | **Get** /v1/iam/oauth/authorize | Starts a sign-in — the address you send a browser to, and the beginning of every OAuth and OpenID Connect flow.
 [**GetIamOauthCallback**](IamAPI.md#GetIamOauthCallback) | **Get** /v1/iam/oauth/callback | Completes the round-trip: it resolves and burns the single-use transaction (checking expiry + browser binding), exchanges and verifies the IdP response, links or provisions the local user, and mints the iam authorization code the relying party expects — then redirects to the original redirect_uri with code + state.
+[**GetIamOauthDelegationKeys**](IamAPI.md#GetIamOauthDelegationKeys) | **Get** /v1/iam/oauth/delegation/keys | Serves the public half of every delegation key, as a JWKS, to a confidential client allowed to delegate — the one resource server that verifies what it is handed, reading with the credential it delegates with.
 [**GetIamOauthLogout**](IamAPI.md#GetIamOauthLogout) | **Get** /v1/iam/oauth/logout | Ends a sign-in and sends the browser somewhere sensible.
 [**GetIamOauthUserinfo**](IamAPI.md#GetIamOauthUserinfo) | **Get** /v1/iam/oauth/userinfo | Returns the profile claims for whoever the access token belongs to — the standard OpenID Connect way to find out who is calling you without your application storing anything itself.
 [**GetIamPermissions**](IamAPI.md#GetIamPermissions) | **Get** /v1/iam/permissions | Returns the permissions in one organization, newest first — each one a grant saying which people or roles may do what, and to which resources.
@@ -93,7 +95,7 @@ Method | HTTP request | Description
 [**ListTokens**](IamAPI.md#ListTokens) | **Get** /v1/iam/tokens | Returns the access tokens issued in your organization, newest first, and can be narrowed to one organization.
 [**ListWebauthnCredentials**](IamAPI.md#ListWebauthnCredentials) | **Get** /v1/iam/webauthn-credentials | Returns the passkeys and security keys registered to one person, newest first — which device each lives on and when it was registered.
 [**PatchIamScimV2UsersByOwnerByName**](IamAPI.md#PatchIamScimV2UsersByOwnerByName) | **Patch** /v1/iam/scim/v2/Users/{owner}/{name} | Applies a partial change from your identity provider — one attribute moved, not the whole record resent.
-[**PostIamAdminProvision**](IamAPI.md#PostIamAdminProvision) | **Post** /v1/iam/admin/provision | Sets up an account on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
+[**PostIamAdminProvision**](IamAPI.md#PostIamAdminProvision) | **Post** /v1/iam/admin/provision | Founds an org on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
 [**PostIamApplications**](IamAPI.md#PostIamApplications) | **Post** /v1/iam/applications | Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.
 [**PostIamAuditLogs**](IamAPI.md#PostIamAuditLogs) | **Post** /v1/iam/audit-logs | Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
 [**PostIamAuthIdentifier**](IamAPI.md#PostIamAuthIdentifier) | **Post** /v1/iam/auth/identifier | Answers whether an account holds an email address at an application, and whether that account signs in with a password.
@@ -110,6 +112,7 @@ Method | HTTP request | Description
 [**PostIamMfaSetupEnable**](IamAPI.md#PostIamMfaSetupEnable) | **Post** /v1/iam/mfa/setup/enable | Finishes the enrolment: from here the account&#39;s sign-ins ask for this factor.
 [**PostIamMfaSetupInitiate**](IamAPI.md#PostIamMfaSetupInitiate) | **Post** /v1/iam/mfa/setup/initiate | Starts enrolling a factor and hands over whatever the person needs to prove they hold it: app a fresh secret and the otpauth:// URL to render as a QR code sms a code texted to the number on the account email a code mailed to the address on the account Nothing is switched on yet, so abandoning this step leaves the account exactly as it was.
 [**PostIamOauthAuthorize**](IamAPI.md#PostIamOauthAuthorize) | **Post** /v1/iam/oauth/authorize | Starts a sign-in — the address you send a browser to, and the beginning of every OAuth and OpenID Connect flow.
+[**PostIamOauthCallback**](IamAPI.md#PostIamOauthCallback) | **Post** /v1/iam/oauth/callback | Completes the round-trip: it resolves and burns the single-use transaction (checking expiry + browser binding), exchanges and verifies the IdP response, links or provisions the local user, and mints the iam authorization code the relying party expects — then redirects to the original redirect_uri with code + state.
 [**PostIamOauthDevice**](IamAPI.md#PostIamOauthDevice) | **Post** /v1/iam/oauth/device | Starts a sign-in on a device with no browser and no keyboard — a TV, a CLI, a headless box.
 [**PostIamOauthDeviceInfo**](IamAPI.md#PostIamOauthDeviceInfo) | **Post** /v1/iam/oauth/device/info | Answers \&quot;what am I approving?\&quot; for a pending device code.
 [**PostIamOauthFederationMfa**](IamAPI.md#PostIamOauthFederationMfa) | **Post** /v1/iam/oauth/federation/mfa | Completes a sign-in that came in through another identity provider and still owes a second factor.
@@ -141,12 +144,13 @@ Method | HTTP request | Description
 [**PostIamWebauthnSignupFinish**](IamAPI.md#PostIamWebauthnSignupFinish) | **Post** /v1/iam/webauthn/signup/finish | Verifies the newly created passkey and stores it, so the person can sign in with their device from then on.
 [**PostIamWorkspaces**](IamAPI.md#PostIamWorkspaces) | **Post** /v1/iam/workspaces | Makes a workspace inside your organization — the scope a team works in, alongside projects rather than instead of them.
 [**PutIamAccount**](IamAPI.md#PutIamAccount) | **Put** /v1/iam/account | Saves the calling person&#39;s own profile — the name they are shown by, their picture, a line about themselves and a link.
+[**PutIamAddress**](IamAPI.md#PutIamAddress) | **Put** /v1/iam/address | Adds an email address or a phone number to the calling person&#39;s own account, so they can sign in with it — by a code sent there, or to recover a password.
 [**PutIamApplicationsByOwnerByName**](IamAPI.md#PutIamApplicationsByOwnerByName) | **Put** /v1/iam/applications/{owner}/{name} | Changes an application&#39;s display, its sign-in methods and the redirect URIs it may return to — the call that makes login work from a new host.
 [**PutIamAuditLogsByOwnerByName**](IamAPI.md#PutIamAuditLogsByOwnerByName) | **Put** /v1/iam/audit-logs/{owner}/{name} | Corrects an audit entry.
 [**PutIamCertsByOwnerByName**](IamAPI.md#PutIamCertsByOwnerByName) | **Put** /v1/iam/certs/{owner}/{name} | Changes a signing certificate&#39;s settings.
 [**PutIamConsent**](IamAPI.md#PutIamConsent) | **Put** /v1/iam/consent | Records the calling person&#39;s privacy and communication choices.
 [**PutIamInvitationsByOwnerByName**](IamAPI.md#PutIamInvitationsByOwnerByName) | **Put** /v1/iam/invitations/{owner}/{name} | Changes an invitation&#39;s terms — the role it grants, how many may redeem it, or when it expires.
-[**PutIamKeysByOwnerByName**](IamAPI.md#PutIamKeysByOwnerByName) | **Put** /v1/iam/keys/{owner}/{name} | Changes what a key is called or what it may reach.
+[**PutIamKeysByOwnerByName**](IamAPI.md#PutIamKeysByOwnerByName) | **Put** /v1/iam/keys/{owner}/{name} | Changes what a key is called, what it may reach, when it expires, or revokes it.
 [**PutIamPassword**](IamAPI.md#PutIamPassword) | **Put** /v1/iam/password | Replaces the calling person&#39;s password.
 [**PutIamPermissionsByOwnerByName**](IamAPI.md#PutIamPermissionsByOwnerByName) | **Put** /v1/iam/permissions/{owner}/{name} | Changes who a permission grants to, what it allows, or the resources it covers.
 [**PutIamProjectsByOwnerByName**](IamAPI.md#PutIamProjectsByOwnerByName) | **Put** /v1/iam/projects/{owner}/{name} | Changes a project&#39;s settings.
@@ -2807,7 +2811,7 @@ Name | Type | Description  | Notes
 
 > IamKeysListResponse GetIamKeys(ctx).Owner(owner).Execute()
 
-Returns an organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
+Returns the API keys of an organization that you may see, newest first — what each is called, what it may reach, its publishable half, and when it was last used.
 
 
 
@@ -3060,6 +3064,65 @@ Other parameters are passed through a pointer to a apiGetIamKeysPrincipalRequest
 [[Back to README]](../README.md)
 
 
+## GetIamLink
+
+> GetIamLink(ctx).Execute()
+
+Continues a link in the browser of the person it is for: the browser opens the address POST /v1/iam/link answered, as a top-level navigation, signed in here as that person, and is sent on to the provider.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IamAPI.GetIamLink(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamLink``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIamLinkRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetIamLinkedAccounts
 
 > GetIamLinkedAccounts(ctx).Execute()
@@ -3285,6 +3348,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetIamOauthCallbackRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetIamOauthDelegationKeys
+
+> GetIamOauthDelegationKeys(ctx).Execute()
+
+Serves the public half of every delegation key, as a JWKS, to a confidential client allowed to delegate — the one resource server that verifies what it is handed, reading with the credential it delegates with.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IamAPI.GetIamOauthDelegationKeys(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamOauthDelegationKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIamOauthDelegationKeysRequest struct via the builder pattern
 
 
 ### Return type
@@ -6169,7 +6291,7 @@ Name | Type | Description  | Notes
 
 > PostIamAdminProvision(ctx).Execute()
 
-Sets up an account on someone's behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
+Founds an org on someone's behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
 
 
 
@@ -6619,7 +6741,7 @@ Name | Type | Description  | Notes
 
 ## PostIamInvitationsAccept
 
-> IamAnswer PostIamInvitationsAccept(ctx).IamAcceptBody(iamAcceptBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).ContentType(contentType).Execute()
+> IamAnswer PostIamInvitationsAccept(ctx).IamAcceptBody(iamAcceptBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).Execute()
 
 Joins the caller to an organization through an invitation, for a person who already has an account.
 
@@ -6642,11 +6764,13 @@ func main() {
 	cookie := "cookie_example" // string |  (optional)
 	authorization := "authorization_example" // string |  (optional)
 	secFetchSite := "secFetchSite_example" // string |  (optional)
+	origin := "origin_example" // string |  (optional)
+	host := "host_example" // string |  (optional)
 	contentType := "contentType_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PostIamInvitationsAccept(context.Background()).IamAcceptBody(iamAcceptBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).ContentType(contentType).Execute()
+	resp, r, err := apiClient.IamAPI.PostIamInvitationsAccept(context.Background()).IamAcceptBody(iamAcceptBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamInvitationsAccept``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6671,6 +6795,8 @@ Name | Type | Description  | Notes
  **cookie** | **string** |  | 
  **authorization** | **string** |  | 
  **secFetchSite** | **string** |  | 
+ **origin** | **string** |  | 
+ **host** | **string** |  | 
  **contentType** | **string** |  | 
 
 ### Return type
@@ -7225,6 +7351,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostIamOauthAuthorizeRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIamOauthCallback
+
+> PostIamOauthCallback(ctx).Execute()
+
+Completes the round-trip: it resolves and burns the single-use transaction (checking expiry + browser binding), exchanges and verifies the IdP response, links or provisions the local user, and mints the iam authorization code the relying party expects — then redirects to the original redirect_uri with code + state.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IamAPI.PostIamOauthCallback(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamOauthCallback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamOauthCallbackRequest struct via the builder pattern
 
 
 ### Return type
@@ -9080,7 +9265,7 @@ Name | Type | Description  | Notes
 
 ## PutIamAccount
 
-> IamAnswer PutIamAccount(ctx).IamAccountBody(iamAccountBody).Cookie(cookie).Authorization(authorization).Execute()
+> IamAnswer PutIamAccount(ctx).IamAccountBody(iamAccountBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).Execute()
 
 Saves the calling person's own profile — the name they are shown by, their picture, a line about themselves and a link.
 
@@ -9102,10 +9287,14 @@ func main() {
 	iamAccountBody := *openapiclient.NewIamAccountBody() // IamAccountBody | 
 	cookie := "cookie_example" // string |  (optional)
 	authorization := "authorization_example" // string |  (optional)
+	secFetchSite := "secFetchSite_example" // string |  (optional)
+	origin := "origin_example" // string |  (optional)
+	host := "host_example" // string |  (optional)
+	contentType := "contentType_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PutIamAccount(context.Background()).IamAccountBody(iamAccountBody).Cookie(cookie).Authorization(authorization).Execute()
+	resp, r, err := apiClient.IamAPI.PutIamAccount(context.Background()).IamAccountBody(iamAccountBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PutIamAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -9129,6 +9318,88 @@ Name | Type | Description  | Notes
  **iamAccountBody** | [**IamAccountBody**](IamAccountBody.md) |  | 
  **cookie** | **string** |  | 
  **authorization** | **string** |  | 
+ **secFetchSite** | **string** |  | 
+ **origin** | **string** |  | 
+ **host** | **string** |  | 
+ **contentType** | **string** |  | 
+
+### Return type
+
+[**IamAnswer**](IamAnswer.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutIamAddress
+
+> IamAnswer PutIamAddress(ctx).IamAddressBody(iamAddressBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).Execute()
+
+Adds an email address or a phone number to the calling person's own account, so they can sign in with it — by a code sent there, or to recover a password.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	iamAddressBody := *openapiclient.NewIamAddressBody() // IamAddressBody | 
+	cookie := "cookie_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	secFetchSite := "secFetchSite_example" // string |  (optional)
+	origin := "origin_example" // string |  (optional)
+	host := "host_example" // string |  (optional)
+	contentType := "contentType_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PutIamAddress(context.Background()).IamAddressBody(iamAddressBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PutIamAddress``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutIamAddress`: IamAnswer
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PutIamAddress`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutIamAddressRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamAddressBody** | [**IamAddressBody**](IamAddressBody.md) |  | 
+ **cookie** | **string** |  | 
+ **authorization** | **string** |  | 
+ **secFetchSite** | **string** |  | 
+ **origin** | **string** |  | 
+ **host** | **string** |  | 
+ **contentType** | **string** |  | 
 
 ### Return type
 
@@ -9511,7 +9782,7 @@ Name | Type | Description  | Notes
 
 > IamKey PutIamKeysByOwnerByName(ctx, owner, name).IamKey(iamKey).Execute()
 
-Changes what a key is called or what it may reach.
+Changes what a key is called, what it may reach, when it expires, or revokes it.
 
 
 
@@ -9584,7 +9855,7 @@ Name | Type | Description  | Notes
 
 ## PutIamPassword
 
-> IamAnswer PutIamPassword(ctx).IamPasswordBody(iamPasswordBody).Cookie(cookie).Authorization(authorization).Execute()
+> IamAnswer PutIamPassword(ctx).IamPasswordBody(iamPasswordBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).Execute()
 
 Replaces the calling person's password.
 
@@ -9606,10 +9877,14 @@ func main() {
 	iamPasswordBody := *openapiclient.NewIamPasswordBody() // IamPasswordBody | 
 	cookie := "cookie_example" // string |  (optional)
 	authorization := "authorization_example" // string |  (optional)
+	secFetchSite := "secFetchSite_example" // string |  (optional)
+	origin := "origin_example" // string |  (optional)
+	host := "host_example" // string |  (optional)
+	contentType := "contentType_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PutIamPassword(context.Background()).IamPasswordBody(iamPasswordBody).Cookie(cookie).Authorization(authorization).Execute()
+	resp, r, err := apiClient.IamAPI.PutIamPassword(context.Background()).IamPasswordBody(iamPasswordBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PutIamPassword``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -9633,6 +9908,10 @@ Name | Type | Description  | Notes
  **iamPasswordBody** | [**IamPasswordBody**](IamPasswordBody.md) |  | 
  **cookie** | **string** |  | 
  **authorization** | **string** |  | 
+ **secFetchSite** | **string** |  | 
+ **origin** | **string** |  | 
+ **host** | **string** |  | 
+ **contentType** | **string** |  | 
 
 ### Return type
 
@@ -10022,7 +10301,7 @@ Name | Type | Description  | Notes
 
 ## PutIamTerms
 
-> IamAnswer PutIamTerms(ctx).IamTermsBody(iamTermsBody).Cookie(cookie).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
+> IamAnswer PutIamTerms(ctx).IamTermsBody(iamTermsBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).XForwardedFor(xForwardedFor).Execute()
 
 Records that the signed-in caller accepted the terms and the acceptable use policy, at the versions named.
 
@@ -10044,11 +10323,15 @@ func main() {
 	iamTermsBody := *openapiclient.NewIamTermsBody() // IamTermsBody | 
 	cookie := "cookie_example" // string |  (optional)
 	authorization := "authorization_example" // string |  (optional)
+	secFetchSite := "secFetchSite_example" // string |  (optional)
+	origin := "origin_example" // string |  (optional)
+	host := "host_example" // string |  (optional)
+	contentType := "contentType_example" // string |  (optional)
 	xForwardedFor := "xForwardedFor_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PutIamTerms(context.Background()).IamTermsBody(iamTermsBody).Cookie(cookie).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
+	resp, r, err := apiClient.IamAPI.PutIamTerms(context.Background()).IamTermsBody(iamTermsBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).Origin(origin).Host(host).ContentType(contentType).XForwardedFor(xForwardedFor).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PutIamTerms``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10072,6 +10355,10 @@ Name | Type | Description  | Notes
  **iamTermsBody** | [**IamTermsBody**](IamTermsBody.md) |  | 
  **cookie** | **string** |  | 
  **authorization** | **string** |  | 
+ **secFetchSite** | **string** |  | 
+ **origin** | **string** |  | 
+ **host** | **string** |  | 
+ **contentType** | **string** |  | 
  **xForwardedFor** | **string** |  | 
 
 ### Return type

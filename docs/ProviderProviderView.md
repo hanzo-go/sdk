@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Accounts** | Pointer to [**[]ProviderConnectionView**](ProviderConnectionView.md) | Accounts is every account this org has connected for the provider, each with its own platform id. Tokens never appear here. | [optional] 
 **Actions** | Pointer to [**[]ProviderOpView**](ProviderOpView.md) | Actions are what the connector can be asked to do, by a flow step or an agent (POST /v1/provider/{provider}/run when Runnable). | [optional] 
 **App** | Pointer to **string** | App names the OAuth app registration its sign-in uses (\&quot;GOOGLE\&quot;), for a connector whose sign-in awaits one. | [optional] 
 **Available** | Pointer to **bool** | Available is whether THIS DEPLOYMENT has the provider&#39;s app credentials, so connect can succeed. False renders the card without a working Connect button. | [optional] 
 **Category** | Pointer to **string** | Category groups the card (\&quot;Communication\&quot;, \&quot;Developer\&quot;, \&quot;Marketing\&quot;). | [optional] 
 **Checks** | Pointer to **bool** | Checks is whether a pasted credential is checked with the provider before it is stored. False means it is sealed on its shape and checked on use. | [optional] 
 **Connected** | Pointer to **bool** | Connected is whether this org has a live connection to the provider. | [optional] 
-**Connection** | Pointer to [**ProviderConnectionView**](ProviderConnectionView.md) | Connection is the connected account&#39;s non-secret detail. Absent when the org has no connection; tokens NEVER appear here (they live only in KMS). | [optional] 
+**Connection** | Pointer to [**ProviderConnectionView**](ProviderConnectionView.md) | Connection is the connected account&#39;s non-secret detail. Absent when the org has no connection; tokens NEVER appear here (they live only in KMS). When the org holds several accounts, this is the first and Accounts is every one of them. | [optional] 
 **Description** | Pointer to **string** | Description is the one-line pitch the console card shows. | [optional] 
 **Fields** | Pointer to [**[]ProviderField**](ProviderField.md) | Fields is the form a credential connector asks for. Absent otherwise. | [optional] 
 **Id** | Pointer to **string** | ID is the provider&#39;s registry id and the :provider path segment (\&quot;slack\&quot;). | [optional] 
@@ -41,6 +42,31 @@ will change when the set of required properties is changed
 NewProviderProviderViewWithDefaults instantiates a new ProviderProviderView object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAccounts
+
+`func (o *ProviderProviderView) GetAccounts() []ProviderConnectionView`
+
+GetAccounts returns the Accounts field if non-nil, zero value otherwise.
+
+### GetAccountsOk
+
+`func (o *ProviderProviderView) GetAccountsOk() (*[]ProviderConnectionView, bool)`
+
+GetAccountsOk returns a tuple with the Accounts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccounts
+
+`func (o *ProviderProviderView) SetAccounts(v []ProviderConnectionView)`
+
+SetAccounts sets Accounts field to given value.
+
+### HasAccounts
+
+`func (o *ProviderProviderView) HasAccounts() bool`
+
+HasAccounts returns a boolean if a field has been set.
 
 ### GetActions
 

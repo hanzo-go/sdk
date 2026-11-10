@@ -20,13 +20,9 @@ var _ MappedNullable = &BenchmarkSuite{}
 
 // BenchmarkSuite struct for BenchmarkSuite
 type BenchmarkSuite struct {
-	// Attempts is how many times to try each item; the harness's default applies when it is omitted.
-	Attempts *int64 `json:"attempts,omitempty"`
-	// Benchmarks are the catalog ids to run. At least one is required, and every id must be in the catalog.
+	// Benchmarks are the catalog ids to ask about. At least one is required, and every id must be in the catalog.
 	Benchmarks []string `json:"benchmarks"`
-	// Endpoint is your own chat-completions URL, for benchmarking a model this arena does not host. Either this or model is required.
-	Endpoint *string `json:"endpoint,omitempty"`
-	// Model is the catalog model id to run. Either this or endpoint is required.
+	// Model is the model to ask about, by the id its attempts are stored under. Required.
 	Model                *string `json:"model,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -51,38 +47,6 @@ func NewBenchmarkSuiteWithDefaults() *BenchmarkSuite {
 	return &this
 }
 
-// GetAttempts returns the Attempts field value if set, zero value otherwise.
-func (o *BenchmarkSuite) GetAttempts() int64 {
-	if o == nil || IsNil(o.Attempts) {
-		var ret int64
-		return ret
-	}
-	return *o.Attempts
-}
-
-// GetAttemptsOk returns a tuple with the Attempts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BenchmarkSuite) GetAttemptsOk() (*int64, bool) {
-	if o == nil || IsNil(o.Attempts) {
-		return nil, false
-	}
-	return o.Attempts, true
-}
-
-// HasAttempts returns a boolean if a field has been set.
-func (o *BenchmarkSuite) HasAttempts() bool {
-	if o != nil && !IsNil(o.Attempts) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttempts gets a reference to the given int64 and assigns it to the Attempts field.
-func (o *BenchmarkSuite) SetAttempts(v int64) {
-	o.Attempts = &v
-}
-
 // GetBenchmarks returns the Benchmarks field value
 func (o *BenchmarkSuite) GetBenchmarks() []string {
 	if o == nil {
@@ -105,38 +69,6 @@ func (o *BenchmarkSuite) GetBenchmarksOk() ([]string, bool) {
 // SetBenchmarks sets field value
 func (o *BenchmarkSuite) SetBenchmarks(v []string) {
 	o.Benchmarks = v
-}
-
-// GetEndpoint returns the Endpoint field value if set, zero value otherwise.
-func (o *BenchmarkSuite) GetEndpoint() string {
-	if o == nil || IsNil(o.Endpoint) {
-		var ret string
-		return ret
-	}
-	return *o.Endpoint
-}
-
-// GetEndpointOk returns a tuple with the Endpoint field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BenchmarkSuite) GetEndpointOk() (*string, bool) {
-	if o == nil || IsNil(o.Endpoint) {
-		return nil, false
-	}
-	return o.Endpoint, true
-}
-
-// HasEndpoint returns a boolean if a field has been set.
-func (o *BenchmarkSuite) HasEndpoint() bool {
-	if o != nil && !IsNil(o.Endpoint) {
-		return true
-	}
-
-	return false
-}
-
-// SetEndpoint gets a reference to the given string and assigns it to the Endpoint field.
-func (o *BenchmarkSuite) SetEndpoint(v string) {
-	o.Endpoint = &v
 }
 
 // GetModel returns the Model field value if set, zero value otherwise.
@@ -181,13 +113,7 @@ func (o BenchmarkSuite) MarshalJSON() ([]byte, error) {
 
 func (o BenchmarkSuite) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Attempts) {
-		toSerialize["attempts"] = o.Attempts
-	}
 	toSerialize["benchmarks"] = o.Benchmarks
-	if !IsNil(o.Endpoint) {
-		toSerialize["endpoint"] = o.Endpoint
-	}
 	if !IsNil(o.Model) {
 		toSerialize["model"] = o.Model
 	}
@@ -234,9 +160,7 @@ func (o *BenchmarkSuite) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "attempts")
 		delete(additionalProperties, "benchmarks")
-		delete(additionalProperties, "endpoint")
 		delete(additionalProperties, "model")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -40,7 +40,8 @@ answers 204. Only the publishing org can remove its own listing; an id that is
 unknown, or belongs to another org, is the same 404, so a probe learns nothing
 about what exists. Removing a listing removes its price from per-call enforcement;
 it does not uninstall the tool for anyone who already installed it, and a job
-already opened through it runs to its end. An org admin unpublishes.
+already opened through it runs to its end. An org admin unpublishes, and an
+expert unpublishes their own listing.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the listing, from the path.
@@ -486,6 +487,13 @@ func (a *MarketplaceAPIService) GetMarketplaceJobsByIdExecute(r MarketplaceAPIGe
 type MarketplaceAPIGetMarketplaceListingsRequest struct {
 	ctx        context.Context
 	ApiService *MarketplaceAPIService
+	kind       *string
+}
+
+// Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert.
+func (r MarketplaceAPIGetMarketplaceListingsRequest) Kind(kind string) MarketplaceAPIGetMarketplaceListingsRequest {
+	r.kind = &kind
+	return r
 }
 
 func (r MarketplaceAPIGetMarketplaceListingsRequest) Execute() (*MarketplaceListingPage, *http.Response, error) {
@@ -493,10 +501,11 @@ func (r MarketplaceAPIGetMarketplaceListingsRequest) Execute() (*MarketplaceList
 }
 
 /*
-GetMarketplaceListings Returns the listings the caller's own org has published — what this org is offering, not what it can buy.
+GetMarketplaceListings Returns the listings the caller's own org has published — what this org is offering, not what it can buy — optionally of one kind.
 
 Returns the listings the caller's own org has published — what this
-org is offering, not what it can buy. A publisher only ever sees its own rows.
+org is offering, not what it can buy — optionally of one kind. A publisher only
+ever sees its own rows.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MarketplaceAPIGetMarketplaceListingsRequest
@@ -530,6 +539,9 @@ func (a *MarketplaceAPIService) GetMarketplaceListingsExecute(r MarketplaceAPIGe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.kind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "kind", r.kind, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -726,6 +738,7 @@ type MarketplaceAPIGetMarketplaceShopRequest struct {
 	price      *string
 	rating     *int64
 	seller     *string
+	area       *string
 	limit      *int64
 	offset     *int64
 }
@@ -736,7 +749,7 @@ func (r MarketplaceAPIGetMarketplaceShopRequest) Q(q string) MarketplaceAPIGetMa
 	return r
 }
 
-// Kind keeps one kind: agent, persona, app, skill, mcp or tool.
+// Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert.
 func (r MarketplaceAPIGetMarketplaceShopRequest) Kind(kind string) MarketplaceAPIGetMarketplaceShopRequest {
 	r.kind = &kind
 	return r
@@ -763,6 +776,12 @@ func (r MarketplaceAPIGetMarketplaceShopRequest) Rating(rating int64) Marketplac
 // Seller keeps one seller org&#39;s listings.
 func (r MarketplaceAPIGetMarketplaceShopRequest) Seller(seller string) MarketplaceAPIGetMarketplaceShopRequest {
 	r.seller = &seller
+	return r
+}
+
+// Area keeps the experts who work on one area: configure, base, commerce, bot, agents, cloud, models, creative or freelance.
+func (r MarketplaceAPIGetMarketplaceShopRequest) Area(area string) MarketplaceAPIGetMarketplaceShopRequest {
+	r.area = &area
 	return r
 }
 
@@ -840,6 +859,9 @@ func (a *MarketplaceAPIService) GetMarketplaceShopExecute(r MarketplaceAPIGetMar
 	}
 	if r.seller != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "seller", r.seller, "form", "")
+	}
+	if r.area != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "area", r.area, "form", "")
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
@@ -1040,12 +1062,13 @@ func (r MarketplaceAPIPatchMarketplaceListingsByIdRequest) Execute() (*Marketpla
 }
 
 /*
-PatchMarketplaceListingsById Edits one of the caller org's listings — its copy, price, payout wallet, visibility and documentation — under the same rules publish applies, and answers the listing as it now stands.
+PatchMarketplaceListingsById Edits one of the caller org's listings — its copy, price, payout wallet, visibility and documentation, and an expert's profile — under the same rules publish applies, and answers the listing as it now stands.
 
 Edits one of the caller org's listings — its copy, price, payout wallet,
-visibility and documentation — under the same rules publish applies, and
-answers the listing as it now stands. Another org's listing and one that does
-not exist are the same 404. An org admin edits.
+visibility and documentation, and an expert's profile — under the same rules
+publish applies, and answers the listing as it now stands. Another org's
+listing and one that does not exist are the same 404. An org admin edits, and
+an expert edits their own listing.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the listing to edit, from the path.
@@ -2400,9 +2423,11 @@ PostMarketplaceListings Offers one thing the caller's org owns on the marketplac
 
 Offers one thing the caller's org owns on the marketplace — an agent,
 persona, app, skill or MCP server, or, for the platform, a tool sold per call —
-optionally monetized. The owning app is asked, as the org, whether the thing is
-the org's, so a listing never sells something that does not exist or belongs to
-someone else: a tool every org reaches is the platform's, and a server enabled
+optionally monetized. An expert is the exception to the org's admin: any member
+lists themself, once, as a person (kind expert), and is the listing's owner
+beside the org's admins. The owning app is asked, as the org, whether the thing
+is the org's, so a listing never sells something that does not exist or belongs
+to someone else: a tool every org reaches is the platform's, and a server enabled
 off the public shelf is the shelf's. A monetized listing names a payout wallet of
 the org's own, which wallets confirms, so a price is never unpayable. The price
 is exact to 18 decimal places, so a per-call price below a cent is a real price
@@ -2463,6 +2488,134 @@ func (a *MarketplaceAPIService) PostMarketplaceListingsExecute(r MarketplaceAPIP
 	}
 	// body params
 	localVarPostBody = r.marketplacePublishReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceListingsByIdVerifyRequest struct {
+	ctx                  context.Context
+	ApiService           *MarketplaceAPIService
+	id                   string
+	marketplaceVerifyReq *MarketplaceVerifyReq
+}
+
+func (r MarketplaceAPIPostMarketplaceListingsByIdVerifyRequest) MarketplaceVerifyReq(marketplaceVerifyReq MarketplaceVerifyReq) MarketplaceAPIPostMarketplaceListingsByIdVerifyRequest {
+	r.marketplaceVerifyReq = &marketplaceVerifyReq
+	return r
+}
+
+func (r MarketplaceAPIPostMarketplaceListingsByIdVerifyRequest) Execute() (*MarketplaceListing, *http.Response, error) {
+	return r.ApiService.PostMarketplaceListingsByIdVerifyExecute(r)
+}
+
+/*
+PostMarketplaceListingsByIdVerify Marks an expert listing verified, or takes the mark away, whichever org published it.
+
+Marks an expert listing verified, or takes the mark away, whichever org
+published it. Verified is staff's word that the person is who the listing says
+and does what it says: only a SuperAdmin (an owner of the reserved admin org)
+gives it, never an org admin and never the expert, and each change is on the
+audit trail with who made it. It answers the listing as it now stands. A
+listing that is not an expert's is a 404.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the expert listing, from the path.
+	@return MarketplaceAPIPostMarketplaceListingsByIdVerifyRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceListingsByIdVerify(ctx context.Context, id string) MarketplaceAPIPostMarketplaceListingsByIdVerifyRequest {
+	return MarketplaceAPIPostMarketplaceListingsByIdVerifyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceListing
+func (a *MarketplaceAPIService) PostMarketplaceListingsByIdVerifyExecute(r MarketplaceAPIPostMarketplaceListingsByIdVerifyRequest) (*MarketplaceListing, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceListing
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceListingsByIdVerify")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/listings/{id}/verify"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketplaceVerifyReq == nil {
+		return localVarReturnValue, nil, reportError("marketplaceVerifyReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketplaceVerifyReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

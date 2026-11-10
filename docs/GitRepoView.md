@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Description is the caller-supplied blurb (max 4KiB). | [optional] 
 **Head** | Pointer to **string** | Head is the resolved HEAD commit, empty on an empty repo. | [optional] 
 **Id** | Pointer to **string** | ID is the repo&#39;s stable, prefixed identifier (\&quot;repo_\&quot; + 128 random bits). | [optional] 
+**Link** | Pointer to [**GitLink**](GitLink.md) | Link is where the repo&#39;s history lives when it is on another host: reads are served from a cache filled from there and pushes go there. Absent for a repo whose history is here. | [optional] 
 **Name** | Pointer to **string** | Name is the org-unique handle, and the last path segment of both URLs below. | [optional] 
 **Org** | Pointer to **string** | Org owns the repo — the gateway-minted X-Org-Id, and the isolation key. | [optional] 
 **Project** | Pointer to **string** | Project is the optional sub-scope the repo lives in; absent for the org&#39;s default scope. | [optional] 
@@ -212,6 +213,31 @@ SetId sets Id field to given value.
 `func (o *GitRepoView) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetLink
+
+`func (o *GitRepoView) GetLink() GitLink`
+
+GetLink returns the Link field if non-nil, zero value otherwise.
+
+### GetLinkOk
+
+`func (o *GitRepoView) GetLinkOk() (*GitLink, bool)`
+
+GetLinkOk returns a tuple with the Link field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLink
+
+`func (o *GitRepoView) SetLink(v GitLink)`
+
+SetLink sets Link field to given value.
+
+### HasLink
+
+`func (o *GitRepoView) HasLink() bool`
+
+HasLink returns a boolean if a field has been set.
 
 ### GetName
 

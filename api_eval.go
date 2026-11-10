@@ -377,6 +377,7 @@ type EvalAPIGetEvalDatasetsByNameItemsRequest struct {
 	limit      *int64
 }
 
+// Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read.
 func (r EvalAPIGetEvalDatasetsByNameItemsRequest) Limit(limit int64) EvalAPIGetEvalDatasetsByNameItemsRequest {
 	r.limit = &limit
 	return r
@@ -895,6 +896,7 @@ func (r EvalAPIGetEvalRunsRequest) DatasetName(datasetName string) EvalAPIGetEva
 	return r
 }
 
+// Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read.
 func (r EvalAPIGetEvalRunsRequest) Limit(limit int64) EvalAPIGetEvalRunsRequest {
 	r.limit = &limit
 	return r
@@ -1043,6 +1045,7 @@ func (r EvalAPIGetEvalScoresRequest) TraceId(traceId string) EvalAPIGetEvalScore
 	return r
 }
 
+// Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read.
 func (r EvalAPIGetEvalScoresRequest) Limit(limit int64) EvalAPIGetEvalScoresRequest {
 	r.limit = &limit
 	return r
@@ -1197,6 +1200,7 @@ func (r EvalAPIGetEvalTracesRequest) DatasetName(datasetName string) EvalAPIGetE
 	return r
 }
 
+// Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read.
 func (r EvalAPIGetEvalTracesRequest) Limit(limit int64) EvalAPIGetEvalTracesRequest {
 	r.limit = &limit
 	return r

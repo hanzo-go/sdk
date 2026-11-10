@@ -345,7 +345,10 @@ there first.
 
 **All six ship.** `chat` is `POST /v1/chat/completions`, which the document now
 types both ways: `OpenaiChatCompletionRequest` in, `OpenaiChatCompletionResponse`
-out.
+out. `AiAPI` also projects the typed Hyperframe compositor endpoints
+`AiFrameGenerate` (`POST /v1/frame/generations`) and `AiFrameEdit`
+(`POST /v1/frame/edits`) with `AiFrameGenerateRequest`, `AiFrameEditRequest`,
+`AiFrameResponse`, and `AiFrameLayer`.
 
 `hello` is `get_keys` (`GET /v1/keys`), chosen by probing rather than by reading:
 it answers 403 with no key and with a bogus one while `/v1/keys-zzq9` answers

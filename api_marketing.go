@@ -38,6 +38,8 @@ DeleteMarketingAudiencesById Removes one of the caller org's audiences and answe
 Removes one of the caller org's audiences and answers 204. It
 deletes the saved filter only — no customer, event or enrollment is touched.
 
+Org admin or SuperAdmin only; a member of the org is refused.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the audience id from the path, as returned by create.
 	@return MarketingAPIDeleteMarketingAudiencesByIdRequest
@@ -121,6 +123,121 @@ func (a *MarketingAPIService) DeleteMarketingAudiencesByIdExecute(r MarketingAPI
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type MarketingAPIDeleteMarketingBroadcastsByIdRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIDeleteMarketingBroadcastsByIdRequest) Execute() (map[string]interface{}, *http.Response, error) {
+	return r.ApiService.DeleteMarketingBroadcastsByIdExecute(r)
+}
+
+/*
+DeleteMarketingBroadcastsById Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+
+Deletes a broadcast that is not sending, with its record of
+who it went to, and answers 204. One that is sending is 409; cancel it first.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the broadcast's id.
+	@return MarketingAPIDeleteMarketingBroadcastsByIdRequest
+*/
+func (a *MarketingAPIService) DeleteMarketingBroadcastsById(ctx context.Context, id string) MarketingAPIDeleteMarketingBroadcastsByIdRequest {
+	return MarketingAPIDeleteMarketingBroadcastsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return map[string]interface{}
+func (a *MarketingAPIService) DeleteMarketingBroadcastsByIdExecute(r MarketingAPIDeleteMarketingBroadcastsByIdRequest) (map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.DeleteMarketingBroadcastsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/broadcasts/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type MarketingAPIDeleteMarketingCalendarByIdRequest struct {
@@ -326,36 +443,377 @@ func (a *MarketingAPIService) DeleteMarketingCampaignsByIdExecute(r MarketingAPI
 	return localVarHTTPResponse, nil
 }
 
+type MarketingAPIDeleteMarketingListsByIdRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIDeleteMarketingListsByIdRequest) Execute() (map[string]interface{}, *http.Response, error) {
+	return r.ApiService.DeleteMarketingListsByIdExecute(r)
+}
+
+/*
+DeleteMarketingListsById Deletes one of the org's lists with every subscriber, segment, import and broadcast it has, and answers 204.
+
+Deletes one of the org's lists with every subscriber, segment,
+import and broadcast it has, and answers 204. A list with a broadcast sending
+is 409; cancel it first.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list's id or its slug.
+	@return MarketingAPIDeleteMarketingListsByIdRequest
+*/
+func (a *MarketingAPIService) DeleteMarketingListsById(ctx context.Context, id string) MarketingAPIDeleteMarketingListsByIdRequest {
+	return MarketingAPIDeleteMarketingListsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return map[string]interface{}
+func (a *MarketingAPIService) DeleteMarketingListsByIdExecute(r MarketingAPIDeleteMarketingListsByIdRequest) (map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.DeleteMarketingListsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIDeleteMarketingListsByIdSegmentsBySidRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+	sid        string
+}
+
+func (r MarketingAPIDeleteMarketingListsByIdSegmentsBySidRequest) Execute() (map[string]interface{}, *http.Response, error) {
+	return r.ApiService.DeleteMarketingListsByIdSegmentsBySidExecute(r)
+}
+
+/*
+DeleteMarketingListsByIdSegmentsBySid Deletes a saved segment and answers 204.
+
+Deletes a saved segment and answers 204. A scheduled broadcast to
+it is 409; change or cancel the broadcast first.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug.
+	@param sid SID is the segment's id.
+	@return MarketingAPIDeleteMarketingListsByIdSegmentsBySidRequest
+*/
+func (a *MarketingAPIService) DeleteMarketingListsByIdSegmentsBySid(ctx context.Context, id string, sid string) MarketingAPIDeleteMarketingListsByIdSegmentsBySidRequest {
+	return MarketingAPIDeleteMarketingListsByIdSegmentsBySidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		sid:        sid,
+	}
+}
+
+// Execute executes the request
+//
+//	@return map[string]interface{}
+func (a *MarketingAPIService) DeleteMarketingListsByIdSegmentsBySidExecute(r MarketingAPIDeleteMarketingListsByIdSegmentsBySidRequest) (map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.DeleteMarketingListsByIdSegmentsBySid")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/segments/{sid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sid"+"}", url.PathEscape(parameterValueToString(r.sid, "sid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIDeleteMarketingListsByIdSubscribersBySidRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+	sid        int64
+}
+
+func (r MarketingAPIDeleteMarketingListsByIdSubscribersBySidRequest) Execute() (map[string]interface{}, *http.Response, error) {
+	return r.ApiService.DeleteMarketingListsByIdSubscribersBySidExecute(r)
+}
+
+/*
+DeleteMarketingListsByIdSubscribersBySid Removes one subscriber from one of the org's lists and answers 204.
+
+Removes one subscriber from one of the org's lists and
+answers 204. The row and its evidence are gone; to keep the record of someone
+leaving, set their status to unsubscribed instead.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug.
+	@param sid SID is the subscriber's id.
+	@return MarketingAPIDeleteMarketingListsByIdSubscribersBySidRequest
+*/
+func (a *MarketingAPIService) DeleteMarketingListsByIdSubscribersBySid(ctx context.Context, id string, sid int64) MarketingAPIDeleteMarketingListsByIdSubscribersBySidRequest {
+	return MarketingAPIDeleteMarketingListsByIdSubscribersBySidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		sid:        sid,
+	}
+}
+
+// Execute executes the request
+//
+//	@return map[string]interface{}
+func (a *MarketingAPIService) DeleteMarketingListsByIdSubscribersBySidExecute(r MarketingAPIDeleteMarketingListsByIdSubscribersBySidRequest) (map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.DeleteMarketingListsByIdSubscribersBySid")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/subscribers/{sid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sid"+"}", url.PathEscape(parameterValueToString(r.sid, "sid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type MarketingAPIDeleteMarketingSuppressionsRequest struct {
 	ctx        context.Context
 	ApiService *MarketingAPIService
 	channel    *string
 	address    *string
-	reason     *string
-	createdAt  *int64
 }
 
-// Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable.
+// Channel is the surface the entry opts out of; empty is email.
 func (r MarketingAPIDeleteMarketingSuppressionsRequest) Channel(channel string) MarketingAPIDeleteMarketingSuppressionsRequest {
 	r.channel = &channel
 	return r
 }
 
-// Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required.
+// Address is the entry: an address, or \&quot;@example.com\&quot; for a company.
 func (r MarketingAPIDeleteMarketingSuppressionsRequest) Address(address string) MarketingAPIDeleteMarketingSuppressionsRequest {
 	r.address = &address
-	return r
-}
-
-// Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;.
-func (r MarketingAPIDeleteMarketingSuppressionsRequest) Reason(reason string) MarketingAPIDeleteMarketingSuppressionsRequest {
-	r.reason = &reason
-	return r
-}
-
-// CreatedAt is unix seconds, server-assigned.
-func (r MarketingAPIDeleteMarketingSuppressionsRequest) CreatedAt(createdAt int64) MarketingAPIDeleteMarketingSuppressionsRequest {
-	r.createdAt = &createdAt
 	return r
 }
 
@@ -366,8 +824,11 @@ func (r MarketingAPIDeleteMarketingSuppressionsRequest) Execute() (*http.Respons
 /*
 DeleteMarketingSuppressions Re-subscribes an address on one channel and answers 204.
 
-Re-subscribes an address on one channel and answers 204. An
-address that is not on the list reads as not found.
+Re-subscribes an address on one channel and answers 204. The
+entry is named in the query. An address that is not on the list reads as not
+found.
+
+Org admin or SuperAdmin only; a member of the org is refused.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MarketingAPIDeleteMarketingSuppressionsRequest
@@ -403,12 +864,6 @@ func (a *MarketingAPIService) DeleteMarketingSuppressionsExecute(r MarketingAPID
 	}
 	if r.address != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "address", r.address, "form", "")
-	}
-	if r.reason != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "reason", r.reason, "form", "")
-	}
-	if r.createdAt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "createdAt", r.createdAt, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -480,9 +935,12 @@ func (r MarketingAPIGetMarketingAudiencesRequest) Execute() (*MarketingAudienceL
 }
 
 /*
-GetMarketingAudiences Returns the org's saved audiences, most recently updated first.
+GetMarketingAudiences Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
 
-Returns the org's saved audiences, most recently updated first.
+Returns every audience the org can send to: its saved cohorts,
+most recently updated first, then its mailing lists and their saved segments,
+newest first, each list with its subscribed count. A list or a segment is an
+audience as a cohort is: a sequence enrolls any of them by id.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MarketingAPIGetMarketingAudiencesRequest
@@ -741,6 +1199,592 @@ func (a *MarketingAPIService) GetMarketingAudiencesByIdPreviewExecute(r Marketin
 	}
 
 	localVarPath := localBasePath + "/v1/marketing/audiences/{id}/preview"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingBetaRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+}
+
+func (r MarketingAPIGetMarketingBetaRequest) Execute() (*MarketingBeta, *http.Response, error) {
+	return r.ApiService.GetMarketingBetaExecute(r)
+}
+
+/*
+GetMarketingBeta Answers the signed-in caller's waitlist record: the application as it stands, the betas asked for, the points and the actions that earned them, and the place on the waitlist.
+
+Answers the signed-in caller's waitlist record: the application as it
+stands, the betas asked for, the points and the actions that earned them, and
+the place on the waitlist. An account that has not applied answers applied
+false and place 0.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIGetMarketingBetaRequest
+*/
+func (a *MarketingAPIService) GetMarketingBeta(ctx context.Context) MarketingAPIGetMarketingBetaRequest {
+	return MarketingAPIGetMarketingBetaRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBeta
+func (a *MarketingAPIService) GetMarketingBetaExecute(r MarketingAPIGetMarketingBetaRequest) (*MarketingBeta, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBeta
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingBeta")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/beta"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingBetaInvitesRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+}
+
+func (r MarketingAPIGetMarketingBetaInvitesRequest) Execute() (*MarketingBetaInviteList, *http.Response, error) {
+	return r.ApiService.GetMarketingBetaInvitesExecute(r)
+}
+
+/*
+GetMarketingBetaInvites Answers the caller's invites, newest first, with how many were sent, how many joined, and how many more they may send now.
+
+Answers the caller's invites, newest first, with how many were sent,
+how many joined, and how many more they may send now. A reservation that
+lapsed unsent is not listed: it holds nothing.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIGetMarketingBetaInvitesRequest
+*/
+func (a *MarketingAPIService) GetMarketingBetaInvites(ctx context.Context) MarketingAPIGetMarketingBetaInvitesRequest {
+	return MarketingAPIGetMarketingBetaInvitesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBetaInviteList
+func (a *MarketingAPIService) GetMarketingBetaInvitesExecute(r MarketingAPIGetMarketingBetaInvitesRequest) (*MarketingBetaInviteList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBetaInviteList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingBetaInvites")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/beta/invites"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingBroadcastsRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	list       *string
+	status     *string
+	limit      *int64
+}
+
+// List keeps one list&#39;s broadcasts, by id or slug.
+func (r MarketingAPIGetMarketingBroadcastsRequest) List(list string) MarketingAPIGetMarketingBroadcastsRequest {
+	r.list = &list
+	return r
+}
+
+// Status keeps broadcasts in one status.
+func (r MarketingAPIGetMarketingBroadcastsRequest) Status(status string) MarketingAPIGetMarketingBroadcastsRequest {
+	r.status = &status
+	return r
+}
+
+// Limit is the page size, 50 by default and at most 200.
+func (r MarketingAPIGetMarketingBroadcastsRequest) Limit(limit int64) MarketingAPIGetMarketingBroadcastsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r MarketingAPIGetMarketingBroadcastsRequest) Execute() (*MarketingBroadcastPage, *http.Response, error) {
+	return r.ApiService.GetMarketingBroadcastsExecute(r)
+}
+
+/*
+GetMarketingBroadcasts Returns the org's broadcasts, newest first.
+
+Returns the org's broadcasts, newest first.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIGetMarketingBroadcastsRequest
+*/
+func (a *MarketingAPIService) GetMarketingBroadcasts(ctx context.Context) MarketingAPIGetMarketingBroadcastsRequest {
+	return MarketingAPIGetMarketingBroadcastsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBroadcastPage
+func (a *MarketingAPIService) GetMarketingBroadcastsExecute(r MarketingAPIGetMarketingBroadcastsRequest) (*MarketingBroadcastPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBroadcastPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingBroadcasts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/broadcasts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.list != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "list", r.list, "form", "")
+	}
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingBroadcastsByIdRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIGetMarketingBroadcastsByIdRequest) Execute() (*MarketingBroadcast, *http.Response, error) {
+	return r.ApiService.GetMarketingBroadcastsByIdExecute(r)
+}
+
+/*
+GetMarketingBroadcastsById Returns one of the org's broadcasts.
+
+Returns one of the org's broadcasts.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the broadcast's id.
+	@return MarketingAPIGetMarketingBroadcastsByIdRequest
+*/
+func (a *MarketingAPIService) GetMarketingBroadcastsById(ctx context.Context, id string) MarketingAPIGetMarketingBroadcastsByIdRequest {
+	return MarketingAPIGetMarketingBroadcastsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBroadcast
+func (a *MarketingAPIService) GetMarketingBroadcastsByIdExecute(r MarketingAPIGetMarketingBroadcastsByIdRequest) (*MarketingBroadcast, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBroadcast
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingBroadcastsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/broadcasts/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingBroadcastsByIdStatsRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIGetMarketingBroadcastsByIdStatsRequest) Execute() (*MarketingBroadcastStats, *http.Response, error) {
+	return r.ApiService.GetMarketingBroadcastsByIdStatsExecute(r)
+}
+
+/*
+GetMarketingBroadcastsByIdStats Returns one broadcast's numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+
+Returns one broadcast's numbers: audience, sent, refused,
+failed, and what the email plane reported (delivered, opened, clicked,
+bounced, complained, unsubscribed), each counted once per message, with open
+and click rates.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the broadcast's id.
+	@return MarketingAPIGetMarketingBroadcastsByIdStatsRequest
+*/
+func (a *MarketingAPIService) GetMarketingBroadcastsByIdStats(ctx context.Context, id string) MarketingAPIGetMarketingBroadcastsByIdStatsRequest {
+	return MarketingAPIGetMarketingBroadcastsByIdStatsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBroadcastStats
+func (a *MarketingAPIService) GetMarketingBroadcastsByIdStatsExecute(r MarketingAPIGetMarketingBroadcastsByIdStatsRequest) (*MarketingBroadcastStats, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBroadcastStats
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingBroadcastsByIdStats")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/broadcasts/{id}/stats"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1294,6 +2338,1493 @@ func (a *MarketingAPIService) GetMarketingCampaignsByIdExecute(r MarketingAPIGet
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type MarketingAPIGetMarketingClickRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	userAgent  *string
+	t          *string
+}
+
+// Agent is the clicker&#39;s User-Agent header. Only its family (chrome, safari, automated, …) is kept.
+func (r MarketingAPIGetMarketingClickRequest) UserAgent(userAgent string) MarketingAPIGetMarketingClickRequest {
+	r.userAgent = &userAgent
+	return r
+}
+
+// T is the click token the send minted for this link and this recipient: base64url, signed under the deployment&#39;s KMS key marketing/click-hmac. It is the request&#39;s only authority.
+func (r MarketingAPIGetMarketingClickRequest) T(t string) MarketingAPIGetMarketingClickRequest {
+	r.t = &t
+	return r
+}
+
+func (r MarketingAPIGetMarketingClickRequest) Execute() (*ProblemDetails, *http.Response, error) {
+	return r.ApiService.GetMarketingClickExecute(r)
+}
+
+/*
+GetMarketingClick Follows a tracked email link.
+
+Follows a tracked email link. It is public — the person clicking has no
+session — and the token is its only authority: a token that verifies, for a
+sequence of one of Hanzo's own orgs that still exists, answers 302 to the
+destination it signs and records one click (time and user-agent family; no IP
+address), off the request path so the redirect never waits on storage. A token
+that is missing, altered, signed under another key, older than a year, or for
+any other org or a deleted sequence answers 302 to the brand's home page
+(https://hanzo.ai/ on Hanzo's deployment). The location is only ever a
+destination a token signs or that page, never a URL the request names.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIGetMarketingClickRequest
+*/
+func (a *MarketingAPIService) GetMarketingClick(ctx context.Context) MarketingAPIGetMarketingClickRequest {
+	return MarketingAPIGetMarketingClickRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProblemDetails
+func (a *MarketingAPIService) GetMarketingClickExecute(r MarketingAPIGetMarketingClickRequest) (*ProblemDetails, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProblemDetails
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingClick")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/click"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.t != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "t", r.t, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.userAgent != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "User-Agent", r.userAgent, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingFieldsRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+}
+
+func (r MarketingAPIGetMarketingFieldsRequest) Execute() (*MarketingFieldSet, *http.Response, error) {
+	return r.ApiService.GetMarketingFieldsExecute(r)
+}
+
+/*
+GetMarketingFields Returns the custom fields the org defined for its subscribers.
+
+Returns the custom fields the org defined for its subscribers.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIGetMarketingFieldsRequest
+*/
+func (a *MarketingAPIService) GetMarketingFields(ctx context.Context) MarketingAPIGetMarketingFieldsRequest {
+	return MarketingAPIGetMarketingFieldsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingFieldSet
+func (a *MarketingAPIService) GetMarketingFieldsExecute(r MarketingAPIGetMarketingFieldsRequest) (*MarketingFieldSet, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingFieldSet
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingFields")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/fields"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingImportsRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	list       *string
+	limit      *int64
+}
+
+// List keeps one list&#39;s imports, by id or slug.
+func (r MarketingAPIGetMarketingImportsRequest) List(list string) MarketingAPIGetMarketingImportsRequest {
+	r.list = &list
+	return r
+}
+
+// Limit is the page size, 50 by default and at most 200.
+func (r MarketingAPIGetMarketingImportsRequest) Limit(limit int64) MarketingAPIGetMarketingImportsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r MarketingAPIGetMarketingImportsRequest) Execute() (*MarketingImportPage, *http.Response, error) {
+	return r.ApiService.GetMarketingImportsExecute(r)
+}
+
+/*
+GetMarketingImports Returns the org's imports, newest first, each with its report.
+
+Returns the org's imports, newest first, each with its report.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIGetMarketingImportsRequest
+*/
+func (a *MarketingAPIService) GetMarketingImports(ctx context.Context) MarketingAPIGetMarketingImportsRequest {
+	return MarketingAPIGetMarketingImportsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingImportPage
+func (a *MarketingAPIService) GetMarketingImportsExecute(r MarketingAPIGetMarketingImportsRequest) (*MarketingImportPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingImportPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingImports")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/imports"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.list != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "list", r.list, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingImportsByIdRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIGetMarketingImportsByIdRequest) Execute() (*MarketingImport, *http.Response, error) {
+	return r.ApiService.GetMarketingImportsByIdExecute(r)
+}
+
+/*
+GetMarketingImportsById Returns one of the org's imports: its state, how far its bytes and its reading have come, and its report so far.
+
+Returns one of the org's imports: its state, how far its bytes and
+its reading have come, and its report so far.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the import's id.
+	@return MarketingAPIGetMarketingImportsByIdRequest
+*/
+func (a *MarketingAPIService) GetMarketingImportsById(ctx context.Context, id string) MarketingAPIGetMarketingImportsByIdRequest {
+	return MarketingAPIGetMarketingImportsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingImport
+func (a *MarketingAPIService) GetMarketingImportsByIdExecute(r MarketingAPIGetMarketingImportsByIdRequest) (*MarketingImport, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingImport
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingImportsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/imports/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingListsRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+}
+
+func (r MarketingAPIGetMarketingListsRequest) Execute() (*MarketingListPage, *http.Response, error) {
+	return r.ApiService.GetMarketingListsExecute(r)
+}
+
+/*
+GetMarketingLists Returns the org's lists, newest first, each with its subscribers counted by status.
+
+Returns the org's lists, newest first, each with its subscribers counted
+by status.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIGetMarketingListsRequest
+*/
+func (a *MarketingAPIService) GetMarketingLists(ctx context.Context) MarketingAPIGetMarketingListsRequest {
+	return MarketingAPIGetMarketingListsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingListPage
+func (a *MarketingAPIService) GetMarketingListsExecute(r MarketingAPIGetMarketingListsRequest) (*MarketingListPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingListPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingLists")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingListsByIdRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIGetMarketingListsByIdRequest) Execute() (*MarketingList, *http.Response, error) {
+	return r.ApiService.GetMarketingListsByIdExecute(r)
+}
+
+/*
+GetMarketingListsById Returns one of the org's lists, by id or slug, with its subscribers counted by status.
+
+Returns one of the org's lists, by id or slug, with its subscribers
+counted by status.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list's id or its slug.
+	@return MarketingAPIGetMarketingListsByIdRequest
+*/
+func (a *MarketingAPIService) GetMarketingListsById(ctx context.Context, id string) MarketingAPIGetMarketingListsByIdRequest {
+	return MarketingAPIGetMarketingListsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingList
+func (a *MarketingAPIService) GetMarketingListsByIdExecute(r MarketingAPIGetMarketingListsByIdRequest) (*MarketingList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingListsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingListsByIdExportRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIGetMarketingListsByIdExportRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetMarketingListsByIdExportExecute(r)
+}
+
+/*
+GetMarketingListsByIdExport Streams a selection of one list as CSV (format=csv, the default) or as a JSON array (format=json), every subscriber with their consent evidence, engagement and custom fields.
+
+Streams a selection of one list as CSV (format=csv, the default) or as
+a JSON array (format=json), every subscriber with their consent evidence,
+engagement and custom fields. The selection takes the same query fields as the
+subscriber list (status, tag, source, ref, basis, q, field, value, the date
+ranges and segment). The answer streams as it is read, so a list of millions
+exports in bounded memory.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return MarketingAPIGetMarketingListsByIdExportRequest
+*/
+func (a *MarketingAPIService) GetMarketingListsByIdExport(ctx context.Context, id string) MarketingAPIGetMarketingListsByIdExportRequest {
+	return MarketingAPIGetMarketingListsByIdExportRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *MarketingAPIService) GetMarketingListsByIdExportExecute(r MarketingAPIGetMarketingListsByIdExportRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingListsByIdExport")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/export"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingListsByIdSegmentsRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIGetMarketingListsByIdSegmentsRequest) Execute() (*MarketingSegmentPage, *http.Response, error) {
+	return r.ApiService.GetMarketingListsByIdSegmentsExecute(r)
+}
+
+/*
+GetMarketingListsByIdSegments Returns one list's saved segments, newest first.
+
+Returns one list's saved segments, newest first.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list's id or its slug.
+	@return MarketingAPIGetMarketingListsByIdSegmentsRequest
+*/
+func (a *MarketingAPIService) GetMarketingListsByIdSegments(ctx context.Context, id string) MarketingAPIGetMarketingListsByIdSegmentsRequest {
+	return MarketingAPIGetMarketingListsByIdSegmentsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSegmentPage
+func (a *MarketingAPIService) GetMarketingListsByIdSegmentsExecute(r MarketingAPIGetMarketingListsByIdSegmentsRequest) (*MarketingSegmentPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSegmentPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingListsByIdSegments")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/segments"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingListsByIdStatsRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+	from       *string
+	to         *string
+}
+
+// From is the first day, YYYY-MM-DD (UTC); 30 days before To by default.
+func (r MarketingAPIGetMarketingListsByIdStatsRequest) From(from string) MarketingAPIGetMarketingListsByIdStatsRequest {
+	r.from = &from
+	return r
+}
+
+// To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From.
+func (r MarketingAPIGetMarketingListsByIdStatsRequest) To(to string) MarketingAPIGetMarketingListsByIdStatsRequest {
+	r.to = &to
+	return r
+}
+
+func (r MarketingAPIGetMarketingListsByIdStatsRequest) Execute() (*MarketingListStats, *http.Response, error) {
+	return r.ApiService.GetMarketingListsByIdStatsExecute(r)
+}
+
+/*
+GetMarketingListsByIdStats Returns one list's numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+
+Returns one list's numbers for charting: subscribers by status,
+source and consent basis, and over a range of days, what happened each day,
+the net growth, the confirmation rate and the unsubscribe rate. Every number is
+read from kept counts, never by reading the list.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug, from the path.
+	@return MarketingAPIGetMarketingListsByIdStatsRequest
+*/
+func (a *MarketingAPIService) GetMarketingListsByIdStats(ctx context.Context, id string) MarketingAPIGetMarketingListsByIdStatsRequest {
+	return MarketingAPIGetMarketingListsByIdStatsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingListStats
+func (a *MarketingAPIService) GetMarketingListsByIdStatsExecute(r MarketingAPIGetMarketingListsByIdStatsRequest) (*MarketingListStats, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingListStats
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingListsByIdStats")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/stats"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingListsByIdSubscribersRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	id              string
+	status          *string
+	tag             *string
+	source          *string
+	ref             *string
+	basis           *string
+	q               *string
+	field           *string
+	value           *string
+	createdAfter    *int64
+	createdBefore   *int64
+	confirmedAfter  *int64
+	confirmedBefore *int64
+	openedAfter     *int64
+	notOpenedSince  *int64
+	clickedAfter    *int64
+	segment         *string
+	sort            *string
+	order           *string
+	cursor          *string
+	limit           *int64
+}
+
+// Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Status(status string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.status = &status
+	return r
+}
+
+// Tag keeps subscribers carrying this tag.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Tag(tag string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.tag = &tag
+	return r
+}
+
+// Source keeps subscribers that came from this kind of source: form, page, api, import or commerce.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Source(source string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.source = &source
+	return r
+}
+
+// Ref keeps subscribers from one source instance: a form id, a page, an import batch id.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Ref(ref string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.ref = &ref
+	return r
+}
+
+// Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Basis(basis string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.basis = &basis
+	return r
+}
+
+// Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Q(q string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.q = &q
+	return r
+}
+
+// Field names a custom field, and Value keeps subscribers whose value for it is exactly this.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Field(field string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.field = &field
+	return r
+}
+
+// Value is the custom field&#39;s value Field keeps.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Value(value string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.value = &value
+	return r
+}
+
+// CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) CreatedAfter(createdAfter int64) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.createdAfter = &createdAfter
+	return r
+}
+
+// CreatedBefore is the upper bound of CreatedAfter&#39;s range.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) CreatedBefore(createdBefore int64) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.createdBefore = &createdBefore
+	return r
+}
+
+// ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) ConfirmedAfter(confirmedAfter int64) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.confirmedAfter = &confirmedAfter
+	return r
+}
+
+// ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) ConfirmedBefore(confirmedBefore int64) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.confirmedBefore = &confirmedBefore
+	return r
+}
+
+// OpenedAfter keeps subscribers who opened a broadcast at or after this time.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) OpenedAfter(openedAfter int64) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.openedAfter = &openedAfter
+	return r
+}
+
+// NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) NotOpenedSince(notOpenedSince int64) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.notOpenedSince = &notOpenedSince
+	return r
+}
+
+// ClickedAfter keeps subscribers who clicked a link at or after this time.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) ClickedAfter(clickedAfter int64) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.clickedAfter = &clickedAfter
+	return r
+}
+
+// Segment applies a saved segment of the list; the filter fields narrow it further.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Segment(segment string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.segment = &segment
+	return r
+}
+
+// Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Sort(sort string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.sort = &sort
+	return r
+}
+
+// Order is desc (the default) or asc.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Order(order string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.order = &order
+	return r
+}
+
+// Cursor continues from where the previous page ended.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Cursor(cursor string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// Limit is the page size, 50 by default and at most 500.
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Limit(limit int64) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r MarketingAPIGetMarketingListsByIdSubscribersRequest) Execute() (*MarketingSubscriberPage, *http.Response, error) {
+	return r.ApiService.GetMarketingListsByIdSubscribersExecute(r)
+}
+
+/*
+GetMarketingListsByIdSubscribers Returns a page of one list's subscribers, newest first unless asked otherwise.
+
+Returns a page of one list's subscribers, newest first unless asked
+otherwise. Every filter (status, tag, source, ref, consent basis, a prefix of
+the address or name, a custom field's value, ranges of when they joined and
+confirmed, and whether they opened or clicked since a time) walks an index of
+its own, so a page costs the same on a list of ten rows or ten million.
+Continue with next.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug, from the path.
+	@return MarketingAPIGetMarketingListsByIdSubscribersRequest
+*/
+func (a *MarketingAPIService) GetMarketingListsByIdSubscribers(ctx context.Context, id string) MarketingAPIGetMarketingListsByIdSubscribersRequest {
+	return MarketingAPIGetMarketingListsByIdSubscribersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSubscriberPage
+func (a *MarketingAPIService) GetMarketingListsByIdSubscribersExecute(r MarketingAPIGetMarketingListsByIdSubscribersRequest) (*MarketingSubscriberPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSubscriberPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingListsByIdSubscribers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/subscribers"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.tag != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag", r.tag, "form", "")
+	}
+	if r.source != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "source", r.source, "form", "")
+	}
+	if r.ref != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ref", r.ref, "form", "")
+	}
+	if r.basis != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "basis", r.basis, "form", "")
+	}
+	if r.q != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	}
+	if r.field != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "field", r.field, "form", "")
+	}
+	if r.value != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "value", r.value, "form", "")
+	}
+	if r.createdAfter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdAfter", r.createdAfter, "form", "")
+	}
+	if r.createdBefore != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdBefore", r.createdBefore, "form", "")
+	}
+	if r.confirmedAfter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "confirmedAfter", r.confirmedAfter, "form", "")
+	}
+	if r.confirmedBefore != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "confirmedBefore", r.confirmedBefore, "form", "")
+	}
+	if r.openedAfter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "openedAfter", r.openedAfter, "form", "")
+	}
+	if r.notOpenedSince != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "notOpenedSince", r.notOpenedSince, "form", "")
+	}
+	if r.clickedAfter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "clickedAfter", r.clickedAfter, "form", "")
+	}
+	if r.segment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "segment", r.segment, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
+	}
+	if r.order != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingListsByIdSubscribersBySidRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+	sid        int64
+}
+
+func (r MarketingAPIGetMarketingListsByIdSubscribersBySidRequest) Execute() (*MarketingSubscriber, *http.Response, error) {
+	return r.ApiService.GetMarketingListsByIdSubscribersBySidExecute(r)
+}
+
+/*
+GetMarketingListsByIdSubscribersBySid Returns one subscriber of one of the org's lists, with their consent evidence and engagement.
+
+Returns one subscriber of one of the org's lists, with their
+consent evidence and engagement.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug.
+	@param sid SID is the subscriber's id.
+	@return MarketingAPIGetMarketingListsByIdSubscribersBySidRequest
+*/
+func (a *MarketingAPIService) GetMarketingListsByIdSubscribersBySid(ctx context.Context, id string, sid int64) MarketingAPIGetMarketingListsByIdSubscribersBySidRequest {
+	return MarketingAPIGetMarketingListsByIdSubscribersBySidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		sid:        sid,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSubscriber
+func (a *MarketingAPIService) GetMarketingListsByIdSubscribersBySidExecute(r MarketingAPIGetMarketingListsByIdSubscribersBySidRequest) (*MarketingSubscriber, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSubscriber
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingListsByIdSubscribersBySid")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/subscribers/{sid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sid"+"}", url.PathEscape(parameterValueToString(r.sid, "sid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type MarketingAPIGetMarketingPromosRequest struct {
 	ctx        context.Context
 	ApiService *MarketingAPIService
@@ -1586,6 +4117,115 @@ func (a *MarketingAPIService) GetMarketingPromosByCodeRedemptionExecute(r Market
 
 	localVarPath := localBasePath + "/v1/marketing/promos/{code}/redemption"
 	localVarPath = strings.Replace(localVarPath, "{"+"code"+"}", url.PathEscape(parameterValueToString(r.code, "code")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIGetMarketingSenderRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+}
+
+func (r MarketingAPIGetMarketingSenderRequest) Execute() (*MarketingSender, *http.Response, error) {
+	return r.ApiService.GetMarketingSenderExecute(r)
+}
+
+/*
+GetMarketingSender Returns the org's sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+
+Returns the org's sender: the provider and the from, reply and
+footer fields every list takes when it leaves its own empty.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIGetMarketingSenderRequest
+*/
+func (a *MarketingAPIService) GetMarketingSender(ctx context.Context) MarketingAPIGetMarketingSenderRequest {
+	return MarketingAPIGetMarketingSenderRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSender
+func (a *MarketingAPIService) GetMarketingSenderExecute(r MarketingAPIGetMarketingSenderRequest) (*MarketingSender, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSender
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingSender")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/sender"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2347,6 +4987,135 @@ func (a *MarketingAPIService) GetMarketingSuppressionsExecute(r MarketingAPIGetM
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type MarketingAPIGetMarketingSuppressionsCheckRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	channel    *string
+	address    *string
+}
+
+// Channel is the surface the entry opts out of; empty is email.
+func (r MarketingAPIGetMarketingSuppressionsCheckRequest) Channel(channel string) MarketingAPIGetMarketingSuppressionsCheckRequest {
+	r.channel = &channel
+	return r
+}
+
+// Address is the entry: an address, or \&quot;@example.com\&quot; for a company.
+func (r MarketingAPIGetMarketingSuppressionsCheckRequest) Address(address string) MarketingAPIGetMarketingSuppressionsCheckRequest {
+	r.address = &address
+	return r
+}
+
+func (r MarketingAPIGetMarketingSuppressionsCheckRequest) Execute() (*MarketingSuppressionCheck, *http.Response, error) {
+	return r.ApiService.GetMarketingSuppressionsCheckExecute(r)
+}
+
+/*
+GetMarketingSuppressionsCheck Answers whether the org's send gate refuses an address, and which list holds it, by the same check every commercial send asks.
+
+Answers whether the org's send gate refuses an address, and
+which list holds it, by the same check every commercial send asks.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIGetMarketingSuppressionsCheckRequest
+*/
+func (a *MarketingAPIService) GetMarketingSuppressionsCheck(ctx context.Context) MarketingAPIGetMarketingSuppressionsCheckRequest {
+	return MarketingAPIGetMarketingSuppressionsCheckRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSuppressionCheck
+func (a *MarketingAPIService) GetMarketingSuppressionsCheckExecute(r MarketingAPIGetMarketingSuppressionsCheckRequest) (*MarketingSuppressionCheck, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSuppressionCheck
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingSuppressionsCheck")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/suppressions/check"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.channel != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "channel", r.channel, "form", "")
+	}
+	if r.address != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "address", r.address, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type MarketingAPIGetMarketingUnsubscribeRequest struct {
 	ctx        context.Context
 	ApiService *MarketingAPIService
@@ -2354,6 +5123,8 @@ type MarketingAPIGetMarketingUnsubscribeRequest struct {
 	channel    *string
 	address    *string
 	token      *string
+	company    *bool
+	list       *string
 }
 
 // Org is the org the link was minted for.
@@ -2380,6 +5151,18 @@ func (r MarketingAPIGetMarketingUnsubscribeRequest) Token(token string) Marketin
 	return r
 }
 
+// Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422.
+func (r MarketingAPIGetMarketingUnsubscribeRequest) Company(company bool) MarketingAPIGetMarketingUnsubscribeRequest {
+	r.company = &company
+	return r
+}
+
+// List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it.
+func (r MarketingAPIGetMarketingUnsubscribeRequest) List(list string) MarketingAPIGetMarketingUnsubscribeRequest {
+	r.list = &list
+	return r
+}
+
 func (r MarketingAPIGetMarketingUnsubscribeRequest) Execute() (*MarketingUnsubscribed, *http.Response, error) {
 	return r.ApiService.GetMarketingUnsubscribeExecute(r)
 }
@@ -2390,7 +5173,10 @@ GetMarketingUnsubscribe Is the PUBLIC one-click endpoint (no principal): a recip
 Is the PUBLIC one-click endpoint (no principal): a recipient
 clicks the signed link in an email footer. The token binds (org, channel,
 address), so a caller can only opt OUT exactly the tuple it was minted for —
-never another address and never another org. An invalid token is refused, and
+never another address and never another org. With company=true the address's
+whole domain is opted out of this org's mail too, which a free mail address
+may not ask (422); without it, the answer offers the company's domain when
+there is one to offer. An invalid token is refused, and
 a deployment with no KMS-sealed key refuses rather than accepting anything.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -2437,6 +5223,12 @@ func (a *MarketingAPIService) GetMarketingUnsubscribeExecute(r MarketingAPIGetMa
 	if r.token != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "token", r.token, "form", "")
 	}
+	if r.company != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "company", r.company, "form", "")
+	}
+	if r.list != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "list", r.list, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2454,6 +5246,390 @@ func (a *MarketingAPIService) GetMarketingUnsubscribeExecute(r MarketingAPIGetMa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPatchMarketingBroadcastsByIdRequest struct {
+	ctx                  context.Context
+	ApiService           *MarketingAPIService
+	id                   string
+	marketingBroadcastIn *MarketingBroadcastIn
+}
+
+func (r MarketingAPIPatchMarketingBroadcastsByIdRequest) MarketingBroadcastIn(marketingBroadcastIn MarketingBroadcastIn) MarketingAPIPatchMarketingBroadcastsByIdRequest {
+	r.marketingBroadcastIn = &marketingBroadcastIn
+	return r
+}
+
+func (r MarketingAPIPatchMarketingBroadcastsByIdRequest) Execute() (*MarketingBroadcast, *http.Response, error) {
+	return r.ApiService.PatchMarketingBroadcastsByIdExecute(r)
+}
+
+/*
+PatchMarketingBroadcastsById Changes the fields the body names on a draft or scheduled broadcast and answers it.
+
+Changes the fields the body names on a draft or scheduled
+broadcast and answers it. One that is sending or done is 409.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the broadcast to change, from the path; ignored on create.
+	@return MarketingAPIPatchMarketingBroadcastsByIdRequest
+*/
+func (a *MarketingAPIService) PatchMarketingBroadcastsById(ctx context.Context, id string) MarketingAPIPatchMarketingBroadcastsByIdRequest {
+	return MarketingAPIPatchMarketingBroadcastsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBroadcast
+func (a *MarketingAPIService) PatchMarketingBroadcastsByIdExecute(r MarketingAPIPatchMarketingBroadcastsByIdRequest) (*MarketingBroadcast, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBroadcast
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PatchMarketingBroadcastsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/broadcasts/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingBroadcastIn == nil {
+		return localVarReturnValue, nil, reportError("marketingBroadcastIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingBroadcastIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPatchMarketingListsByIdRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	id              string
+	marketingListIn *MarketingListIn
+}
+
+func (r MarketingAPIPatchMarketingListsByIdRequest) MarketingListIn(marketingListIn MarketingListIn) MarketingAPIPatchMarketingListsByIdRequest {
+	r.marketingListIn = &marketingListIn
+	return r
+}
+
+func (r MarketingAPIPatchMarketingListsByIdRequest) Execute() (*MarketingList, *http.Response, error) {
+	return r.ApiService.PatchMarketingListsByIdExecute(r)
+}
+
+/*
+PatchMarketingListsById Changes the fields the body names on one of the org's lists and answers the list.
+
+Changes the fields the body names on one of the org's lists and
+answers the list. A field left out keeps its value; an empty string clears a
+sender field back to the org's.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list to change, from the path; ignored on create.
+	@return MarketingAPIPatchMarketingListsByIdRequest
+*/
+func (a *MarketingAPIService) PatchMarketingListsById(ctx context.Context, id string) MarketingAPIPatchMarketingListsByIdRequest {
+	return MarketingAPIPatchMarketingListsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingList
+func (a *MarketingAPIService) PatchMarketingListsByIdExecute(r MarketingAPIPatchMarketingListsByIdRequest) (*MarketingList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PatchMarketingListsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingListIn == nil {
+		return localVarReturnValue, nil, reportError("marketingListIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingListIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPatchMarketingListsByIdSubscribersBySidRequest struct {
+	ctx                   context.Context
+	ApiService            *MarketingAPIService
+	id                    string
+	sid                   int64
+	marketingSubscriberIn *MarketingSubscriberIn
+}
+
+func (r MarketingAPIPatchMarketingListsByIdSubscribersBySidRequest) MarketingSubscriberIn(marketingSubscriberIn MarketingSubscriberIn) MarketingAPIPatchMarketingListsByIdSubscribersBySidRequest {
+	r.marketingSubscriberIn = &marketingSubscriberIn
+	return r
+}
+
+func (r MarketingAPIPatchMarketingListsByIdSubscribersBySidRequest) Execute() (*MarketingSubscriber, *http.Response, error) {
+	return r.ApiService.PatchMarketingListsByIdSubscribersBySidExecute(r)
+}
+
+/*
+PatchMarketingListsByIdSubscribersBySid Changes the fields the body names on one subscriber and answers the row.
+
+Changes the fields the body names on one subscriber and
+answers the row. A status change follows the same rule as add: an address that
+unsubscribed or complained is not put back by the org.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug, from the path.
+	@param sid SID is the subscriber to change, from the path; ignored on add.
+	@return MarketingAPIPatchMarketingListsByIdSubscribersBySidRequest
+*/
+func (a *MarketingAPIService) PatchMarketingListsByIdSubscribersBySid(ctx context.Context, id string, sid int64) MarketingAPIPatchMarketingListsByIdSubscribersBySidRequest {
+	return MarketingAPIPatchMarketingListsByIdSubscribersBySidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		sid:        sid,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSubscriber
+func (a *MarketingAPIService) PatchMarketingListsByIdSubscribersBySidExecute(r MarketingAPIPatchMarketingListsByIdSubscribersBySidRequest) (*MarketingSubscriber, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSubscriber
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PatchMarketingListsByIdSubscribersBySid")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/subscribers/{sid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sid"+"}", url.PathEscape(parameterValueToString(r.sid, "sid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingSubscriberIn == nil {
+		return localVarReturnValue, nil, reportError("marketingSubscriberIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingSubscriberIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2522,6 +5698,8 @@ Omitting event saves the WHOLE-ORG audience — every mailable customer — whic
 needs no analytics warehouse; naming one narrows that roster to the customers
 who fired it within windowDays.
 
+Org admin or SuperAdmin only; a member of the org is refused.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MarketingAPIPostMarketingAudiencesRequest
 */
@@ -2576,6 +5754,997 @@ func (a *MarketingAPIService) PostMarketingAudiencesExecute(r MarketingAPIPostMa
 	}
 	// body params
 	localVarPostBody = r.marketingAudience
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingBetaActionsRequest struct {
+	ctx                context.Context
+	ApiService         *MarketingAPIService
+	marketingBetaActIn *MarketingBetaActIn
+}
+
+func (r MarketingAPIPostMarketingBetaActionsRequest) MarketingBetaActIn(marketingBetaActIn MarketingBetaActIn) MarketingAPIPostMarketingBetaActionsRequest {
+	r.marketingBetaActIn = &marketingBetaActIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingBetaActionsRequest) Execute() (*MarketingBeta, *http.Response, error) {
+	return r.ApiService.PostMarketingBetaActionsExecute(r)
+}
+
+/*
+PostMarketingBetaActions Counts one action of the signed-in caller: a star on a Hanzo repository, verified on GitHub for the login named, or a follow of a founder's link, taken on trust.
+
+Counts one action of the signed-in caller: a star on a Hanzo repository,
+verified on GitHub for the login named, or a follow of a founder's link, taken
+on trust. An action already counted changes nothing. A star GitHub does not
+show answers 422, and a login another account's stars are counted for, 409.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingBetaActionsRequest
+*/
+func (a *MarketingAPIService) PostMarketingBetaActions(ctx context.Context) MarketingAPIPostMarketingBetaActionsRequest {
+	return MarketingAPIPostMarketingBetaActionsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBeta
+func (a *MarketingAPIService) PostMarketingBetaActionsExecute(r MarketingAPIPostMarketingBetaActionsRequest) (*MarketingBeta, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBeta
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingBetaActions")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/beta/actions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingBetaActIn == nil {
+		return localVarReturnValue, nil, reportError("marketingBetaActIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingBetaActIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingBetaInvitesRequest struct {
+	ctx                   context.Context
+	ApiService            *MarketingAPIService
+	marketingBetaInviteIn *MarketingBetaInviteIn
+}
+
+func (r MarketingAPIPostMarketingBetaInvitesRequest) MarketingBetaInviteIn(marketingBetaInviteIn MarketingBetaInviteIn) MarketingAPIPostMarketingBetaInvitesRequest {
+	r.marketingBetaInviteIn = &marketingBetaInviteIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingBetaInvitesRequest) Execute() (*MarketingBetaInvites, *http.Response, error) {
+	return r.ApiService.PostMarketingBetaInvitesExecute(r)
+}
+
+/*
+PostMarketingBetaInvites Reserves an invite for each address the limits admit and answers the message the member's mailbox sends for each: subject, text and HTML, the unsubscribe headers, with the member's referral link for that invite and a one-click unsubscribe for that address.
+
+Reserves an invite for each address the limits admit and answers the
+message the member's mailbox sends for each: subject, text and HTML, the
+unsubscribe headers, with the member's referral link for that invite and a
+one-click unsubscribe for that address. Nothing is sent from here; the member's
+browser sends each from their own Gmail and reports it to POST
+/v1/marketing/beta/invites/sent.
+
+An address is skipped, with why, when it is not an email address, is the
+member's own, cannot be invited (it opted out of the brand's email, its company
+did, the platform bars it, or it already holds an account: one reason for all,
+so no one learns which), was invited in the last 30 days, or is past the
+member's 20 a day or 100 a month. When the limits leave the member nothing to
+reserve the answer is 429, with Retry-After the seconds until a slot frees.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingBetaInvitesRequest
+*/
+func (a *MarketingAPIService) PostMarketingBetaInvites(ctx context.Context) MarketingAPIPostMarketingBetaInvitesRequest {
+	return MarketingAPIPostMarketingBetaInvitesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBetaInvites
+func (a *MarketingAPIService) PostMarketingBetaInvitesExecute(r MarketingAPIPostMarketingBetaInvitesRequest) (*MarketingBetaInvites, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBetaInvites
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingBetaInvites")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/beta/invites"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingBetaInviteIn == nil {
+		return localVarReturnValue, nil, reportError("marketingBetaInviteIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingBetaInviteIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingBetaInvitesSentRequest struct {
+	ctx                       context.Context
+	ApiService                *MarketingAPIService
+	marketingBetaInviteSentIn *MarketingBetaInviteSentIn
+}
+
+func (r MarketingAPIPostMarketingBetaInvitesSentRequest) MarketingBetaInviteSentIn(marketingBetaInviteSentIn MarketingBetaInviteSentIn) MarketingAPIPostMarketingBetaInvitesSentRequest {
+	r.marketingBetaInviteSentIn = &marketingBetaInviteSentIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingBetaInvitesSentRequest) Execute() (*MarketingBetaInviteRows, *http.Response, error) {
+	return r.ApiService.PostMarketingBetaInvitesSentExecute(r)
+}
+
+/*
+PostMarketingBetaInvitesSent Records what the member's browser did with its reservations: the invites sent, and the ones that failed with the mailbox's reason.
+
+Records what the member's browser did with its reservations: the
+invites sent, and the ones that failed with the mailbox's reason. Only the
+member who reserved an invite marks it, only while it is reserved, and only
+within the 24 hours it holds; anything else is left as it stands. Each invite
+that becomes sent is filed on its invitee's CRM timeline, the person made when
+the org held none, a CRM that cannot answer costing the timeline an entry and
+never the report. It answers the named invites that are the caller's, as they
+stand.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingBetaInvitesSentRequest
+*/
+func (a *MarketingAPIService) PostMarketingBetaInvitesSent(ctx context.Context) MarketingAPIPostMarketingBetaInvitesSentRequest {
+	return MarketingAPIPostMarketingBetaInvitesSentRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBetaInviteRows
+func (a *MarketingAPIService) PostMarketingBetaInvitesSentExecute(r MarketingAPIPostMarketingBetaInvitesSentRequest) (*MarketingBetaInviteRows, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBetaInviteRows
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingBetaInvitesSent")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/beta/invites/sent"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingBetaInviteSentIn == nil {
+		return localVarReturnValue, nil, reportError("marketingBetaInviteSentIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingBetaInviteSentIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingBetaRequestRequest struct {
+	ctx                  context.Context
+	ApiService           *MarketingAPIService
+	marketingBetaRequest *MarketingBetaRequest
+}
+
+func (r MarketingAPIPostMarketingBetaRequestRequest) MarketingBetaRequest(marketingBetaRequest MarketingBetaRequest) MarketingAPIPostMarketingBetaRequestRequest {
+	r.marketingBetaRequest = &marketingBetaRequest
+	return r
+}
+
+func (r MarketingAPIPostMarketingBetaRequestRequest) Execute() (*MarketingBeta, *http.Response, error) {
+	return r.ApiService.PostMarketingBetaRequestExecute(r)
+}
+
+/*
+PostMarketingBetaRequest Adds betas to those the signed-in caller asked for, creating the record when there is none.
+
+Adds betas to those the signed-in caller asked for, creating the record
+when there is none. Each new id is stamped with the time it was asked for and
+stated on the event plane as beta_requested.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingBetaRequestRequest
+*/
+func (a *MarketingAPIService) PostMarketingBetaRequest(ctx context.Context) MarketingAPIPostMarketingBetaRequestRequest {
+	return MarketingAPIPostMarketingBetaRequestRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBeta
+func (a *MarketingAPIService) PostMarketingBetaRequestExecute(r MarketingAPIPostMarketingBetaRequestRequest) (*MarketingBeta, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBeta
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingBetaRequest")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/beta/request"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingBetaRequest == nil {
+		return localVarReturnValue, nil, reportError("marketingBetaRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingBetaRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingBroadcastsRequest struct {
+	ctx                  context.Context
+	ApiService           *MarketingAPIService
+	marketingBroadcastIn *MarketingBroadcastIn
+}
+
+func (r MarketingAPIPostMarketingBroadcastsRequest) MarketingBroadcastIn(marketingBroadcastIn MarketingBroadcastIn) MarketingAPIPostMarketingBroadcastsRequest {
+	r.marketingBroadcastIn = &marketingBroadcastIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingBroadcastsRequest) Execute() (*MarketingBroadcast, *http.Response, error) {
+	return r.ApiService.PostMarketingBroadcastsExecute(r)
+}
+
+/*
+PostMarketingBroadcasts Composes a broadcast to one of the org's lists, or a segment of it, and answers 201 with it.
+
+Composes a broadcast to one of the org's lists, or a segment
+of it, and answers 201 with it. With scheduledAt it is scheduled; without, a
+draft until sent.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingBroadcastsRequest
+*/
+func (a *MarketingAPIService) PostMarketingBroadcasts(ctx context.Context) MarketingAPIPostMarketingBroadcastsRequest {
+	return MarketingAPIPostMarketingBroadcastsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBroadcast
+func (a *MarketingAPIService) PostMarketingBroadcastsExecute(r MarketingAPIPostMarketingBroadcastsRequest) (*MarketingBroadcast, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBroadcast
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingBroadcasts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/broadcasts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingBroadcastIn == nil {
+		return localVarReturnValue, nil, reportError("marketingBroadcastIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingBroadcastIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingBroadcastsByIdCancelRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIPostMarketingBroadcastsByIdCancelRequest) Execute() (*MarketingBroadcast, *http.Response, error) {
+	return r.ApiService.PostMarketingBroadcastsByIdCancelExecute(r)
+}
+
+/*
+PostMarketingBroadcastsByIdCancel Stops a scheduled or sending broadcast and answers it.
+
+Stops a scheduled or sending broadcast and answers it. Who it
+already reached stays recorded.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the broadcast's id.
+	@return MarketingAPIPostMarketingBroadcastsByIdCancelRequest
+*/
+func (a *MarketingAPIService) PostMarketingBroadcastsByIdCancel(ctx context.Context, id string) MarketingAPIPostMarketingBroadcastsByIdCancelRequest {
+	return MarketingAPIPostMarketingBroadcastsByIdCancelRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBroadcast
+func (a *MarketingAPIService) PostMarketingBroadcastsByIdCancelExecute(r MarketingAPIPostMarketingBroadcastsByIdCancelRequest) (*MarketingBroadcast, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBroadcast
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingBroadcastsByIdCancel")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/broadcasts/{id}/cancel"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingBroadcastsByIdSendRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	id              string
+	marketingSendIn *MarketingSendIn
+}
+
+func (r MarketingAPIPostMarketingBroadcastsByIdSendRequest) MarketingSendIn(marketingSendIn MarketingSendIn) MarketingAPIPostMarketingBroadcastsByIdSendRequest {
+	r.marketingSendIn = &marketingSendIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingBroadcastsByIdSendRequest) Execute() (*MarketingBroadcast, *http.Response, error) {
+	return r.ApiService.PostMarketingBroadcastsByIdSendExecute(r)
+}
+
+/*
+PostMarketingBroadcastsByIdSend Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
+
+Sends a draft or scheduled broadcast now, or schedules it for at,
+and answers 202 with it. The list's sender must carry a postal address, which
+every commercial mail states (CAN-SPAM); without one it is 422.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the broadcast, from the path.
+	@return MarketingAPIPostMarketingBroadcastsByIdSendRequest
+*/
+func (a *MarketingAPIService) PostMarketingBroadcastsByIdSend(ctx context.Context, id string) MarketingAPIPostMarketingBroadcastsByIdSendRequest {
+	return MarketingAPIPostMarketingBroadcastsByIdSendRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBroadcast
+func (a *MarketingAPIService) PostMarketingBroadcastsByIdSendExecute(r MarketingAPIPostMarketingBroadcastsByIdSendRequest) (*MarketingBroadcast, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBroadcast
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingBroadcastsByIdSend")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/broadcasts/{id}/send"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingSendIn == nil {
+		return localVarReturnValue, nil, reportError("marketingSendIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingSendIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingBroadcastsByIdTestRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	id              string
+	marketingTestIn *MarketingTestIn
+}
+
+func (r MarketingAPIPostMarketingBroadcastsByIdTestRequest) MarketingTestIn(marketingTestIn MarketingTestIn) MarketingAPIPostMarketingBroadcastsByIdTestRequest {
+	r.marketingTestIn = &marketingTestIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingBroadcastsByIdTestRequest) Execute() (*MarketingTestOut, *http.Response, error) {
+	return r.ApiService.PostMarketingBroadcastsByIdTestExecute(r)
+}
+
+/*
+PostMarketingBroadcastsByIdTest Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+
+Sends the broadcast as it stands to up to five addresses, its
+subject marked [Test], through the same rail and footer the real send takes.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the broadcast, from the path.
+	@return MarketingAPIPostMarketingBroadcastsByIdTestRequest
+*/
+func (a *MarketingAPIService) PostMarketingBroadcastsByIdTest(ctx context.Context, id string) MarketingAPIPostMarketingBroadcastsByIdTestRequest {
+	return MarketingAPIPostMarketingBroadcastsByIdTestRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingTestOut
+func (a *MarketingAPIService) PostMarketingBroadcastsByIdTestExecute(r MarketingAPIPostMarketingBroadcastsByIdTestRequest) (*MarketingTestOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingTestOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingBroadcastsByIdTest")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/broadcasts/{id}/test"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingTestIn == nil {
+		return localVarReturnValue, nil, reportError("marketingTestIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingTestIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2990,6 +7159,362 @@ func (a *MarketingAPIService) PostMarketingCampaignsByIdScheduleExecute(r Market
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type MarketingAPIPostMarketingImportsRequest struct {
+	ctx               context.Context
+	ApiService        *MarketingAPIService
+	marketingImportIn *MarketingImportIn
+}
+
+func (r MarketingAPIPostMarketingImportsRequest) MarketingImportIn(marketingImportIn MarketingImportIn) MarketingAPIPostMarketingImportsRequest {
+	r.marketingImportIn = &marketingImportIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingImportsRequest) Execute() (*MarketingCreated, *http.Response, error) {
+	return r.ApiService.PostMarketingImportsExecute(r)
+}
+
+/*
+PostMarketingImports Creates an import into one of the org's lists and answers it.
+
+Creates an import into one of the org's lists and answers it. For
+a file the import waits in state receiving for its bytes (PUT
+/v1/marketing/imports/{id}/data); for a source (from: commerce) it is queued at
+once. A key makes the call idempotent: a second create with it answers the
+first import. The rows are stamped with the import's id as their source ref, so
+a filter on ref selects the batch.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingImportsRequest
+*/
+func (a *MarketingAPIService) PostMarketingImports(ctx context.Context) MarketingAPIPostMarketingImportsRequest {
+	return MarketingAPIPostMarketingImportsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingCreated
+func (a *MarketingAPIService) PostMarketingImportsExecute(r MarketingAPIPostMarketingImportsRequest) (*MarketingCreated, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingCreated
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingImports")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/imports"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingImportIn == nil {
+		return localVarReturnValue, nil, reportError("marketingImportIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingImportIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingImportsByIdCancelRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIPostMarketingImportsByIdCancelRequest) Execute() (*MarketingImport, *http.Response, error) {
+	return r.ApiService.PostMarketingImportsByIdCancelExecute(r)
+}
+
+/*
+PostMarketingImportsByIdCancel Stops an import that has not finished and answers it.
+
+Stops an import that has not finished and answers it. The rows it
+already wrote stay; a filter on its id as ref selects them.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the import's id.
+	@return MarketingAPIPostMarketingImportsByIdCancelRequest
+*/
+func (a *MarketingAPIService) PostMarketingImportsByIdCancel(ctx context.Context, id string) MarketingAPIPostMarketingImportsByIdCancelRequest {
+	return MarketingAPIPostMarketingImportsByIdCancelRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingImport
+func (a *MarketingAPIService) PostMarketingImportsByIdCancelExecute(r MarketingAPIPostMarketingImportsByIdCancelRequest) (*MarketingImport, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingImport
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingImportsByIdCancel")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/imports/{id}/cancel"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingImportsByIdStartRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIPostMarketingImportsByIdStartRequest) Execute() (*MarketingImport, *http.Response, error) {
+	return r.ApiService.PostMarketingImportsByIdStartExecute(r)
+}
+
+/*
+PostMarketingImportsByIdStart Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+
+Queues an import whose bytes have all arrived and answers 202 with
+it; a worker reads it from there. An import with no bytes is 409.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the import's id.
+	@return MarketingAPIPostMarketingImportsByIdStartRequest
+*/
+func (a *MarketingAPIService) PostMarketingImportsByIdStart(ctx context.Context, id string) MarketingAPIPostMarketingImportsByIdStartRequest {
+	return MarketingAPIPostMarketingImportsByIdStartRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingImport
+func (a *MarketingAPIService) PostMarketingImportsByIdStartExecute(r MarketingAPIPostMarketingImportsByIdStartRequest) (*MarketingImport, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingImport
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingImportsByIdStart")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/imports/{id}/start"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type MarketingAPIPostMarketingLeadsRequest struct {
 	ctx             context.Context
 	ApiService      *MarketingAPIService
@@ -3006,14 +7531,35 @@ func (r MarketingAPIPostMarketingLeadsRequest) Execute() (*MarketingLead, *http.
 }
 
 /*
-PostMarketingLeads Files a sales inquiry as a new lead in the deployment's own CRM and states it on the event plane.
+PostMarketingLeads Files one public form in the deployment's own CRM.
 
-Files a sales inquiry as a new lead in the deployment's own CRM and states
-it on the event plane. No account is needed and none is read: every lead lands
-in the brand's org. Answers 201 with an opaque reference.
+Files one public form in the deployment's own CRM. A sales inquiry or a
+program application becomes a lead: the person, and the form on their timeline
+with every answer, the campaign and coupon its page carried; it is stated on the
+event plane and mailed to the brand's sales mailbox. A body naming a job opening
+becomes a candidate and its form, mailed to the brand's careers mailbox and stated
+nowhere. Program investor is an investor and their form at status submitted,
+stated nowhere, mailed to nobody, and sent a SAFE to sign (`sent` says whether it
+went). No account is needed: every record lands in the brand's org. A person
+signed in who applies to the beta also opens the products in beta (the CRM) for
+the org they act in. Answers 201 with an opaque reference.
 
-A brand org without the CRM installed answers 503, a body over 16 KiB answers
-413, and a missing or malformed email answers 400 — in that order.
+A person signed in files under the address their token was issued to: a body
+naming another address is 400, and so is a sign-in issued with no address. An
+order that upgrades an organization names it in `upgrade`, sent signed in and
+acting in that organization (X-Org-Id) as its owner or an admin, and the lead
+records that verified handle; anyone else naming one is 403. `payment` is card or invoice, and an Enterprise inquiry paying by
+invoice is also stated as invoice_requested. X-Idempotency-Key makes a retry
+safe: the same key from the same address answers the same reference, and files,
+mails and states nothing twice; the same key sent with another form is 409. The
+sales mail states the payment and the verified organization to upgrade beside the
+answers.
+
+A brand org whose Base cannot hold the CRM answers 503, a caller past ten forms
+in an hour 429, a body over 16 KiB 413, and a missing or malformed email 400 — in
+that order; an investor's form then answers 400 for its name, its amount
+("The minimum investment is $25,000."), its address, entity, title and phone, in
+that order.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MarketingAPIPostMarketingLeadsRequest
@@ -3069,6 +7615,903 @@ func (a *MarketingAPIService) PostMarketingLeadsExecute(r MarketingAPIPostMarket
 	}
 	// body params
 	localVarPostBody = r.marketingLeadIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingLeadsEsignRequest struct {
+	ctx                 context.Context
+	ApiService          *MarketingAPIService
+	marketingEsignEvent *MarketingEsignEvent
+}
+
+func (r MarketingAPIPostMarketingLeadsEsignRequest) MarketingEsignEvent(marketingEsignEvent MarketingEsignEvent) MarketingAPIPostMarketingLeadsEsignRequest {
+	r.marketingEsignEvent = &marketingEsignEvent
+	return r
+}
+
+func (r MarketingAPIPostMarketingLeadsEsignRequest) Execute() (*MarketingSigning, *http.Response, error) {
+	return r.ApiService.PostMarketingLeadsEsignExecute(r)
+}
+
+/*
+PostMarketingLeadsEsign Takes Hanzo eSign's webhook: a SAFE was signed, countersigned, completed, declined or voided, and the investor's form in the brand's CRM moves to that status.
+
+Takes Hanzo eSign's webhook: a SAFE was signed, countersigned,
+completed, declined or voided, and the investor's form in the brand's CRM moves
+to that status. The caller is Hanzo eSign acting as itself: its own IAM
+client_credentials token, verified by the identity boundary like every other.
+No caller answers 401, and any caller but eSign's application 403.
+
+A status only moves forward (submitted, investor signed, countersigned,
+completed; or declined, or voided), so a replay or a late event changes
+nothing. The document must be the one the form recorded; any other, and any
+reference that names no investor's form, answers 200 with no status and
+changes nothing.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingLeadsEsignRequest
+*/
+func (a *MarketingAPIService) PostMarketingLeadsEsign(ctx context.Context) MarketingAPIPostMarketingLeadsEsignRequest {
+	return MarketingAPIPostMarketingLeadsEsignRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSigning
+func (a *MarketingAPIService) PostMarketingLeadsEsignExecute(r MarketingAPIPostMarketingLeadsEsignRequest) (*MarketingSigning, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSigning
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingLeadsEsign")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/leads/esign"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingEsignEvent == nil {
+		return localVarReturnValue, nil, reportError("marketingEsignEvent is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingEsignEvent
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingLeadsResumeRequest struct {
+	ctx               context.Context
+	ApiService        *MarketingAPIService
+	marketingResumeIn *MarketingResumeIn
+}
+
+func (r MarketingAPIPostMarketingLeadsResumeRequest) MarketingResumeIn(marketingResumeIn MarketingResumeIn) MarketingAPIPostMarketingLeadsResumeRequest {
+	r.marketingResumeIn = &marketingResumeIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingLeadsResumeRequest) Execute() (*MarketingResumeForm, *http.Response, error) {
+	return r.ApiService.PostMarketingLeadsResumeExecute(r)
+}
+
+/*
+PostMarketingLeadsResume Signs a form the careers page posts one resume through, into the brand org's private careers bucket, and answers the key to name on the application (`resume_file`).
+
+Signs a form the careers page posts one resume through, into the brand
+org's private careers bucket, and answers the key to name on the application
+(`resume_file`). PUBLIC like the form itself: each caller is limited to ten an
+hour, a file that is not a PDF, DOC or DOCX of at most 10 MB is refused 400, and
+a deployment that cannot sign one answers 503.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingLeadsResumeRequest
+*/
+func (a *MarketingAPIService) PostMarketingLeadsResume(ctx context.Context) MarketingAPIPostMarketingLeadsResumeRequest {
+	return MarketingAPIPostMarketingLeadsResumeRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingResumeForm
+func (a *MarketingAPIService) PostMarketingLeadsResumeExecute(r MarketingAPIPostMarketingLeadsResumeRequest) (*MarketingResumeForm, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingResumeForm
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingLeadsResume")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/leads/resume"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingResumeIn == nil {
+		return localVarReturnValue, nil, reportError("marketingResumeIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingResumeIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingListsRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	marketingListIn *MarketingListIn
+}
+
+func (r MarketingAPIPostMarketingListsRequest) MarketingListIn(marketingListIn MarketingListIn) MarketingAPIPostMarketingListsRequest {
+	r.marketingListIn = &marketingListIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingListsRequest) Execute() (*MarketingList, *http.Response, error) {
+	return r.ApiService.PostMarketingListsExecute(r)
+}
+
+/*
+PostMarketingLists Creates a list in the org and answers 201 with it.
+
+Creates a list in the org and answers 201 with it. Name is
+required; a new list is private, asks public subscribers to confirm, and takes
+the org's sender for every sender field it leaves empty. A slug the org already
+uses is 409.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingListsRequest
+*/
+func (a *MarketingAPIService) PostMarketingLists(ctx context.Context) MarketingAPIPostMarketingListsRequest {
+	return MarketingAPIPostMarketingListsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingList
+func (a *MarketingAPIService) PostMarketingListsExecute(r MarketingAPIPostMarketingListsRequest) (*MarketingList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingLists")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingListIn == nil {
+		return localVarReturnValue, nil, reportError("marketingListIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingListIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingListsByIdSegmentsRequest struct {
+	ctx                context.Context
+	ApiService         *MarketingAPIService
+	id                 string
+	marketingSegmentIn *MarketingSegmentIn
+}
+
+func (r MarketingAPIPostMarketingListsByIdSegmentsRequest) MarketingSegmentIn(marketingSegmentIn MarketingSegmentIn) MarketingAPIPostMarketingListsByIdSegmentsRequest {
+	r.marketingSegmentIn = &marketingSegmentIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingListsByIdSegmentsRequest) Execute() (*MarketingSegment, *http.Response, error) {
+	return r.ApiService.PostMarketingListsByIdSegmentsExecute(r)
+}
+
+/*
+PostMarketingListsByIdSegments Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+
+Saves a filter over one list as a segment and answers 201 with
+it and how many subscribers it selects now.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug, from the path.
+	@return MarketingAPIPostMarketingListsByIdSegmentsRequest
+*/
+func (a *MarketingAPIService) PostMarketingListsByIdSegments(ctx context.Context, id string) MarketingAPIPostMarketingListsByIdSegmentsRequest {
+	return MarketingAPIPostMarketingListsByIdSegmentsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSegment
+func (a *MarketingAPIService) PostMarketingListsByIdSegmentsExecute(r MarketingAPIPostMarketingListsByIdSegmentsRequest) (*MarketingSegment, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSegment
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingListsByIdSegments")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/segments"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingSegmentIn == nil {
+		return localVarReturnValue, nil, reportError("marketingSegmentIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingSegmentIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingListsByIdSubscribersRequest struct {
+	ctx                   context.Context
+	ApiService            *MarketingAPIService
+	id                    string
+	marketingSubscriberIn *MarketingSubscriberIn
+}
+
+func (r MarketingAPIPostMarketingListsByIdSubscribersRequest) MarketingSubscriberIn(marketingSubscriberIn MarketingSubscriberIn) MarketingAPIPostMarketingListsByIdSubscribersRequest {
+	r.marketingSubscriberIn = &marketingSubscriberIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingListsByIdSubscribersRequest) Execute() (*MarketingAdded, *http.Response, error) {
+	return r.ApiService.PostMarketingListsByIdSubscribersExecute(r)
+}
+
+/*
+PostMarketingListsByIdSubscribers Adds an address to one of the org's lists, or updates it when it is already there, and answers 201 or 200 with the row.
+
+Adds an address to one of the org's lists, or updates it when it
+is already there, and answers 201 or 200 with the row. Pending mails the
+address a link to confirm. An address that unsubscribed or complained cannot be
+put back by the org: it is 409, and the person rejoins by subscribing and
+confirming again.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug, from the path.
+	@return MarketingAPIPostMarketingListsByIdSubscribersRequest
+*/
+func (a *MarketingAPIService) PostMarketingListsByIdSubscribers(ctx context.Context, id string) MarketingAPIPostMarketingListsByIdSubscribersRequest {
+	return MarketingAPIPostMarketingListsByIdSubscribersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingAdded
+func (a *MarketingAPIService) PostMarketingListsByIdSubscribersExecute(r MarketingAPIPostMarketingListsByIdSubscribersRequest) (*MarketingAdded, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingAdded
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingListsByIdSubscribers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/subscribers"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingSubscriberIn == nil {
+		return localVarReturnValue, nil, reportError("marketingSubscriberIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingSubscriberIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingListsByIdSubscribersBulkRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	id              string
+	marketingBulkIn *MarketingBulkIn
+}
+
+func (r MarketingAPIPostMarketingListsByIdSubscribersBulkRequest) MarketingBulkIn(marketingBulkIn MarketingBulkIn) MarketingAPIPostMarketingListsByIdSubscribersBulkRequest {
+	r.marketingBulkIn = &marketingBulkIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingListsByIdSubscribersBulkRequest) Execute() (*MarketingBulkOut, *http.Response, error) {
+	return r.ApiService.PostMarketingListsByIdSubscribersBulkExecute(r)
+}
+
+/*
+PostMarketingListsByIdSubscribersBulk Applies one action to a selection of a list and answers how many rows it matched and changed.
+
+Applies one action to a selection of a list and answers how many rows it
+matched and changed. The selection is ids, a saved segment, a filter, or the
+whole list. It walks the selection in batches of a thousand, one transaction
+each, so millions of rows move in bounded memory: tag and untag add or remove
+a tag; move moves the rows to another list of the org; unsubscribe and clean
+set those statuses on every row that is pending or subscribed, each telling
+the CRM and the event stream; delete removes the rows and their evidence.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug, from the path.
+	@return MarketingAPIPostMarketingListsByIdSubscribersBulkRequest
+*/
+func (a *MarketingAPIService) PostMarketingListsByIdSubscribersBulk(ctx context.Context, id string) MarketingAPIPostMarketingListsByIdSubscribersBulkRequest {
+	return MarketingAPIPostMarketingListsByIdSubscribersBulkRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBulkOut
+func (a *MarketingAPIService) PostMarketingListsByIdSubscribersBulkExecute(r MarketingAPIPostMarketingListsByIdSubscribersBulkRequest) (*MarketingBulkOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBulkOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingListsByIdSubscribersBulk")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/subscribers/bulk"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingBulkIn == nil {
+		return localVarReturnValue, nil, reportError("marketingBulkIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingBulkIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingMailRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	marketingMailIn *MarketingMailIn
+}
+
+func (r MarketingAPIPostMarketingMailRequest) MarketingMailIn(marketingMailIn MarketingMailIn) MarketingAPIPostMarketingMailRequest {
+	r.marketingMailIn = &marketingMailIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingMailRequest) Execute() (*MarketingMailOut, *http.Response, error) {
+	return r.ApiService.PostMarketingMailExecute(r)
+}
+
+/*
+PostMarketingMail Sends one email from the org to one person, the way a person on the org's team writes back to a lead from its record.
+
+Sends one email from the org to one person, the way a person on the org's team
+writes back to a lead from its record.
+
+It leaves by the org's own path, the one every marketing send takes: the org's
+mailbox when it has one, else the platform's notify rail, and never to an
+address that opted out of the org's mail, whose company did, or that the
+platform blocks (Sent is false then, and that is not an error). It carries the
+opt-out footer and List-Unsubscribe. The org's mailbox caps hold: at its cap
+the send is refused with 429 and the time it frees.
+
+An admin of the org acting, or SuperAdmin, may send: mail that leaves in the
+org's name is the team's to write, not every member's. The send is on the audit
+trail before it leaves (marketing.mail.send: the address, the subject and the
+person, never the text), and the mail, sent or refused, goes on the timeline of
+its person.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingMailRequest
+*/
+func (a *MarketingAPIService) PostMarketingMail(ctx context.Context) MarketingAPIPostMarketingMailRequest {
+	return MarketingAPIPostMarketingMailRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingMailOut
+func (a *MarketingAPIService) PostMarketingMailExecute(r MarketingAPIPostMarketingMailRequest) (*MarketingMailOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingMailOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingMail")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/mail"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingMailIn == nil {
+		return localVarReturnValue, nil, reportError("marketingMailIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingMailIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3275,6 +8718,8 @@ required; status defaults to draft, and a sequence must be ACTIVE before it
 will accept enrollments. The id, createdAt and updatedAt of the input are
 ignored — the server assigns them.
 
+Org admin or SuperAdmin only; a member of the org is refused.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MarketingAPIPostMarketingSequencesRequest
 */
@@ -3404,6 +8849,8 @@ already took is counted in alreadyEnrolled and never double-dripped — which is
 what makes retrying a partially-applied announcement a resume rather than a
 second send.
 
+Org admin or SuperAdmin only; a member of the org is refused.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the sequence id from the path.
 	@return MarketingAPIPostMarketingSequencesByIdEnrollRequest
@@ -3525,6 +8972,8 @@ is sent, and steps already delivered are not recalled. Only an ACTIVE
 enrollment can be canceled — one already completed or canceled reads as not
 found.
 
+Org admin or SuperAdmin only; a member of the org is refused.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the sequence id from the path.
 	@param eid EID is the enrollment id from the path, as returned by a single-address enroll.
@@ -3635,6 +9084,8 @@ PostMarketingSequencesByIdStatus Flips draft/active/archived — the activation 
 Flips draft/active/archived — the activation gate for
 sending, since only an active sequence accepts enrollments. It does not touch
 enrollments already walking: archiving stops new ones, not in-flight ones.
+
+Org admin or SuperAdmin only; a member of the org is refused.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the sequence id from the path.
@@ -3762,6 +9213,8 @@ past the last, so steps arrive in the order they are added. Body is required
 and delaySeconds must be >= 0. Adding a step does not disturb enrollments
 already walking — one that has passed this index simply never sees it.
 
+Org admin or SuperAdmin only; a member of the org is refused.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id SequenceID is the sequence id from the path (the route's :id).
 	@return MarketingAPIPostMarketingSequencesByIdStepsRequest
@@ -3864,6 +9317,266 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStepsExecute(r Marketing
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type MarketingAPIPostMarketingSubscribeRequest struct {
+	ctx                  context.Context
+	ApiService           *MarketingAPIService
+	marketingSubscribeIn *MarketingSubscribeIn
+}
+
+func (r MarketingAPIPostMarketingSubscribeRequest) MarketingSubscribeIn(marketingSubscribeIn MarketingSubscribeIn) MarketingAPIPostMarketingSubscribeRequest {
+	r.marketingSubscribeIn = &marketingSubscribeIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingSubscribeRequest) Execute() (*MarketingSubscription, *http.Response, error) {
+	return r.ApiService.PostMarketingSubscribeExecute(r)
+}
+
+/*
+PostMarketingSubscribe Asks for the brand's newsletter for an address and answers 202 pending.
+
+Asks for the brand's newsletter for an address and answers 202
+pending. Nothing is recorded: the address is mailed a link to confirm, good for
+seven days, and only a press on it subscribes. The answer is the same for an
+address that is new, already subscribed or unsubscribed, and each is mailed
+alike, so the answer says nothing about the address; one that unsubscribed gets
+the link too, which is how it comes back. No account is needed, and nothing is
+told to the sales mailbox or stated to an ad platform.
+
+A deployment whose brand cannot hold the newsletter answers 503, a caller past
+ten requests in an hour 429, a body over 4 KiB 413, a missing or malformed email
+400, and an address already sent three links today, or a deployment past its
+hourly ceiling, 429, in that order.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingSubscribeRequest
+*/
+func (a *MarketingAPIService) PostMarketingSubscribe(ctx context.Context) MarketingAPIPostMarketingSubscribeRequest {
+	return MarketingAPIPostMarketingSubscribeRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSubscription
+func (a *MarketingAPIService) PostMarketingSubscribeExecute(r MarketingAPIPostMarketingSubscribeRequest) (*MarketingSubscription, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSubscription
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingSubscribe")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/subscribe"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingSubscribeIn == nil {
+		return localVarReturnValue, nil, reportError("marketingSubscribeIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingSubscribeIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingSubscribeConfirmRequest struct {
+	ctx                context.Context
+	ApiService         *MarketingAPIService
+	marketingConfirmIn *MarketingConfirmIn
+}
+
+func (r MarketingAPIPostMarketingSubscribeConfirmRequest) MarketingConfirmIn(marketingConfirmIn MarketingConfirmIn) MarketingAPIPostMarketingSubscribeConfirmRequest {
+	r.marketingConfirmIn = &marketingConfirmIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingSubscribeConfirmRequest) Execute() (*MarketingSubscription, *http.Response, error) {
+	return r.ApiService.PostMarketingSubscribeConfirmExecute(r)
+}
+
+/*
+PostMarketingSubscribeConfirm Subscribes the address a confirmation link names and answers 200 confirmed.
+
+Subscribes the address a confirmation link names and answers 200
+confirmed. The token is the t value in the link's fragment, and it is the only
+authority. The subscriber is filed in the brand's CRM: the person, their place
+on the Newsletter list, and the confirmation on their timeline with the page
+and language it came from, when it was asked for, and when and from which
+address it was confirmed (double opt-in). The brand's opt-out for that address
+is lifted, since the person asked to come back. Pressing the same link again
+answers 200 and changes nothing.
+
+A caller past thirty presses in an hour answers 429, a link that is missing,
+malformed, altered or signed elsewhere 400, one older than seven days 410, and
+a deployment whose brand cannot hold the CRM 503.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingSubscribeConfirmRequest
+*/
+func (a *MarketingAPIService) PostMarketingSubscribeConfirm(ctx context.Context) MarketingAPIPostMarketingSubscribeConfirmRequest {
+	return MarketingAPIPostMarketingSubscribeConfirmRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSubscription
+func (a *MarketingAPIService) PostMarketingSubscribeConfirmExecute(r MarketingAPIPostMarketingSubscribeConfirmRequest) (*MarketingSubscription, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSubscription
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingSubscribeConfirm")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/subscribe/confirm"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingConfirmIn == nil {
+		return localVarReturnValue, nil, reportError("marketingConfirmIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingConfirmIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type MarketingAPIPostMarketingSuppressionsRequest struct {
 	ctx                  context.Context
 	ApiService           *MarketingAPIService
@@ -3883,9 +9596,14 @@ func (r MarketingAPIPostMarketingSuppressionsRequest) Execute() (*MarketingSuppr
 PostMarketingSuppressions Records an opt-out for the org (admin / self-service management).
 
 Records an opt-out for the org (admin / self-service
-management). Address is required; channel defaults to email. It is idempotent:
+management). Address is required; channel defaults to email. An address of
+the form "@example.com" opts out the whole domain, a company; a free mail
+provider's domain is refused 422. The admin org's list is the platform's:
+what it holds, every org's send gate refuses. It is idempotent:
 re-suppressing the same tuple keeps the original record rather than erroring.
 From here on the ONE send gate refuses that recipient on that channel.
+
+Org admin or SuperAdmin only; a member of the org is refused.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MarketingAPIPostMarketingSuppressionsRequest
@@ -3941,6 +9659,299 @@ func (a *MarketingAPIService) PostMarketingSuppressionsExecute(r MarketingAPIPos
 	}
 	// body params
 	localVarPostBody = r.marketingSuppression
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingUnsubscribeRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	org             *string
+	channel         *string
+	address         *string
+	token           *string
+	list            *string
+	listUnsubscribe *string
+}
+
+// Org is the org the link was minted for.
+func (r MarketingAPIPostMarketingUnsubscribeRequest) Org(org string) MarketingAPIPostMarketingUnsubscribeRequest {
+	r.org = &org
+	return r
+}
+
+// Channel is the surface to opt out of.
+func (r MarketingAPIPostMarketingUnsubscribeRequest) Channel(channel string) MarketingAPIPostMarketingUnsubscribeRequest {
+	r.channel = &channel
+	return r
+}
+
+// Address is the recipient to opt out.
+func (r MarketingAPIPostMarketingUnsubscribeRequest) Address(address string) MarketingAPIPostMarketingUnsubscribeRequest {
+	r.address = &address
+	return r
+}
+
+// Token is the HMAC over (org, channel, address), the only authority here.
+func (r MarketingAPIPostMarketingUnsubscribeRequest) Token(token string) MarketingAPIPostMarketingUnsubscribeRequest {
+	r.token = &token
+	return r
+}
+
+// List is the marketing list the link leaves, as on the signed link.
+func (r MarketingAPIPostMarketingUnsubscribeRequest) List(list string) MarketingAPIPostMarketingUnsubscribeRequest {
+	r.list = &list
+	return r
+}
+
+// OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form.
+func (r MarketingAPIPostMarketingUnsubscribeRequest) ListUnsubscribe(listUnsubscribe string) MarketingAPIPostMarketingUnsubscribeRequest {
+	r.listUnsubscribe = &listUnsubscribe
+	return r
+}
+
+func (r MarketingAPIPostMarketingUnsubscribeRequest) Execute() (*MarketingUnsubscribed, *http.Response, error) {
+	return r.ApiService.PostMarketingUnsubscribeExecute(r)
+}
+
+/*
+PostMarketingUnsubscribe Is the one-click unsubscribe a mail client sends from the List-Unsubscribe header (RFC 8058): the same signed link the footer carries, POSTed with the form body List-Unsubscribe=One-Click.
+
+Is the one-click unsubscribe a mail client sends from the
+List-Unsubscribe header (RFC 8058): the same signed link the footer carries,
+POSTed with the form body List-Unsubscribe=One-Click. It opts out exactly what
+a click on the link does, under the same token check, and is as public.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingUnsubscribeRequest
+*/
+func (a *MarketingAPIService) PostMarketingUnsubscribe(ctx context.Context) MarketingAPIPostMarketingUnsubscribeRequest {
+	return MarketingAPIPostMarketingUnsubscribeRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingUnsubscribed
+func (a *MarketingAPIService) PostMarketingUnsubscribeExecute(r MarketingAPIPostMarketingUnsubscribeRequest) (*MarketingUnsubscribed, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingUnsubscribed
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingUnsubscribe")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/unsubscribe"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.org != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "org", r.org, "form", "")
+	}
+	if r.channel != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "channel", r.channel, "form", "")
+	}
+	if r.address != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "address", r.address, "form", "")
+	}
+	if r.token != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "token", r.token, "form", "")
+	}
+	if r.list != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "list", r.list, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded", "multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.listUnsubscribe != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "List-Unsubscribe", r.listUnsubscribe, "", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPutMarketingBetaRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	marketingBetaIn *MarketingBetaIn
+}
+
+func (r MarketingAPIPutMarketingBetaRequest) MarketingBetaIn(marketingBetaIn MarketingBetaIn) MarketingAPIPutMarketingBetaRequest {
+	r.marketingBetaIn = &marketingBetaIn
+	return r
+}
+
+func (r MarketingAPIPutMarketingBetaRequest) Execute() (*MarketingBeta, *http.Response, error) {
+	return r.ApiService.PutMarketingBetaExecute(r)
+}
+
+/*
+PutMarketingBeta Writes the signed-in caller's application: the program, the answers, the betas asked for and the lead it was filed under.
+
+Writes the signed-in caller's application: the program, the answers, the
+betas asked for and the lead it was filed under. A field left out keeps what
+the record holds; betas replace the set, each new id stamped with the time it
+was asked for and stated on the event plane as beta_requested.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPutMarketingBetaRequest
+*/
+func (a *MarketingAPIService) PutMarketingBeta(ctx context.Context) MarketingAPIPutMarketingBetaRequest {
+	return MarketingAPIPutMarketingBetaRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingBeta
+func (a *MarketingAPIService) PutMarketingBetaExecute(r MarketingAPIPutMarketingBetaRequest) (*MarketingBeta, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingBeta
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PutMarketingBeta")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/beta"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingBetaIn == nil {
+		return localVarReturnValue, nil, reportError("marketingBetaIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingBetaIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -4193,6 +10204,480 @@ func (a *MarketingAPIService) PutMarketingCampaignsByIdExecute(r MarketingAPIPut
 	}
 	// body params
 	localVarPostBody = r.marketingCampaign
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPutMarketingFieldsRequest struct {
+	ctx               context.Context
+	ApiService        *MarketingAPIService
+	marketingFieldSet *MarketingFieldSet
+}
+
+func (r MarketingAPIPutMarketingFieldsRequest) MarketingFieldSet(marketingFieldSet MarketingFieldSet) MarketingAPIPutMarketingFieldsRequest {
+	r.marketingFieldSet = &marketingFieldSet
+	return r
+}
+
+func (r MarketingAPIPutMarketingFieldsRequest) Execute() (*MarketingFieldSet, *http.Response, error) {
+	return r.ApiService.PutMarketingFieldsExecute(r)
+}
+
+/*
+PutMarketingFields Replaces the org's custom fields with the set the body carries and answers it.
+
+Replaces the org's custom fields with the set the body carries and
+answers it. A field dropped from the set is removed from every subscriber; a
+field kept keeps its values when its type does not change, and a changed type
+is 409 while any subscriber has a value for it.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPutMarketingFieldsRequest
+*/
+func (a *MarketingAPIService) PutMarketingFields(ctx context.Context) MarketingAPIPutMarketingFieldsRequest {
+	return MarketingAPIPutMarketingFieldsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingFieldSet
+func (a *MarketingAPIService) PutMarketingFieldsExecute(r MarketingAPIPutMarketingFieldsRequest) (*MarketingFieldSet, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingFieldSet
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PutMarketingFields")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/fields"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingFieldSet == nil {
+		return localVarReturnValue, nil, reportError("marketingFieldSet is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingFieldSet
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPutMarketingImportsByIdDataRequest struct {
+	ctx        context.Context
+	ApiService *MarketingAPIService
+	id         string
+}
+
+func (r MarketingAPIPutMarketingImportsByIdDataRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutMarketingImportsByIdDataExecute(r)
+}
+
+/*
+PutMarketingImportsByIdData Takes a piece of an import's file at the offset the query names and answers how many bytes the import now holds.
+
+Takes a piece of an import's file at the offset the query names and
+answers how many bytes the import now holds. A piece at an offset the import
+has passed is taken only past what it holds, so a retried piece writes nothing
+twice; a piece past the end is 409 naming the offset to resume from. Send the
+file in order, in pieces of any size up to the request limit, then start it.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return MarketingAPIPutMarketingImportsByIdDataRequest
+*/
+func (a *MarketingAPIService) PutMarketingImportsByIdData(ctx context.Context, id string) MarketingAPIPutMarketingImportsByIdDataRequest {
+	return MarketingAPIPutMarketingImportsByIdDataRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *MarketingAPIService) PutMarketingImportsByIdDataExecute(r MarketingAPIPutMarketingImportsByIdDataRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PutMarketingImportsByIdData")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/imports/{id}/data"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type MarketingAPIPutMarketingListsByIdSegmentsBySidRequest struct {
+	ctx                context.Context
+	ApiService         *MarketingAPIService
+	id                 string
+	sid                string
+	marketingSegmentIn *MarketingSegmentIn
+}
+
+func (r MarketingAPIPutMarketingListsByIdSegmentsBySidRequest) MarketingSegmentIn(marketingSegmentIn MarketingSegmentIn) MarketingAPIPutMarketingListsByIdSegmentsBySidRequest {
+	r.marketingSegmentIn = &marketingSegmentIn
+	return r
+}
+
+func (r MarketingAPIPutMarketingListsByIdSegmentsBySidRequest) Execute() (*MarketingSegment, *http.Response, error) {
+	return r.ApiService.PutMarketingListsByIdSegmentsBySidExecute(r)
+}
+
+/*
+PutMarketingListsByIdSegmentsBySid Replaces a segment's name and filter and answers it with how many subscribers it selects now.
+
+Replaces a segment's name and filter and answers it with how
+many subscribers it selects now.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the list, by id or slug, from the path.
+	@param sid SID is the segment to change, from the path; ignored on create.
+	@return MarketingAPIPutMarketingListsByIdSegmentsBySidRequest
+*/
+func (a *MarketingAPIService) PutMarketingListsByIdSegmentsBySid(ctx context.Context, id string, sid string) MarketingAPIPutMarketingListsByIdSegmentsBySidRequest {
+	return MarketingAPIPutMarketingListsByIdSegmentsBySidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		sid:        sid,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSegment
+func (a *MarketingAPIService) PutMarketingListsByIdSegmentsBySidExecute(r MarketingAPIPutMarketingListsByIdSegmentsBySidRequest) (*MarketingSegment, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSegment
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PutMarketingListsByIdSegmentsBySid")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/lists/{id}/segments/{sid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sid"+"}", url.PathEscape(parameterValueToString(r.sid, "sid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingSegmentIn == nil {
+		return localVarReturnValue, nil, reportError("marketingSegmentIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingSegmentIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPutMarketingSenderRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	marketingSender *MarketingSender
+}
+
+func (r MarketingAPIPutMarketingSenderRequest) MarketingSender(marketingSender MarketingSender) MarketingAPIPutMarketingSenderRequest {
+	r.marketingSender = &marketingSender
+	return r
+}
+
+func (r MarketingAPIPutMarketingSenderRequest) Execute() (*MarketingSender, *http.Response, error) {
+	return r.ApiService.PutMarketingSenderExecute(r)
+}
+
+/*
+PutMarketingSender Replaces the org's sender and answers it.
+
+Replaces the org's sender and answers it. Every field is written;
+one left out is cleared.
+
+Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPutMarketingSenderRequest
+*/
+func (a *MarketingAPIService) PutMarketingSender(ctx context.Context) MarketingAPIPutMarketingSenderRequest {
+	return MarketingAPIPutMarketingSenderRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingSender
+func (a *MarketingAPIService) PutMarketingSenderExecute(r MarketingAPIPutMarketingSenderRequest) (*MarketingSender, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingSender
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PutMarketingSender")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/sender"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingSender == nil {
+		return localVarReturnValue, nil, reportError("marketingSender is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingSender
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

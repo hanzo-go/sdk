@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Persisted fields | [optional] 
 **IsTriggered** | Pointer to **bool** |  | [optional] 
 **Language** | Pointer to **string** |  | [optional] 
 **Method** | Pointer to **string** |  | [optional] 

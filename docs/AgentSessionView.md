@@ -9,11 +9,13 @@ Name | Type | Description | Notes
 **Agent** | Pointer to **string** | Agent is the label the surface running this session calls itself by (\&quot;hanzo-dev\&quot;), up to 128 characters. Required at register. It is free text, not a reference: it need not name a defined agent, and nothing resolves it. | [optional] 
 **Base** | Pointer to **string** | Base is the branch the run started from. Empty when it took the repository&#39;s default and did not say which. | [optional] 
 **Branch** | Pointer to **string** | Branch is the branch the run pushes its work to, and the only one it may write. | [optional] 
+**Channel** | Pointer to **string** | Channel is the collaborative channel this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a space view show the runs of one channel beside its messages. | [optional] 
 **Children** | Pointer to **int64** | Children is the DIRECT fan-out — how many sessions name this one as parent — and not the size of the subtree. Read the tree for that. | [optional] 
 **CreatedAt** | Pointer to **string** | CreatedAt is when the row was written, same format. Every path that opens a session stamps it and StartedAt from one clock reading, so the two are equal on every session this surface has ever produced. | [optional] 
 **Cwd** | Pointer to **string** | Cwd is the directory the session is working in NOW, not the one it started in: a linked shell moves around, and a card showing where &#x60;hanzo link&#x60; was run answers \&quot;which work is this\&quot; with something that was true once. | [optional] 
 **EndedAt** | Pointer to **string** | EndedAt is when it reached done or error, same format. Empty while it is still running or paused, which is how absence reads here: not over yet. | [optional] 
 **Environment** | Pointer to **string** | Environment is where the run executes: \&quot;sandbox\&quot; for a Hanzo sandbox, or the id of the org&#39;s machine it was routed to (the same id Target carries). | [optional] 
+**Error** | Pointer to **string** | Error explains why the session ended in error, when it did. Empty for any other status. | [optional] 
 **Events** | Pointer to **int64** | Events is how many turns the session&#39;s log holds, counted at read time. It is the whole log, however few of them RecentEvents carries. | [optional] 
 **Host** | Pointer to **string** | Execution context (mission-control): the machine/repo/cwd a card shows and the run-target a session is dispatched to. Omitted when a surface didn&#39;t report it. | [optional] 
 **Id** | Pointer to **string** | ID is the session&#39;s handle, minted here as \&quot;sess_\&quot; + 32 hex characters. Every later read, patch, event append and control command is addressed with it, and a caller cannot choose it. | [optional] 
@@ -28,7 +30,6 @@ Name | Type | Description | Notes
 **Provider** | Pointer to **string** | Provider is the linked AI account&#39;s provider (claude | codex | hanzo | …) that served this run. Empty when the surface did not say. | [optional] 
 **Published** | Pointer to **bool** | Published is the author&#39;s decision to let anyone read this session&#39;s story at the public build route. It only ever widens READ access to a session that already exists and grants nothing else; false, an unpublished session is invisible there no matter who asks. It cannot be true without a Project, because that route is keyed on (org, project). | [optional] 
 **Repo** | Pointer to **string** | Repo is the code the session is working on, as the surface reported it. It is truth the SURFACE states, so it is a label rather than something resolved here. | [optional] 
-**Room** | Pointer to **string** | Room is the collaborative room this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a space view show the runs of one room beside its messages. | [optional] 
 **RootSessionId** | Pointer to **string** | RootSessionID is the top of this session&#39;s tree, inherited from the parent and shared by every node in one flow. A root session&#39;s own id, when it has no parent. It is the key one indexed read pulls a whole flow by, and what ?root&#x3D; narrows a list or a stream to. | [optional] 
 **Sandbox** | Pointer to **string** | Sandbox is the id of the sandbox the run works in (\&quot;m_\&quot; and 24 hex), the handle its terminal and its screen are opened with (/v1/sandbox/{id}/terminal, /screen). Set when the run leases it, and kept once the run gives it back, when the id opens nothing. Empty for a run that never leased one — a routed run, or a turn that only talked. | [optional] 
 **StartedAt** | Pointer to **string** | StartedAt is when the session opened, RFC 3339 in UTC to the second. | [optional] 
@@ -184,6 +185,31 @@ SetBranch sets Branch field to given value.
 
 HasBranch returns a boolean if a field has been set.
 
+### GetChannel
+
+`func (o *AgentSessionView) GetChannel() string`
+
+GetChannel returns the Channel field if non-nil, zero value otherwise.
+
+### GetChannelOk
+
+`func (o *AgentSessionView) GetChannelOk() (*string, bool)`
+
+GetChannelOk returns a tuple with the Channel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChannel
+
+`func (o *AgentSessionView) SetChannel(v string)`
+
+SetChannel sets Channel field to given value.
+
+### HasChannel
+
+`func (o *AgentSessionView) HasChannel() bool`
+
+HasChannel returns a boolean if a field has been set.
+
 ### GetChildren
 
 `func (o *AgentSessionView) GetChildren() int64`
@@ -308,6 +334,31 @@ SetEnvironment sets Environment field to given value.
 `func (o *AgentSessionView) HasEnvironment() bool`
 
 HasEnvironment returns a boolean if a field has been set.
+
+### GetError
+
+`func (o *AgentSessionView) GetError() string`
+
+GetError returns the Error field if non-nil, zero value otherwise.
+
+### GetErrorOk
+
+`func (o *AgentSessionView) GetErrorOk() (*string, bool)`
+
+GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetError
+
+`func (o *AgentSessionView) SetError(v string)`
+
+SetError sets Error field to given value.
+
+### HasError
+
+`func (o *AgentSessionView) HasError() bool`
+
+HasError returns a boolean if a field has been set.
 
 ### GetEvents
 
@@ -658,31 +709,6 @@ SetRepo sets Repo field to given value.
 `func (o *AgentSessionView) HasRepo() bool`
 
 HasRepo returns a boolean if a field has been set.
-
-### GetRoom
-
-`func (o *AgentSessionView) GetRoom() string`
-
-GetRoom returns the Room field if non-nil, zero value otherwise.
-
-### GetRoomOk
-
-`func (o *AgentSessionView) GetRoomOk() (*string, bool)`
-
-GetRoomOk returns a tuple with the Room field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoom
-
-`func (o *AgentSessionView) SetRoom(v string)`
-
-SetRoom sets Room field to given value.
-
-### HasRoom
-
-`func (o *AgentSessionView) HasRoom() bool`
-
-HasRoom returns a boolean if a field has been set.
 
 ### GetRootSessionId
 

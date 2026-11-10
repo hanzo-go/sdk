@@ -20,11 +20,15 @@ var _ MappedNullable = &O11yO11yDashboardUpdateIn{}
 // O11yO11yDashboardUpdateIn struct for O11yO11yDashboardUpdateIn
 type O11yO11yDashboardUpdateIn struct {
 	// ID is the dashboard id from the path.
-	Id                   *string                        `json:"id,omitempty"`
-	Image                *string                        `json:"image,omitempty"`
-	Name                 *string                        `json:"name,omitempty"`
-	SchemaVersion        *string                        `json:"schemaVersion,omitempty"`
-	Spec                 interface{}                    `json:"spec,omitempty"`
+	Id *string `json:"id,omitempty"`
+	// Image is an optional cover image reference.
+	Image *string `json:"image,omitempty"`
+	// Name must equal the dashboard's existing name — it is immutable.
+	Name *string `json:"name,omitempty"`
+	// SchemaVersion is the dashboard schema version; must be the current v6.
+	SchemaVersion *string     `json:"schemaVersion,omitempty"`
+	Spec          interface{} `json:"spec,omitempty"`
+	// Tags replace the dashboard's tags; at most ten.
 	Tags                 []O11yO11yDashboardPostableTag `json:"tags,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

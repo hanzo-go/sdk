@@ -19,9 +19,7 @@ var _ MappedNullable = &PricingEnablementBoard{}
 
 // PricingEnablementBoard struct for PricingEnablementBoard
 type PricingEnablementBoard struct {
-	// Betas are the subset of Items the caller's org may still opt into.
-	Betas []PricingUserEnablementItem `json:"betas,omitempty"`
-	// Items is every managed item, each resolved for the caller's org.
+	// Items is every managed item, each resolved for the caller.
 	Items []PricingUserEnablementItem `json:"items,omitempty"`
 	// Org is the org this view was resolved for; empty for a caller with no validated principal, who sees only the generally-available items.
 	Org                  *string `json:"org,omitempty"`
@@ -45,38 +43,6 @@ func NewPricingEnablementBoard() *PricingEnablementBoard {
 func NewPricingEnablementBoardWithDefaults() *PricingEnablementBoard {
 	this := PricingEnablementBoard{}
 	return &this
-}
-
-// GetBetas returns the Betas field value if set, zero value otherwise.
-func (o *PricingEnablementBoard) GetBetas() []PricingUserEnablementItem {
-	if o == nil || IsNil(o.Betas) {
-		var ret []PricingUserEnablementItem
-		return ret
-	}
-	return o.Betas
-}
-
-// GetBetasOk returns a tuple with the Betas field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PricingEnablementBoard) GetBetasOk() ([]PricingUserEnablementItem, bool) {
-	if o == nil || IsNil(o.Betas) {
-		return nil, false
-	}
-	return o.Betas, true
-}
-
-// HasBetas returns a boolean if a field has been set.
-func (o *PricingEnablementBoard) HasBetas() bool {
-	if o != nil && !IsNil(o.Betas) {
-		return true
-	}
-
-	return false
-}
-
-// SetBetas gets a reference to the given []PricingUserEnablementItem and assigns it to the Betas field.
-func (o *PricingEnablementBoard) SetBetas(v []PricingUserEnablementItem) {
-	o.Betas = v
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
@@ -153,9 +119,6 @@ func (o PricingEnablementBoard) MarshalJSON() ([]byte, error) {
 
 func (o PricingEnablementBoard) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Betas) {
-		toSerialize["betas"] = o.Betas
-	}
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
@@ -184,7 +147,6 @@ func (o *PricingEnablementBoard) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "betas")
 		delete(additionalProperties, "items")
 		delete(additionalProperties, "org")
 		o.AdditionalProperties = additionalProperties
