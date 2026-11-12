@@ -104,6 +104,9 @@ var missing = errors.New(
 
 // RoundTrip presents a live token on every request.
 func (i *identity) RoundTrip(req *http.Request) (*http.Response, error) {
+	if public(req) {
+		return i.next.RoundTrip(req)
+	}
 	if i.id == "" || i.secret == "" {
 		return nil, missing
 	}
@@ -166,6 +169,9 @@ type grant struct {
 }
 
 func (g *grant) RoundTrip(req *http.Request) (*http.Response, error) {
+	if public(req) {
+		return g.next.RoundTrip(req)
+	}
 	return signed(req, g.next, g.token)
 }
 
@@ -265,4 +271,18 @@ func bearing(req *http.Request, token string) *http.Request {
 	out := req.Clone(req.Context())
 	out.Header.Set("Authorization", "Bearer "+token)
 	return out
+}
+
+// public reports whether the gateway answers req with no credential: the four
+// reads the document and the README name. They go out bare, so a caller with no
+// IAM credentials, or a wrong one, can still list the catalogue.
+func public(req *http.Request) bool {
+	if req.Method != http.MethodGet {
+		return false
+	}
+	switch strings.TrimRight(req.URL.Path, "/") {
+	case "/v1/models", "/v1/models/providers", "/v1/commands", "/v1/openapi.json":
+		return true
+	}
+	return false
 }
